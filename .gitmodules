@@ -10,3 +10,6 @@
 [submodule "code/Symfony/Component/Yaml"]
 	path = code/Symfony/Component/Yaml
 	url = git://github.com/symfony/Yaml.git
+[submodule "code/Symfony/Component/Config"]
+	path = code/Symfony/Component/Config
+	url = git://github.com/symfony/Config.git

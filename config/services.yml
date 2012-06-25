@@ -1,0 +1,7 @@
+parameters:
+    state.backend: memcache
+
+services:
+    state:
+        class: Heyday\Ecommerce\State\State
+        arguments: [%state.backend%]

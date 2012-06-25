@@ -1,5 +1,7 @@
 <?php
 
+//Current changes required to use Symfony components, manifest builder 
+
 require_once __DIR__ . '/code/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 
 use Symfony\Component\ClassLoader\UniversalClassLoader;
@@ -13,9 +15,37 @@ $loader->registerNamespaces(array(
 
 $loader->register();
 
-use Heyday\Ecommerce\Config;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
+
 use Heyday\Ecommerce\State\State;
 
-$config = new Config;
+$file = __DIR__ . '/cache/container.php';
 
-$state = new State;
+if (file_exists($file)) {
+
+    require_once $file;
+    $container = new ProjectServiceContainer();
+
+} else {
+
+    $loader = new YamlFileLoader($container = new ContainerBuilder(), new FileLocator(array(
+        BASE_PATH . '/mysite/config/',
+        __DIR__ . '/config/'
+    )));
+
+    $loader->load('services.yml');
+
+    $container->compile();
+
+    $dumper = new PhpDumper($container);
+    file_put_contents($file, $dumper->dump());
+
+}
+
+Heyday\Ecommerce\ServiceStore::set($container);
+
+
+Heyday\Ecommerce\ServiceStore::getService('state');
