@@ -2,6 +2,9 @@
 
 namespace Heyday\Ecommerce;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Container;
+
 class ServiceStore
 {
 
@@ -14,7 +17,7 @@ class ServiceStore
 
     }
 
-    public static function set($container)
+    public static function set(Container $container)
     {
 
         self::$serviceContainer = $container;

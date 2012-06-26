@@ -4,5 +4,7 @@ namespace Heyday\Ecommerce;
 
 class Config
 {
+
     
+
 }

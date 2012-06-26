@@ -1,51 +1,27 @@
 <?php
 
-//Current changes required to use Symfony components, manifest builder 
+define('HEYDAY_ECOMMERCE_BASE_PATH', __DIR__);
 
-require_once __DIR__ . '/code/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+require_once HEYDAY_ECOMMERCE_BASE_PATH . '/config/autoload.php';
+require_once HEYDAY_ECOMMERCE_BASE_PATH . '/config/services.php';
 
-use Symfony\Component\ClassLoader\UniversalClassLoader;
+// use Heyday\Ecommerce\ServiceStore;
 
-$loader = new UniversalClassLoader();
+// $state = ServiceStore::getService('state');
+// $dispatcher = ServiceStore::getService('event_dispatcher');
 
-$loader->registerNamespaces(array(
-    'Symfony' => __DIR__ . '/code',
-    'Heyday'  => __DIR__ . '/code'
-));
+// \HeydayLog::add_default_file_writer();
 
-$loader->register();
+// $dispatcher->addListener(\Heyday\Ecommerce\State\Events::STATE_SET, function () {
+//     \HeydayLog::log('Something set to state');
+// });
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
+// $dispatcher->addListener(\Heyday\Ecommerce\State\Events::STATE_REMOVE, function () {
+//     \HeydayLog::log('Something removed to state');
+// });
 
-use Heyday\Ecommerce\State\State;
-
-$file = __DIR__ . '/cache/container.php';
-
-if (file_exists($file)) {
-
-    require_once $file;
-    $container = new ProjectServiceContainer();
-
-} else {
-
-    $loader = new YamlFileLoader($container = new ContainerBuilder(), new FileLocator(array(
-        BASE_PATH . '/mysite/config/',
-        __DIR__ . '/config/'
-    )));
-
-    $loader->load('services.yml');
-
-    $container->compile();
-
-    $dumper = new PhpDumper($container);
-    file_put_contents($file, $dumper->dump());
-
-}
-
-Heyday\Ecommerce\ServiceStore::set($container);
-
-
-Heyday\Ecommerce\ServiceStore::getService('state');
+// $state->setByKey('hello', 'something');
+// $state->setByKey('hello', 'something');
+// $state->setByKey('hello', 'something');
+// $state->setByKey('hello', 'something');
+// $state->removeByKey('hello');

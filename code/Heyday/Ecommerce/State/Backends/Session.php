@@ -1,24 +1,58 @@
 <?php
 
+namespace Heyday\Ecommerce\State\Backends;
 
 use Heyday\Ecommerce\State\BackendInterface;
-
-namespace Heyday\Ecommerce\State\Backends;
 
 class Session implements BackendInterface
 {
 
-    public function setByKey($key, $var)
+    private $session = null;
+
+    public function __construct(\Session $session)
     {
 
-        $_SESSION[$key] = $var;
+        $this->session = $session;
+
+        if (isset($_SESSION)) {
+
+            foreach ($_SESSION as $key => $val) {
+
+                $this->session->inst_set($key, $val);
+
+            }
+
+        }
 
     }
 
-    public function gettByKey($key)
+    public function setByKey($key, $var)
     {
 
-        return isset($_SESSION[$key]) ? $_SESSION[$key] : false;
+        $this->session->inst_set($key, $var);
+        $this->save();
+
+    }
+
+    public function getByKey($key)
+    {
+
+        return $this->session->inst_get($key);
+
+    }
+
+    public function removeByKey($key)
+    {
+
+        $this->session->inst_clear($key);
+        $this->save();
+
+    }
+
+    protected function save()
+    {
+
+        $this->session->inst_save();
 
     }
 

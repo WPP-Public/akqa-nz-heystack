@@ -1,7 +1,48 @@
 parameters:
-    state.backend: memcache
+
+    config.class: Heyday\Ecommerce\Config
+
+    state.class: Heyday\Ecommerce\State\State
+
+    backend_session.class: Heyday\Ecommerce\State\Backends\Session
+
+    backend_memcache.class: Heyday\Ecommerce\State\Backends\Memcache
+
+    memcache.class: Memcache
+    memcache.host: localhost
+    memcache.port: 11211
+
+    session.class: Session
+
+    event_dispatcher.class: Symfony\Component\EventDispatcher\EventDispatcher
+
 
 services:
+
+    memcache:
+        class: %memcache.class%
+        calls: 
+            - [ connect, [ %memcache.host%, %memcache.port% ] ]
+
+    session:
+        class: %session.class%
+        arguments: [[]]
+
+    backend_memcache:
+        class: %backend_memcache.class%
+        arguments: [@memcache]
+
+    backend_session:
+        class: %backend_session.class%
+        arguments: [@session]
+
     state:
-        class: Heyday\Ecommerce\State\State
-        arguments: [%state.backend%]
+        class: %state.class%
+        arguments: [@backend_session, @event_dispatcher]
+
+    config:
+        class: %config.class%
+        arguments: []
+
+    event_dispatcher:
+        class: %event_dispatcher.class%
