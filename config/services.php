@@ -4,7 +4,10 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
+use Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass;
 
+use Heyday\Ecommerce\MysiteContainerExtension;
+use Heyday\Ecommerce\EcommerceContainerExtension;
 use Heyday\Ecommerce\State\State;
 
 $file = HEYDAY_ECOMMERCE_BASE_PATH . '/cache/container.php';
@@ -19,12 +22,14 @@ if (file_exists($file) && !isset($_GET['flush'])) {
     $loader = new YamlFileLoader(
         $container = new ContainerBuilder(),
         new FileLocator(array(
-            BASE_PATH . '/mysite/config/',
             HEYDAY_ECOMMERCE_BASE_PATH . '/config/'
         ))
     );
 
-    $loader->load('services.yml');
+    $container->registerExtension(new EcommerceContainerExtension());
+    $container->registerExtension(new MysiteContainerExtension());
+
+    $loader->load('extensions.yml');
 
     $container->compile();
 

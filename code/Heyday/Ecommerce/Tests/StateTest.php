@@ -26,6 +26,13 @@ class StateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('hello', $this->state->getByKey('test'));
     }
 
+    public function testRemove()
+    {
+        $this->state->setByKey('test', 'hello');
+        $this->state->removeByKey('test');
+        $this->assertEquals(null, $this->state->getByKey('test'));
+    }
+
     public function testSetGetStatable()
     {
         $this->state->setObj('test', $obj = new TestStateable());
@@ -53,7 +60,7 @@ class TestBackend implements BackendInterface
     public function getByKey($key)
     {
 
-        return $this->storage[$key];
+        return isset($this->storage[$key]) ? $this->storage[$key] : null;
 
     }
 
