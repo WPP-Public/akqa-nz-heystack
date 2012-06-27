@@ -46,3 +46,5 @@ services:
 
     event_dispatcher:
         class: %event_dispatcher.class%
+
+

@@ -23,14 +23,18 @@ if (file_exists($file) && !isset($_GET['flush'])) {
     $loader = new YamlFileLoader(
         $container = new ContainerBuilder(),
         new FileLocator(array(
+            BASE_PATH . '/mysite/config/',
             ECOMMERCE_BASE_PATH . '/config/'
         ))
     );
 
-    $container->registerExtension(new MysiteContainerExtension());
-    $container->registerExtension(new ContainerExtension());
+    foreach (Config::getContainerExtensions() as $extension) {
+        
+        $container->registerExtension(new $extension);
 
-    $loader->load('extensions.yml');
+    }
+
+    $loader->load('services.yml');
 
     $container->compile();
 
