@@ -6,9 +6,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 
 /**
- * Merges extension configs into the container builder
+ * Merges extension calls into the container builder
  *
- * @author Fabien Potencier <fabien@symfony.com>
+ * @author Stevie Mayhew & Cam Spiers
  */
 class MergeExtensionCallsConfigurationPass implements CompilerPassInterface
 {
