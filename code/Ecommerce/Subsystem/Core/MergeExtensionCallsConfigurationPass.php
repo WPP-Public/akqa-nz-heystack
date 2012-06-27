@@ -40,7 +40,8 @@ class MergeExtensionCallsConfigurationPass implements CompilerPassInterface
                     
                     foreach ($calls as $call) {
                         
-                        $parentDefinition->addMethodCall($call[0], $call[1]);
+                        if (!$parentDefinition->hasMethodCall($call[0]))
+                            $parentDefinition->addMethodCall($call[0], $call[1]);
                         
                     }
                     
