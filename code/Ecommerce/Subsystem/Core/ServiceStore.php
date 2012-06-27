@@ -2,7 +2,6 @@
 
 namespace Ecommerce\Subsystem\Core;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Container;
 
 class ServiceStore
@@ -21,7 +20,7 @@ class ServiceStore
     {
 
         self::$serviceContainer = $container;
-        
+
     }
 
     public static function getService($service)

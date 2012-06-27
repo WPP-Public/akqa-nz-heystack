@@ -15,6 +15,8 @@ parameters:
     session.class: Session
 
     event_dispatcher.class: Symfony\Component\EventDispatcher\EventDispatcher
+    
+    processor_handler.class: Ecommerce\Subsystem\Core\Processor\Handler
 
 
 services:
@@ -46,6 +48,9 @@ services:
 
     event_dispatcher:
         class: %event_dispatcher.class%
+        
+    processor_handler:
+      class: %processor_handler.class%
  
 
 

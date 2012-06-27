@@ -17,9 +17,9 @@ class MysiteContainerExtension implements ExtensionInterface
         if (file_exists(BASE_PATH . '/mysite/config/services.yml')) {
 
             $extensions = Config::getContainerExtensions();
-            
+
             foreach ($extensions as $extension) {
-                
+
                 $container->registerExtension(new $extension);
 
             }

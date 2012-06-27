@@ -17,7 +17,7 @@ use Symfony\Component\Config\FileLocator;
 $locator = new FileLocator(glob(BASE_PATH . '/*', GLOB_ONLYDIR));
 
 if ($subsystems = $locator->locate('_ecommerce_subsystem', null, false)) {
-    
+
     foreach ($subsystems as $dir) {
 
         $dirname = dirname($dir);
@@ -29,7 +29,7 @@ if ($subsystems = $locator->locate('_ecommerce_subsystem', null, false)) {
         }
 
     }
-    
+
     foreach ($subsystems as $dir) {
 
         $dirname = dirname($dir);

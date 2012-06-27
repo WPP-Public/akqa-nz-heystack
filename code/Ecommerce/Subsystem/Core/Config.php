@@ -11,14 +11,14 @@ class Config
     {
 
         self::$containerExtensions[] = $extension;
-        
+
     }
 
     public static function getContainerExtensions()
     {
 
         return self::$containerExtensions;
-        
+
     }
 
 }
