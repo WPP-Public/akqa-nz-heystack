@@ -1,6 +1,6 @@
 <?php
 
-namespace Heyday\Ecommerce;
+namespace Ecommerce\Subsystem\Core;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Container;

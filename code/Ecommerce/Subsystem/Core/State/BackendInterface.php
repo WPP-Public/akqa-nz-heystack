@@ -1,6 +1,6 @@
 <?php
 
-namespace Heyday\Ecommerce\State;
+namespace Ecommerce\Subsystem\Core\State;
 
 interface BackendInterface
 {

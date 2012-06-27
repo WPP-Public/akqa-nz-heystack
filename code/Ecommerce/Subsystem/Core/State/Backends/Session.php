@@ -1,8 +1,8 @@
 <?php
 
-namespace Heyday\Ecommerce\State\Backends;
+namespace Ecommerce\Subsystem\Core\State\Backends;
 
-use Heyday\Ecommerce\State\BackendInterface;
+use Ecommerce\Subsystem\Core\State\BackendInterface;
 
 class Session implements BackendInterface
 {

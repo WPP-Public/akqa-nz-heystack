@@ -1,6 +1,6 @@
 <?php
 
-namespace Heyday\Ecommerce;
+namespace Ecommerce\Subsystem\Core;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
@@ -8,28 +8,24 @@ use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class MysiteContainerExtension implements ExtensionInterface
+class ContainerExtension implements ExtensionInterface
 {
 
     public function load(array $config, ContainerBuilder $container)
     {
 
-        if (file_exists(BASE_PATH . '/mysite/config/services.yml')) {
+        $loader = new YamlFileLoader(
+            $container,
+            new FileLocator(ECOMMERCE_BASE_PATH . '/config/')
+        );
 
-            $loader = new YamlFileLoader(
-                $container,
-                new FileLocator(BASE_PATH . '/mysite/config/')
-            );
-
-            $loader->load('services.yml');
-
-        }
+        $loader->load('services.yml');
 
     }
 
     public function getNamespace()
     {
-        return 'mysite';
+        return 'ecommerce';
     }
 
     public function getXsdValidationBasePath()
@@ -39,7 +35,7 @@ class MysiteContainerExtension implements ExtensionInterface
 
     public function getAlias()
     {
-        return 'mysite';
+        return 'ecommerce';
     }
 
 }

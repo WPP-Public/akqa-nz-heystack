@@ -1,9 +1,9 @@
 <?php
 
-namespace Heyday\Ecommerce\Tests;
+namespace Ecommerce\Subsystem\Core\Tests;
 
-use Heyday\Ecommerce\State\State;
-use Heyday\Ecommerce\State\BackendInterface;
+use Ecommerce\Subsystem\Core\State\State;
+use Ecommerce\Subsystem\Core\State\BackendInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class StateTest extends \PHPUnit_Framework_TestCase

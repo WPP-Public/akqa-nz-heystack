@@ -1,12 +1,12 @@
 parameters:
 
-    config.class: Heyday\Ecommerce\Config
+    config.class: Ecommerce\Subsystem\Core\Config
 
-    state.class: Heyday\Ecommerce\State\State
+    state.class: Ecommerce\Subsystem\Core\State\State
 
-    backend_session.class: Heyday\Ecommerce\State\Backends\Session
+    backend_session.class: Ecommerce\Subsystem\Core\State\Backends\Session
 
-    backend_memcache.class: Heyday\Ecommerce\State\Backends\Memcache
+    backend_memcache.class: Ecommerce\Subsystem\Core\State\Backends\Memcache
 
     memcache.class: Memcache
     memcache.host: localhost
