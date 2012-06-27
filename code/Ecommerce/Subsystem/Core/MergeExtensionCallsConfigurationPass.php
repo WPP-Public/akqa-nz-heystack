@@ -18,30 +18,37 @@ class MergeExtensionCallsConfigurationPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
 
-
         foreach ($container->getExtensions() as $name => $extension) {
+
             if (!$config = $container->getExtensionConfig($name)) {
                 // this extension was not called
                 continue;
             }
+
             $config = $container->getParameterBag()->resolveValue($config);
 
             $tmpContainer = new ContainerBuilder($container->getParameterBag());
 
             $extension->load($config, $tmpContainer);
+
+            $tmpDefintions = $tmpContainer->getDefinitions();
             
-            foreach ($tmpContainer->getDefinitions() as $name => $definition) {
+            foreach ($tmpDefintions as $definitionName => $definition) {
                 
-                $calls = $definition->getMethodCalls();
-                
-                if (!is_null($calls) && $container->hasDefinition($name)) {
+                if ($container->hasDefinition($definitionName)) {
                     
-                    $parentDefinition = $container->getDefinition($name);
+                    $parentDefinition = $container->getDefinition($definitionName);
+                
+                    $calls = $definition->getMethodCalls();
+                    $parentCalls = $parentDefinition->getMethodCalls();
                     
                     foreach ($calls as $call) {
+
+                        if (array_search($call, $parentCalls) === false) {
                         
-                        if (!$parentDefinition->hasMethodCall($call[0]))
                             $parentDefinition->addMethodCall($call[0], $call[1]);
+
+                        }
                         
                     }
                     

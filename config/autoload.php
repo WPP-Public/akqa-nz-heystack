@@ -22,8 +22,7 @@ if ($subsystems = $locator->locate('_ecommerce_subsystem', null, false)) {
 
         $dirname = dirname($dir);
 
-        foreach (glob($dirname . '/code/Ecommerce/Subsystem/*', GLOB_ONLYDIR) as $subsystem)
-        {
+        foreach (glob($dirname . '/code/Ecommerce/Subsystem/*', GLOB_ONLYDIR) as $subsystem) {
 
             $loader->registerNamespace('Ecommerce\Subsystem\\' . basename($subsystem), $dirname . '/code');
 
