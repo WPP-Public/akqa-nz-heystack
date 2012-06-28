@@ -1,6 +1,6 @@
 <?php
 
-namespace Ecommerce\Subsystem\Core;
+namespace Heystack\Subsystem\Core;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
@@ -16,7 +16,7 @@ class ContainerExtension implements ExtensionInterface
 
         $loader = new YamlFileLoader(
             $container,
-            new FileLocator(ECOMMERCE_BASE_PATH . '/config/')
+            new FileLocator(HEYSTACK_BASE_PATH . '/config/')
         );
 
         $loader->load('services.yml');

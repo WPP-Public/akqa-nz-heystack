@@ -5,15 +5,15 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 
-use Ecommerce\Subsystem\Core\MergeExtensionCallsConfigurationPass;
-use Ecommerce\Subsystem\Core\Config;
+use Heystack\Subsystem\Core\MergeExtensionCallsConfigurationPass;
+use Heystack\Subsystem\Core\Config;
 
-$file = ECOMMERCE_BASE_PATH . '/cache/container.php';
+$file = HEYSTACK_BASE_PATH . '/cache/container.php';
 
 if (file_exists($file) && !isset($_GET['flush'])) {
 
     require_once $file;
-    $container = new EcommerceServiceContainer();
+    $container = new HeystackServiceContainer();
 
 } else {
 
@@ -21,7 +21,7 @@ if (file_exists($file) && !isset($_GET['flush'])) {
         $container = new ContainerBuilder(),
         new FileLocator(array(
             BASE_PATH . '/mysite/config/',
-            ECOMMERCE_BASE_PATH . '/config/'
+            HEYSTACK_BASE_PATH . '/config/'
         ))
     );
 
@@ -42,10 +42,10 @@ if (file_exists($file) && !isset($_GET['flush'])) {
     file_put_contents(
         $file,
         $dumper->dump(array(
-            'class' => 'EcommerceServiceContainer'
+            'class' => 'HeystackServiceContainer'
         ))
     );
 
 }
 
-Ecommerce\Subsystem\Core\ServiceStore::set($container);
+Heystack\Subsystem\Core\ServiceStore::set($container);

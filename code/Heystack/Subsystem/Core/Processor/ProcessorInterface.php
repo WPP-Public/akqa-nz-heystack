@@ -1,6 +1,6 @@
 <?php
 
-namespace Ecommerce\Subsystem\Core\Processor;
+namespace Heystack\Subsystem\Core\Processor;
 
 interface ProcessorInterface
 {

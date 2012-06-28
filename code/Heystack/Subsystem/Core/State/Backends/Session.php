@@ -1,8 +1,8 @@
 <?php
 
-namespace Ecommerce\Subsystem\Core\State\Backends;
+namespace Heystack\Subsystem\Core\State\Backends;
 
-use Ecommerce\Subsystem\Core\State\BackendInterface;
+use Heystack\Subsystem\Core\State\BackendInterface;
 
 class Session implements BackendInterface
 {

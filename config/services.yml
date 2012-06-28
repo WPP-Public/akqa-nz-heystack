@@ -1,12 +1,12 @@
 parameters:
 
-    config.class: Ecommerce\Subsystem\Core\Config
+    config.class: Heystack\Subsystem\Core\Config
 
-    state.class: Ecommerce\Subsystem\Core\State\State
+    state.class: Heystack\Subsystem\Core\State\State
 
-    backend_session.class: Ecommerce\Subsystem\Core\State\Backends\Session
+    backend_session.class: Heystack\Subsystem\Core\State\Backends\Session
 
-    backend_memcache.class: Ecommerce\Subsystem\Core\State\Backends\Memcache
+    backend_memcache.class: Heystack\Subsystem\Core\State\Backends\Memcache
 
     memcache.class: Memcache
     memcache.host: localhost
@@ -16,7 +16,7 @@ parameters:
 
     event_dispatcher.class: Symfony\Component\EventDispatcher\EventDispatcher
     
-    processor_handler.class: Ecommerce\Subsystem\Core\Processor\Handler
+    processor_handler.class: Heystack\Subsystem\Core\Processor\Handler
 
 
 services:

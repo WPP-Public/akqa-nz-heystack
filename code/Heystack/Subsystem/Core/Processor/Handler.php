@@ -1,8 +1,8 @@
 <?php
 
-namespace Ecommerce\Subsystem\Core\Processor;
+namespace Heystack\Subsystem\Core\Processor;
 
-use Ecommerce\Subsystem\Core\Processor\ProcessorInterface;
+use Heystack\Subsystem\Core\Processor\ProcessorInterface;
 
 class Handler
 {
