@@ -13,8 +13,8 @@ class EcommerceInputController extends Controller
         
         parent::__construct();
         
-        $this->stateService = \Ecommerce\Subsystem\Core\ServiceStore::getService('state');
-        $this->handlerService = \Ecommerce\Subsystem\Core\ServiceStore::getService('processor_handler');
+        $this->stateService = \Heystack\Subsystem\Core\ServiceStore::getService('state');
+        $this->handlerService = \Heystack\Subsystem\Core\ServiceStore::getService('processor_handler');
         
     }
     
