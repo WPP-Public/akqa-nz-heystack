@@ -25,7 +25,7 @@ class ContainerExtension implements ExtensionInterface
 
     public function getNamespace()
     {
-        return 'ecommerce';
+        return 'heystack';
     }
 
     public function getXsdValidationBasePath()
@@ -35,7 +35,7 @@ class ContainerExtension implements ExtensionInterface
 
     public function getAlias()
     {
-        return 'ecommerce';
+        return 'heystack';
     }
 
 }
