@@ -1,0 +1,37 @@
+{
+    "hash": "f238edda4f12ba6183f4275897f48794",
+    "packages": [
+        {
+            "package": "symfony/config",
+            "version": "2.0.x-dev",
+            "source-reference": "v2.0.15",
+            "commit-date": "1337154830"
+        },
+        {
+            "package": "symfony/dependency-injection",
+            "version": "2.0.x-dev",
+            "source-reference": "71176e740021a415ab55bc221aa0b32c72bf063e",
+            "commit-date": "1339502382"
+        },
+        {
+            "package": "symfony/event-dispatcher",
+            "version": "2.0.x-dev",
+            "source-reference": "v2.0.15",
+            "commit-date": "1337100992"
+        },
+        {
+            "package": "symfony/yaml",
+            "version": "2.0.x-dev",
+            "source-reference": "c123857e83b279a4a1300ef27cc8cc25d8ea84f9",
+            "commit-date": "1339254257"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": [
+
+    ]
+}

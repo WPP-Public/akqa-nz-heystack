@@ -1,8 +1,8 @@
 <?php
 
-namespace Ecommerce\Subsystem\Core\State;
+namespace Heystack\Subsystem\Core\State;
 
-use Ecommerce\Subsystem\Core\State\BackendInterface;
+use Heystack\Subsystem\Core\State\BackendInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class State

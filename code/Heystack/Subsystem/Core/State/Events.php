@@ -1,6 +1,6 @@
 <?php
 
-namespace Ecommerce\Subsystem\Core\State;
+namespace Heystack\Subsystem\Core\State;
 
 final class Events
 {
