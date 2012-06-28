@@ -3,8 +3,9 @@
 $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->name('*.php')
     ->exclude(array(
-        'code/Symfony',
-        'cache'
+        'vendor',
+        'cache',
+        'SilverStripe'
     ))
     ->in(__DIR__);
 
