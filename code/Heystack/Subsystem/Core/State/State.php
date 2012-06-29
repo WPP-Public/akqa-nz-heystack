@@ -57,17 +57,17 @@ class State
         $this->dispatcher->dispatch(Events::STATE_REMOVE);
 
     }
-    
-    public function getByLikeKey($key)
+
+    public function getByLikeKey($key) //TODO: either this needs to be added to the interface, or removed.
     {
         $objects = array();
-        
+
         foreach ($this->backend->getByLikeKey($key) as $object) {
-            
+
             $objects[] = unserialize($object);
-            
+
         }
-        
+
         return $objects;
     }
 
