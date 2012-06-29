@@ -57,5 +57,18 @@ class State
         $this->dispatcher->dispatch(Events::STATE_REMOVE);
 
     }
+    
+    public function getByLikeKey($key)
+    {
+        $objects = array();
+        
+        foreach ($this->backend->getByLikeKey($key) as $object) {
+            
+            $objects[] = unserialize($object);
+            
+        }
+        
+        return $objects;
+    }
 
 }
