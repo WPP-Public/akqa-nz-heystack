@@ -1,5 +1,5 @@
 <?php
 
-define('HEYSTACK_BASE_PATH', __DIR__ . '/../../../..');
+define('HEYSTACK_BASE_PATH', dirname(dirname(dirname(dirname(dirname(__DIR__))))));
 
-require_once HEYSTACK_BASE_PATH . '/config/autoload.php';
+require_once HEYSTACK_BASE_PATH . '/vendor/autoload.php';

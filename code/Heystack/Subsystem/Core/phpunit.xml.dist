@@ -12,7 +12,7 @@
          bootstrap="Tests/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="Heyday Ecommerce Test Suite">
+        <testsuite name="Heyday Heystack Test Suite">
             <directory>./Tests/</directory>
         </testsuite>
     </testsuites>
