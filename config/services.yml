@@ -1,22 +1,16 @@
 parameters:
 
     config.class: Heystack\Subsystem\Core\Config
-
     state.class: Heystack\Subsystem\Core\State\State
-
     backend_session.class: Heystack\Subsystem\Core\State\Backends\Session
-
     backend_memcache.class: Heystack\Subsystem\Core\State\Backends\Memcache
+    event_dispatcher.class: Symfony\Component\EventDispatcher\EventDispatcher
+    processor_handler.class: Heystack\Subsystem\Core\Processor\Handler
+    session.class: Session
 
     memcache.class: Memcache
     memcache.host: localhost
     memcache.port: 11211
-
-    session.class: Session
-
-    event_dispatcher.class: Symfony\Component\EventDispatcher\EventDispatcher
-    
-    processor_handler.class: Heystack\Subsystem\Core\Processor\Handler
 
 
 services:
@@ -31,6 +25,10 @@ services:
         arguments: [[]]
 
     backend_memcache:
+        class: %backend_memcache.class%
+        arguments: [@memcache, @session]
+
+    backend_global_memcache:
         class: %backend_memcache.class%
         arguments: [@memcache]
 
@@ -48,9 +46,9 @@ services:
 
     event_dispatcher:
         class: %event_dispatcher.class%
-        
+
     processor_handler:
       class: %processor_handler.class%
- 
+
 
 
