@@ -8,15 +8,15 @@ if (is_array($subsystems)) {
 
     foreach ($subsystems as $dir) {
 
-        $dirname = dirname($dir);
+        $dir = dirname($dir);
 
-        foreach (glob($dirname . '/code/Heystack/Subsystem/*', GLOB_ONLYDIR | GLOB_NOSORT) as $subsystem) {
+        foreach (glob($dir . '/code/Heystack/Subsystem/*', GLOB_ONLYDIR | GLOB_NOSORT) as $subsystem) {
 
-            $loader->add('Heystack\Subsystem\\' . basename($subsystem), $dirname . '/code');
+            $loader->add('Heystack\Subsystem\\' . basename($subsystem), $dir . '/code');
 
         }
 
-        $filename = $dirname . '/config/services.php';
+        $filename = $dir . '/config/services.php';
 
         if (file_exists($filename)) {
 
