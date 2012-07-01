@@ -22,9 +22,13 @@ if ($subsystems = $locator->locate('_heystack_subsystem', null, false)) {
 
     foreach ($subsystems as $dir) {
 
-        $dirname = dirname($dir);
+        $filename = dirname($dir) . '/config/services.php';
 
-        require_once $dirname . '/config/services.php';
+        if (file_exists($filename)) {
+
+            require_once $filename;
+
+        }
 
     }
 
