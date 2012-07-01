@@ -2,19 +2,10 @@
 
 namespace Heystack\Subsystem\Core\Processor;
 
-use Heystack\Subsystem\Core\Processor\ProcessorInterface;
-
-class Handler
+trait HandlerTrait
 {
 
     private $processors = array();
-
-    public function addProcessor(ProcessorInterface $processor)
-    {
-
-        $this->processors[$processor->getName()] = $processor;
-
-    }
 
     public function getProcessor($name)
     {
@@ -50,4 +41,14 @@ class Handler
 
     }
 
+    public function process($name, $request)
+    {
+
+        if ($this->hasProcessor($name)) {
+
+            return $this->processors[$name]->process($request);
+
+        }
+
+    }
 }

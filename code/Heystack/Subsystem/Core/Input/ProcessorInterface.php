@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Processor;
+namespace Heystack\Subsystem\Core\Input;
 
 interface ProcessorInterface
 {
