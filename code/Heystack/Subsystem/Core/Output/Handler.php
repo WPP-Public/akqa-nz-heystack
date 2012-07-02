@@ -1,8 +1,8 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Input;
+namespace Heystack\Subsystem\Core\Output;
 
-use Heystack\Subsystem\Core\Input\ProcessorInterface;
+use Heystack\Subsystem\Core\Output\ProcessorInterface;
 
 use Heystack\Subsystem\Core\Processor\HandlerTrait;
 
@@ -24,10 +24,6 @@ class Handler
         if ($this->hasProcessor($name)) {
 
             return $this->processors[$name]->process($request);
-
-        } else {
-
-            return false;
 
         }
 

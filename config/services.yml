@@ -6,6 +6,7 @@ parameters:
     backend_memcache.class: Heystack\Subsystem\Core\State\Backends\Memcache
     event_dispatcher.class: Symfony\Component\EventDispatcher\EventDispatcher
     input_processor_handler.class: Heystack\Subsystem\Core\Input\Handler
+    output_processor_handler.class: Heystack\Subsystem\Core\Output\Handler
     storage_processor_handler.class: Heystack\Subsystem\Core\Storage\Handler
     session.class: Session
 
@@ -50,6 +51,9 @@ services:
 
     input_processor_handler:
       class: %input_processor_handler.class%
+
+    output_processor_handler:
+      class: %output_processor_handler.class%
 
     storage_processor_handler:
       class: %storage_processor_handler.class%

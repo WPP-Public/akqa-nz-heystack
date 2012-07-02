@@ -6,6 +6,9 @@ trait HandlerTrait
 {
 
     private $processors = array();
+    
+    abstract public function addProcessor();
+    abstract public function process();
 
     public function getProcessor($name)
     {
@@ -40,15 +43,5 @@ trait HandlerTrait
         }
 
     }
-
-    public function process($name, $request)
-    {
-
-        if ($this->hasProcessor($name)) {
-
-            return $this->processors[$name]->process($request);
-
-        }
-
-    }
+    
 }

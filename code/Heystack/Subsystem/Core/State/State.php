@@ -3,7 +3,7 @@
 namespace Heystack\Subsystem\Core\State;
 
 use Heystack\Subsystem\Core\State\BackendInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class State
 {
@@ -11,7 +11,7 @@ class State
     private $backend = null;
     private $dispatcher = null;
 
-    public function __construct(BackendInterface $backend, EventDispatcher $dispatcher)
+    public function __construct(BackendInterface $backend, EventDispatcherInterface $dispatcher)
     {
 
         $this->backend = $backend;
