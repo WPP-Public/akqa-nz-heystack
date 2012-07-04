@@ -1,9 +1,16 @@
 {
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/heyday/monolog"
+        }
+    ],
     "require": {
         "symfony/event-dispatcher": "2.0.*",
         "symfony/config": "2.0.*",
         "symfony/dependency-injection": "2.0.*",
-        "symfony/yaml": "2.0.*"
+        "symfony/yaml": "2.0.*",
+        "monolog/monolog": "dev-object-processor"
     },
     "autoload": {
         "psr-0": {

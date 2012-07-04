@@ -1,29 +1,30 @@
 {
-    "hash": "f238edda4f12ba6183f4275897f48794",
+    "hash": "e1e9a16f4b38dcb2750fed5004232cc6",
     "packages": [
+        {
+            "package": "monolog/monolog",
+            "version": "dev-object-processor",
+            "source-reference": "65a88a5ca5dda37343ebd0d89e9b927e6d528eae"
+        },
         {
             "package": "symfony/config",
             "version": "2.0.x-dev",
-            "source-reference": "v2.0.15",
-            "commit-date": "1337154830"
+            "source-reference": "v2.0.15"
         },
         {
             "package": "symfony/dependency-injection",
             "version": "2.0.x-dev",
-            "source-reference": "71176e740021a415ab55bc221aa0b32c72bf063e",
-            "commit-date": "1339502382"
+            "source-reference": "6a06a62633c762a6c874f6ffc40c9fa513f71a3f"
         },
         {
             "package": "symfony/event-dispatcher",
             "version": "2.0.x-dev",
-            "source-reference": "v2.0.15",
-            "commit-date": "1337100992"
+            "source-reference": "v2.0.15"
         },
         {
             "package": "symfony/yaml",
             "version": "2.0.x-dev",
-            "source-reference": "c123857e83b279a4a1300ef27cc8cc25d8ea84f9",
-            "commit-date": "1339254257"
+            "source-reference": "c123857e83b279a4a1300ef27cc8cc25d8ea84f9"
         }
     ],
     "packages-dev": null,
@@ -31,7 +32,7 @@
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": [
-
-    ]
+    "stability-flags": {
+        "monolog/monolog": 20
+    }
 }

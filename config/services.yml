@@ -9,6 +9,21 @@ parameters:
     output_processor_handler.class: Heystack\Subsystem\Core\Output\Handler
     storage_processor_handler.class: Heystack\Subsystem\Core\Storage\Handler
     session.class: Session
+    
+    monolog.class: Monolog\Logger
+    monolog.name: global
+    
+    monolog.mail_handler.to: [ss-errors@heyday.co.nz, glenn@heyday.co.nz]
+    monolog.mail_handler.from: noreply@heyday.net.nz
+    monolog.mail_handler.subject: Heystack Error
+    monolog.stream_handler.file_location: ../heystack/monolog.log
+    
+    monolog.level.debug: 100
+    monolog.level.info: 200
+    monolog.level.warning: 300
+    monolog.level.error: 400
+    monolog.level.critical: 500
+    monolog.level.alert: 550
 
     memcache.class: Memcache
     memcache.host: localhost
@@ -57,6 +72,25 @@ services:
 
     storage_processor_handler:
       class: %storage_processor_handler.class%
+      
+    monolog_stream_handler:
+      class: Monolog\Handler\StreamHandler
+      arguments: [ %monolog.stream_handler.file_location%,  %monolog.level.debug%]
+      
+    monolog_object_processor:
+      class: Monolog\Processor\ObjectProcessor
+      
+    monolog_mail_handler:
+      class: Monolog\Handler\NativeMailerHandler
+      arguments: [ %monolog.mail_handler.to%, %monolog.mail_handler.subject%, %monolog.mail_handler.from%, %monolog.level.error% ]
+      
+    monolog:
+      class: %monolog.class%
+      arguments: [ %monolog.name% ]
+      calls:
+        - [ pushHandler, [ @monolog_stream_handler ] ]
+        - [ pushHandler, [ @monolog_mail_handler ] ]
+        - [ pushProcessor, [ @monolog_object_processor ] ]
 
 
 
