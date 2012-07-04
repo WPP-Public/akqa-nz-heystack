@@ -10,17 +10,19 @@ if (is_array($subsystems)) {
 
         $dir = dirname($dir);
 
-        foreach (glob($dir . '/code/Heystack/Subsystem/*', GLOB_ONLYDIR | GLOB_NOSORT) as $subsystem) {
+        if (HEYSTACK_BASE_PATH != $dir) {
 
-            $loader->add('Heystack\Subsystem\\' . basename($subsystem), $dir . '/code');
+            $composerDir = $dir . '/vendor/composer';
 
-        }
+            $map = require $composerDir . '/autoload_namespaces.php';
+            foreach ($map as $namespace => $path) {
+                $loader->add($namespace, $path);
+            }
 
-        $filename = $dir . '/config/services.php';
-
-        if (file_exists($filename)) {
-
-            require_once $filename;
+            $classMap = require $composerDir . '/autoload_classmap.php';
+            if ($classMap) {
+                $loader->addClassMap($classMap);
+            }
 
         }
 

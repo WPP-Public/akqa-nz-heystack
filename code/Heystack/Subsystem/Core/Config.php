@@ -5,20 +5,8 @@ namespace Heystack\Subsystem\Core;
 class Config
 {
 
-    private static $containerExtensions;
+    private $data = array();
 
-    public static function registerContainerExtension($extension)
-    {
-
-        self::$containerExtensions[] = $extension;
-
-    }
-
-    public static function getContainerExtensions()
-    {
-
-        return self::$containerExtensions;
-
-    }
+    
 
 }
