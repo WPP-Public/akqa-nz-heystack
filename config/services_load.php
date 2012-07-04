@@ -25,9 +25,15 @@ if (file_exists($file) && !isset($_GET['flush'])) {
         ))
     );
 
-    foreach (Config::getContainerExtensions() as $extension) {
+    $extensions = require HEYSTACK_BASE_PATH . '/config/extensions.php';
 
-        $container->registerExtension(new $extension);
+    if ($extensions) {
+
+        foreach ($extensions as $extension) {
+
+            $container->registerExtension(new $extension);
+
+        }
 
     }
 
