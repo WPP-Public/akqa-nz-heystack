@@ -5,7 +5,7 @@ namespace Heystack\Subsystem\Core\Output;
 interface ProcessorInterface
 {
 
-    public function getName();
-    public function process();
+    public function getIdentifier();
+    public function process(\Controller $controller, $result = null);
 
 }

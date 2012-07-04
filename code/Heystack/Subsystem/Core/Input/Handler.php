@@ -14,16 +14,16 @@ class Handler
     public function addProcessor(ProcessorInterface $processor)
     {
 
-        $this->processors[$processor->getName()] = $processor;
+        $this->processors[$processor->getIdentifier()] = $processor;
 
     }
 
-    public function process($name, $request)
+    public function process($identifier, $request)
     {
 
-        if ($this->hasProcessor($name)) {
+        if ($this->hasProcessor($identifier)) {
 
-            return $this->processors[$name]->process($request);
+            return $this->processors[$identifier]->process($request);
 
         } else {
 
