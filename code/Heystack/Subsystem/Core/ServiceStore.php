@@ -23,6 +23,7 @@ use Symfony\Component\DependencyInjection\Container;
  * 
  * @copyright  Heyday
  * @author Cam Spiers <cameron@heyday.co.nz>
+ * @package Heystack
  * 
  */
 class ServiceStore
