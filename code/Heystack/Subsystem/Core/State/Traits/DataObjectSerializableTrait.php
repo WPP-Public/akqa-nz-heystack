@@ -9,7 +9,7 @@ trait DataObjectSerializableTrait
 
     public function serialize()
     {
-        if($this instanceof ExtraDataInterface){
+        if ($this instanceof ExtraDataInterface) {
             return serialize(array($this->record,$this->getExtraData()));
         }
 
@@ -21,15 +21,14 @@ trait DataObjectSerializableTrait
     {
 
         $this->class = get_class($this);
-        
-        if($this instanceof ExtraDataInterface){
+
+        if ($this instanceof ExtraDataInterface) {
             $unserialized = unserialize($data);
             $this->record = $unserialized[0];
             $this->setExtraData($unserialized[1]);
-        }else{
+        } else {
             $this->record = unserialize($data);
         }
-        
 
     }
 

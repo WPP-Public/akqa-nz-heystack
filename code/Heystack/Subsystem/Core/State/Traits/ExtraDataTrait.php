@@ -2,11 +2,12 @@
 
 namespace Heystack\Subsystem\Core\State\Traits;
 
-trait ExtraDataTrait 
+trait ExtraDataTrait
 {
 
-    public function setExtraData(array $data){
-        foreach($data as $key => $val){
+    public function setExtraData(array $data)
+    {
+        foreach ($data as $key => $val) {
             $this->$key = $val;
         }
     }

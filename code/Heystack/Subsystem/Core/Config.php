@@ -2,7 +2,7 @@
 
 /**
  * This file is part of the Heystack package
- * 
+ *
  * @package Heystack
  */
 
@@ -13,15 +13,13 @@ namespace Heystack\Subsystem\Core;
 
 /**
  * Provides global configuration storage.
- * 
- * Config is a globally accessible configuration class, 
+ *
+ * Config is a globally accessible configuration class,
  * @package Heystack
  */
 class Config
 {
 
     private $data = array();
-
-    
 
 }

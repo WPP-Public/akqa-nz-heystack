@@ -6,7 +6,7 @@ trait HandlerTrait
 {
 
     private $processors = array();
-    
+
     abstract public function addProcessor();
     abstract public function process();
 
@@ -43,5 +43,5 @@ trait HandlerTrait
         }
 
     }
-    
+
 }
