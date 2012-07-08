@@ -16,7 +16,7 @@ use Heystack\Subsystem\Core\Input\ProcessorInterface;
 use Heystack\Subsystem\Core\Processor\HandlerTrait;
 
 /**
- * Holder/handlers and stores input processors.
+ * Hold and handles input processors.
  *
  * This class provides storage and processing  of input processors,
  * processors are stored and accessed by an identifier
@@ -41,7 +41,7 @@ class Handler
     }
 
     /**
-     * Process an input processors by identifier if it exists
+     * Process an input processor by identifier if it exists
      * @param  string          $identifier The identifier of the input processor
      * @param  \SS_HTTPRequest $request    The request object to process from
      * @return mixed
