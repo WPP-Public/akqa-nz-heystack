@@ -1,0 +1,14 @@
+#!/bin/bash
+
+PATHS=( )
+
+for dir in `ls .`
+do
+    if [ -d $dir ] && [ -f "$dir/_heystack_subsystem" ]; then
+        PATHS+=("$dir/code/Heystack")
+    fi
+done
+
+IFS=","
+
+phpdoc run --title Heystack -p -d "${PATHS[*]}" -t ../doc
