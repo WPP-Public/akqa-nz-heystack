@@ -29,6 +29,8 @@ parameters:
     memcache.host: localhost
     memcache.port: 11211
 
+    dataobjectgenerator.class: Heystack\Subsystem\Core\Storage\DataObjectCodeGenerator\DataObjectCodeGenerator
+
 
 services:
 
@@ -92,5 +94,6 @@ services:
         - [ pushHandler, [ @monolog_mail_handler ] ]
         - [ pushProcessor, [ @monolog_object_processor ] ]
 
-
+    dataobjectgenerator:
+      class: %dataobjectgenerator.class%
 
