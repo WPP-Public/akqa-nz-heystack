@@ -2,10 +2,9 @@
 
 /**
  * This file is part of the Heystack package
- * 
+ *
  * @package Heystack
  */
-
 
 /**
  * Core namespace
@@ -17,7 +16,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 
 /**
  * Merges extensions definition calls into the container builder.
- * 
+ *
  * When there exists an extension which defines calls on an existing service,
  * this compiler pass will merge those calls without overwriting.
  *
