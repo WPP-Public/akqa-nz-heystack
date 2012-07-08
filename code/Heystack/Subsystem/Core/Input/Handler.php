@@ -42,7 +42,7 @@ class Handler
 
     /**
      * Process an input processors by identifier if it exists
-     * @param  string $identifier The identifier of the input processor
+     * @param  string          $identifier The identifier of the input processor
      * @param  \SS_HTTPRequest $request    The request object to process from
      * @return mixed
      */

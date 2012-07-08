@@ -30,7 +30,7 @@ class Config
     /**
      * Sets something on to a config identifier
      * @param string $identifier The identifier to set to
-     * @param mixed $config     The information to set
+     * @param mixed  $config     The information to set
      */
     public function setConfig($identifier, $config)
     {
@@ -41,7 +41,7 @@ class Config
     /**
      * Gets a config if it exists
      * @param  string $identifier The identifier to get
-     * @return mixed             The configuration on the identifier if it exists
+     * @return mixed  The configuration on the identifier if it exists
      */
     public function getConfig($identifier)
     {

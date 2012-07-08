@@ -17,7 +17,7 @@ use Heystack\Subsystem\Core\Output\ProcessorInterface;
  * Allows a group/array processors to be run from a single identifier
  *
  * Enables the ability to trigger multiple output processors from one request
- * 
+ *
  * @package Heystack
  */
 class GroupedProcessor implements ProcessorInterface
@@ -57,9 +57,9 @@ class GroupedProcessor implements ProcessorInterface
 
     /**
      * Runs over the list of processors running them all in turn
-     * @param  \Controller $controller The controller the request was handled by
-     * @param  mixed      $result     The result from the previosly run input processor/s
-     * @return \SS_HTTPResponse                  Controller response
+     * @param  \Controller      $controller The controller the request was handled by
+     * @param  mixed            $result     The result from the previosly run input processor/s
+     * @return \SS_HTTPResponse Controller response
      */
     public function process(\Controller $controller, $result = null)
     {
