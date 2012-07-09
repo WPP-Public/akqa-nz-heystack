@@ -5,7 +5,12 @@ PATHS=( )
 for dir in `ls .`
 do
     if [ -d $dir ] && [ -f "$dir/_heystack_subsystem" ]; then
-        PATHS+=("$dir/code/Heystack")
+
+        for sub in `ls $dir/code/`
+        do
+            PATHS+=("$dir/code/$sub")
+        done
+
     fi
 done
 
