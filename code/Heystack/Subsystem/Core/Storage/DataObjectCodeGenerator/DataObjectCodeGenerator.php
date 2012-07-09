@@ -37,7 +37,7 @@ class DataObjectCodeGenerator {
      * 
      * @param DataObject $dataObject
      */
-    public function addDataObject(DataObject $dataObject)
+    public function addDataObject($dataObject)
     {
         
         $this->dataObjects[] = $dataObject;
@@ -49,7 +49,7 @@ class DataObjectCodeGenerator {
      * 
      * @param DataObject $dataObject
      */
-    public function removeDataObject(DataObject $dataObject)
+    public function removeDataObject($dataObject)
     {
         
         unset($this->dataObjects[$dataObject]);
@@ -112,7 +112,6 @@ class DataObjectCodeGenerator {
             foreach ($manyRelations as $name => $className) {
                 
                 $db["Stored" . get_class($dataObject) . "ID"] = 'Int';
-               
                 
                 $storable = singleton($className)->getStorableData();
                 
@@ -122,17 +121,15 @@ class DataObjectCodeGenerator {
                     
                 }
                 
-                
-            }
-            
-            file_put_contents($dir_base . DIRECTORY_SEPARATOR . "Stored" . get_class($dataObject) . '_' . $className . '.php', singleton('ViewableData')->renderWith('DataObject_php', array(
-                    'DataObjectName' => "Stored" . get_class($dataObject) . '_' . $className,
-                    'db' => var_export($db, true),
-                    'D' => '$',
-                    'P' => '<?php',
-            )));
 
-			
+                file_put_contents($dir_base . DIRECTORY_SEPARATOR . "Stored" . get_class($dataObject) . '_' . $className . '.php', singleton('ViewableData')->renderWith('DataObject_php', array(
+                        'DataObjectName' => "Stored" . get_class($dataObject) . '_' . $className,
+                        'db' => var_export($db, true),
+                        'D' => '$',
+                        'P' => '<?php',
+                )));
+
+			}
 		}
 
 	}

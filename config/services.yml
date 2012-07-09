@@ -32,6 +32,8 @@ parameters:
     dataobjectgenerator.class: Heystack\Subsystem\Core\Storage\DataObjectCodeGenerator\DataObjectCodeGenerator
 
 
+    storage.class: Heystack\Subsystem\Core\Storage\DataObjectCodeGenerator\DataObjectStorageProcessor
+
 services:
 
     memcache:
@@ -74,7 +76,9 @@ services:
 
     storage_processor_handler:
       class: %storage_processor_handler.class%
-      
+      calls:
+        - [ addProcessor, [ @storage_processor ] ]
+
     monolog_stream_handler:
       class: Monolog\Handler\StreamHandler
       arguments: [ %monolog.stream_handler.file_location%,  %monolog.level.debug%]
@@ -96,4 +100,8 @@ services:
 
     dataobjectgenerator:
       class: %dataobjectgenerator.class%
+      
+    storage_processor:
+      class: %storage.class%
 
+      
