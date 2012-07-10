@@ -10,5 +10,12 @@ class $DataObjectName extends DataObject
     public static {$D}db = $db;
 
 
-
+    <% if has_one %>
+    public static {$D}has_one = $has_one;
+    <% end_if %>
+    
+    <% if has_many %>
+    public static {$D}has_many = $has_many;
+    <% end_if %>
+    
 }

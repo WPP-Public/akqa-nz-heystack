@@ -1,13 +1,37 @@
 <?php
-
+/**
+ * This file is part of the Heystack package
+ * 
+ * @package Heystack
+ */
+/**
+ * Heystack\Subsystem\Core\Storage\DataObjectCodeGenerator namespace
+ */
 namespace Heystack\Subsystem\Core\Storage\DataObjectCodeGenerator;
 
-use \Heystack\Subsystem\Core\Storage\ProcessorInterface;
+use Heystack\Subsystem\Core\Storage\ProcessorInterface;
 
+/**
+ * DataObjectStorageProcessor processes dataobjects and stores their defined
+ * storable values.
+ * 
+ * Because we need to be able to store all data persistently in a database we 
+ * will use the generated classes to store relevant information for each
+ * dataobject.
+ * 
+ * @copyright  Heyday
+ * @author Stevie Mayhew <stevie@heyday.co.nz>
+ * @package Heystack
+ * 
+ */
 class DataObjectStorageProcessor implements ProcessorInterface
 {
     
-
+    /**
+     * Process dataobjects to store and store their relevant defined
+     * storage values.
+     * 
+     */
     public function process($dataObject) {
         
         $saveable = "Stored" . $dataObject->ClassName;
@@ -38,53 +62,79 @@ class DataObjectStorageProcessor implements ProcessorInterface
                 $storedObject->$data_name = $data->$key;
                 
             }
+            
+        }
+ 
+        $dataObjectClass = new \ReflectionClass($dataObject->ClassName);
+        if ($dataObjectClass->implementsInterface('Heystack\Subsystem\Core\State\ExtraDataInterface')) {
+
+            
+            $extraData = $dataObject->getExtraData();
+
+            foreach ($extraData as $name => $value) {
+            
+                
+                $storedObject->$name = $value;
+
+            }
 
         }
         
         $storedObject->write();
         
-        
-        echo "<pre>";
-
-        
         //deal with the has_many relations
         $manyRelations = $dataObject->getStorableManyRelations();
-        
-        foreach ($manyRelations as $name => $className) {
-            
-            $saveable = "Stored" . $dataObject->ClassName . "_" . $className;
-            $storedManyObject = new $saveable();
-           
-            // save the ID of the object we are related to
-            $objectIDName = "Stored" . get_class($dataObject) . "ID";
-            $storedManyObject->$objectIDName = $storedObject->ID;
-   
-            
-            echo $className . " = ";
-                       
-            echo $dataObject->getReverseAssociation($className) . "\n";
 
-            //echo  $name  . ", " . $className . "  \n\n\n\n\n";
+        foreach ($manyRelations as $manyKey => $className) {
             
-            $storedDataObjects = \DataObject::get($className, $name = $dataObject->ID);
+            $storedDataObjects = new \DataObjectSet();
+            if (!$dataObject->many_many($manyKey)) {
+           
+                // this works for $has_many
+                $storedDataObjects->merge(\DataObject::get($className, "{$dataObject->ClassName}ID = $dataObject->ID"));
+                //echo "$className = '{$dataObject->ClassName}ID' = $dataObject->ID" . "\n";
+
+            } else {
+                
+                $storedDataObjects->merge($dataObject->$manyKey());
+                
+            }
             
             if ($storedDataObjects && $storedDataObjects->exists()) {
+                
                 foreach ($storedDataObjects as $object) {
+                    
+                    // create the object to save
+                    $saveable = "Stored" . $dataObject->ClassName . "RelatedData";
+                    $storedManyObject = new $saveable();
 
-    //                foreach ($fields as $key => $value) {
-    //
-    //                    $data_name = "Stored" . $name . "_" . $key;
-    //          
-    //                    $manyObject->$data_name = $data->$key;
-    //
-    //                }
+                    // save the ID of the object we are related to
+                    $objectIDName = "Stored" . get_class($dataObject) . "ID";
+                    $storedManyObject->$objectIDName = $storedObject->ID;
+                    
+                    
+                    // get the storable fields of this object
+                    $storableFields = $object->getStorableData();
+                    
+                    foreach ($storableFields as $key => $value) {
+                        
+
+                        
+                        $storableName = $manyKey . "_" . $key;
+                        
+                        
+                        $storedManyObject->$storableName = $object->$key;
+ 
+                    }
+                    
+                    $storedManyObject->write();
+
                 }
+ 
             }
-
+ 
         }
-        
-        $storedManyObject->write();
-        
+   
     }
 
     public function getIdentifier()
