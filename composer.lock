@@ -10,26 +10,26 @@
         {
             "package": "symfony/config",
             "version": "2.0.x-dev",
-            "source-reference": "v2.0.15",
-            "commit-date": "1337154830"
+            "source-reference": "3ffd91fd9cace7830978341bf2d9904e652161b1",
+            "commit-date": "1341837830"
         },
         {
             "package": "symfony/dependency-injection",
             "version": "2.0.x-dev",
-            "source-reference": "6a06a62633c762a6c874f6ffc40c9fa513f71a3f",
-            "commit-date": "1341138901"
+            "source-reference": "c3a940d93ca03064b6a9f3606a552eb63d0f4a9f",
+            "commit-date": "1341837830"
         },
         {
             "package": "symfony/event-dispatcher",
             "version": "2.0.x-dev",
-            "source-reference": "v2.0.15",
-            "commit-date": "1337100992"
+            "source-reference": "db210286198c2a335388d410fbff893ae509bad6",
+            "commit-date": "1341837830"
         },
         {
             "package": "symfony/yaml",
             "version": "2.0.x-dev",
-            "source-reference": "c123857e83b279a4a1300ef27cc8cc25d8ea84f9",
-            "commit-date": "1339254257"
+            "source-reference": "04edc329027cf987462fa4d74c1112d186212f4f",
+            "commit-date": "1341837830"
         }
     ],
     "packages-dev": null,

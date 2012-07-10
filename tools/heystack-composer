@@ -1,0 +1,15 @@
+#!/bin/bash
+
+ROOT_DIR=`pwd`
+
+for dir in `ls .`
+do
+    if [ -d $dir ] && [ -f "$dir/_heystack_subsystem" ] && [ -f "$dir/composer.json" ]; then
+
+        echo "Running 'composer $@' for $dir"
+        cd "$ROOT_DIR/$dir"
+        composer "$@"
+        cd $ROOT_DIR
+
+    fi
+done
