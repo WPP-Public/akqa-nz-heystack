@@ -22,16 +22,16 @@ interface ProcessorInterface
 {
     /**
      * Returns the identifier of the processor
-     * 
+     *
      * @return string Identifier of processor
      */
     public function getIdentifier();
-    
+
     /**
      * Executes the main functionality of the output processor
-     * 
+     *
      * @param \Controller $controller The relevant SilverStripe controller
-     * @param mixed $result The result from the input processor
+     * @param mixed       $result     The result from the input processor
      */
     public function process(\Controller $controller, $result = null);
 
