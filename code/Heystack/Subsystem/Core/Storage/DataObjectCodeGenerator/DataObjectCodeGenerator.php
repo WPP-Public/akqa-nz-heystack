@@ -87,7 +87,6 @@ class DataObjectCodeGenerator {
             
         }
         
-        
 		foreach ($this->dataObjects as $dataObject) {
 
             $dir_base = realpath(BASE_PATH . DIRECTORY_SEPARATOR . 'heystack/cache');
@@ -124,6 +123,7 @@ class DataObjectCodeGenerator {
                     }
 
                 }
+                
             }
 
 			file_put_contents($dir_base . DIRECTORY_SEPARATOR . "Stored" . get_class($dataObject) . '.php', singleton('ViewableData')->renderWith('DataObject_php', array(

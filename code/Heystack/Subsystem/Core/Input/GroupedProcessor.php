@@ -18,6 +18,9 @@ use Heystack\Subsystem\Core\Input\ProcessorInterface;
  *
  * Enables the ability to trigger multiple intput processors from one request
  *
+ * @author Cam Spiers <cameron@heyday.co.nz>
+ * @author Stevie Mayhew <stevie@heyday.co.nz>
+ * @author Glenn Bautista <glenn@heyday.co.nz>
  * @package Heystack
  */
 class GroupedProcessor implements ProcessorInterface

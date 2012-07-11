@@ -137,6 +137,11 @@ class DataObjectStorageProcessor implements ProcessorInterface
    
     }
 
+    /**
+     * Return identifier for DataObjectStorageProcessor
+     * 
+     * @return string Identifier
+     */
     public function getIdentifier()
     {
         return "dataobjectstorage";

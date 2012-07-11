@@ -18,6 +18,9 @@ use Heystack\Subsystem\Core\Output\ProcessorInterface;
  *
  * Enables the ability to trigger multiple output processors from one request
  *
+ * @author Cam Spiers <cameron@heyday.co.nz>
+ * @author Stevie Mayhew <stevie@heyday.co.nz>
+ * @author Glenn Bautista <glenn@heyday.co.nz>
  * @package Heystack
  */
 class GroupedProcessor implements ProcessorInterface

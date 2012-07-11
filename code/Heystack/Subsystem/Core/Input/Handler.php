@@ -20,6 +20,10 @@ use Heystack\Subsystem\Core\Processor\HandlerTrait;
  *
  * This class provides storage and processing  of input processors,
  * processors are stored and accessed by an identifier
+ * 
+ * @author Cam Spiers <cameron@heyday.co.nz>
+ * @author Stevie Mayhew <stevie@heyday.co.nz>
+ * @author Glenn Bautista <glenn@heyday.co.nz>
  * @package Heystack
  */
 class Handler

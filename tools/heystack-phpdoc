@@ -8,7 +8,16 @@ do
 
         for sub in `ls $dir/code/`
         do
-            PATHS+=("$dir/code/$sub")
+            if [ -d "$dir/code/$sub" ]; then
+                PATHS+=("$dir/code/$sub")
+            fi
+        done
+
+        for vendor in `ls $dir/vendor/`
+        do
+            if [ -d "$dir/vendor/$vendor" ]; then
+                PATHS+=("$dir/vendor/$vendor")
+            fi
         done
 
     fi
@@ -16,4 +25,4 @@ done
 
 IFS=","
 
-phpdoc run --title Heystack -p -d "${PATHS[*]}" -t ../doc
+phpdoc run --title Heystack -p -d "${PATHS[*]}" -t ../doc --template "heystack/tools/theme//heystack"
