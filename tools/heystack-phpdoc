@@ -25,4 +25,4 @@ done
 
 IFS=","
 
-phpdoc run --title Heystack -p -d "${PATHS[*]}" -t ../doc --template "heystack/tools/theme//heystack"
+phpdoc run --title heystack -p -d "${PATHS[*]}" -t ../doc --template "heystack/tools/theme//heystack"

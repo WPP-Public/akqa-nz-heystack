@@ -1,9 +1,9 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes" method="html"/>
-    <xsl:include href="../abstract/chrome.xsl"/>
-    <xsl:include href="../abstract/chrome/header.xsl"/>
-    <xsl:include href="../abstract/chrome/menu.xsl"/>
-    <xsl:include href="../abstract/chrome/footer.xsl"/>
+    <xsl:include href="../responsive/chrome.xsl"/>
+    <xsl:include href="../responsive/chrome/header.xsl"/>
+    <xsl:include href="../responsive/chrome/menu.xsl"/>
+    <xsl:include href="../responsive/chrome/footer.xsl"/>
 
     <xsl:template name="content">
         <table id="page">

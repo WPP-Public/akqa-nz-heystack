@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
-  <author>Mike van Riel</author>
-  <email>mike.vanriel@naenius.com</email>
-  <version>1.0.1</version>
-  <copyright>Mike van Riel 2012</copyright>
+  <author>Stevie Mayhew</author>
+  <version>1.0</version>
   <description><![CDATA[
+      Based off the 'Responsive' look and feel for phpDocumentor by Mike van Riel.
+      
       This is the 'Responsive' look and feel for phpDocumentor.
 
       This is a responsive template that is optimized to make the user's
@@ -21,6 +21,7 @@
   <transformations>
     <transformation query="copy" writer="FileIo" source="images" artifact="img"/>
     <transformation query="copy" writer="FileIo" source="templates/responsive/img" artifact="img"/>
+    <transformation query="copy" writer="FileIo" source="templates/heystack/img" artifact="img"/>
     <transformation query="copy" writer="FileIo" source="templates/heystack/css" artifact="css"/>
     <transformation query="copy" writer="FileIo" source="js" artifact="js"/>
     <transformation query="copy" writer="FileIo" source="templates/responsive/js" artifact="js"/>

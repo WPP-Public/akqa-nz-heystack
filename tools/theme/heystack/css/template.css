@@ -13,7 +13,7 @@ body
 
 a
 {
-    color: #55A72F;
+    color: #3FA3C8;
 }
 
 li.l0, li.l1, li.l2, li.l3, li.l5, li.l6, li.l7, li.l8
@@ -101,8 +101,8 @@ h2:first-of-type
 
 .hero-unit
 {
-    background: #de6a27; /* Old browsers */
-/*    background: -moz-radial-gradient(center, ellipse cover, #bfd255 0%, #8eb92a 72%, #72aa00 96%, #9ecb2d 100%);  FF3.6+ 
+ /*   background: #de6a27;
+    background: -moz-radial-gradient(center, ellipse cover, #bfd255 0%, #8eb92a 72%, #72aa00 96%, #9ecb2d 100%);  FF3.6+ 
     background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#bfd255), color-stop(72%,#8eb92a), color-stop(96%,#72aa00), color-stop(100%,#9ecb2d));  Chrome,Safari4+ 
     background: -webkit-radial-gradient(center, ellipse cover, #bfd255 0%,#8eb92a 72%,#72aa00 96%,#9ecb2d 100%);  Chrome10+,Safari5.1+ 
     background: -o-radial-gradient(center, ellipse cover, #bfd255 0%,#8eb92a 72%,#72aa00 96%,#9ecb2d 100%);  Opera 12+ 
@@ -112,6 +112,8 @@ h2:first-of-type
 
     padding: 40px 0 15px 0;
     box-shadow: inset 0 0 10px gray;
+    
+    background:#de6a27;
 }
 
 .hero-unit h1
@@ -120,6 +122,9 @@ h2:first-of-type
     font-weight: normal;
     text-align:  center;
     color:       white;
+    font-size: 0px;
+    min-height: 80px;
+    background: url(../img/heyday-logo-white.png) 50% 0 no-repeat;
     text-shadow: black 0px 0px 15px;
 }
 
@@ -153,7 +158,7 @@ h2:first-of-type
 
 div.element
 {
-    border-left:    10px solid #55A72F;
+    border-left:    10px solid #3FA3C8;
     border-radius:  5px;
     padding:        7px 7px 2px 7px;
     margin-bottom:  15px;
@@ -170,9 +175,14 @@ div.element.private
     border-left-color: red;
 }
 
-div.element.class, div.element.interface
+div.element.interface
 {
     border-left-color: #e0e0e0;
+}
+
+div.element.class
+{
+    border-left-color: #a5a5a5;
 }
 
 div.element.class.abstract h1, div.element.interface.abstract h1
