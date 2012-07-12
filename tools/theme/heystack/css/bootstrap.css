@@ -3333,9 +3333,7 @@ a.thumbnail:hover {
   padding: 60px;
   margin-bottom: 30px;
   background-color: #f5f5f5;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
+ 
 }
 .hero-unit h1 {
   margin-bottom: 0;

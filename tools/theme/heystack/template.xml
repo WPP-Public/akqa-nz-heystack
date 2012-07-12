@@ -4,13 +4,6 @@
   <version>1.0</version>
   <description><![CDATA[
       Based off the 'Responsive' look and feel for phpDocumentor by Mike van Riel.
-      
-      This is the 'Responsive' look and feel for phpDocumentor.
-
-      This is a responsive template that is optimized to make the user's
-      experience paramount.
-
-      To improve performance you can add the following to your .htaccess:
 
       <ifModule mod_deflate.c>
           <filesMatch "\.(js|css|html)$">
