@@ -7,7 +7,16 @@ parameters:
     event_dispatcher.class: Symfony\Component\EventDispatcher\EventDispatcher
     input_processor_handler.class: Heystack\Subsystem\Core\Input\Handler
     output_processor_handler.class: Heystack\Subsystem\Core\Output\Handler
-    storage_processor_handler.class: Heystack\Subsystem\Core\Storage\Handler
+    
+    
+    
+    storage_processor_handler.class: Heystack\Subsystem\Core\Storage\Processor\Handler
+    storage_generator_handler.class: Heystack\Subsystem\Core\Storage\Generator\Handler
+    
+    
+    
+    
+    
     session.class: Session
     
     monolog.class: Monolog\Logger
@@ -29,10 +38,8 @@ parameters:
     memcache.host: localhost
     memcache.port: 11211
 
-    dataobjectgenerator.class: Heystack\Subsystem\Core\Storage\DataObjectCodeGenerator\DataObjectCodeGenerator
-
-
-    storage.class: Heystack\Subsystem\Core\Storage\DataObjectCodeGenerator\DataObjectStorageProcessor
+    dataobject_storage_generator.class: Heystack\Subsystem\Core\Storage\DataObjectStorage\DataObjectStorageGenerator
+    dataobject_storage_processor.class: Heystack\Subsystem\Core\Storage\DataObjectStorage\DataObjectStorageProcessor
 
 services:
 
@@ -77,7 +84,12 @@ services:
     storage_processor_handler:
       class: %storage_processor_handler.class%
       calls:
-        - [ addProcessor, [ @storage_processor ] ]
+        - [ addProcessor, [ @dataobject_storage_processor ] ]
+        
+    storage_generator_handler:
+      class: %storage_generator_handler.class%
+      calls:
+        - [ addProcessor, [ @dataobject_storage_generator ] ]
 
     monolog_stream_handler:
       class: Monolog\Handler\StreamHandler
@@ -98,10 +110,11 @@ services:
         - [ pushHandler, [ @monolog_mail_handler ] ]
         - [ pushProcessor, [ @monolog_object_processor ] ]
 
-    dataobjectgenerator:
-      class: %dataobjectgenerator.class%
+    dataobject_storage_generator:
+      class: %dataobject_storage_generator.class%
       
-    storage_processor:
-      class: %storage.class%
+    dataobject_storage_processor:
+      class: %dataobject_storage_processor.class%
+     
 
       

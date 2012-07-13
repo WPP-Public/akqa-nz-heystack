@@ -7,9 +7,9 @@
 /**
  * Heystack\Subsystem\Core\Storage\DataObjectCodeGenerator namespace
  */
-namespace Heystack\Subsystem\Core\Storage\DataObjectCodeGenerator;
+namespace Heystack\Subsystem\Core\Storage\DataObjectStorage;
 
-use Heystack\Subsystem\Core\Storage\ProcessorInterface;
+use Heystack\Subsystem\Core\Storage\Processor\ProcessorInterface;
 
 /**
  * DataObjectStorageProcessor processes dataobjects and stores their defined
@@ -34,7 +34,8 @@ class DataObjectStorageProcessor implements ProcessorInterface
      */
     public function process($dataObject)
     {
-        $saveable = "Stored" . $dataObject->ClassName;
+        
+        $saveable = "Stored" . array_pop(explode('\\', $dataObject->ClassName));
         $storedObject = new $saveable();
 
         // save all $db fields from a silverstripe object
@@ -56,7 +57,7 @@ class DataObjectStorageProcessor implements ProcessorInterface
 
             foreach ($fields as $key => $value) {
 
-                $data_name = $name . "_" . $key;
+                $data_name = $name . "-" . $key;
                 $storedObject->$data_name = $data->$key;
 
             }
@@ -86,9 +87,7 @@ class DataObjectStorageProcessor implements ProcessorInterface
             $storedDataObjects = new \DataObjectSet();
             if (!$dataObject->many_many($manyKey)) {
 
-                // this works for $has_many
                 $storedDataObjects->merge(\DataObject::get($className, "{$dataObject->ClassName}ID = $dataObject->ID"));
-                //echo "$className = '{$dataObject->ClassName}ID' = $dataObject->ID" . "\n";
 
             } else {
 
@@ -105,15 +104,16 @@ class DataObjectStorageProcessor implements ProcessorInterface
                     $storedManyObject = new $saveable();
 
                     // save the ID of the object we are related to
-                    $objectIDName = "Stored" . get_class($dataObject) . "ID";
+                    $objectIDName = "Cached" . get_class($dataObject) . "ID";
                     $storedManyObject->$objectIDName = $storedObject->ID;
 
                     // get the storable fields of this object
                     $storableFields = $object->getStorableData();
 
                     foreach ($storableFields as $key => $value) {
-
-                        $storableName = $manyKey . "_" . $key;
+                        
+                        
+                        $storableName = $manyKey . "-" . $key;
 
                         $storedManyObject->$storableName = $object->$key;
 
@@ -136,7 +136,7 @@ class DataObjectStorageProcessor implements ProcessorInterface
      */
     public function getIdentifier()
     {
-        return "dataobjectstorage";
+        return "dataobject";
     }
 
 }

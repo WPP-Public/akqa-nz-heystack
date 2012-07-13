@@ -10,6 +10,6 @@ if (strpos($_SERVER['REQUEST_URI'], 'dev/build')) {
     ManifestBuilder::create_manifest_file();
     require(MANIFEST_FILE);
 
-    Heystack\Subsystem\Core\ServiceStore::getService('dataobjectgenerator')->process();
+    Heystack\Subsystem\Core\ServiceStore::getService('storage_generator_handler')->process();
 
 }
