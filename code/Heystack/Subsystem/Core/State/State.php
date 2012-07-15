@@ -3,7 +3,6 @@
 namespace Heystack\Subsystem\Core\State;
 
 use Heystack\Subsystem\Core\State\BackendInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class State
 {
