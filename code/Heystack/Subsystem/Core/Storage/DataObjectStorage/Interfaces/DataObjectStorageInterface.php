@@ -8,7 +8,7 @@
 /**
  * Interface namespace
  */
-namespace Heystack\Subsystem\Core\Storage\DataObjectCodeGenerator\Interfaces;
+namespace Heystack\Subsystem\Core\Storage\DataObjectStorage\Interfaces;
 
 /**
  * DataObjectCodeGeneratorInterface imposes implementation details for
@@ -23,7 +23,7 @@ namespace Heystack\Subsystem\Core\Storage\DataObjectCodeGenerator\Interfaces;
  * @package Heystack
  *
  */
-interface DataObjectCodeGeneratorInterface
+interface DataObjectStorageInterface
 {
     /**
      * Get the relevant storable data

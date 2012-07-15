@@ -55,3 +55,5 @@ if (file_exists($file) && !isset($_GET['flush'])) {
 }
 
 Heystack\Subsystem\Core\ServiceStore::set($container);
+
+return $container;
