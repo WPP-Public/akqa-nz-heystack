@@ -59,7 +59,7 @@ services:
 
     state:
         class: %state.class%
-        arguments: [@backend_session, @event_dispatcher]
+        arguments: [@backend_session]
 
     config:
         class: %config.class%

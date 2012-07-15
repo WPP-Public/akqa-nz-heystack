@@ -9,13 +9,11 @@ class State
 {
 
     private $backend = null;
-    private $dispatcher = null;
 
-    public function __construct(BackendInterface $backend, EventDispatcherInterface $dispatcher)
+    public function __construct(BackendInterface $backend)
     {
 
         $this->backend = $backend;
-        $this->dispatcher = $dispatcher;
 
     }
 
@@ -38,8 +36,6 @@ class State
 
         $this->backend->setByKey($key, serialize($val));
 
-        $this->dispatcher->dispatch(Events::STATE_SET);
-
     }
 
     public function getByKey($key)
@@ -53,8 +49,6 @@ class State
     {
 
         $this->backend->removeByKey($key);
-
-        $this->dispatcher->dispatch(Events::STATE_REMOVE);
 
     }
 
