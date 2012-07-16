@@ -37,14 +37,14 @@ class DataObjectStorageGenerator implements GeneratorInterface
 
     /**
      * Get the identifier for this processor
-     * 
+     *
      * @return string Identfier
      */
     public function getIdentifier()
     {
         return "dataobjectcodegenerator";
     }
-    
+
     /**
      * Add a dataobject to the process list.
      *
@@ -80,7 +80,6 @@ class DataObjectStorageGenerator implements GeneratorInterface
         $this->dataObjects = $dataObjects;
 
     }
- 
 
     /**
      * Process the dataobjects stored in the process list and output new cached
@@ -98,23 +97,23 @@ class DataObjectStorageGenerator implements GeneratorInterface
             unlink($cachedFile);
 
         }
-        
+
         $dir_mysite = BASE_PATH . DIRECTORY_SEPARATOR . "mysite/code/HeystackStorage";
         $dir_cache = realpath(BASE_PATH . DIRECTORY_SEPARATOR . 'heystack/cache');
-        
+
         // check if the generated directoru exists, if not create it
         if (!is_dir($dir_mysite)) {
             mkdir($dir_mysite );
         }
-        
+
         // check if the cached directoru exists, if not create it
         if (!is_dir($dir_cache)) {
             mkdir($dir_cache );
         }
-        
+
         foreach ($this->dataObjects as $dataObject) {
 
-            
+
 
             // get the storable db for the object
             $db = $dataObject->getStorableData();
@@ -150,15 +149,15 @@ class DataObjectStorageGenerator implements GeneratorInterface
                 }
 
             }
-            
+
             // names for the created objects
             $cachedObjectName = "Cached" . array_pop(explode('\\', get_class($dataObject)));
             $storedObjectName = "Stored" . array_pop(explode('\\', get_class($dataObject)));
             $cachedRelatedObjectName = "Cached" . array_pop(explode('\\', get_class($dataObject))) . "RelatedData";
             $storedRelatedObjectName = "Stored" . array_pop(explode('\\', get_class($dataObject))) . "RelatedData";
 
-            
-               
+
+
             // create the cached object
             file_put_contents($dir_cache . DIRECTORY_SEPARATOR . $cachedObjectName . '.php', singleton('ViewableData')->renderWith('CachedDataObject_php', array(
                 'DataObjectName' => $cachedObjectName,
@@ -168,11 +167,11 @@ class DataObjectStorageGenerator implements GeneratorInterface
                 'has_one' => false,
                 'has_many' => var_export(array($storedRelatedObjectName => $storedRelatedObjectName), true),
             )));
-            
+
             // create the storage object
             if (!file_exists($dir_mysite . DIRECTORY_SEPARATOR . $storedObjectName . '.php')) {
-                
-                
+
+
                 file_put_contents($dir_mysite . DIRECTORY_SEPARATOR . $storedObjectName . '.php', singleton('ViewableData')->renderWith('StoredDataObject_php', array(
                     'DataObjectName' => $storedObjectName,
                     'D' => '$',
@@ -181,11 +180,11 @@ class DataObjectStorageGenerator implements GeneratorInterface
                     'has_one' => false,
                     'has_many' => false,
                     'summary_fields' => var_export(array_keys($db), true),
-                    
+
                 )));
-                
+
             }
-  
+
             $manyRelations = $dataObject->getStorableManyRelations();
 
             $db = array();
@@ -204,7 +203,7 @@ class DataObjectStorageGenerator implements GeneratorInterface
 
                 }
             }
-            
+
             if ($dataObject instanceof ExtraDataInterface) {
 
                 $extraData = $dataObject->getExtraData();
@@ -216,9 +215,9 @@ class DataObjectStorageGenerator implements GeneratorInterface
                 }
 
             }
-            
+
             if (count($db) > 0) {
-            
+
                 // create the cached object
                 file_put_contents($dir_cache . DIRECTORY_SEPARATOR . $cachedRelatedObjectName . '.php', singleton('ViewableData')->renderWith('CachedDataObject_php', array(
                             'DataObjectName' => $cachedRelatedObjectName,
@@ -227,7 +226,7 @@ class DataObjectStorageGenerator implements GeneratorInterface
                             'P' => '<?php',
                             'has_one' => var_export(array($cachedObjectName => $cachedObjectName), true),
                             'has_many' => false
-                )));       
+                )));
 
                 // create the storage object
                 if (!file_exists($dir_mysite . DIRECTORY_SEPARATOR . $storedRelatedObjectName . '.php')) {

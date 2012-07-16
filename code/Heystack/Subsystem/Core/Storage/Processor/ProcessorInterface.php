@@ -25,10 +25,10 @@ interface ProcessorInterface
      * @return string Identifier of processor
      */
     public function getIdentifier();
-    
+
     /**
      * Execute the main functionality of the storage process
-     * 
+     *
      * @param object $object The object to store
      */
     public function process($object);

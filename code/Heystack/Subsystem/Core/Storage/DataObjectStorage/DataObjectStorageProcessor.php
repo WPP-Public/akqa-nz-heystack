@@ -34,7 +34,7 @@ class DataObjectStorageProcessor implements ProcessorInterface
      */
     public function process($dataObject)
     {
-        
+
         $saveable = "Stored" . array_pop(explode('\\', $dataObject->ClassName));
         $storedObject = new $saveable();
 
@@ -111,8 +111,7 @@ class DataObjectStorageProcessor implements ProcessorInterface
                     $storableFields = $object->getStorableData();
 
                     foreach ($storableFields as $key => $value) {
-                        
-                        
+
                         $storableName = $manyKey . "-" . $key;
 
                         $storedManyObject->$storableName = $object->$key;

@@ -24,7 +24,7 @@ interface GeneratorInterface
      * @return string Identifier of generator
      */
     public function getIdentifier();
-    
+
     /**
      * Execute the main functionality of the storage generators
      */

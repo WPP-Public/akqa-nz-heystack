@@ -42,17 +42,17 @@ class Handler
         $this->processors[$processor->getIdentifier()] = $processor;
 
     }
-    
+
     /**
     * Process all generators
     */
     public function process()
     {
 
-        foreach ($this->processors as $processor ) {
+        foreach ($this->processors as $processor) {
             $processor->process();
         }
-        
+
     }
 
 }
