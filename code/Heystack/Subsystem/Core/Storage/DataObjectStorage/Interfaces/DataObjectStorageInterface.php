@@ -23,7 +23,7 @@ namespace Heystack\Subsystem\Core\Storage\DataObjectStorage\Interfaces;
  * @package Heystack
  *
  */
-interface DataObjectStorageInterface
+interface DataObjectStorageInterface extends StorableInterface
 {
     /**
      * Get the relevant storable data
