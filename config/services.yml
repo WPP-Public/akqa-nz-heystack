@@ -8,9 +8,6 @@ parameters:
     input_processor_handler.class: Heystack\Subsystem\Core\Input\Handler
     output_processor_handler.class: Heystack\Subsystem\Core\Output\Handler
 
-    storage_processor_handler.class: Heystack\Subsystem\Core\Storage\Processor\Handler
-    storage_generator_handler.class: Heystack\Subsystem\Core\Storage\Generator\Handler
-
     session.class: Session
 
     monolog.class: Monolog\Logger
@@ -31,9 +28,9 @@ parameters:
     memcache.class: Memcache
     memcache.host: localhost
     memcache.port: 11211
-
-    dataobject_storage_generator.class: Heystack\Subsystem\Core\Storage\DataObjectStorage\DataObjectStorageGenerator
-    dataobject_storage_processor.class: Heystack\Subsystem\Core\Storage\DataObjectStorage\DataObjectStorageProcessor
+    
+    dataobject_generator.class: Heystack\Subsystem\Core\Generate\DataObjectGenerator
+    dataobject_generator_input_processor.class: Heystack\Subsystem\Core\Generate\Input\Processor
 
 services:
 
@@ -110,8 +107,11 @@ services:
 #    dataobject_storage_processor:
 #      class: %dataobject_storage_processor.class%
 
+    dataobject_generator:
+      class: %dataobject_generator.class%
+
     dataobject_generator_input_processor:
-      class: Heystack\Subsystem\Core\Generate\Input\Processor
+      class: %dataobject_generator_input_processor.class%
       arguments: [ @dataobject_generator ]
 
     cli_input_processor_handler:
@@ -119,5 +119,4 @@ services:
       calls:
         - [ addProcessor, [ @dataobject_generator_input_processor ] ]
 
-    dataobject_generator:
-      class: Heystack\Subsystem\Core\Generate\DataObjectGenerator
+   
