@@ -4,33 +4,33 @@ namespace Heystack\Subsystem\Core\Generate;
 
 class DataObjectGenerator
 {
-    
+
     private $generators = array();
-    
+
     public function addGenerator(GODSchemaInterface $generator)
     {
-        
+
         $this->generators[] = $generator;
-        
+
     }
-    
+
     public function addYamlGenerator($file)
     {
-        
+
         $this->addGenerator(new YamlGODSchema($file));
-        
+
     }
-    
+
     public function addDataObjectGenerator($className)
     {
-        
+
         $this->addGenerator(new DataObjectSchema($className));
-        
+
     }
-    
+
     public function process()
     {
-        
+
         // get all the previously created objects and delete them
         $cachedFiles = glob(BASE_PATH . '/heystack/cache/Stored*', GLOB_NOSORT);
 
@@ -52,13 +52,12 @@ class DataObjectGenerator
         if (!is_dir($dir_cache)) {
             mkdir($dir_cache );
         }
-        
+
         foreach ($this->generators as $generator) {
-            
+
             $flatStorage = $generator->getFlatStorage();
             $relatedStorage = $generator->getRelatedStorage();
             $identifier = $generator->getIdentifier();
-
 
             // names for the created objects
             $cachedObjectName = 'Cached' . $identifier;
@@ -106,7 +105,6 @@ class DataObjectGenerator
                 // create the storage object
                 if (!file_exists($dir_mysite . DIRECTORY_SEPARATOR . $storedRelatedObjectName . '.php')) {
 
-
                     file_put_contents($dir_mysite . DIRECTORY_SEPARATOR . $storedRelatedObjectName . '.php', singleton('ViewableData')->renderWith('StoredDataObject_php', array(
                         'DataObjectName' => $storedRelatedObjectName,
                         'D' => '$',
@@ -119,9 +117,9 @@ class DataObjectGenerator
 
                 }
             }
-            
+
         }
-        
+
     }
-    
+
 }

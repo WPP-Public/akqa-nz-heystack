@@ -11,7 +11,6 @@
  */
 namespace Heystack\Subsystem\Core\Processor;
 
-
 /**
  * Provides standard processor handling functionality.
  *
@@ -42,7 +41,7 @@ trait HandlerTrait
     /**
      * Return a processor by an identifier if it exists
      * @param  string $name The processor identifier
-     * @return mixed       The processor if it exists
+     * @return mixed  The processor if it exists
      */
     public function getProcessor($name)
     {
@@ -54,7 +53,7 @@ trait HandlerTrait
     /**
      * Check if a processor is on the array
      * @param  string  $name The processor identifier
-     * @return boolean       Whether or not the processor exists
+     * @return boolean Whether or not the processor exists
      */
     public function hasProcessor($name)
     {
@@ -75,7 +74,7 @@ trait HandlerTrait
     }
 
     /**
-     * Set processors explicitly. This method uses the addProcessor method which 
+     * Set processors explicitly. This method uses the addProcessor method which
      * should enforce what type of objects can be added to the array
      * @uses self::addProcessor
      * @param array $processors An array of processors

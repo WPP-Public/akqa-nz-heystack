@@ -14,7 +14,7 @@ if (is_array($subsystems)) {
             $filename = $dir . '/config/extensions.php';
 
             if (file_exists($filename)) {
-                
+
                 $extensions = $extensions + require_once $filename;
 
             }

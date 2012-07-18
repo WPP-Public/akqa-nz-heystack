@@ -13,10 +13,10 @@ namespace Heystack\Subsystem\Core\Storage\Backends;
 use Heystack\Subsystem\Core\Storage;
 
 /**
- * 
  *
- * 
- * 
+ *
+ *
+ *
  * @author Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack
  */
@@ -27,8 +27,6 @@ class SilverStripeOrmBackend implements BackendInterface
     {
 
         $data = $object->getStorableData();
-
-        
 
     }
 
