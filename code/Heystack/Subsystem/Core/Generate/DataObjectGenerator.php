@@ -21,6 +21,13 @@ class DataObjectGenerator
         
     }
     
+    public function addDataObjectGenerator($className)
+    {
+        
+        $this->addGenerator(new DataObjectSchema($className));
+        
+    }
+    
     public function process()
     {
         

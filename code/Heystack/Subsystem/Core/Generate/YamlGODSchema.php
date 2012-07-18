@@ -12,7 +12,13 @@ class YamlGODSchema implements GODSchemaInterface
     public function __construct($file)
     {
             
-        $config = Yaml::parse($file);
+        $config = Yaml::parse(BASE_PATH . '/' . $file);
+        
+        if (!is_array($config)) {
+            
+            throw new \Exception('Config sucks ballzors');
+            
+        }
         
         if (!array_key_exists('id', $config)) {
             

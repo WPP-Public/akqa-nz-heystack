@@ -18,26 +18,42 @@ use Heystack\Subsystem\Core\ServiceStore;
  * @package Heystack
  *
  */
-class CliInputController extends CliController
+class CliInputController extends Controller
 {
 
     public static $url_segment = 'heystack/cli/input';
 
-    private $stateService;
     private $inputHandlerService;
-    private $outputHandlerService;
+    
+    static $allowed_actions = array(
+        'process'
+    );
 
     /**
      * Setup this controller.
      */
     public function __construct()
     {
-
+        
         parent::__construct();
 
         $this->inputHandlerService = ServiceStore::getService('cli_input_processor_handler');
 
     }
+    
+    public function init()
+    {
+        
+		parent::init();
+        
+		// Unless called from the command line, all CliControllers need ADMIN privileges
+		if(!Director::is_cli() && !Permission::check("ADMIN")) {
+            
+			return Security::permissionFailure();
+            
+		}
+        
+	}
 
     /**
      * Process the request to the controller and direct it to the correct input
@@ -47,8 +63,10 @@ class CliInputController extends CliController
      */
     public function process()
     {
+        
+        $request = $this->getRequest();
 
-        return $this->inputHandlerService->process($request->param('Processor'), $this->getRequest());
+        return $this->inputHandlerService->process($request->param('Processor'), $request);
 
     }
 
