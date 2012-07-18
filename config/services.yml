@@ -81,16 +81,6 @@ services:
     output_processor_handler:
       class: %output_processor_handler.class%
 
-    storage_processor_handler:
-      class: %storage_processor_handler.class%
-      calls:
-        - [ addProcessor, [ @dataobject_storage_processor ] ]
-        
-    storage_generator_handler:
-      class: %storage_generator_handler.class%
-      calls:
-        - [ addProcessor, [ @dataobject_storage_generator ] ]
-
     monolog_stream_handler:
       class: Monolog\Handler\StreamHandler
       arguments: [ %monolog.stream_handler.file_location%,  %monolog.level.debug%]
@@ -110,11 +100,26 @@ services:
         - [ pushHandler, [ @monolog_mail_handler ] ]
         - [ pushProcessor, [ @monolog_object_processor ] ]
 
-    dataobject_storage_generator:
-      class: %dataobject_storage_generator.class%
+#    storage_processor_handler:
+#      class: %storage_processor_handler.class%
+#      calls:
+#        - [ addProcessor, [ @dataobject_storage_processor ] ]
+#        
+#    storage_generator_handler:
+#      class: %storage_generator_handler.class%
+#      calls:
+#        - [ addProcessor, [ @dataobject_storage_generator ] ]
+
+#    dataobject_storage_generator:
+#      class: %dataobject_storage_generator.class%
+#      
+#    dataobject_storage_processor:
+#      class: %dataobject_storage_processor.class%
       
-    dataobject_storage_processor:
-      class: %dataobject_storage_processor.class%
+    dataobject_generator:
+      class: Heystack\Subsystem\Core\Generate\DataObjectGenerator
+      
+    
      
 
       

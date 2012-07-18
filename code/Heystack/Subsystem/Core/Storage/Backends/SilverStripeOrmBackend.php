@@ -23,7 +23,7 @@ use Heystack\Subsystem\Core\Storage;
 class SilverStripeOrmBackend implements BackendInterface
 {
 
-    public function write(StorageInterface $object)
+    public function write(DataObjectStorableInterface $object)
     {
 
         $data = $object->getStorableData();
