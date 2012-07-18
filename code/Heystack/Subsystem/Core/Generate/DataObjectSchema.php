@@ -1,8 +1,24 @@
 <?php
 
+/**
+ * This file is part of the Heystack package
+ *
+ * @package Heystack
+ */
+
+/**
+ * Generate namespace
+ */
 namespace Heystack\Subsystem\Core\Generate;
 
-class DataObjectSchema implements GODSchemaInterface
+/**
+ * Uses a SilverStripe DataObject to return schema for creation
+ *
+ * @author Cam Spiers <cameron@heyday.co.nz>
+ * @author Stevie Mayhew <stevie@heyday.co.nz>
+ * @package Heystack
+ */
+class DataObjectSchema implements DataObjectGeneratorSchemaInterface
 {
 
     private $dataObject;
@@ -39,9 +55,7 @@ class DataObjectSchema implements GODSchemaInterface
     public function getRelatedStorage()
     {
 
-        return false;
-
-        return isset($this->config['related']) ? $this->config['related'] : false;
+        return false; //TODO: Related stuff
 
     }
 

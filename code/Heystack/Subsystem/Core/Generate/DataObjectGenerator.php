@@ -1,30 +1,48 @@
 <?php
 
+/**
+ * This file is part of the Heystack package
+ *
+ * @package Heystack
+ */
+
+/**
+ * Generate namespace
+ */
 namespace Heystack\Subsystem\Core\Generate;
 
+/**
+ * Generates SilverStripe DataObject classes based of schemas
+ *
+ * Generates SilverStripe DataObject classes and extensions based on added schemas
+ *
+ * @author Cam Spiers <cameron@heyday.co.nz>
+ * @author Stevie Mayhew <stevie@heyday.co.nz>
+ * @package Heystack
+ */
 class DataObjectGenerator
 {
 
-    private $generators = array();
+    private $schemas = array();
 
-    public function addGenerator(GODSchemaInterface $generator)
+    public function addSchema(DataObjectGeneratorSchemaInterface $schema)
     {
 
-        $this->generators[] = $generator;
+        $this->schemas[] = $schema;
 
     }
 
-    public function addYamlGenerator($file)
+    public function addYamlSchema($file)
     {
 
-        $this->addGenerator(new YamlGODSchema($file));
+        $this->addSchema(new YamlDataObjectGeneratorSchema($file));
 
     }
 
-    public function addDataObjectGenerator($className)
+    public function addDataObjectSchema($className)
     {
 
-        $this->addGenerator(new DataObjectSchema($className));
+        $this->addSchema(new DataObjectSchema($className));
 
     }
 
@@ -53,11 +71,11 @@ class DataObjectGenerator
             mkdir($dir_cache );
         }
 
-        foreach ($this->generators as $generator) {
+        foreach ($this->schemas as $schema) {
 
-            $flatStorage = $generator->getFlatStorage();
-            $relatedStorage = $generator->getRelatedStorage();
-            $identifier = $generator->getIdentifier();
+            $flatStorage = $schema->getFlatStorage();
+            $relatedStorage = $schema->getRelatedStorage();
+            $identifier = $schema->getIdentifier();
 
             // names for the created objects
             $cachedObjectName = 'Cached' . $identifier;

@@ -7,26 +7,20 @@ parameters:
     event_dispatcher.class: Symfony\Component\EventDispatcher\EventDispatcher
     input_processor_handler.class: Heystack\Subsystem\Core\Input\Handler
     output_processor_handler.class: Heystack\Subsystem\Core\Output\Handler
-    
-    
-    
+
     storage_processor_handler.class: Heystack\Subsystem\Core\Storage\Processor\Handler
     storage_generator_handler.class: Heystack\Subsystem\Core\Storage\Generator\Handler
-    
-    
-    
-    
-    
+
     session.class: Session
-    
+
     monolog.class: Monolog\Logger
     monolog.name: global
-    
+
     monolog.mail_handler.to: [ss-errors@heyday.co.nz, glenn@heyday.co.nz]
     monolog.mail_handler.from: noreply@heyday.net.nz
     monolog.mail_handler.subject: Heystack Error
     monolog.stream_handler.file_location: ../heystack/monolog.log
-    
+
     monolog.level.debug: 100
     monolog.level.info: 200
     monolog.level.warning: 300
@@ -84,14 +78,14 @@ services:
     monolog_stream_handler:
       class: Monolog\Handler\StreamHandler
       arguments: [ %monolog.stream_handler.file_location%,  %monolog.level.debug%]
-      
+
     monolog_object_processor:
       class: Monolog\Processor\ObjectProcessor
-      
+
     monolog_mail_handler:
       class: Monolog\Handler\NativeMailerHandler
       arguments: [ %monolog.mail_handler.to%, %monolog.mail_handler.subject%, %monolog.mail_handler.from%, %monolog.level.error% ]
-      
+
     monolog:
       class: %monolog.class%
       arguments: [ %monolog.name% ]
@@ -115,7 +109,7 @@ services:
 #      
 #    dataobject_storage_processor:
 #      class: %dataobject_storage_processor.class%
-  
+
     dataobject_generator_input_processor:
       class: Heystack\Subsystem\Core\Generate\Input\Processor
       arguments: [ @dataobject_generator ]
@@ -124,11 +118,6 @@ services:
       class: Heystack\Subsystem\Core\Input\CliHandler
       calls:
         - [ addProcessor, [ @dataobject_generator_input_processor ] ]
-      
+
     dataobject_generator:
       class: Heystack\Subsystem\Core\Generate\DataObjectGenerator
-      
-    
-     
-
-      
