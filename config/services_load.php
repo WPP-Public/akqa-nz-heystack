@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 
 use Heystack\Subsystem\Core\MergeExtensionCallsConfigurationPass;
+use Heystack\Subsystem\Core\MergeExtensionArgumentsConfigurationPass;
 use Heystack\Subsystem\Core\Config;
 
 $file = HEYSTACK_BASE_PATH . '/cache/container.php';
@@ -40,6 +41,7 @@ if (file_exists($file) && !isset($_GET['flush'])) {
     $loader->load('services.yml');
 
     $container->addCompilerPass(new MergeExtensionCallsConfigurationPass());
+    $container->addCompilerPass(new MergeExtensionArgumentsConfigurationPass());
 
     $container->compile();
 
