@@ -14,8 +14,8 @@ if (is_array($subsystems)) {
             $filename = $dir . '/config/extensions.php';
 
             if (file_exists($filename)) {
-
-                $extensions = array_merge($extensions, require_once $filename);
+                
+                $extensions = $extensions + require_once $filename;
 
             }
 
@@ -25,6 +25,8 @@ if (is_array($subsystems)) {
 
 }
 
-$extensions[] = '\Heystack\Subsystem\Core\ContainerExtension';
+$extensions[0] = '\Heystack\Subsystem\Core\ContainerExtension';
+
+ksort($extensions);
 
 return $extensions;

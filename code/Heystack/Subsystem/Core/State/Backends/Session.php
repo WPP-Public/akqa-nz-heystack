@@ -13,8 +13,14 @@ class Session implements BackendInterface
     {
 
         $this->session = $session;
+        
+        if (!isset($_SESSION)) {
+            
+            session_start();
+            
+        }
 
-        if (isset($_SESSION)) {
+        if (is_array($_SESSION)) {
 
             foreach ($_SESSION as $key => $val) {
 
