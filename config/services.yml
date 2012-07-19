@@ -1,0 +1,139 @@
+parameters:
+
+    config.class: Heystack\Subsystem\Core\Config
+    state.class: Heystack\Subsystem\Core\State\State
+    backend_session.class: Heystack\Subsystem\Core\State\Backends\Session
+    backend_memcache.class: Heystack\Subsystem\Core\State\Backends\Memcache
+    event_dispatcher.class: Symfony\Component\EventDispatcher\EventDispatcher
+    input_processor_handler.class: Heystack\Subsystem\Core\Input\Handler
+    output_processor_handler.class: Heystack\Subsystem\Core\Output\Handler
+
+    session.class: Session
+
+    monolog.class: Monolog\Logger
+    monolog.name: global
+
+    monolog.mail_handler.to: [ss-errors@heyday.co.nz, glenn@heyday.co.nz]
+    monolog.mail_handler.from: noreply@heyday.net.nz
+    monolog.mail_handler.subject: Heystack Error
+    monolog.stream_handler.file_location: ../heystack/monolog.log
+
+    monolog.level.debug: 100
+    monolog.level.info: 200
+    monolog.level.warning: 300
+    monolog.level.error: 400
+    monolog.level.critical: 500
+    monolog.level.alert: 550
+
+    memcache.class: Memcache
+    memcache.host: localhost
+    memcache.port: 11211
+    
+    dataobject_generator.class: Heystack\Subsystem\Core\Generate\DataObjectGenerator
+    dataobject_generator_input_processor.class: Heystack\Subsystem\Core\Generate\Input\Processor
+    
+    
+    
+    storage_processor_handler.class: Heystack\Subsystem\Core\Storage\Processor\Handler
+    ss_orm_backend.class: Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrmBackend
+
+
+
+services:
+
+    memcache:
+        class: %memcache.class%
+        calls: 
+            - [ connect, [ %memcache.host%, %memcache.port% ] ]
+
+    session:
+        class: %session.class%
+        arguments: [[]]
+
+    backend_memcache:
+        class: %backend_memcache.class%
+        arguments: [@memcache, @session]
+
+    backend_global_memcache:
+        class: %backend_memcache.class%
+        arguments: [@memcache]
+
+    backend_session:
+        class: %backend_session.class%
+        arguments: [@session]
+
+    state:
+        class: %state.class%
+        arguments: [@backend_session]
+
+    config:
+        class: %config.class%
+        arguments: []
+
+    event_dispatcher:
+        class: %event_dispatcher.class%
+
+    input_processor_handler:
+      class: %input_processor_handler.class%
+
+    output_processor_handler:
+      class: %output_processor_handler.class%
+
+    monolog_stream_handler:
+      class: Monolog\Handler\StreamHandler
+      arguments: [ %monolog.stream_handler.file_location%,  %monolog.level.debug%]
+
+    monolog_object_processor:
+      class: Monolog\Processor\ObjectProcessor
+
+    monolog_mail_handler:
+      class: Monolog\Handler\NativeMailerHandler
+      arguments: [ %monolog.mail_handler.to%, %monolog.mail_handler.subject%, %monolog.mail_handler.from%, %monolog.level.error% ]
+
+    monolog:
+      class: %monolog.class%
+      arguments: [ %monolog.name% ]
+      calls:
+        - [ pushHandler, [ @monolog_stream_handler ] ]
+        - [ pushHandler, [ @monolog_mail_handler ] ]
+        - [ pushProcessor, [ @monolog_object_processor ] ]
+
+#    storage_processor_handler:
+#      class: %storage_processor_handler.class%
+#      calls:
+#        - [ addProcessor, [ @dataobject_storage_processor ] ]
+#        
+#    storage_generator_handler:
+#      class: %storage_generator_handler.class%
+#      calls:
+#        - [ addProcessor, [ @dataobject_storage_generator ] ]
+
+#    dataobject_storage_generator:
+#      class: %dataobject_storage_generator.class%
+#      
+#    dataobject_storage_processor:
+#      class: %dataobject_storage_processor.class%
+
+    dataobject_generator:
+      class: %dataobject_generator.class%
+
+    dataobject_generator_input_processor:
+      class: %dataobject_generator_input_processor.class%
+      arguments: [ @dataobject_generator ]
+
+    cli_input_processor_handler:
+      class: Heystack\Subsystem\Core\Input\CliHandler
+      calls:
+        - [ addProcessor, [ @dataobject_generator_input_processor ] ]
+
+
+
+
+    ss_orm_backend:
+      class: %ss_orm_backend.class%
+
+
+    storage_processor_handler:
+      class: %storage_processor_handler.class%
+      calls:
+        - [ addProcessor, [ @ss_orm_backend ] ]
