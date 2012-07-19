@@ -10,7 +10,7 @@
  */
 namespace Heystack\Subsystem\Core\Storage\Processor;
 
-use Heystack\Subsystem\Core\Storage\Processor\ProcessorInterface;
+use Heystack\Subsystem\Core\Storage\BackendInterface;
 
 use Heystack\Subsystem\Core\Processor\HandlerTrait;
 
@@ -36,7 +36,7 @@ class Handler
      * Adds an input processor to the array of processors, storing it by its identifier
      * @param ProcessorInterface $processor The input processor
      */
-    public function addProcessor(ProcessorInterface $processor)
+    public function addProcessor(BackendInterface $processor)
     {
 
         $this->processors[$processor->getIdentifier()] = $processor;
