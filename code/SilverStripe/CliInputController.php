@@ -65,7 +65,7 @@ class CliInputController extends Controller
     {
 
         $request = $this->getRequest();
-
+ 
         return $this->inputHandlerService->process($request->param('Processor'), $request);
 
     }
