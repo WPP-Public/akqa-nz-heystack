@@ -58,5 +58,12 @@ class DataObjectSchema implements DataObjectGeneratorSchemaInterface
         return false; //TODO: Related stuff
 
     }
+    
+    public function getParentStorage()
+    {
+
+        return false; //TODO: Related stuff
+
+    }
 
 }

@@ -78,5 +78,19 @@ class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterfac
         return isset($this->config['related']) ? $this->config['related'] : false;
 
     }
+    
+    public function getParentStorage()
+    {
+
+        return isset($this->config['parent']) ? $this->config['parent'] : false;
+
+    }
+    
+    public function getChildStorage()
+    {
+
+        return isset($this->config['children']) ? $this->config['children'] : array();
+
+    }
 
 }

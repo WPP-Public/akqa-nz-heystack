@@ -47,19 +47,19 @@ class Handler
      * Process a storage processor by identifier if it exists
      *
      * @param  object  $object     The object to store
-     * @param  string  $identifier The type of object
+     * @param  string  $identifier The type of object to store as
      * @return boolean
      */
-    public function process($object, $identifier = false)
-    {
+    public function process($object, $identifier = false, $parentID = false)
+    {   
 
-        if (!$identifer) {
-            $identifer = $object->getStorageIdentifier();
+        if (!$identifier) {
+            $identifier = $object->getStorageIdentifier();
         }
-
+        
         if ($this->hasProcessor($identifier)) {
-
-            return $this->processors[$identifier]->process($object);
+            
+            return $this->processors[$identifier]->write($object, $parentID);
 
         } else {
 

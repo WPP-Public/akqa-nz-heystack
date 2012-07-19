@@ -10,7 +10,8 @@
  */
 namespace Heystack\Subsystem\Core\Storage\Backends;
 
-use Heystack\Subsystem\Core\Storage;
+use Heystack\Subsystem\Core\Storage\StorableInterface;
+use Heystack\Subsystem\Core\Storage\BackendInterface;
 
 /**
  *
@@ -23,10 +24,56 @@ use Heystack\Subsystem\Core\Storage;
 class SilverStripeOrmBackend implements BackendInterface
 {
 
-    public function write(DataObjectStorableInterface $object)
+    public function getIdentifier() 
+    {
+        return "dataobject";  
+    }
+    
+    public function write(StorableInterface $object, $parentID = false)
     {
 
         $data = $object->getStorableData();
+        
+        $saveable = "Stored" . $data['id'];
+
+        $storedObject = new $saveable();
+
+        foreach ($data['flat'] as $key => $value) {
+            $storedObject->$key = $data['flat'][$key];
+        }
+        
+        if ($data['parent']) {
+            
+            $storedObject->ParentID = $parentID;
+
+        }
+
+        $storedObject->write();
+
+        if ($data['related']) {
+            
+            foreach ($data['related'] as $relatedData) {
+
+                $saveable = "Stored" . $data['id'] . "RelatedData";
+                $storedManyObject = new $saveable();
+                
+                foreach ($relatedData['flat'] as $key => $value) {
+                    
+                    $objectIDName = "Stored" . $data['id'] . "ID";
+                    $storedManyObject->$objectIDName = $storedObject->ID;
+                    
+                    $storableName = $relatedData['id'] . $key;
+                    $storedManyObject->$storableName = $value; 
+
+                }
+                
+                $storedManyObject->write();
+
+            }
+            
+        }
+        
+        return $storedObject->ID;
 
     }
 

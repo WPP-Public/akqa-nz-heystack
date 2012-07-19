@@ -31,6 +31,13 @@ parameters:
     
     dataobject_generator.class: Heystack\Subsystem\Core\Generate\DataObjectGenerator
     dataobject_generator_input_processor.class: Heystack\Subsystem\Core\Generate\Input\Processor
+    
+    
+    
+    storage_processor_handler.class: Heystack\Subsystem\Core\Storage\Processor\Handler
+    ss_orm_backend.class: Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrmBackend
+
+
 
 services:
 
@@ -119,4 +126,14 @@ services:
       calls:
         - [ addProcessor, [ @dataobject_generator_input_processor ] ]
 
-   
+
+
+
+    ss_orm_backend:
+      class: %ss_orm_backend.class%
+
+
+    storage_processor_handler:
+      class: %storage_processor_handler.class%
+      calls:
+        - [ addProcessor, [ @ss_orm_backend ] ]

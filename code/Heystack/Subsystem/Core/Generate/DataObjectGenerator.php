@@ -75,6 +75,8 @@ class DataObjectGenerator
 
             $flatStorage = $schema->getFlatStorage();
             $relatedStorage = $schema->getRelatedStorage();
+            $parentStorage = $schema->getParentStorage();
+            $childStorage = $schema->getChildStorage();
             $identifier = $schema->getIdentifier();
 
             // names for the created objects
@@ -82,15 +84,17 @@ class DataObjectGenerator
             $storedObjectName = 'Stored' . $identifier;
             $cachedRelatedObjectName = 'Cached' . $identifier . 'RelatedData';
             $storedRelatedObjectName = 'Stored' . $identifier . 'RelatedData';
-
+            
+            $has_many = array_merge($childStorage, array($storedRelatedObjectName => $storedRelatedObjectName));
+            
             // create the cached object
             file_put_contents($dir_cache . DIRECTORY_SEPARATOR . $cachedObjectName . '.php', singleton('ViewableData')->renderWith('CachedDataObject_php', array(
                 'DataObjectName' => $cachedObjectName,
                 'db' => var_export($flatStorage, true),
                 'D' => '$',
                 'P' => '<?php',
-                'has_one' => false,
-                'has_many' => var_export(array($storedRelatedObjectName => $storedRelatedObjectName), true)
+                'has_one' => $parentStorage,
+                'has_many' => var_export($has_many, true)
             )));
 
             // create the storage object
@@ -102,8 +106,7 @@ class DataObjectGenerator
                     'P' => '<?php',
                     'ExtendedDataObject' => $cachedObjectName,
                     'has_one' => false,
-                    'has_many' => false,
-                    'summary_fields' => var_export(array_keys($flatStorage), true)
+                    'has_many' => false
                 )));
 
             }
@@ -116,7 +119,7 @@ class DataObjectGenerator
                             'db' => var_export($relatedStorage, true),
                             'D' => '$',
                             'P' => '<?php',
-                            'has_one' => var_export(array($cachedObjectName => $cachedObjectName), true),
+                            'has_one' => var_export(array($storedObjectName => $storedObjectName), true),
                             'has_many' => false
                 )));
 
@@ -129,8 +132,7 @@ class DataObjectGenerator
                         'P' => '<?php',
                         'ExtendedDataObject' => $cachedRelatedObjectName,
                         'has_one' => false,
-                        'has_many' => false,
-                        'summary_fields' => var_export(array_keys($relatedStorage), true)
+                        'has_many' => false
                     )));
 
                 }
