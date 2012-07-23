@@ -28,6 +28,12 @@ class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterfac
     public function __construct($file)
     {
 
+        if (!file_exists(BASE_PATH . '/' . $file)) {
+
+            throw new \Exception('File doesn\'t exist');
+
+        }
+
         $config = Yaml::parse(BASE_PATH . '/' . $file);
 
         if (!is_array($config)) {
@@ -90,6 +96,13 @@ class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterfac
     {
 
         return isset($this->config['children']) ? $this->config['children'] : array();
+
+    }
+
+    public function getReferenceOnly()
+    {
+
+        return isset($this->config['reference']) ? true : false;
 
     }
 
