@@ -24,11 +24,19 @@ class DataObjectGenerator
 {
 
     private $schemas = array();
+    private $processingFlatStorage = array();
 
     public function addSchema(DataObjectGeneratorSchemaInterface $schema)
     {
 
-        $this->schemas[] = $schema;
+        $this->schemas[$schema->getIdentifier()] = $schema;
+
+    }
+
+    public function hasSchema($identifier)
+    {
+
+        return isset($this->schemas[$identifier]) ?  $this->schemas[$identifier] : false;
 
     }
 
@@ -66,7 +74,6 @@ class DataObjectGenerator
         // check if the generated directoru exists, if not create it
         if (!is_dir($dirMysite)) {
 
-
             $this->output('Creating: ' . $dirMysite);
 
             mkdir($dirMysite);
@@ -84,76 +91,81 @@ class DataObjectGenerator
 
         foreach ($this->schemas as $schema) {
 
-            $identifier = $schema->getIdentifier();
-            
-            $this->output('Processing schema: ' . $identifier);
+            if (!$schema->getReferenceOnly()) {
 
-            $flatStorage = $schema->getFlatStorage();
-            $relatedStorage = $schema->getRelatedStorage();
-            $parentStorage = $schema->getParentStorage();
-            $childStorage = $schema->getChildStorage();
+                $identifier = $schema->getIdentifier();
+                
+                $this->output('Processing schema: ' . $identifier);
 
-            // names for the created objects
-            $cachedObjectName = 'Cached' . $identifier;
-            $storedObjectName = 'Stored' . $identifier;
-            $cachedRelatedObjectName = 'Cached' . $identifier . 'RelatedData';
-            $storedRelatedObjectName = 'Stored' . $identifier . 'RelatedData';
-            
-            // create the cached object
-            $this->writeDataObject(
-                $dirCache,
-                $cachedObjectName,
-                $flatStorage,
-                $parentStorage,
-                array_merge(
-                    $childStorage,
-                    array(
-                        $storedRelatedObjectName => $storedRelatedObjectName
-                    )
-                )
-            );
+                $flatStorage    = $this->processFlatStorage($schema->getFlatStorage(), $identifier);
+                $relatedStorage = $this->processRelatedStorage($schema->getRelatedStorage(), $identifier);
+                $parentStorage  = $this->processParentStorage($schema->getParentStorage(), $identifier);
+                $childStorage   = $schema->getChildStorage();
 
-            // create the storage object
-            if ($force || !file_exists($dirMysite . DIRECTORY_SEPARATOR . $storedObjectName . '.php')) {
-
-                $this->writeDataObject(
-                    $dirMysite,
-                    $storedObjectName,
-                    false,
-                    false,
-                    false,
-                    $cachedObjectName
-                );
-
-            }
-
-            if (count($relatedStorage) > 0) {
-
+                // names for the created objects
+                $cachedObjectName           = 'Cached' . $identifier;
+                $storedObjectName           = 'Stored' . $identifier;
+                $cachedRelatedObjectName    = 'Cached' . $identifier . 'RelatedData';
+                $storedRelatedObjectName    = 'Stored' . $identifier . 'RelatedData';
+                
+                // create the cached object
                 $this->writeDataObject(
                     $dirCache,
-                    $cachedRelatedObjectName,
-                    $relatedStorage,
-                    array(
-                        $storedObjectName => $storedObjectName
+                    $cachedObjectName,
+                    $flatStorage,
+                    $parentStorage,
+                    array_merge(
+                        $childStorage,
+                        array(
+                            $storedRelatedObjectName => $storedRelatedObjectName
+                        )
                     )
                 );
 
                 // create the storage object
-                if ($force || !file_exists($dirMysite . DIRECTORY_SEPARATOR . $storedRelatedObjectName . '.php')) {
+                if ($force || !file_exists($dirMysite . DIRECTORY_SEPARATOR . $storedObjectName . '.php')) {
 
                     $this->writeDataObject(
                         $dirMysite,
-                        $storedRelatedObjectName,
+                        $storedObjectName,
                         false,
                         false,
                         false,
-                        $cachedRelatedObjectName
+                        $cachedObjectName
                     );
 
                 }
-            }
 
-            $this->output('Finished ' . $identifier);
+                if ($relatedStorage && is_array($relatedStorage) && count($relatedStorage) > 0) {
+
+                    $this->writeDataObject(
+                        $dirCache,
+                        $cachedRelatedObjectName,
+                        $relatedStorage,
+                        array(
+                            $storedObjectName => $storedObjectName
+                        )
+                    );
+
+                    // create the storage object
+                    if ($force || !file_exists($dirMysite . DIRECTORY_SEPARATOR . $storedRelatedObjectName . '.php')) {
+
+                        $this->writeDataObject(
+                            $dirMysite,
+                            $storedRelatedObjectName,
+                            false,
+                            false,
+                            false,
+                            $cachedRelatedObjectName
+                        );
+
+                    }
+
+                }
+
+                $this->output('Finished ' . $identifier);
+
+            }
 
         }
 
@@ -185,6 +197,137 @@ class DataObjectGenerator
         );
 
         $this->output('Done!');
+
+    }
+
+    protected function processFlatStorage($flatStorage, $identifier)
+    {
+
+        $this->processingFlatStorage[$identifier] = $identifier;
+
+        if (is_array($flatStorage)) {
+
+            foreach ($flatStorage as $name => $value) {
+
+                $value = trim($value);
+
+                if ($value[0] == '@') {
+
+                    unset($flatStorage[$name]);
+
+                    $flatIdentifier = substr($value, 1);
+
+                    if ($this->hasSchema($flatIdentifier)) {
+
+                        if (isset($this->processingFlatStorage[$flatIdentifier])) {
+
+                            throw new \Exception('Circular reference in flat storage');
+
+                        }
+
+                        $extraFlatStorage = $this->processFlatStorage($this->schemas[$flatIdentifier]->getFlatStorage(), $flatIdentifier);
+
+                        if (is_array($extraFlatStorage)) {
+
+                            foreach ($extraFlatStorage as $extraName => $extraValue) {
+
+                                $flatStorage[$flatIdentifier . $extraName] = $extraValue;
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        unset($this->processingFlatStorage[$identifier]);
+
+        return $flatStorage;
+
+    }
+
+    protected function processParentStorage($parentStorage, $identifier)
+    {
+
+        if (is_array($parentStorage)) {
+
+            foreach ($parentStorage as $name => $value) {
+
+                $value = trim($value);
+
+                if ($value[0] == '@') {
+
+                    unset($parentStorage[$name]);
+
+                    $parentIdentifier = substr($value, 1);
+
+                    if ($this->hasSchema($parentIdentifier)) {
+
+                        $parentStorage[$name] = 'Stored' . $parentIdentifier;
+
+                    }
+
+
+                }
+
+            }
+
+        }
+
+        return $parentStorage;
+
+    }
+
+    protected function processRelatedStorage($relatedStorage, $identifier)
+    {
+
+        if (is_array($relatedStorage)) {
+
+            foreach ($relatedStorage as $name => $value) {
+
+                $value = trim($value);
+
+                if ($value[0] == '@') {
+
+                    unset($relatedStorage[$name]);
+
+                    $relatedIdentifier = substr($value, 1);
+
+                    if ($this->hasSchema($relatedIdentifier)) {
+
+                        if (isset($this->processingRelatedStorage[$relatedIdentifier])) {
+
+                            throw new \Exception('Circular reference in related storage');
+
+                        }
+
+                        $extraRelatedStorage = $this->schemas[$relatedIdentifier]->getFlatStorage();
+
+                        if (is_array($extraRelatedStorage)) {
+
+                            foreach ($extraRelatedStorage as $extraName => $extraValue) {
+
+                                $relatedStorage[$relatedIdentifier . $extraName] = $extraValue;
+
+                            }
+
+                        }
+
+                    }
+
+
+                }
+
+            }
+
+        }
+
+        return $relatedStorage;
 
     }
 
