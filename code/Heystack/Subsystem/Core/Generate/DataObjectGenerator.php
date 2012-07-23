@@ -46,7 +46,7 @@ class DataObjectGenerator
 
     }
 
-    public function process()
+    public function process($force = false)
     {
 
         // get all the previously created objects and delete them
@@ -54,30 +54,44 @@ class DataObjectGenerator
 
         foreach ($cachedFiles as $cachedFile) {
 
+            $this->output('Deleting: ' . $cachedFile);
+
             unlink($cachedFile);
 
         }
 
-        $dir_mysite = BASE_PATH . DIRECTORY_SEPARATOR . 'mysite/code/HeystackStorage';
-        $dir_cache = realpath(BASE_PATH . DIRECTORY_SEPARATOR . 'heystack/cache');
+        $dirMysite = BASE_PATH . DIRECTORY_SEPARATOR . 'mysite/code/HeystackStorage';
+        $dirCache = realpath(BASE_PATH . DIRECTORY_SEPARATOR . 'heystack/cache');
 
         // check if the generated directoru exists, if not create it
-        if (!is_dir($dir_mysite)) {
-            mkdir($dir_mysite );
+        if (!is_dir($dirMysite)) {
+
+
+            $this->output('Creating: ' . $dirMysite);
+
+            mkdir($dirMysite);
+
         }
 
         // check if the cached directoru exists, if not create it
-        if (!is_dir($dir_cache)) {
-            mkdir($dir_cache );
+        if (!is_dir($dirCache)) {
+
+            $this->output('Creating: ' . $dirCache);
+
+            mkdir($dirCache);
+
         }
 
         foreach ($this->schemas as $schema) {
+
+            $identifier = $schema->getIdentifier();
+            
+            $this->output('Processing schema: ' . $identifier);
 
             $flatStorage = $schema->getFlatStorage();
             $relatedStorage = $schema->getRelatedStorage();
             $parentStorage = $schema->getParentStorage();
             $childStorage = $schema->getChildStorage();
-            $identifier = $schema->getIdentifier();
 
             // names for the created objects
             $cachedObjectName = 'Cached' . $identifier;
@@ -85,60 +99,99 @@ class DataObjectGenerator
             $cachedRelatedObjectName = 'Cached' . $identifier . 'RelatedData';
             $storedRelatedObjectName = 'Stored' . $identifier . 'RelatedData';
             
-            $has_many = array_merge($childStorage, array($storedRelatedObjectName => $storedRelatedObjectName));
-            
             // create the cached object
-            file_put_contents($dir_cache . DIRECTORY_SEPARATOR . $cachedObjectName . '.php', singleton('ViewableData')->renderWith('CachedDataObject_php', array(
-                'DataObjectName' => $cachedObjectName,
-                'db' => var_export($flatStorage, true),
-                'D' => '$',
-                'P' => '<?php',
-                'has_one' => $parentStorage,
-                'has_many' => var_export($has_many, true)
-            )));
+            $this->writeDataObject(
+                $dirCache,
+                $cachedObjectName,
+                $flatStorage,
+                $parentStorage,
+                array_merge(
+                    $childStorage,
+                    array(
+                        $storedRelatedObjectName => $storedRelatedObjectName
+                    )
+                )
+            );
 
             // create the storage object
-            if (!file_exists($dir_mysite . DIRECTORY_SEPARATOR . $storedObjectName . '.php')) {
+            if ($force || !file_exists($dirMysite . DIRECTORY_SEPARATOR . $storedObjectName . '.php')) {
 
-                file_put_contents($dir_mysite . DIRECTORY_SEPARATOR . $storedObjectName . '.php', singleton('ViewableData')->renderWith('StoredDataObject_php', array(
-                    'DataObjectName' => $storedObjectName,
-                    'D' => '$',
-                    'P' => '<?php',
-                    'ExtendedDataObject' => $cachedObjectName,
-                    'has_one' => false,
-                    'has_many' => false
-                )));
+                $this->writeDataObject(
+                    $dirMysite,
+                    $storedObjectName,
+                    false,
+                    false,
+                    false,
+                    $cachedObjectName
+                );
 
             }
 
             if (count($relatedStorage) > 0) {
 
-                // create the cached object
-                file_put_contents($dir_cache . DIRECTORY_SEPARATOR . $cachedRelatedObjectName . '.php', singleton('ViewableData')->renderWith('CachedDataObject_php', array(
-                            'DataObjectName' => $cachedRelatedObjectName,
-                            'db' => var_export($relatedStorage, true),
-                            'D' => '$',
-                            'P' => '<?php',
-                            'has_one' => var_export(array($storedObjectName => $storedObjectName), true),
-                            'has_many' => false
-                )));
+                $this->writeDataObject(
+                    $dirCache,
+                    $cachedRelatedObjectName,
+                    $relatedStorage,
+                    array(
+                        $storedObjectName => $storedObjectName
+                    )
+                );
 
                 // create the storage object
-                if (!file_exists($dir_mysite . DIRECTORY_SEPARATOR . $storedRelatedObjectName . '.php')) {
+                if ($force || !file_exists($dirMysite . DIRECTORY_SEPARATOR . $storedRelatedObjectName . '.php')) {
 
-                    file_put_contents($dir_mysite . DIRECTORY_SEPARATOR . $storedRelatedObjectName . '.php', singleton('ViewableData')->renderWith('StoredDataObject_php', array(
-                        'DataObjectName' => $storedRelatedObjectName,
-                        'D' => '$',
-                        'P' => '<?php',
-                        'ExtendedDataObject' => $cachedRelatedObjectName,
-                        'has_one' => false,
-                        'has_many' => false
-                    )));
+                    $this->writeDataObject(
+                        $dirMysite,
+                        $storedRelatedObjectName,
+                        false,
+                        false,
+                        false,
+                        $cachedRelatedObjectName
+                    );
 
                 }
             }
 
+            $this->output('Finished ' . $identifier);
+
         }
+
+        $this->output('Finished!');
+
+        exit;
+
+    }
+
+    protected function writeDataObject($dir, $name, $db = false, $has_one = false, $has_many = false, $extends = 'DataObject')
+    {
+
+        $this->output('Writing DataObject: ' . $name . '...', '');
+
+        file_put_contents(
+            $dir . DIRECTORY_SEPARATOR . $name . '.php',
+            singleton('ViewableData')->renderWith(
+                'CachedDataObject_php',
+                array(
+                    'D'         => '$',
+                    'P'         => '<?php',
+                    'Name'      => $name,
+                    'Extends'   => $extends,
+                    'db'        => is_array($db) ? var_export($db, true) : false,
+                    'has_one'   => is_array($has_one) ? var_export($has_one, true) : false,
+                    'has_many'  => is_array($has_many) ? var_export($has_many, true) : false
+                )
+            )
+        );
+
+        $this->output('Done!');
+
+    }
+
+    protected function output($message, $break = PHP_EOL)
+    {
+
+        echo $message, $break;
 
     }
 
