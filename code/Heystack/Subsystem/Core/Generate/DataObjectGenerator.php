@@ -216,14 +216,16 @@ class DataObjectGenerator
             $dir . DIRECTORY_SEPARATOR . $name . '.php',
             singleton('ViewableData')->renderWith(
                 'DataObject_php',
-                array(
-                    'D'         => '$',
-                    'P'         => '<?php',
-                    'Name'      => $name,
-                    'Extends'   => $extends
-                )
-                +
-                $statics
+                array_merge(array(
+                    'D'                 => '$',
+                    'P'                 => '<?php',
+                    'Name'              => $name,
+                    'Extends'           => $extends,
+                    'db'                => false,
+                    'has_one'           => false,
+                    'has_many'          => false,
+                    'summary_fields'    => false,
+                ), $statics)
             )
         );
 
