@@ -7,8 +7,11 @@ use Heystack\Subsystem\Core\State\BackendInterface;
 class Memcache implements BackendInterface
 {
 
+    const TRACKING_KEY = 'memcache.keys';
+
     private $memcache = null;
     private $session = null;
+    private $keys = false;
 
     public function __construct(\Memcache $memcache, \Session $session = null)
     {
@@ -21,12 +24,45 @@ class Memcache implements BackendInterface
 
         }
 
+        //Sets up keys
+        $this->getKeys();
+
+    }
+
+    public function getKeys()
+    {
+
+        if (!is_array($this->keys)) {
+
+            $this->keys = $this->getByKey(self::TRACKING_KEY);
+
+            if (!is_array($this->keys)) {
+
+                $this->keys = array();
+
+            }
+
+        }
+
+        return $this->keys;
+
+    }
+
+    public function addKey($key)
+    {
+
+        $this->keys[$key] = $key;
+
+        $this->memcache->set($this->key(self::TRACKING_KEY), $this->keys);
+
     }
 
     public function setByKey($key, $var)
     {
 
         $this->memcache->set($this->key($key), $var);
+
+        $this->addKey($key);
 
     }
 
@@ -41,6 +77,21 @@ class Memcache implements BackendInterface
     {
 
         return $this->memcache->delete($this->key($key));
+
+    }
+
+    public function removeAll()
+    {
+
+        if (is_array($this->keys)) {
+
+            foreach ($this->keys as $key) {
+
+                $this->removeByKey($key);
+
+            }
+
+        }
 
     }
 
