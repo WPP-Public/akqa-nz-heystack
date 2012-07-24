@@ -10,13 +10,13 @@ parameters:
 
     session.class: Session
 
-    monolog.class: Monolog\Logger
     monolog.name: global
 
-    monolog.mail_handler.to: [ss-errors@heyday.co.nz, glenn@heyday.co.nz]
+    monolog.mail_handler.to: [ss-errors@heyday.co.nz, glenn@heyday.co.nz, cameron@heyday.co.nz]
     monolog.mail_handler.from: noreply@heyday.net.nz
     monolog.mail_handler.subject: Heystack Error
     monolog.stream_handler.file_location: ../heystack/monolog.log
+    monolog.stream_handler.dev_file_location: ../heystack/monolog_dev.log
 
     monolog.level.debug: 100
     monolog.level.info: 200
@@ -31,8 +31,6 @@ parameters:
     
     dataobject_generator.class: Heystack\Subsystem\Core\Generate\DataObjectGenerator
     dataobject_generator_input_processor.class: Heystack\Subsystem\Core\Generate\Input\Processor
-    
-    
     
     storage_processor_handler.class: Heystack\Subsystem\Core\Storage\Processor\Handler
     ss_orm_backend.class: Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrmBackend
@@ -79,31 +77,55 @@ services:
     output_processor_handler:
       class: %output_processor_handler.class%
 
-    monolog_object_formatter:
+    monolog_multiline_formatter:
       class: Monolog\Formatter\MultiLineFormatter
 
     monolog_web_processor:
       class: Monolog\Processor\WebProcessor
 
+    monolog_peak_memory_processor:
+      class: Monolog\Processor\MemoryPeakUsageProcessor
+
+    monolog_introspection_processor:
+      class: Monolog\Processor\IntrospectionProcessor
+
     monolog_stream_handler:
       class: Monolog\Handler\StreamHandler
       arguments: [ %monolog.stream_handler.file_location%,  %monolog.level.debug%]
       calls:
-        - [ setFormatter, [ @monolog_object_formatter ] ]
+        - [ setFormatter, [ @monolog_multiline_formatter ] ]
+
+    monolog_dev_stream_handler:
+      class: Monolog\Handler\StreamHandler
+      arguments: [ %monolog.stream_handler.dev_file_location%, %monolog.level.debug%]
+      calls:
+        - [ setFormatter, [ @monolog_multiline_formatter ] ]
 
     monolog_mail_handler:
       class: Monolog\Handler\NativeMailerHandler
       arguments: [ %monolog.mail_handler.to%, %monolog.mail_handler.subject%, %monolog.mail_handler.from%, %monolog.level.error% ]
       calls:
-        - [ setFormatter, [ @monolog_object_formatter ] ]
+        - [ setFormatter, [ @monolog_multiline_formatter ] ]
+
+    monolog_chrome_handler:
+        class: Monolog\Handler\ChromePHPHandler
 
     monolog:
-      class: %monolog.class%
+      class: Monolog\Logger
       arguments: [ %monolog.name% ]
       calls:
         - [ pushHandler, [ @monolog_stream_handler ] ]
         - [ pushHandler, [ @monolog_mail_handler ] ]
         - [ pushProcessor, [ @monolog_web_processor ] ]
+        - [ pushProcessor, [ @monolog_peak_memory_processor ] ]
+        - [ pushProcessor, [ @monolog_introspection_processor ] ]
+
+    monolog_dev:
+      class: Monolog\Logger
+      arguments: [ Development ]
+      calls:
+        - [ pushHandler, [ @monolog_chrome_handler ] ]
+        - [ pushHandler, [ @monolog_dev_stream_handler ] ]
 
 #    storage_processor_handler:
 #      class: %storage_processor_handler.class%
