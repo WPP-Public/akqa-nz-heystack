@@ -43,5 +43,10 @@ final class Services
     const MONOLOG_DEV = 'monolog_dev';
 
     const DATAOBJECT_GENERATOR = 'dataobject_generator';
+    const DATAOBJECT_GENERATOR_INPUT_PROCESSOR = 'dataobject_generator_input_processor';
+    const CLI_INPUT_PROCESSOR_HANDLER = 'cli_input_processor_handler';
+
+    const SS_ORM_BACKEND = 'ss_orm_backend';
+    const STORAGE = 'storage';
 
 }
