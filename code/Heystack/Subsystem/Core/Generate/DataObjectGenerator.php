@@ -89,6 +89,8 @@ class DataObjectGenerator
 
         }
 
+        $managed_models = array();
+
         foreach ($this->schemas as $schema) {
 
             if (!$schema->getReferenceOnly()) {
@@ -100,7 +102,7 @@ class DataObjectGenerator
                 $flatStorage    = $this->processFlatStorage($schema->getFlatStorage(), $identifier);
                 $relatedStorage = $this->processRelatedStorage($schema->getRelatedStorage(), $identifier);
                 $parentStorage  = $this->processParentStorage($schema->getParentStorage(), $identifier);
-                $childStorage   = $schema->getChildStorage();
+                $childStorage   = $this->processChildStorage($schema->getChildStorage(), $identifier);
 
                 // names for the created objects
                 $cachedObjectName           = 'Cached' . $identifier;
@@ -112,15 +114,17 @@ class DataObjectGenerator
                 $this->writeDataObject(
                     $dirCache,
                     $cachedObjectName,
-                    $flatStorage,
-                    $parentStorage,
-                    array_merge(
-                        $childStorage,
-                        array(
+                    array(
+                        'db' => $flatStorage,
+                        'has_one' => $parentStorage,
+                        'has_many' => $childStorage + array(
                             $storedRelatedObjectName => $storedRelatedObjectName
-                        )
+                        ),
+                        'summary_fields' => array_keys(is_array($flatStorage) ? $flatStorage : array()) + array_keys(is_array($parentStorage) ? $parentStorage : array())
                     )
                 );
+
+                $managed_models[] = $storedObjectName;
 
                 // create the storage object
                 if ($force || !file_exists($dirMysite . DIRECTORY_SEPARATOR . $storedObjectName . '.php')) {
@@ -128,8 +132,6 @@ class DataObjectGenerator
                     $this->writeDataObject(
                         $dirMysite,
                         $storedObjectName,
-                        false,
-                        false,
                         false,
                         $cachedObjectName
                     );
@@ -141,11 +143,15 @@ class DataObjectGenerator
                     $this->writeDataObject(
                         $dirCache,
                         $cachedRelatedObjectName,
-                        $relatedStorage,
                         array(
-                            $storedObjectName => $storedObjectName
+                            'db' => $relatedStorage,
+                            'has_one' => array(
+                                $storedObjectName => $storedObjectName
+                            )
                         )
                     );
+
+                    $managed_models[] = $storedRelatedObjectName;
 
                     // create the storage object
                     if ($force || !file_exists($dirMysite . DIRECTORY_SEPARATOR . $storedRelatedObjectName . '.php')) {
@@ -153,8 +159,6 @@ class DataObjectGenerator
                         $this->writeDataObject(
                             $dirMysite,
                             $storedRelatedObjectName,
-                            false,
-                            false,
                             false,
                             $cachedRelatedObjectName
                         );
@@ -169,30 +173,95 @@ class DataObjectGenerator
 
         }
 
+        if ($managed_models && is_array($managed_models) && count($managed_models) > 0) {
+
+            $this->writeModelAdmin(
+                $dirCache,
+                'GeneratedModelAdmin',
+                array(
+                    'managed_models' => $managed_models,
+                    'url_segment' => 'generated-admin',
+                    'menu_title' => 'Admin'
+                )
+            );
+
+        }
+
         $this->output('Finished!');
 
         exit;
 
     }
 
-    protected function writeDataObject($dir, $name, $db = false, $has_one = false, $has_many = false, $extends = 'DataObject')
+    protected function writeDataObject($dir, $name, $statics = false, $extends = 'DataObject')
     {
 
         $this->output('Writing DataObject: ' . $name . '...', '');
+        
+        if ($statics && is_array($statics)) {
+
+            foreach ($statics as $key => $static) {
+
+                $statics[$key] = var_export($static, true);
+
+            }
+
+        } else {
+
+            $statics = array();
+
+        }
 
         file_put_contents(
             $dir . DIRECTORY_SEPARATOR . $name . '.php',
             singleton('ViewableData')->renderWith(
-                'CachedDataObject_php',
+                'DataObject_php',
                 array(
                     'D'         => '$',
                     'P'         => '<?php',
                     'Name'      => $name,
-                    'Extends'   => $extends,
-                    'db'        => is_array($db) ? var_export($db, true) : false,
-                    'has_one'   => is_array($has_one) ? var_export($has_one, true) : false,
-                    'has_many'  => is_array($has_many) ? var_export($has_many, true) : false
+                    'Extends'   => $extends
                 )
+                +
+                $statics
+            )
+        );
+
+        $this->output('Done!');
+
+    }
+
+    protected function writeModelAdmin($dir, $name, $statics = false, $extends = 'ModelAdmin')
+    {
+
+        $this->output('Writing ModelAdmin: ' . $name . '...', '');
+        
+        if ($statics && is_array($statics)) {
+
+            foreach ($statics as $key => $static) {
+
+                $statics[$key] = var_export($static, true);
+
+            }
+
+        } else {
+
+            $statics = array();
+
+        }
+
+        file_put_contents(
+            $dir . DIRECTORY_SEPARATOR . $name . '.php',
+            singleton('ViewableData')->renderWith(
+                'ModelAdmin_php',
+                array(
+                    'D'         => '$',
+                    'P'         => '<?php',
+                    'Name'      => $name,
+                    'Extends'   => $extends
+                )
+                +
+                $statics
             )
         );
 
@@ -328,6 +397,39 @@ class DataObjectGenerator
         }
 
         return $relatedStorage;
+
+    }
+
+    protected function processChildStorage($childStorage, $identifier)
+    {
+
+        if (is_array($childStorage)) {
+
+            foreach ($childStorage as $name => $value) {
+
+                $value = trim($value);
+
+                if ($value[0] == '@') {
+
+                    $childIdentifier = substr($value, 1);
+
+                    if ($this->hasSchema($childIdentifier)) {
+
+                        $childStorage[$name] = 'Stored' . $childIdentifier;
+
+                    } else {
+
+                        unset($childStorage[$name]);
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        return $childStorage;
 
     }
 
