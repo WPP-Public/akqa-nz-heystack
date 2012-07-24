@@ -64,7 +64,7 @@ services:
 
     state:
         class: %state.class%
-        arguments: [@backend_session]
+        arguments: [@backend_memcache]
 
     config:
         class: %config.class%

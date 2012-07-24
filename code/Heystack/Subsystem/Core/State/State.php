@@ -51,10 +51,10 @@ class State
 
     }
 
-    public function removeAll()
+    public function removeAll(array $exclude = array())
     {
 
-        $this->backend->removeAll();
+        $this->backend->removeAll($exclude);
 
     }
 

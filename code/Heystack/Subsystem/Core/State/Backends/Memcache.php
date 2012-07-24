@@ -80,12 +80,12 @@ class Memcache implements BackendInterface
 
     }
 
-    public function removeAll()
+    public function removeAll(array $exclude = array())
     {
 
         if (is_array($this->keys)) {
 
-            foreach ($this->keys as $key) {
+            foreach (array_diff($this->keys, $exclude) as $key) {
 
                 $this->removeByKey($key);
 
