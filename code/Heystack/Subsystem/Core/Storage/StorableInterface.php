@@ -22,5 +22,6 @@ interface StorableInterface
 {
 
     public function getStorableData();
+    public function getStorageBackendIdentifiers();
 
 }

@@ -26,7 +26,9 @@ class SilverStripeOrmBackend implements BackendInterface
 
     public function getIdentifier() 
     {
-        return "dataobject";  
+
+        return 'silverstripe_orm';  
+
     }
     
     public function write(StorableInterface $object, $parentID = false)
@@ -34,7 +36,7 @@ class SilverStripeOrmBackend implements BackendInterface
 
         $data = $object->getStorableData();
         
-        $saveable = "Stored" . $data['id'];
+        $saveable = 'Stored' . $data['id'];
 
         $storedObject = new $saveable();
 
