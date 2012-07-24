@@ -55,23 +55,11 @@ class Session implements BackendInterface
 
     }
 
-    public function getByLikeKey($key)
+    public function removeAll()
     {
-        $session = $this->session->inst_getAll();
 
-        $objects = array();
+        $this->session->inst_clearAll();
 
-        foreach ($session as $k => $v) {
-
-            if (preg_match("/$key/", $k)) {
-
-                $objects[] = $v;
-
-            }
-
-        }
-
-        return $objects;
     }
 
     protected function save()
