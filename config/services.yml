@@ -155,12 +155,8 @@ services:
       calls:
         - [ addProcessor, [ @dataobject_generator_input_processor ] ]
 
-
-
-
     ss_orm_backend:
       class: %ss_orm_backend.class%
-
 
     storage_processor_handler:
       class: %storage_processor_handler.class%
