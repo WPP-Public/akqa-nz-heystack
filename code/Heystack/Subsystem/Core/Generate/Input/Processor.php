@@ -43,7 +43,7 @@ class Processor implements ProcessorInterface
     public function process(\SS_HTTPRequest $request)
     {
 
-        $this->generatorService->process();
+        $this->generatorService->process($request->getVar('force'));
 
     }
 
