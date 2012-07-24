@@ -4,32 +4,27 @@
         {
             "package": "monolog/monolog",
             "version": "dev-feature/object-formatter",
-            "source-reference": "62e7ae46aea14709a8fe7c3d8e75dc6ca4d18cc1",
-            "commit-date": "1343164612"
+            "source-reference": "62e7ae46aea14709a8fe7c3d8e75dc6ca4d18cc1"
         },
         {
             "package": "symfony/config",
             "version": "2.0.x-dev",
-            "source-reference": "v2.0.16",
-            "commit-date": "1341837830"
+            "source-reference": "v2.0.16"
         },
         {
             "package": "symfony/dependency-injection",
             "version": "2.0.x-dev",
-            "source-reference": "v2.0.16",
-            "commit-date": "1341837830"
+            "source-reference": "v2.0.16"
         },
         {
             "package": "symfony/event-dispatcher",
             "version": "2.0.x-dev",
-            "source-reference": "db210286198c2a335388d410fbff893ae509bad6",
-            "commit-date": "1341837830"
+            "source-reference": "db210286198c2a335388d410fbff893ae509bad6"
         },
         {
             "package": "symfony/yaml",
             "version": "2.0.x-dev",
-            "source-reference": "v2.0.16",
-            "commit-date": "1341837830"
+            "source-reference": "v2.0.16"
         }
     ],
     "packages-dev": null,
