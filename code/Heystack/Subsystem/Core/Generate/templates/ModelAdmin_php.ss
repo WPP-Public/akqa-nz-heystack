@@ -7,8 +7,10 @@ $P
 class $Name extends $Extends
 {
 
-<% if managed_models %>public static {$D}managed_models = $managed_models;<% end_if %>
-<% if url_segment %>public static  {$D}url_segment = $url_segment;<% end_if %>
-<% if menu_title %>public static  {$D}menu_title = $menu_title;<% end_if %>
-   
+<% if managed_models %>    public static {$D}managed_models = $managed_models;
+<% end_if %>
+<% if url_segment %>    public static  {$D}url_segment = $url_segment;
+<% end_if %>
+<% if menu_title %>    public static  {$D}menu_title = $menu_title;
+<% end_if %>   
 }

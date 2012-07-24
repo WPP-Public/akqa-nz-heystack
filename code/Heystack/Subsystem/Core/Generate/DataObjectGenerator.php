@@ -202,7 +202,7 @@ class DataObjectGenerator
 
             foreach ($statics as $key => $static) {
 
-                $statics[$key] = var_export($static, true);
+                $statics[$key] = $this->beautify(var_export($static, true));
 
             }
 
@@ -242,7 +242,7 @@ class DataObjectGenerator
 
             foreach ($statics as $key => $static) {
 
-                $statics[$key] = var_export($static, true);
+                $statics[$key] = $this->beautify(var_export($static, true));
 
             }
 
@@ -432,6 +432,13 @@ class DataObjectGenerator
         }
 
         return $childStorage;
+
+    }
+
+    protected function beautify($content, $tab = '    ')
+    {
+
+        return str_replace("\n", "\n" . $tab, $content);
 
     }
 
