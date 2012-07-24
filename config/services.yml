@@ -79,16 +79,23 @@ services:
     output_processor_handler:
       class: %output_processor_handler.class%
 
+    monolog_object_formatter:
+      class: Monolog\Formatter\MultiLineFormatter
+
+    monolog_web_processor:
+      class: Monolog\Processor\WebProcessor
+
     monolog_stream_handler:
       class: Monolog\Handler\StreamHandler
       arguments: [ %monolog.stream_handler.file_location%,  %monolog.level.debug%]
-
-    monolog_object_processor:
-      class: Monolog\Processor\ObjectProcessor
+      calls:
+        - [ setFormatter, [ @monolog_object_formatter ] ]
 
     monolog_mail_handler:
       class: Monolog\Handler\NativeMailerHandler
       arguments: [ %monolog.mail_handler.to%, %monolog.mail_handler.subject%, %monolog.mail_handler.from%, %monolog.level.error% ]
+      calls:
+        - [ setFormatter, [ @monolog_object_formatter ] ]
 
     monolog:
       class: %monolog.class%
@@ -96,7 +103,7 @@ services:
       calls:
         - [ pushHandler, [ @monolog_stream_handler ] ]
         - [ pushHandler, [ @monolog_mail_handler ] ]
-        - [ pushProcessor, [ @monolog_object_processor ] ]
+        - [ pushProcessor, [ @monolog_web_processor ] ]
 
 #    storage_processor_handler:
 #      class: %storage_processor_handler.class%

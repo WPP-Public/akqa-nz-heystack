@@ -1,30 +1,35 @@
 {
-    "hash": "e1e9a16f4b38dcb2750fed5004232cc6",
+    "hash": "c4dc75525bd9518b7f7a57bedf9a2bb8",
     "packages": [
         {
             "package": "monolog/monolog",
-            "version": "dev-object-processor",
-            "source-reference": "65a88a5ca5dda37343ebd0d89e9b927e6d528eae"
+            "version": "dev-feature/object-formatter",
+            "source-reference": "62e7ae46aea14709a8fe7c3d8e75dc6ca4d18cc1",
+            "commit-date": "1343164612"
         },
         {
             "package": "symfony/config",
             "version": "2.0.x-dev",
-            "source-reference": "3ffd91fd9cace7830978341bf2d9904e652161b1"
+            "source-reference": "v2.0.16",
+            "commit-date": "1341837830"
         },
         {
             "package": "symfony/dependency-injection",
             "version": "2.0.x-dev",
-            "source-reference": "c3a940d93ca03064b6a9f3606a552eb63d0f4a9f"
+            "source-reference": "v2.0.16",
+            "commit-date": "1341837830"
         },
         {
             "package": "symfony/event-dispatcher",
             "version": "2.0.x-dev",
-            "source-reference": "db210286198c2a335388d410fbff893ae509bad6"
+            "source-reference": "db210286198c2a335388d410fbff893ae509bad6",
+            "commit-date": "1341837830"
         },
         {
             "package": "symfony/yaml",
             "version": "2.0.x-dev",
-            "source-reference": "04edc329027cf987462fa4d74c1112d186212f4f"
+            "source-reference": "v2.0.16",
+            "commit-date": "1341837830"
         }
     ],
     "packages-dev": null,
