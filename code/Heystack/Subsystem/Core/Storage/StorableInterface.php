@@ -21,7 +21,8 @@ namespace Heystack\Subsystem\Core\Storage;
 interface StorableInterface
 {
 
+    public function getStorableIdentifier();
     public function getStorableData();
-    public function getStorageBackendIdentifiers();
+    public function getStorableBackendIdentifiers();
 
 }

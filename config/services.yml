@@ -140,6 +140,7 @@ services:
 
     ss_orm_backend:
       class: %ss_orm_backend.class%
+      arguments: [ @event_dispatcher ]
 
     storage:
       class: %storage.class%

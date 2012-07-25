@@ -13,6 +13,10 @@ namespace Heystack\Subsystem\Core\Storage\Backends;
 use Heystack\Subsystem\Core\Storage\StorableInterface;
 use Heystack\Subsystem\Core\Storage\BackendInterface;
 
+use Heystack\Subsystem\Core\Storage\Event;
+
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
 /**
  *
  *
@@ -24,14 +28,25 @@ use Heystack\Subsystem\Core\Storage\BackendInterface;
 class SilverStripeOrmBackend implements BackendInterface
 {
 
+    const IDENTIFIER = 'silverstripe_orm';
+
+    private $eventService = null;
+
+    public function __construct(EventDispatcher $eventService)
+    {
+
+        $this->eventService = $eventService;
+
+    }
+
     public function getIdentifier() 
     {
 
-        return 'silverstripe_orm';  
+        return self::IDENTIFIER;
 
     }
     
-    public function write(StorableInterface $object, $parentID = false)
+    public function write(StorableInterface $object)
     {
 
         $data = $object->getStorableData();
@@ -41,12 +56,8 @@ class SilverStripeOrmBackend implements BackendInterface
         $storedObject = new $saveable();
 
         foreach ($data['flat'] as $key => $value) {
+
             $storedObject->$key = $data['flat'][$key];
-        }
-        
-        if ($data['parent']) {
-            
-            $storedObject->ParentID = $parentID;
 
         }
 
@@ -56,12 +67,12 @@ class SilverStripeOrmBackend implements BackendInterface
             
             foreach ($data['related'] as $relatedData) {
 
-                $saveable = "Stored" . $data['id'] . "RelatedData";
+                $saveable = "Stored{$data['id']}RelatedData";
                 $storedManyObject = new $saveable();
                 
                 foreach ($relatedData['flat'] as $key => $value) {
                     
-                    $objectIDName = "Stored" . $data['id'] . "ID";
+                    $objectIDName = "Stored{$data['id']}ID";
                     $storedManyObject->$objectIDName = $storedObject->ID;
                     
                     $storableName = $relatedData['id'] . $key;
@@ -74,8 +85,11 @@ class SilverStripeOrmBackend implements BackendInterface
             }
             
         }
-        
-        return $storedObject->ID;
+
+        $this->eventService->dispatch(
+            $this->getIdentifier() . '.' . $object->getIdentifier() . '.stored',
+            new Event($storedObject->ID)
+        );
 
     }
 
