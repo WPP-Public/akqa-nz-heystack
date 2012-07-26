@@ -96,7 +96,7 @@ class DataObjectGenerator
             if (!$schema->getReferenceOnly()) {
 
                 $identifier = $schema->getIdentifier();
-                
+
                 $this->output('Processing schema: ' . $identifier);
 
                 $flatStorage    = $this->processFlatStorage($schema->getFlatStorage(), $identifier);
@@ -109,7 +109,7 @@ class DataObjectGenerator
                 $storedObjectName           = 'Stored' . $identifier;
                 $cachedRelatedObjectName    = 'Cached' . $identifier . 'RelatedData';
                 $storedRelatedObjectName    = 'Stored' . $identifier . 'RelatedData';
-                
+
                 // create the cached object
                 $this->writeDataObject(
                     $dirCache,
@@ -197,7 +197,7 @@ class DataObjectGenerator
     {
 
         $this->output('Writing DataObject: ' . $name . '...', '');
-        
+
         if ($statics && is_array($statics)) {
 
             foreach ($statics as $key => $static) {
@@ -237,7 +237,7 @@ class DataObjectGenerator
     {
 
         $this->output('Writing ModelAdmin: ' . $name . '...', '');
-        
+
         if ($statics && is_array($statics)) {
 
             foreach ($statics as $key => $static) {
@@ -343,7 +343,6 @@ class DataObjectGenerator
 
                     }
 
-
                 }
 
             }
@@ -390,7 +389,6 @@ class DataObjectGenerator
                         }
 
                     }
-
 
                 }
 

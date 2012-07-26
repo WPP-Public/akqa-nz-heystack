@@ -30,19 +30,19 @@ abstract class ContainerExtensionConfigProcessor
     /**
      * Meant to be called in at the tail end of the load function in the inheriting
      * container extension. This handles all the 'parameters' defined in the services.yml
-     * file found in /mysite/config. It overrides the parameters set in the subsystem's 
+     * file found in /mysite/config. It overrides the parameters set in the subsystem's
      * services.yml file
-     * 
-     * @param array $config
+     *
+     * @param array                                                   $config
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     protected function processConfig(array $config, ContainerBuilder $container)
     {
         $config = array_pop($config);
-        
-        if(isset($config['parameters'])){
-            if(isset($config['parameters']) && count($config['parameters'])){
-                foreach($config['parameters'] as $key => $value){
+
+        if (isset($config['parameters'])) {
+            if (isset($config['parameters']) && count($config['parameters'])) {
+                foreach ($config['parameters'] as $key => $value) {
                     $container->setParameter($key, $value);
                 }
             }

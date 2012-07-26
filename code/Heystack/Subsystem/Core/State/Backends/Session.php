@@ -57,7 +57,7 @@ class Session implements BackendInterface
 
     public function removeAll(array $exclude = array())
     {
-        
+
         //TODO: exclude
 
         $this->session->inst_clearAll();

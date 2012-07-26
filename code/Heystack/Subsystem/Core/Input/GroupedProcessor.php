@@ -9,7 +9,7 @@
 /**
  * Input namespace
  */
-namespace Heystack\Subsystem\Processor\Input;
+namespace Heystack\Subsystem\Core\Input;
 
 use Heystack\Subsystem\Core\Input\ProcessorInterface;
 

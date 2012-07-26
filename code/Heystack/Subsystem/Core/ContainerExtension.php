@@ -50,7 +50,7 @@ class ContainerExtension extends ContainerExtensionConfigProcessor implements Ex
         );
 
         $loader->load('services.yml');
-        
+
         $this->processConfig($config, $container);
     }
 
