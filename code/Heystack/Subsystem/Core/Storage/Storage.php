@@ -57,7 +57,7 @@ class Storage
 
         if (is_array($this->backends) && count($this->backends) > 0) {
 
-            $identifiers = $object->getStorageBackendIdentifiers();
+            $identifiers = $object->getStorableBackendIdentifiers();
 
             $backends = count($identifiers) == 0 ? $backends : array_intersect_key($this->backends, array_flip($identifiers));
 

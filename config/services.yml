@@ -33,7 +33,7 @@ parameters:
     dataobject_generator_input_processor.class: Heystack\Subsystem\Core\Generate\Input\Processor
     
     storage.class: Heystack\Subsystem\Core\Storage\Storage
-    ss_orm_backend.class: Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrmBackend
+    ss_orm_backend.class: Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrm\Backend
 
 
 services:

@@ -8,7 +8,7 @@
 /**
  * Storage namespace
  */
-namespace Heystack\Subsystem\Core\Storage\Backends;
+namespace Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrm;
 
 use Heystack\Subsystem\Core\Storage\StorableInterface;
 use Heystack\Subsystem\Core\Storage\BackendInterface;
@@ -25,7 +25,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
  * @author Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack
  */
-class SilverStripeOrmBackend implements BackendInterface
+class Backend implements BackendInterface
 {
 
     const IDENTIFIER = 'silverstripe_orm';
@@ -87,7 +87,7 @@ class SilverStripeOrmBackend implements BackendInterface
         }
 
         $this->eventService->dispatch(
-            $this->getIdentifier() . '.' . $object->getIdentifier() . '.stored',
+            self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
             new Event($storedObject->ID)
         );
 
