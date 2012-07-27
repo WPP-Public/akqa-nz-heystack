@@ -21,6 +21,6 @@ namespace Heystack\Subsystem\Core\Storage;
 interface BackendInterface
 {
 
-    public function write(StorableInterface $object, $parentID = false);
+    public function write(StorableInterface $object);
 
 }
