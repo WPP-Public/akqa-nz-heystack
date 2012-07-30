@@ -25,5 +25,7 @@ interface DataObjectGeneratorSchemaInterface
     public function getFlatStorage();
     public function getRelatedStorage();
     public function getParentStorage();
+    public function getChildStorage();
+    public function mergeSchema(DataObjectGeneratorSchemaInterface $schema);
 
 }

@@ -28,8 +28,18 @@ class DataObjectGenerator
 
     public function addSchema(DataObjectGeneratorSchemaInterface $schema)
     {
-
-        $this->schemas[$schema->getIdentifier()] = $schema;
+        
+        $identifier = $schema->getIdentifier();
+        
+        if ($this->hasSchema($identifier)) {
+        
+            $this->schemas[$identifier]->mergeSchema($schema);
+            
+        } else {
+        
+            $this->schemas[$identifier] = $schema;
+         
+        }
 
     }
 
@@ -42,9 +52,9 @@ class DataObjectGenerator
 
     public function addYamlSchema($file)
     {
-
+        
         $this->addSchema(new YamlDataObjectGeneratorSchema($file));
-
+        
     }
 
     public function addDataObjectSchema($className)
@@ -282,7 +292,7 @@ class DataObjectGenerator
 
                 $value = trim($value);
 
-                if ($value[0] == '@') {
+                if ($value[0] == '+') {
 
                     unset($flatStorage[$name]);
 
@@ -331,7 +341,7 @@ class DataObjectGenerator
 
                 $value = trim($value);
 
-                if ($value[0] == '@') {
+                if ($value[0] == '+') {
 
                     unset($parentStorage[$name]);
 
@@ -362,7 +372,7 @@ class DataObjectGenerator
 
                 $value = trim($value);
 
-                if ($value[0] == '@') {
+                if ($value[0] == '+') {
 
                     unset($relatedStorage[$name]);
 
@@ -409,7 +419,7 @@ class DataObjectGenerator
 
                 $value = trim($value);
 
-                if ($value[0] == '@') {
+                if ($value[0] == '+') {
 
                     $childIdentifier = substr($value, 1);
 

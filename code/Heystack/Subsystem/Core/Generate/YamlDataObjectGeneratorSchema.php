@@ -105,5 +105,34 @@ class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterfac
         return isset($this->config['reference']) ? true : false;
 
     }
+    
+    public function mergeSchema(DataObjectGeneratorSchemaInterface $schema)
+    {
+        
+        $flat = $schema->getFlatStorage();
+        
+        if (is_array($flat)) {
+        
+            foreach ($flat as $key => $value) {
+
+                $this->config['flat'][$key] = $value;
+
+            }
+            
+        }
+        
+        $children = $schema->getChildStorage();
+        
+        if (is_array($children)) {
+        
+            foreach ($children as $key => $value) {
+
+                $this->config['children'][$key] = $value;
+
+            }
+            
+        }
+        
+    }
 
 }

@@ -56,8 +56,45 @@ class Backend implements BackendInterface
         $storedObject = new $saveable();
 
         foreach ($data['flat'] as $key => $value) {
+            
+            if ($key == 'References') {
+                
+                if (is_array($value)) {
+                    
+                    foreach ($value as $storableKey => $storableObj) {
+                        
+                        if ($storableObj instanceof StorableInterface) {
+                
+                            foreach ($storableObj->getStorableData() as $referenceKey => $referenceValue) {
 
-            $storedObject->$key = $data['flat'][$key];
+                                $storedObject->{$key . $referenceKey} = $referenceValue;
+
+                            }
+                        }
+
+                    }
+                    
+                }
+                
+            } else {
+
+                $storedObject->$key = $value;
+                
+            }
+            
+            if ($data['flat'][$key] instanceof StorableInterface) {
+                
+                foreach ($data['flat'][$key]->getStorableData() as $referenceKey => $referenceValue) {
+                
+                    $storedObject->{$key . $referenceKey} = $referenceValue;
+                    
+                }
+                
+            } else {
+
+                $storedObject->$key = $value;
+                
+            }
 
         }
 
