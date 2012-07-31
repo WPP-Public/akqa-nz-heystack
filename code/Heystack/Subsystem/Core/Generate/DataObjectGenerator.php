@@ -66,17 +66,17 @@ class DataObjectGenerator
 
     }
 
-    public function addYamlSchema($file)
+    public function addYamlSchema($file, $reference = false)
     {
         
-        $this->addSchema(new YamlDataObjectGeneratorSchema($file));
+        $this->addSchema(new YamlDataObjectGeneratorSchema($file), $reference);
         
     }
 
-    public function addDataObjectSchema($className)
+    public function addDataObjectSchema($className, $reference = false)
     {
 
-        $this->addSchema(new DataObjectSchema($className));
+        $this->addSchema(new DataObjectSchema($className), $reference);
 
     }
 
@@ -359,7 +359,7 @@ class DataObjectGenerator
 
                     $parentIdentifier = substr($value, 1);
 
-                    if ($this->hasReferenceSchema($parentIdentifier)) {
+                    if ($this->hasSchema($parentIdentifier)) {
 
                         $parentStorage[$name] = 'Stored' . $parentIdentifier;
 
@@ -390,7 +390,7 @@ class DataObjectGenerator
 
                     $relatedIdentifier = substr($value, 1);
 
-                    if ($this->hasReferenceSchema($relatedIdentifier)) {
+                    if ($this->hasSchema($relatedIdentifier)) {
 
                         if (isset($this->processingRelatedStorage[$relatedIdentifier])) {
 
@@ -398,7 +398,7 @@ class DataObjectGenerator
 
                         }
 
-                        $extraRelatedStorage = $this->referenceSchemas[$relatedIdentifier]->getFlatStorage();
+                        $extraRelatedStorage = $this->schemas[$relatedIdentifier]->getFlatStorage();
 
                         if (is_array($extraRelatedStorage)) {
 
@@ -435,7 +435,7 @@ class DataObjectGenerator
 
                     $childIdentifier = substr($value, 1);
 
-                    if ($this->hasReferenceSchema($childIdentifier)) {
+                    if ($this->hasSchema($childIdentifier)) {
 
                         $childStorage[$name] = 'Stored' . $childIdentifier;
 
