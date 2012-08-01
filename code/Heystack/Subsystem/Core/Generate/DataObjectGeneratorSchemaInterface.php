@@ -22,6 +22,7 @@ interface DataObjectGeneratorSchemaInterface
 {
 
     public function getIdentifier();
+    public function getDataProviderIdentifier();
     public function getFlatStorage();
     public function getRelatedStorage();
     public function getParentStorage();

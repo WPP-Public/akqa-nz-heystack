@@ -38,25 +38,25 @@ class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterfac
 
         if (!is_array($config)) {
 
-            throw new \Exception('Config sucks ballzors');
+            throw new \Exception('Your config is empty');
 
         }
 
         if (!array_key_exists('id', $config)) {
 
-            throw new \Exception('You need to name your DataObject');
+            throw new \Exception('Identifier missing');
 
         }
 
         if (!array_key_exists('flat', $config)) {
 
-            throw new \Exception('Flat config didn\'t exist');
+            throw new \Exception('Flat config missing');
 
         }
 
         if (!array_key_exists('related', $config)) {
 
-            throw new \Exception('Related config didn\'t exist');
+            throw new \Exception('Related config missing');
 
         }
 
@@ -68,6 +68,13 @@ class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterfac
     {
 
         return isset($this->config['id']) ? $this->config['id'] : false;
+
+    }
+
+    public function getDataProviderIdentifier()
+    {
+
+        return isset($this->config['data_provider_id']) ? $this->config['data_provider_id'] : false;
 
     }
 
@@ -96,13 +103,6 @@ class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterfac
     {
 
         return isset($this->config['children']) ? $this->config['children'] : array();
-
-    }
-
-    public function getReferenceOnly()
-    {
-
-        return isset($this->config['reference']) ? true : false;
 
     }
     

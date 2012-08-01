@@ -30,7 +30,13 @@ class DataObjectGenerator
     public function addSchema(DataObjectGeneratorSchemaInterface $schema, $reference = false)
     {
         
-        $identifier = $schema->getIdentifier();
+        $identifier = $schema->getDataProviderIdentifier();
+		
+		if (!$identifier) {
+			
+			$identifier = $schema->getIdentifier();
+			
+		}
 		
 		if ($reference) {
 			
@@ -52,20 +58,6 @@ class DataObjectGenerator
 
     }
 
-    public function hasSchema($identifier)
-    {
-
-        return isset($this->schemas[$identifier]) ?  $this->schemas[$identifier] : false;
-
-    }
-
-    public function hasReferenceSchema($identifier)
-    {
-
-        return isset($this->referenceSchemas[$identifier]) ?  $this->referenceSchemas[$identifier] : false;
-
-    }
-
     public function addYamlSchema($file, $reference = false)
     {
         
@@ -79,6 +71,28 @@ class DataObjectGenerator
         $this->addSchema(new DataObjectSchema($className), $reference);
 
     }
+
+    public function hasSchema($identifier)
+    {
+
+        return isset($this->schemas[$identifier]) || $this->referenceSchemas[$identifier];
+
+    }
+	
+	public function getSchema($identifier)
+	{
+		
+		if ($this->hasSchema($identifier)) {
+						
+			return isset($this->schemas[$identifier]) ? $this->schemas[$identifier] : $this->referenceSchemas[$identifier];
+			
+		} else {
+			
+			return false;
+			
+		}
+		
+	}
 
     public function process($force = false)
     {
@@ -292,6 +306,29 @@ class DataObjectGenerator
         $this->output('Done!');
 
     }
+	
+	public function isReference($value)
+	{
+
+		$value = trim($value);
+
+		if ($value[0] == '+') {
+
+			$identifier = substr($value, 1);
+			
+			if ($this->hasSchema($identifier)) {
+				
+				return $identifier;
+				
+			}
+			
+			throw new \Exception('Reference to undefined schema');
+
+		}
+		
+		return false;
+		
+	}
 
     protected function processFlatStorage($flatStorage, $identifier)
     {
@@ -301,38 +338,31 @@ class DataObjectGenerator
         if (is_array($flatStorage)) {
 
             foreach ($flatStorage as $name => $value) {
+				
+				if ($flatIdentifier = $this->isReference($value)) {
+					
+					unset($flatStorage[$name]);					
 
-                $value = trim($value);
+					if (isset($this->processingFlatStorage[$flatIdentifier])) {
 
-                if ($value[0] == '+') {
+						throw new \Exception('Circular reference in flat storage');
 
-                    unset($flatStorage[$name]);
+					}
 
-                    $flatIdentifier = substr($value, 1);
+					$extraFlatStorage = $this->processFlatStorage($this->getSchema($flatIdentifier)->getFlatStorage(), $flatIdentifier);
 
-                    if ($this->hasReferenceSchema($flatIdentifier)) {
+					if (is_array($extraFlatStorage)) {
 
-                        if (isset($this->processingFlatStorage[$flatIdentifier])) {
+						foreach ($extraFlatStorage as $extraName => $extraValue) {
 
-                            throw new \Exception('Circular reference in flat storage');
+							$flatStorage[$flatIdentifier . $extraName] = $extraValue;
 
-                        }
+						}
 
-                        $extraFlatStorage = $this->processFlatStorage($this->referenceSchemas[$flatIdentifier]->getFlatStorage(), $flatIdentifier);
-
-                        if (is_array($extraFlatStorage)) {
-
-                            foreach ($extraFlatStorage as $extraName => $extraValue) {
-
-                                $flatStorage[$flatIdentifier . $extraName] = $extraValue;
-
-                            }
-
-                        }
-
-                    }
-
-                }
+					}
+					
+					
+				}
 
             }
 
@@ -350,22 +380,13 @@ class DataObjectGenerator
         if (is_array($parentStorage)) {
 
             foreach ($parentStorage as $name => $value) {
-
-                $value = trim($value);
-
-                if ($value[0] == '+') {
-
-                    unset($parentStorage[$name]);
-
-                    $parentIdentifier = substr($value, 1);
-
-                    if ($this->hasSchema($parentIdentifier)) {
-
-                        $parentStorage[$name] = 'Stored' . $parentIdentifier;
-
-                    }
-
-                }
+				
+				if ($parentIdentifier = $this->isReference($value)) {
+					
+					unset($parentStorage[$name]);
+					$parentStorage[$name] = 'Stored' . $parentIdentifier;
+					
+				}
 
             }
 
@@ -381,38 +402,30 @@ class DataObjectGenerator
         if (is_array($relatedStorage)) {
 
             foreach ($relatedStorage as $name => $value) {
+				
+				if ($relatedIdentifier = $this->isReference($value)) {
+					
+					unset($relatedStorage[$name]);
 
-                $value = trim($value);
+					if (isset($this->processingRelatedStorage[$relatedIdentifier])) {
 
-                if ($value[0] == '+') {
+						throw new \Exception('Circular reference in related storage');
 
-                    unset($relatedStorage[$name]);
+					}
 
-                    $relatedIdentifier = substr($value, 1);
+					$extraRelatedStorage = $this->getSchema($relatedIdentifier)->getFlatStorage();
 
-                    if ($this->hasSchema($relatedIdentifier)) {
+					if (is_array($extraRelatedStorage)) {
 
-                        if (isset($this->processingRelatedStorage[$relatedIdentifier])) {
+						foreach ($extraRelatedStorage as $extraName => $extraValue) {
 
-                            throw new \Exception('Circular reference in related storage');
+							$relatedStorage[$relatedIdentifier . $extraName] = $extraValue;
 
-                        }
+						}
 
-                        $extraRelatedStorage = $this->schemas[$relatedIdentifier]->getFlatStorage();
-
-                        if (is_array($extraRelatedStorage)) {
-
-                            foreach ($extraRelatedStorage as $extraName => $extraValue) {
-
-                                $relatedStorage[$relatedIdentifier . $extraName] = $extraValue;
-
-                            }
-
-                        }
-
-                    }
-
-                }
+					}
+					
+				}
 
             }
 
@@ -428,24 +441,12 @@ class DataObjectGenerator
         if (is_array($childStorage)) {
 
             foreach ($childStorage as $name => $value) {
-
-                $value = trim($value);
-
-                if ($value[0] == '+') {
-
-                    $childIdentifier = substr($value, 1);
-
-                    if ($this->hasSchema($childIdentifier)) {
-
-                        $childStorage[$name] = 'Stored' . $childIdentifier;
-
-                    } else {
-
-                        unset($childStorage[$name]);
-
-                    }
-
-                }
+				
+				if ($childIdentifier = $this->isReference($value)) {
+					
+					$childStorage[$name] = 'Stored' . $childIdentifier;
+					
+				}
 
             }
 
