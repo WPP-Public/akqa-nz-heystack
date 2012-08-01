@@ -70,6 +70,16 @@ class TestBackend implements BackendInterface
         unset($this->storage[$key]);
 
     }
+    
+    public function removeAll(array $exclude = array())
+    {
+        foreach($this->storage as $key => $value){
+            
+            if(!in_array($key, $exclude)){
+                unset($this->storage[$key]);
+            }
+        }
+    }
 }
 
 class TestStateable implements \Serializable
