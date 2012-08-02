@@ -11,6 +11,9 @@
  */
 namespace Heystack\Subsystem\Core\Generate;
 
+use Heystack\Subsystem\Core\State\StateableInterface;
+use Heystack\Subsystem\Core\State\State;
+
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -20,48 +23,71 @@ use Symfony\Component\Yaml\Yaml;
  * @author Stevie Mayhew <stevie@heyday.co.nz>
  * @package Heystack
  */
-class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterface
+class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterface, StateableInterface
 {
 
     private $config;
+    
+    private $stateService;
+    
+    private $stateKey;
 
-    public function __construct($file)
+    public function __construct($file, State $stateService)
     {
+        $this->stateService = $stateService;
+        
+        $this->stateKey = md5($file);
+        
+        if(!$this->restoreState() || isset($_GET['flush'])){
 
-        if (!file_exists(BASE_PATH . '/' . $file)) {
+            if (!file_exists(BASE_PATH . '/' . $file)) {
 
-            throw new \Exception('File doesn\'t exist');
+                throw new \Exception('File doesn\'t exist');
 
+            }
+
+            $config = Yaml::parse(BASE_PATH . '/' . $file);
+
+            if (!is_array($config)) {
+
+                throw new \Exception('Your config is empty');
+
+            }
+
+            if (!array_key_exists('id', $config)) {
+
+                throw new \Exception('Identifier missing');
+
+            }
+
+            if (!array_key_exists('flat', $config)) {
+
+                throw new \Exception('Flat config missing');
+
+            }
+
+            if (!array_key_exists('related', $config)) {
+
+                throw new \Exception('Related config missing');
+
+            }
+            
+             $this->config = $config;
+             
+             $this->saveState();
+             
         }
 
-        $config = Yaml::parse(BASE_PATH . '/' . $file);
-
-        if (!is_array($config)) {
-
-            throw new \Exception('Your config is empty');
-
-        }
-
-        if (!array_key_exists('id', $config)) {
-
-            throw new \Exception('Identifier missing');
-
-        }
-
-        if (!array_key_exists('flat', $config)) {
-
-            throw new \Exception('Flat config missing');
-
-        }
-
-        if (!array_key_exists('related', $config)) {
-
-            throw new \Exception('Related config missing');
-
-        }
-
-        $this->config = $config;
-
+    }
+    
+    public function saveState()
+    {
+        $this->stateService->setByKey($this->stateKey, $this->config);
+    }
+    
+    public function restoreState()
+    {
+        return $this->config = $this->stateService->getByKey($this->stateKey);
     }
 
     public function getIdentifier()
