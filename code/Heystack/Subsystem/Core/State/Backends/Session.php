@@ -1,9 +1,21 @@
 <?php
 
+/**
+ * This file is part of the Heystack package
+ *
+ * @package Heystack
+ */
+
+/**
+ * Backends namespace
+ */
 namespace Heystack\Subsystem\Core\State\Backends;
 
 use Heystack\Subsystem\Core\State\BackendInterface;
 
+/**
+ * Session storage for backend
+ */
 class Session implements BackendInterface
 {
 
