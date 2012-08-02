@@ -7,7 +7,6 @@ use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 
 use Heystack\Subsystem\Core\MergeExtensionCallsConfigurationPass;
 use Heystack\Subsystem\Core\MergeExtensionArgumentsConfigurationPass;
-use Heystack\Subsystem\Core\Config;
 
 $file = HEYSTACK_BASE_PATH . '/cache/container.php';
 

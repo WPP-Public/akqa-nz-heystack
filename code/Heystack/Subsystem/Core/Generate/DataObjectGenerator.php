@@ -11,6 +11,8 @@
  */
 namespace Heystack\Subsystem\Core\Generate;
 
+use Heystack\Subsystem\Core\State\State;
+
 /**
  * Generates SilverStripe DataObject classes based of schemas
  *
@@ -26,6 +28,12 @@ class DataObjectGenerator
     private $schemas = array();
     private $referenceSchemas = array();
     private $processingFlatStorage = array();
+    private $stateService;
+    
+    public function __construct(State $stateService)
+    {
+        $this->stateService = $stateService;
+    }
 
     public function addSchema(DataObjectGeneratorSchemaInterface $schema, $reference = false)
     {
@@ -61,7 +69,7 @@ class DataObjectGenerator
     public function addYamlSchema($file, $reference = false)
     {
         
-        $this->addSchema(new YamlDataObjectGeneratorSchema($file), $reference);
+        $this->addSchema(new YamlDataObjectGeneratorSchema($file, $this->stateService), $reference);
         
     }
 
@@ -75,7 +83,7 @@ class DataObjectGenerator
     public function hasSchema($identifier)
     {
 
-        return isset($this->schemas[$identifier]) || $this->referenceSchemas[$identifier];
+        return isset($this->schemas[$identifier]) || isset($this->referenceSchemas[$identifier]);
 
     }
 	

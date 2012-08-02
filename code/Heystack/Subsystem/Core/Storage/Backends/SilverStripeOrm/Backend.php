@@ -64,8 +64,10 @@ class Backend implements BackendInterface
 
     }
     
-    public function write($dataProviderIdentifier)
+    public function write(StorableInterface $object)
     {
+        
+        $dataProviderIdentifier = $object->getStorableIdentifier();
 		
 		if ($this->hasDataProvider($dataProviderIdentifier)) {
 		
@@ -120,9 +122,9 @@ class Backend implements BackendInterface
 						
 					} else {
 						
-						if (isset($data[$key])) {
+						if (isset($data['flat'][$key])) {
 						
-							$storedObject->$key = $data[$key];
+							$storedObject->$key = $data['flat'][$key];
 							
 						} else {
 							

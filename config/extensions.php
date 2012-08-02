@@ -26,6 +26,7 @@ if (is_array($subsystems)) {
 }
 
 $extensions[0] = '\Heystack\Subsystem\Core\ContainerExtension';
+$extensions[] = '\Heystack\Subsystem\Core\MysiteContainerExtension';
 
 ksort($extensions);
 

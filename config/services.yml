@@ -61,7 +61,11 @@ services:
 
     state:
         class: %state.class%
-        arguments: [@backend_memcache]
+        arguments: [@backend_session]
+
+    state_global:
+        class: %state.class%
+        arguments: [@backend_session]
 
     config:
         class: %config.class%
@@ -127,6 +131,7 @@ services:
         - [ pushHandler, [ @monolog_dev_stream_handler ] ]
 
     dataobject_generator:
+      arguments: [ @state_global ]
       class: %dataobject_generator.class%
 
     dataobject_generator_input_processor:
@@ -140,7 +145,7 @@ services:
 
     ss_orm_backend:
       class: %ss_orm_backend.class%
-      arguments: [ @event_dispatcher ]
+      arguments: [ @event_dispatcher, @dataobject_generator ]
 
     storage:
       class: %storage.class%
