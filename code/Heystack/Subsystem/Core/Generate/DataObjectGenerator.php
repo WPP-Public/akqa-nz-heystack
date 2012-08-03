@@ -81,8 +81,8 @@ class DataObjectGenerator
     }
 
     public function hasSchema($identifier)
-    {
-
+    {      
+     
         return isset($this->schemas[$identifier]) || isset($this->referenceSchemas[$identifier]);
 
     }
@@ -323,14 +323,14 @@ class DataObjectGenerator
 		if ($value[0] == '+') {
 
 			$identifier = substr($value, 1);
-			
+            
 			if ($this->hasSchema($identifier)) {
 				
 				return $identifier;
 				
 			}
 			
-			throw new \Exception('Reference to undefined schema');
+			throw new \Exception("Reference to undefined schema: $identifier");
 
 		}
 		

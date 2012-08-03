@@ -121,11 +121,13 @@ class Backend implements BackendInterface
 						}
 						
 					} else {
-						
-						if (isset($data['flat'][$key])) {
+
+						if (array_key_exists($key, $data['flat'])) {
 						
 							$storedObject->$key = $data['flat'][$key];
 							
+                            
+                            
 						} else {
 							
 							throw new \Exception("No data found for key: $key on identifier: $dataProviderIdentifier");
