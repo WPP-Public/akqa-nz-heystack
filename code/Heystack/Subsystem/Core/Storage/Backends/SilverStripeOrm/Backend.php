@@ -73,14 +73,15 @@ class Backend implements BackendInterface
 		
 			$dataProvider = $this->dataProviders[$dataProviderIdentifier];
 			$schema = $this->generatorService->getSchema($dataProviderIdentifier);
-			
+            
 			if ($schema instanceof DataObjectGeneratorSchemaInterface) {
 
 				$saveable = 'Stored' . $schema->getIdentifier();
-
+                
 				$storedObject = new $saveable();
 				
-				$data = $dataProvider->getStorableData();			
+				$data = $dataProvider->getStorableData();	
+				$writeableData = $object->getStorableData();	
 
 				foreach ($schema->getFlatStorage() as $key => $value) {
 					
@@ -121,12 +122,10 @@ class Backend implements BackendInterface
 						}
 						
 					} else {
-
+                        
 						if (array_key_exists($key, $data['flat'])) {
-						
-							$storedObject->$key = $data['flat'][$key];
-							
                             
+							$storedObject->$key = $writeableData['flat'][$key];
                             
 						} else {
 							
@@ -137,9 +136,14 @@ class Backend implements BackendInterface
 					}
 
 				}
-
+                
+                // @todo this should be in the config?
+                if (isset($data['parent']) && isset($writeableData['flat']['ParentID'])) {
+                    $storedObject->ParentID = $writeableData['flat']['ParentID'];
+                } 
+                
 				$storedObject->write();
-				
+                
 				$relatedStorage = $schema->getRelatedStorage();
 
 				if ($relatedStorage) {
@@ -184,7 +188,7 @@ class Backend implements BackendInterface
 
 					}
 
-				}
+				} 
 
 				$this->eventService->dispatch(
 					self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
