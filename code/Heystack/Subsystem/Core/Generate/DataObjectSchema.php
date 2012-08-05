@@ -41,7 +41,7 @@ class DataObjectSchema implements DataObjectGeneratorSchemaInterface
     public function getIdentifier()
     {
 
-        return $this->dataObject->ClassName;
+        return strtolower($this->dataObject->ClassName);
 
     }
 

@@ -75,7 +75,7 @@ class DataObjectGenerator
 
     public function addDataObjectSchema($className, $reference = false)
     {
-
+        
         $this->addSchema(new DataObjectSchema($className), $reference);
 
     }
@@ -140,13 +140,14 @@ class DataObjectGenerator
         $managed_models = array();
 
         foreach ($this->schemas as $schema) {
-
+                        
 			$identifier = $schema->getIdentifier();
 
 			$this->output('Processing schema: ' . $identifier);
 
 			$flatStorage    = $this->processFlatStorage($schema->getFlatStorage(), $identifier);
 			$relatedStorage = $this->processRelatedStorage($schema->getRelatedStorage(), $identifier);
+            $hasRelatedStorage = $relatedStorage && is_array($relatedStorage) && count($relatedStorage) > 0;
 			$parentStorage  = $this->processParentStorage($schema->getParentStorage(), $identifier);
 			$childStorage   = $this->processChildStorage($schema->getChildStorage(), $identifier);
 
@@ -163,9 +164,9 @@ class DataObjectGenerator
 				array(
 					'db' => $flatStorage,
 					'has_one' => $parentStorage,
-					'has_many' => $childStorage + array(
+					'has_many' => $childStorage + ($hasRelatedStorage ? array(
 						$storedRelatedObjectName => $storedRelatedObjectName
-					),
+					): array()),
 					'summary_fields' => array_keys(is_array($flatStorage) ? $flatStorage : array()) + array_keys(is_array($parentStorage) ? $parentStorage : array())
 				)
 			);
@@ -184,7 +185,7 @@ class DataObjectGenerator
 
 			}
 
-			if ($relatedStorage && is_array($relatedStorage) && count($relatedStorage) > 0) {
+			if ($hasRelatedStorage) {
 
 				$this->writeDataObject(
 					$dirCache,
@@ -324,7 +325,7 @@ class DataObjectGenerator
 
 			$identifier = substr($value, 1);
             
-			if ($this->hasSchema($identifier)) {
+			if ($this->hasSchema(strtolower($identifier))) {
 				
 				return $identifier;
 				
