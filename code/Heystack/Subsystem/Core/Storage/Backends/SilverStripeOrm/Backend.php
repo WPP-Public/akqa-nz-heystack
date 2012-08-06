@@ -32,8 +32,8 @@ class Backend implements BackendInterface
     const IDENTIFIER = 'silverstripe_orm';
 
     private $eventService = null;
-	private $generatorService = null;
-	private $dataProviders = array();
+    private $generatorService = null;
+    private $dataProviders = array();
 
     public function __construct(EventDispatcher $eventService, DataObjectGenerator $generatorService)
     {
@@ -42,170 +42,170 @@ class Backend implements BackendInterface
         $this->generatorService = $generatorService;
 
     }
-	
-	public function addDataProvider(StorableInterface $dataProvider)
-	{
-		
-		$this->dataProviders[$dataProvider->getStorableIdentifier()] = $dataProvider;
-		
-	}
-	
-	public function hasDataProvider($dataProviderIdentifier)
-	{
-		
-		return isset($this->dataProviders[$dataProviderIdentifier]);
-		
-	}
 
-    public function getIdentifier() 
+    public function addDataProvider(StorableInterface $dataProvider)
+    {
+
+        $this->dataProviders[$dataProvider->getStorableIdentifier()] = $dataProvider;
+
+    }
+
+    public function hasDataProvider($dataProviderIdentifier)
+    {
+
+        return isset($this->dataProviders[$dataProviderIdentifier]);
+
+    }
+
+    public function getIdentifier()
     {
 
         return self::IDENTIFIER;
 
     }
-    
+
     public function write(StorableInterface $object)
     {
-        
+
         $dataProviderIdentifier = $object->getStorableIdentifier();
-		
-		if ($this->hasDataProvider($dataProviderIdentifier)) {
-		
-			$dataProvider = $this->dataProviders[$dataProviderIdentifier];
-			$schema = $this->generatorService->getSchema($dataProviderIdentifier);
-            
-			if ($schema instanceof DataObjectGeneratorSchemaInterface) {
 
-				$saveable = 'Stored' . $schema->getIdentifier();
-                
-				$storedObject = new $saveable();
-				
-				$data = $dataProvider->getStorableData();	
-				$writeableData = $object->getStorableData();	
+        if ($this->hasDataProvider($dataProviderIdentifier)) {
 
-				foreach ($schema->getFlatStorage() as $key => $value) {
-					
-					if ($reference = $this->generatorService->isReference($value)) {
-						
-						if ($this->hasDataProvider($reference)) {
-							
-							$referenceSchema = $this->generatorService->getSchema($reference);
-							
-							if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
-								
-								$referenceData = $this->dataProviders[$reference]->getStorableData();
-								
-								foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
-						
-									if (isset($referenceData[$referenceKey])) {
-									
-										$storedObject->{$key . $referenceKey} = $referenceData[$referenceKey];
-										
-									} else {
-							
-										throw new \Exception("No data found for key: $key on identifier: $reference");
+            $dataProvider = $this->dataProviders[$dataProviderIdentifier];
+            $schema = $this->generatorService->getSchema($dataProviderIdentifier);
 
-									}
-									
-								}
-								
-							} else {
-								
-								throw new \Exception("No schema found for identifier: $reference");
-								
-							}
-							
-						} else {
-							
-							throw new \Exception('Reference in flat schema didn\'t have an associated data provider');
-							
-						}
-						
-					} else {
-                        
-						if (array_key_exists($key, $data['flat'])) {
-                            
-							$storedObject->$key = $writeableData['flat'][$key];
-                            
-						} else {
-							
-							throw new \Exception("No data found for key: $key on identifier: $dataProviderIdentifier");
-							
-						}
-						
-					}
+            if ($schema instanceof DataObjectGeneratorSchemaInterface) {
 
-				}
-                
+                $saveable = 'Stored' . $schema->getIdentifier();
+
+                $storedObject = new $saveable();
+
+                $data = $dataProvider->getStorableData();
+                $writeableData = $object->getStorableData();
+
+                foreach ($schema->getFlatStorage() as $key => $value) {
+
+                    if ($reference = $this->generatorService->isReference($value)) {
+
+                        if ($this->hasDataProvider($reference)) {
+
+                            $referenceSchema = $this->generatorService->getSchema($reference);
+
+                            if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
+
+                                $referenceData = $this->dataProviders[$reference]->getStorableData();
+
+                                foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
+
+                                    if (isset($referenceData[$referenceKey])) {
+
+                                        $storedObject->{$key . $referenceKey} = $referenceData[$referenceKey];
+
+                                    } else {
+
+                                        throw new \Exception("No data found for key: $key on identifier: $reference");
+
+                                    }
+
+                                }
+
+                            } else {
+
+                                throw new \Exception("No schema found for identifier: $reference");
+
+                            }
+
+                        } else {
+
+                            throw new \Exception('Reference in flat schema didn\'t have an associated data provider');
+
+                        }
+
+                    } else {
+
+                        if (array_key_exists($key, $data['flat'])) {
+
+                            $storedObject->$key = $writeableData['flat'][$key];
+
+                        } else {
+
+                            throw new \Exception("No data found for key: $key on identifier: $dataProviderIdentifier");
+
+                        }
+
+                    }
+
+                }
+
                 // @todo this should be in the config?
                 if (isset($data['parent']) && isset($writeableData['flat']['ParentID'])) {
                     $storedObject->ParentID = $writeableData['flat']['ParentID'];
-                } 
-                
-				$storedObject->write();
-                
-				$relatedStorage = $schema->getRelatedStorage();
+                }
 
-				if ($relatedStorage) {
-					
-					$saveable = "Stored{$data['id']}RelatedData";
+                $storedObject->write();
 
-					foreach ($relatedStorage as $key => $value) {
-						
-						$storedManyObject = new $saveable();
-						$storedManyObject->{"Stored{$data['id']}ID"} = $storedObject->ID;
-					
-						if ($reference = $this->generatorService->isReference($value)) {
+                $relatedStorage = $schema->getRelatedStorage();
 
-							if ($this->hasDataProvider($reference)) {
-							
-								$referenceSchema = $this->generatorService->getSchema($reference);
-								$referenceData = $this->dataProviders[$reference]->getStorableData();
-							
-								if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
-								
-									foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
+                if ($relatedStorage) {
 
-										$storedManyObject->{$key . $referenceKey} = $referenceData[$referenceKey];
+                    $saveable = "Stored{$data['id']}RelatedData";
 
-									}
-									
-								}
-								
-							} else {
-							
-								throw new \Exception('Reference in related schema didn\'t have an associated data provider');
+                    foreach ($relatedStorage as $key => $value) {
 
-							}
-							
-						} else {
-							
-							$storedManyObject->{$key} = $data['related'][$key];
-							
-						}
+                        $storedManyObject = new $saveable();
+                        $storedManyObject->{"Stored{$data['id']}ID"} = $storedObject->ID;
 
-						$storedManyObject->write();
+                        if ($reference = $this->generatorService->isReference($value)) {
 
-					}
+                            if ($this->hasDataProvider($reference)) {
 
-				} 
+                                $referenceSchema = $this->generatorService->getSchema($reference);
+                                $referenceData = $this->dataProviders[$reference]->getStorableData();
 
-				$this->eventService->dispatch(
-					self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
-					new Event($storedObject->ID)
-				);
-				
-			} else {
-			
-				throw new \Exception('No schema found for identifier: ' . $dataProviderIdentifier);
+                                if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
 
-			}
-			
-		} else {
-			
-			throw new \Exception('Couldn\'t find data provider for identifier: ' . $dataProviderIdentifier);
-			
-		}
+                                    foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
+
+                                        $storedManyObject->{$key . $referenceKey} = $referenceData[$referenceKey];
+
+                                    }
+
+                                }
+
+                            } else {
+
+                                throw new \Exception('Reference in related schema didn\'t have an associated data provider');
+
+                            }
+
+                        } else {
+
+                            $storedManyObject->{$key} = $data['related'][$key];
+
+                        }
+
+                        $storedManyObject->write();
+
+                    }
+
+                }
+
+                $this->eventService->dispatch(
+                    self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
+                    new Event($storedObject->ID)
+                );
+
+            } else {
+
+                throw new \Exception('No schema found for identifier: ' . $dataProviderIdentifier);
+
+            }
+
+        } else {
+
+            throw new \Exception('Couldn\'t find data provider for identifier: ' . $dataProviderIdentifier);
+
+        }
 
     }
 

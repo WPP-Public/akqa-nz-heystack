@@ -53,7 +53,7 @@ class MergeExtensionArgumentsConfigurationPass implements CompilerPassInterface
                 if ($container->hasDefinition($definitionName)) {
 
                     $parentDefinition = $container->getDefinition($definitionName);
-                    
+
                     $arguments = $definition->getArguments();
 
                     if (count($arguments) > 0) {

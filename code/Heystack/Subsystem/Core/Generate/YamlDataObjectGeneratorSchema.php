@@ -27,18 +27,18 @@ class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterfac
 {
 
     private $config;
-    
+
     private $stateService;
-    
+
     private $stateKey;
 
     public function __construct($file, State $stateService)
     {
         $this->stateService = $stateService;
-        
+
         $this->stateKey = md5($file);
-        
-        if(!$this->restoreState() || isset($_GET['flush'])){
+
+        if (!$this->restoreState() || isset($_GET['flush'])) {
 
             if (!file_exists(BASE_PATH . '/' . $file)) {
 
@@ -71,20 +71,20 @@ class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterfac
                 throw new \Exception('Related config missing');
 
             }
-            
+
              $this->config = $config;
-             
+
              $this->saveState();
-             
+
         }
 
     }
-    
+
     public function saveState()
     {
         $this->stateService->setByKey($this->stateKey, $this->config);
     }
-    
+
     public function restoreState()
     {
         return $this->config = $this->stateService->getByKey($this->stateKey);
@@ -131,34 +131,34 @@ class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterfac
         return isset($this->config['children']) ? $this->config['children'] : array();
 
     }
-    
+
     public function mergeSchema(DataObjectGeneratorSchemaInterface $schema)
     {
-        
+
         $flat = $schema->getFlatStorage();
-        
+
         if (is_array($flat)) {
-        
+
             foreach ($flat as $key => $value) {
 
                 $this->config['flat'][$key] = $value;
 
             }
-            
+
         }
-        
+
         $children = $schema->getChildStorage();
-        
+
         if (is_array($children)) {
-        
+
             foreach ($children as $key => $value) {
 
                 $this->config['children'][$key] = $value;
 
             }
-            
+
         }
-        
+
     }
 
 }
