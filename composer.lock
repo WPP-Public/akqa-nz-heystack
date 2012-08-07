@@ -16,7 +16,8 @@
         {
             "package": "symfony/dependency-injection",
             "version": "2.0.x-dev",
-            "source-reference": "v2.0.16",
+            "source-reference": "c3a940d93ca03064b6a9f3606a552eb63d0f4a9f",
+
             "commit-date": "1341837830"
         },
         {
