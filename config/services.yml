@@ -10,13 +10,13 @@ parameters:
 
     session.class: Session
 
-    monolog.class: Monolog\Logger
     monolog.name: global
 
-    monolog.mail_handler.to: [ss-errors@heyday.co.nz, glenn@heyday.co.nz]
+    monolog.mail_handler.to: [ss-errors@heyday.co.nz, glenn@heyday.co.nz, cameron@heyday.co.nz]
     monolog.mail_handler.from: noreply@heyday.net.nz
     monolog.mail_handler.subject: Heystack Error
     monolog.stream_handler.file_location: ../heystack/monolog.log
+    monolog.stream_handler.dev_file_location: ../heystack/monolog_dev.log
 
     monolog.level.debug: 100
     monolog.level.info: 200
@@ -32,11 +32,8 @@ parameters:
     dataobject_generator.class: Heystack\Subsystem\Core\Generate\DataObjectGenerator
     dataobject_generator_input_processor.class: Heystack\Subsystem\Core\Generate\Input\Processor
     
-    
-    
-    storage_processor_handler.class: Heystack\Subsystem\Core\Storage\Processor\Handler
-    ss_orm_backend.class: Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrmBackend
-
+    storage.class: Heystack\Subsystem\Core\Storage\Storage
+    ss_orm_backend.class: Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrm\Backend
 
 
 services:
@@ -66,6 +63,10 @@ services:
         class: %state.class%
         arguments: [@backend_session]
 
+    state_global:
+        class: %state.class%
+        arguments: [@backend_session]
+
     config:
         class: %config.class%
         arguments: []
@@ -79,42 +80,58 @@ services:
     output_processor_handler:
       class: %output_processor_handler.class%
 
+    monolog_multiline_formatter:
+      class: Monolog\Formatter\MultiLineFormatter
+
+    monolog_web_processor:
+      class: Monolog\Processor\WebProcessor
+
+    monolog_peak_memory_processor:
+      class: Monolog\Processor\MemoryPeakUsageProcessor
+
+    monolog_introspection_processor:
+      class: Monolog\Processor\IntrospectionProcessor
+
     monolog_stream_handler:
       class: Monolog\Handler\StreamHandler
       arguments: [ %monolog.stream_handler.file_location%,  %monolog.level.debug%]
+      calls:
+        - [ setFormatter, [ @monolog_multiline_formatter ] ]
 
-    monolog_object_processor:
-      class: Monolog\Processor\ObjectProcessor
+    monolog_dev_stream_handler:
+      class: Monolog\Handler\StreamHandler
+      arguments: [ %monolog.stream_handler.dev_file_location%, %monolog.level.debug%]
+      calls:
+        - [ setFormatter, [ @monolog_multiline_formatter ] ]
 
     monolog_mail_handler:
       class: Monolog\Handler\NativeMailerHandler
       arguments: [ %monolog.mail_handler.to%, %monolog.mail_handler.subject%, %monolog.mail_handler.from%, %monolog.level.error% ]
+      calls:
+        - [ setFormatter, [ @monolog_multiline_formatter ] ]
+
+    monolog_chrome_handler:
+        class: Monolog\Handler\ChromePHPHandler
 
     monolog:
-      class: %monolog.class%
+      class: Monolog\Logger
       arguments: [ %monolog.name% ]
       calls:
         - [ pushHandler, [ @monolog_stream_handler ] ]
         - [ pushHandler, [ @monolog_mail_handler ] ]
-        - [ pushProcessor, [ @monolog_object_processor ] ]
+        - [ pushProcessor, [ @monolog_web_processor ] ]
+        - [ pushProcessor, [ @monolog_peak_memory_processor ] ]
+        - [ pushProcessor, [ @monolog_introspection_processor ] ]
 
-#    storage_processor_handler:
-#      class: %storage_processor_handler.class%
-#      calls:
-#        - [ addProcessor, [ @dataobject_storage_processor ] ]
-#        
-#    storage_generator_handler:
-#      class: %storage_generator_handler.class%
-#      calls:
-#        - [ addProcessor, [ @dataobject_storage_generator ] ]
-
-#    dataobject_storage_generator:
-#      class: %dataobject_storage_generator.class%
-#      
-#    dataobject_storage_processor:
-#      class: %dataobject_storage_processor.class%
+    monolog_dev:
+      class: Monolog\Logger
+      arguments: [ Development ]
+      calls:
+        - [ pushHandler, [ @monolog_chrome_handler ] ]
+        - [ pushHandler, [ @monolog_dev_stream_handler ] ]
 
     dataobject_generator:
+      arguments: [ @state_global ]
       class: %dataobject_generator.class%
 
     dataobject_generator_input_processor:
@@ -126,14 +143,11 @@ services:
       calls:
         - [ addProcessor, [ @dataobject_generator_input_processor ] ]
 
-
-
-
     ss_orm_backend:
       class: %ss_orm_backend.class%
+      arguments: [ @event_dispatcher, @dataobject_generator ]
 
-
-    storage_processor_handler:
-      class: %storage_processor_handler.class%
+    storage:
+      class: %storage.class%
       calls:
-        - [ addProcessor, [ @ss_orm_backend ] ]
+        - [ addBackend, [ @ss_orm_backend ] ]

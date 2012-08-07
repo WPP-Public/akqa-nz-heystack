@@ -1,4 +1,8 @@
 {
+    "name": "heystack/heystack",
+    "require": {
+        "php": ">=5.4.0"
+    },
     "repositories": [
         {
             "type": "vcs",
@@ -10,7 +14,7 @@
         "symfony/config": "2.0.*",
         "symfony/dependency-injection": "2.0.*",
         "symfony/yaml": "2.0.*",
-        "monolog/monolog": "dev-object-processor"
+        "monolog/monolog": "dev-feature/object-formatter"
     },
     "autoload": {
         "psr-0": {

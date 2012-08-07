@@ -9,7 +9,7 @@
 /**
  * Output namespace
  */
-namespace Heystack\Subsystem\Processor\Output;
+namespace Heystack\Subsystem\Core\Output;
 
 use Heystack\Subsystem\Core\Output\ProcessorInterface;
 

@@ -1,9 +1,21 @@
 <?php
 
+/**
+ * This file is part of the Heystack package
+ *
+ * @package Heystack
+ */
+
+/**
+ * Backends namespace
+ */
 namespace Heystack\Subsystem\Core\State\Backends;
 
 use Heystack\Subsystem\Core\State\BackendInterface;
 
+/**
+ * Session storage for backend
+ */
 class Session implements BackendInterface
 {
 
@@ -55,23 +67,14 @@ class Session implements BackendInterface
 
     }
 
-    public function getByLikeKey($key)
+    public function removeAll(array $exclude = array())
     {
-        $session = $this->session->inst_getAll();
 
-        $objects = array();
+        //TODO: exclude
 
-        foreach ($session as $k => $v) {
+        $this->session->inst_clearAll();
+        $this->save();
 
-            if (preg_match("/$key/", $k)) {
-
-                $objects[] = $v;
-
-            }
-
-        }
-
-        return $objects;
     }
 
     protected function save()

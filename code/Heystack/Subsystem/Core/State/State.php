@@ -51,17 +51,11 @@ class State
 
     }
 
-    public function getByLikeKey($key) //TODO: either this needs to be added to the interface, or removed.
+    public function removeAll(array $exclude = array())
     {
-        $objects = array();
 
-        foreach ($this->backend->getByLikeKey($key) as $object) {
+        $this->backend->removeAll($exclude);
 
-            $objects[] = unserialize($object);
-
-        }
-
-        return $objects;
     }
 
 }

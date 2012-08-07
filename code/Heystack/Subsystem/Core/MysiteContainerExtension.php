@@ -30,7 +30,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  * @package Heystack
  *
  */
-class ContainerExtension extends ContainerExtensionConfigProcessor implements ExtensionInterface
+class MysiteContainerExtension extends ContainerExtensionConfigProcessor implements ExtensionInterface
 {
 
     /**
@@ -46,10 +46,10 @@ class ContainerExtension extends ContainerExtensionConfigProcessor implements Ex
 
         $loader = new YamlFileLoader(
             $container,
-            new FileLocator(HEYSTACK_BASE_PATH . '/config/')
+            new FileLocator(BASE_PATH . '/mysite/config/')
         );
 
-        $loader->load('services.yml');
+        $loader->load('overrides.yml');
 
         $this->processConfig($config, $container);
     }
@@ -60,7 +60,7 @@ class ContainerExtension extends ContainerExtensionConfigProcessor implements Ex
      */
     public function getNamespace()
     {
-        return 'heystack';
+        return 'mysite';
     }
 
     /**
@@ -78,7 +78,7 @@ class ContainerExtension extends ContainerExtensionConfigProcessor implements Ex
      */
     public function getAlias()
     {
-        return 'heystack';
+        return 'mysite';
     }
 
 }
