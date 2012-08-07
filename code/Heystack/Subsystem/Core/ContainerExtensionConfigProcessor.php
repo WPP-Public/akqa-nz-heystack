@@ -47,6 +47,14 @@ abstract class ContainerExtensionConfigProcessor
                 }
             }
         }
+        
+        $parameters = $container->getParameterBag()->all();
+        
+        foreach($parameters as $name => $parameter){
+            if($parameter === '$$$'){
+                throw new \Exception('The parameter: ' . $name . ' still has the default value. Please override in your /mysite/config/services.yml file');
+            }
+        }
     }
 
 }
