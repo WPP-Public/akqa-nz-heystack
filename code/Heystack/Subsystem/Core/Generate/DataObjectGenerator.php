@@ -156,18 +156,23 @@ class DataObjectGenerator
             $storedObjectName           = 'Stored' . $identifier;
             $cachedRelatedObjectName    = 'Cached' . $identifier . 'RelatedData';
             $storedRelatedObjectName    = 'Stored' . $identifier . 'RelatedData';
+            
+            $fields = array_keys(is_array($flatStorage) ? $flatStorage : array()) + array_keys(is_array($parentStorage) ? $parentStorage : array());
 
             // create the cached object
             $this->writeDataObject(
                 $dirCache,
                 $cachedObjectName,
                 array(
-                    'db' => $flatStorage,
-                    'has_one' => $parentStorage,
-                    'has_many' => $childStorage + ($hasRelatedStorage ? array(
+                    'db'                => $flatStorage,
+                    'has_one'           => $parentStorage,
+                    'has_many'          => $childStorage + ($hasRelatedStorage ? array(
                         $storedRelatedObjectName => $storedRelatedObjectName
                     ): array()),
-                    'summary_fields' => array_keys(is_array($flatStorage) ? $flatStorage : array()) + array_keys(is_array($parentStorage) ? $parentStorage : array())
+                    'summary_fields'    => array_merge(array('Created'), $fields),
+                    'searchable_fields' => $fields,
+                    'singular_name'     => $identifier,
+                    'plural_name'       => $identifier . 's'
                 )
             );
 
@@ -270,6 +275,9 @@ class DataObjectGenerator
                     'has_one'           => false,
                     'has_many'          => false,
                     'summary_fields'    => false,
+                    'searchable_fields' => false,
+                    'singular_name'     => false,
+                    'plural_name'       => false
                 ), $statics)
             )
         );
