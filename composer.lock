@@ -1,11 +1,11 @@
 {
-    "hash": "a9f7a918980af6a445f2a3903fd963c2",
+    "hash": "fb2ad1017aad675585af7dc1da3a6e0c",
     "packages": [
         {
             "package": "composer/installers",
             "version": "dev-silverstripe",
-            "source-reference": "8e5f68d9e05ceebec8ce3a1701492114589bc0f9",
-            "commit-date": "1344389675"
+            "source-reference": "619bd6577a4f4d9f42567305af22f21a3c198ef2",
+            "commit-date": "1344398929"
         },
         {
             "package": "monolog/monolog",
