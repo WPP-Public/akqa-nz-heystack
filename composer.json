@@ -18,7 +18,7 @@
         "symfony/config": "2.0.16",
         "symfony/dependency-injection": "2.0.16",
         "symfony/yaml": "2.0.16",
-        "monolog/monolog": "1.0.*"
+        "monolog/monolog": "dev-feature/multi-line-formatter"
     },
     "autoload": {
         "psr-0": {
