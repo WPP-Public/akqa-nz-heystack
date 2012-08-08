@@ -1,9 +1,6 @@
 {
     "name": "heystack/heystack",
     "type": "silverstripe-module",
-    "require": {
-        "php": ">=5.4.0"
-    },
     "repositories": [
         {
             "type": "git",
@@ -15,6 +12,7 @@
         }
     ],
     "require": {
+        "php": ">=5.4.0",
         "composer/installers": "dev-silverstripe",
         "symfony/event-dispatcher": "2.0.16",
         "symfony/config": "2.0.16",
