@@ -10,8 +10,8 @@
         {
             "package": "monolog/monolog",
             "version": "dev-feature/object-formatter",
-            "source-reference": "62e7ae46aea14709a8fe7c3d8e75dc6ca4d18cc1",
-            "commit-date": "1343164612"
+            "source-reference": "4c5fdd337425f8e8d3f69525467b93f4b896a4e6",
+            "commit-date": "1344393635"
         },
         {
             "package": "symfony/config",
