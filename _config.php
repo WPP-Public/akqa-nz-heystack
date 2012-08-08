@@ -1,7 +1,5 @@
 <?php
 
-//test
-
 \Director::addRules(100, array(
     \CliInputController::$url_segment . '/$Action/$Processor/$ID/$OtherID/$ExtraID' => 'CliInputController'
 ));
