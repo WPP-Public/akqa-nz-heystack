@@ -27,6 +27,7 @@ final class Services
     const BACKEND_GLOBAL_MEMCACHE = 'backend_global_memcache';
     const BACKEND_SESSION = 'backend_session';
     const STATE = 'state';
+    const STATE_GLOBAL = 'state_global';
     const CONFIG = 'config';
     const EVENT_DISPATCHER = 'event_dispatcher';
     const INPUT_PROCESSOR_HANDLER = 'input_processor_handler';
