@@ -1,5 +1,6 @@
 {
     "name": "heystack/heystack",
+    "type": "heystack-subsystem",
     "require": {
         "php": ">=5.4.0"
     },
