@@ -16,7 +16,6 @@
     ],
     "require": {
         "composer/installers": "dev-silverstripe",
-        "heystack/heystack-subsystem-installer": "dev-develop",
         "symfony/event-dispatcher": "2.0.16",
         "symfony/config": "2.0.16",
         "symfony/dependency-injection": "2.0.16",
