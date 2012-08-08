@@ -8,10 +8,14 @@
         {
             "type": "vcs",
             "url": "https://github.com/heyday/monolog"
+        },
+        {
+            "type": "vcs",
+            "url": "ssh://sls@slsapp.com:1234/heyday/heystack-subsystem-installer.git"
         }
     ],
     "require": {
-        "heystack/heystack-subsystem-installer": "*",
+        "heystack/heystack-subsystem-installer": "dev-develop",
         "symfony/event-dispatcher": "2.0.16",
         "symfony/config": "2.0.16",
         "symfony/dependency-injection": "2.0.16",
