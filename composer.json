@@ -16,11 +16,11 @@
     ],
     "require": {
         "composer/installers": "dev-silverstripe",
+        "monolog/monolog": "dev-feature/object-formatter",
         "symfony/event-dispatcher": "2.0.16",
         "symfony/config": "2.0.16",
         "symfony/dependency-injection": "2.0.16",
-        "symfony/yaml": "2.0.16",
-        "monolog/monolog": "dev-feature/object-formatter"
+        "symfony/yaml": "2.0.16"
     },
     "autoload": {
         "psr-0": {
