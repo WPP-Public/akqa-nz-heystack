@@ -26,5 +26,6 @@
         "psr-0": {
             "Heystack": "code/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
