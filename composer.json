@@ -15,7 +15,6 @@
         }
     ],
     "require": {
-//        "monolog/monolog": "dev-feature/object-formatter",
         "composer/installers": "dev-silverstripe",
         "symfony/event-dispatcher": "2.0.16",
         "symfony/config": "2.0.16",
