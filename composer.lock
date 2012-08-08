@@ -1,6 +1,12 @@
 {
-    "hash": "bf7ad678822f924d4fb19012caaa69b4",
+    "hash": "abb5c517a313340c62c3808d3de1ce04",
     "packages": [
+        {
+            "package": "composer/installers",
+            "version": "dev-silverstripe",
+            "source-reference": "8e5f68d9e05ceebec8ce3a1701492114589bc0f9",
+            "commit-date": "1344389675"
+        },
         {
             "package": "monolog/monolog",
             "version": "dev-feature/object-formatter",
@@ -28,8 +34,9 @@
     "aliases": [
 
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
+        "composer/installers": 20,
         "monolog/monolog": 20
     }
 }
