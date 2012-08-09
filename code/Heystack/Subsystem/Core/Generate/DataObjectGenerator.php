@@ -35,7 +35,7 @@ class DataObjectGenerator
         $this->stateService = $stateService;
     }
 
-    public function addSchema(DataObjectGeneratorSchemaInterface $schema, $reference = false)
+    public function addSchema(DataObjectGeneratorSchemaInterface $schema, $reference = false, $force = false)
     {
 
         $identifier = $schema->getDataProviderIdentifier();
@@ -52,7 +52,7 @@ class DataObjectGenerator
 
         } else {
 
-            if ($this->hasSchema($identifier)) {
+            if ($this->hasSchema($identifier) && !$force) {
 
                 $this->schemas[$identifier]->mergeSchema($schema);
 
@@ -66,10 +66,10 @@ class DataObjectGenerator
 
     }
 
-    public function addYamlSchema($file, $reference = false)
+    public function addYamlSchema($file, $reference = false, $force = false)
     {
 
-        $this->addSchema(new YamlDataObjectGeneratorSchema($file, $this->stateService), $reference);
+        $this->addSchema(new YamlDataObjectGeneratorSchema($file, $this->stateService), $reference, $force);
 
     }
 
