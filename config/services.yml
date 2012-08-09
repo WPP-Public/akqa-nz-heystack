@@ -29,6 +29,8 @@ parameters:
     memcache.host: localhost
     memcache.port: 11211
     
+    memcache.prefix: heystack_
+    
     dataobject_generator.class: Heystack\Subsystem\Core\Generate\DataObjectGenerator
     dataobject_generator_input_processor.class: Heystack\Subsystem\Core\Generate\Input\Processor
     
@@ -53,7 +55,7 @@ services:
 
     backend_global_memcache:
         class: %backend_memcache.class%
-        arguments: [@memcache]
+        arguments: [@memcache, null, %memcache.prefix%]
 
     backend_session:
         class: %backend_session.class%

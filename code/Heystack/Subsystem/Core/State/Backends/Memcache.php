@@ -12,8 +12,9 @@ class Memcache implements BackendInterface
     private $memcache = null;
     private $session = null;
     private $keys = false;
+    private $prefix = '';
 
-    public function __construct(\Memcache $memcache, \Session $session = null)
+    public function __construct(\Memcache $memcache, \Session $session = null, $prefix = null)
     {
 
         $this->memcache = $memcache;
@@ -21,6 +22,12 @@ class Memcache implements BackendInterface
         if (!is_null($session)) {
 
             $this->session = $session;
+
+        }
+
+        if (!is_null($prefix)) {
+        
+            $this->prefix = $prefix;
 
         }
 
@@ -98,7 +105,7 @@ class Memcache implements BackendInterface
     protected function key($key)
     {
 
-        return !is_null($this->session) ? session_id() . '_' . $key : $key;
+        return !is_null($this->session) ? session_id() . '_' . $key : $this->prefix . $key;
 
     }
 
