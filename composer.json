@@ -3,12 +3,8 @@
     "type": "silverstripe-module",
     "repositories": [
         {
-            "type": "git",
-            "url": "https://github.com/heyday/monolog.git"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/heyday/installers.git"
+            "type": "composer",
+            "url": "http://satis/"
         }
     ],
     "require": {
