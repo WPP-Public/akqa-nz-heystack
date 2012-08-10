@@ -45,7 +45,7 @@ class Backend implements BackendInterface
 
     public function addDataProvider(StorableInterface $dataProvider)
     {
-
+        
         $this->dataProviders[$dataProvider->getStorableIdentifier()] = $dataProvider;
 
     }
@@ -66,13 +66,17 @@ class Backend implements BackendInterface
 
     public function write(StorableInterface $object)
     {
-
+        
         $dataProviderIdentifier = $object->getStorableIdentifier();
+        $schemaIdentifier = strtolower($object->getSchemaName());
 
         if ($this->hasDataProvider($dataProviderIdentifier)) {
+            
+            error_log(print_r(array_keys($this->dataProviders),true));
+            error_log(print_r(array_keys($this->generatorService->schemas),true));
 
             $dataProvider = $this->dataProviders[$dataProviderIdentifier];
-            $schema = $this->generatorService->getSchema($dataProviderIdentifier);
+            $schema = $this->generatorService->getSchema($schemaIdentifier);
 
             if ($schema instanceof DataObjectGeneratorSchemaInterface) {
 
@@ -86,20 +90,20 @@ class Backend implements BackendInterface
                 foreach ($schema->getFlatStorage() as $key => $value) {
 
                     if ($reference = $this->generatorService->isReference($value)) {
-
-                        if ($this->hasDataProvider($reference)) {
-
-                            $referenceSchema = $this->generatorService->getSchema($reference);
+                                                
+                        $referenceSchema = $this->generatorService->getSchema($reference);
+                        
+                        if ($this->hasDataProvider($referenceSchema->getDataProviderIdentifier())) {
 
                             if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
 
-                                $referenceData = $this->dataProviders[$reference]->getStorableData();
+                                $referenceData = $this->dataProviders[$referenceSchema->getDataProviderIdentifier()]->getStorableData();
 
-                                foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
+                                foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {                                 
+                                    
+                                    if (isset($referenceData['flat'][$referenceKey])) {
 
-                                    if (isset($referenceData[$referenceKey])) {
-
-                                        $storedObject->{$key . $referenceKey} = $referenceData[$referenceKey];
+                                        $storedObject->{$key . $referenceKey} = $referenceData['flat'][$referenceKey];
 
                                     } else {
 
@@ -197,7 +201,7 @@ class Backend implements BackendInterface
 
             } else {
 
-                throw new \Exception('No schema found for identifier: ' . $dataProviderIdentifier);
+                throw new \Exception('No schema found for identifier: ' . $schemaIdentifier);
 
             }
 
