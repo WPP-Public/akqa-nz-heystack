@@ -1,0 +1,7 @@
+data_provider_id: test
+id: Test
+flat:
+  Test2: Text
+related:
+parent:
+children:

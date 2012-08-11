@@ -3,7 +3,6 @@
 namespace Heystack\Subsystem\Core\Tests;
 
 use Heystack\Subsystem\Core\State\State;
-use Heystack\Subsystem\Core\State\BackendInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class StateTest extends \PHPUnit_Framework_TestCase
@@ -44,42 +43,6 @@ class StateTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEquals($obj, $this->state->getObj('test'));
     }
 
-}
-
-class TestBackend implements BackendInterface
-{
-    protected $storage = array();
-
-    public function setByKey($key, $var)
-    {
-
-        $this->storage[$key] = $var;
-
-    }
-
-    public function getByKey($key)
-    {
-
-        return isset($this->storage[$key]) ? $this->storage[$key] : null;
-
-    }
-
-    public function removeByKey($key)
-    {
-
-        unset($this->storage[$key]);
-
-    }
-
-    public function removeAll(array $exclude = array())
-    {
-        foreach ($this->storage as $key => $value) {
-
-            if (!in_array($key, $exclude)) {
-                unset($this->storage[$key]);
-            }
-        }
-    }
 }
 
 class TestStateable implements \Serializable
