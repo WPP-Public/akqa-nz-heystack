@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Tests;
+namespace Heystack\Subsystem\Core\Test;
 
 use Heystack\Subsystem\Core\Generate\YamlDataObjectGeneratorSchema;
 
@@ -22,7 +22,7 @@ class YamlDataObjectGeneratorSchemaTest extends \PHPUnit_Framework_TestCase
 
         $this->state = new State(new TestBackend(), new EventDispatcher());
 
-        $this->schema = new YamlDataObjectGeneratorSchema('/heystack/code/Heystack/Subsystem/Core/Tests/schemas/test_schema.yml', $this->state);
+        $this->schema = new YamlDataObjectGeneratorSchema('/heystack/tests/Heystack/Subsystem/Core/Test/schemas/test_schema.yml', $this->state);
 
     }
 
@@ -67,7 +67,7 @@ class YamlDataObjectGeneratorSchemaTest extends \PHPUnit_Framework_TestCase
     public function testSchemaMerge()
     {
 
-        $this->schema->mergeSchema(new YamlDataObjectGeneratorSchema('/heystack/code/Heystack/Subsystem/Core/Tests/schemas/test_schema2.yml', $this->state));
+        $this->schema->mergeSchema(new YamlDataObjectGeneratorSchema('/heystack/tests/Heystack/Subsystem/Core/Test/schemas/test_schema2.yml', $this->state));
         
         $this->assertEquals(array(
             'Test' => 'Text',

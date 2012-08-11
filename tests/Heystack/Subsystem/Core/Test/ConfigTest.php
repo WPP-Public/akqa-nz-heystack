@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Tests;
+namespace Heystack\Subsystem\Core\Test;
 
 use Heystack\Subsystem\Core\Config;
 
