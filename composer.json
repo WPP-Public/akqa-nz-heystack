@@ -4,12 +4,11 @@
     "repositories": [
         {
             "type": "composer",
-            "url": "http://satis/"
+            "url": "http://packages:satis@packages.heyday.net.nz/"
         }
     ],
     "require": {
         "php": ">=5.4.0",
-        "composer/installers": "dev-silverstripe",
         "symfony/event-dispatcher": "2.0.16",
         "symfony/config": "2.0.16",
         "symfony/dependency-injection": "2.0.16",
