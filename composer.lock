@@ -1,12 +1,6 @@
 {
-    "hash": "7ad28399821fcc520acb3bd6c8e48902",
+    "hash": "c0bd1c1fc457fc26bf0e8724822e3c93",
     "packages": [
-        {
-            "package": "composer/installers",
-            "version": "dev-silverstripe",
-            "source-reference": "619bd6577a4f4d9f42567305af22f21a3c198ef2",
-            "commit-date": "1344398929"
-        },
         {
             "package": "monolog/monolog",
             "version": "dev-multi-line-formatter",
@@ -36,7 +30,6 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "composer/installers": 20,
         "monolog/monolog": 20
     }
 }
