@@ -43,6 +43,13 @@ class Session implements BackendInterface
         }
 
     }
+    
+    public function getKeys()
+    {
+        
+        return array_keys($this->session->inst_getAll());
+        
+    }
 
     public function setByKey($key, $var)
     {

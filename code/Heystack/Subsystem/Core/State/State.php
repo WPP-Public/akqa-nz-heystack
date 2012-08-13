@@ -57,5 +57,12 @@ class State
         $this->backend->removeAll($exclude);
 
     }
+    
+    public function getKeys()
+    {
+        
+        return $this->backend->getKeys();
+        
+    }
 
 }
