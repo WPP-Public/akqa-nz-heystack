@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * This file is part of the Heystack package
+ *
+ * @package Heystack
+ */
+
+/**
+ * Allows objects that implement \Heystack\Subsystem\Core\ViewableDataInterface
+ * to be used in SS templates.
+ *
+ * @copyright  Heyday
+ * @author Cam Spiers <cameron@heyday.co.nz>
+ * @package Heystack
+ *
+ */
 class ViewableDataFormatter extends ViewableData
 {
 

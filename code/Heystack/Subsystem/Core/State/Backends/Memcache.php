@@ -26,7 +26,7 @@ class Memcache implements BackendInterface
         }
 
         if (!is_null($prefix)) {
-        
+
             $this->prefix = $prefix;
 
         }

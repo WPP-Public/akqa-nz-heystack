@@ -38,12 +38,12 @@ class TestBackend implements BackendInterface
             }
         }
     }
-    
+
     public function getKeys()
     {
-        
+
         return array_keys($this->storage);
-        
+
     }
-    
+
 }

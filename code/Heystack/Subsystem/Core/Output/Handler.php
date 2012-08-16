@@ -59,9 +59,9 @@ class Handler
             return $this->processors[$identifier]->process($controller, $result);
 
         } else {
-            
+
             return false;
-            
+
         }
 
     }

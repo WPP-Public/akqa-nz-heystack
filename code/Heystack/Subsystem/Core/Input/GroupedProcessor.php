@@ -45,11 +45,11 @@ class GroupedProcessor implements ProcessorInterface
     {
 
         $this->identifier = $identifier;
-        
+
         if (is_array($processors)) {
-        
+
             $this->setProcessors($processors);
-            
+
         }
 
     }

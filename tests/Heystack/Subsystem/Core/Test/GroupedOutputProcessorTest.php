@@ -21,9 +21,9 @@ class GroupedOutputProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function testProcess()
     {
-        
+
         $this->assertEquals('test', $this->groupedProcessor->getIdentifier());
-        
+
         $processor = new TestOutputProcessor('test_input_processor');
         $processor2 = new TestOutputProcessor('test_input_processor2', 'sweet');
         $processor3 = new TestOutputProcessor('test_input_processor3', 'working');
@@ -33,9 +33,9 @@ class GroupedOutputProcessorTest extends \PHPUnit_Framework_TestCase
             $processor2,
             $processor3
         ));
-        
+
         $this->assertEquals(null, $this->groupedProcessor->process(new \Controller()));
-        
+
     }
 
 }

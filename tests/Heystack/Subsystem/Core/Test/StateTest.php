@@ -42,20 +42,20 @@ class StateTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotEquals($obj, $this->state->getObj('test'));
     }
-    
+
     public function testGetKeys()
     {
-        
+
         $this->assertEquals(array(), $this->state->getKeys());
-        
+
         $this->state->setByKey('test', 'Yay');
-        
+
         $this->assertEquals(array('test'), $this->state->getKeys());
-        
+
         $this->state->setByKey('test2', 'Yay');
-        
+
         $this->assertEquals(array('test', 'test2'), $this->state->getKeys());
-        
+
     }
 
 }

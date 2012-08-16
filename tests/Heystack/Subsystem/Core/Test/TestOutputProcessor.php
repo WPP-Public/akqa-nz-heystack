@@ -8,7 +8,7 @@ class TestOutputProcessor implements \Heystack\Subsystem\Core\Output\ProcessorIn
     protected $identifier;
     protected $message;
 
-    function __construct($identifier, $message = '')
+    public function __construct($identifier, $message = '')
     {
         $this->identifier = $identifier;
         $this->message = $message;

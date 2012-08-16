@@ -37,7 +37,7 @@ class DataObjectGenerator
 
     public function addSchema(DataObjectGeneratorSchemaInterface $schema, $reference = false, $force = false)
     {
-        
+
         $identifier = strtolower($schema->getIdentifier());
 
         if ($reference) {
@@ -136,7 +136,7 @@ class DataObjectGenerator
         foreach ($this->schemas as $schema) {
 
             $identifier = $schema->getIdentifier();
-            
+
             $dataProviderID = $schema->getDataProviderIdentifier();
 
             $this->output('Processing schema: ' . $identifier);
@@ -152,7 +152,7 @@ class DataObjectGenerator
             $storedObjectName           = 'Stored' . $identifier;
             $cachedRelatedObjectName    = 'Cached' . $identifier . 'RelatedData';
             $storedRelatedObjectName    = 'Stored' . $identifier . 'RelatedData';
-            
+
             $fields = array_keys(is_array($flatStorage) ? $flatStorage : array()) + array_keys(is_array($parentStorage) ? $parentStorage : array());
 
             // create the cached object
@@ -328,7 +328,7 @@ class DataObjectGenerator
         if ($value[0] == '+') {
 
             $identifier = strtolower(substr($value, 1));
-            
+
             if ($this->hasSchema($identifier)) {
 
                 return $identifier;
@@ -361,7 +361,7 @@ class DataObjectGenerator
                         throw new \Exception('Circular reference in flat storage');
 
                     }
-                                      
+
                     $extraFlatStorage = $this->processFlatStorage($this->getSchema($flatIdentifier)->getFlatStorage(), $flatIdentifier);
 
                     if (is_array($extraFlatStorage)) {

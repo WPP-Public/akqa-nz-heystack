@@ -55,9 +55,8 @@ class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $this->schema->getRelatedStorage());
 
         $this->assertEquals(null, $this->schema->getParentStorage());
-        
-        $this->assertEquals(array(), $this->schema->getChildStorage());
 
+        $this->assertEquals(array(), $this->schema->getChildStorage());
 
     }
 
@@ -65,12 +64,12 @@ class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
     {
 
         $this->schema->mergeSchema(new YamlDataObjectSchema('/heystack/tests/Heystack/Subsystem/Core/Test/schemas/test_schema2.yml', $this->state));
-        
+
         $this->assertEquals(array(
             'Test' => 'Text',
             'Test2' => 'Text'
         ), $this->schema->getFlatStorage());
-        
+
     }
 
 }

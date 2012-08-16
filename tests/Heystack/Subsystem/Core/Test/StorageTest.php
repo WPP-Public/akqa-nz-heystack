@@ -20,19 +20,19 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     {
         $this->storage = null;
     }
-    
+
     public function testStorage()
     {
-        
+
         $storable = new TestStoraable;
-        
+
         $this->assertEquals(
             array(
                 'test' => $storable->getStorableData()
             ),
            $this->storage->process($storable)
         );
-        
+
     }
 
 }
@@ -42,23 +42,23 @@ class TestStoraable implements StorableInterface
 
     public function getSchemaName()
     {
-        
+
         return 'test';
-        
+
     }
 
     public function getStorableBackendIdentifiers()
     {
-        
+
         return array(
             'test'
         );
-        
+
     }
 
     public function getStorableData()
     {
-        
+
         return array(
             'data' => array(
                 'hello' => 'hello',
@@ -67,14 +67,14 @@ class TestStoraable implements StorableInterface
                 'hello3' => 'hello'
             )
         );
-        
+
     }
 
     public function getStorableIdentifier()
     {
-        
+
         return 'test';
-        
+
     }
 
 }

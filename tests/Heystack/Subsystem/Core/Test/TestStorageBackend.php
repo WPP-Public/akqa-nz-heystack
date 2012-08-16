@@ -25,7 +25,7 @@ class TestStorageBackend implements BackendInterface
 
     public function write(StorableInterface $object)
     {
-        
+
         return $object->getStorableData();
 
     }

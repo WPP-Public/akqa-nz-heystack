@@ -45,7 +45,7 @@ class Backend implements BackendInterface
 
     public function addDataProvider(StorableInterface $dataProvider)
     {
-        
+
         $this->dataProviders[$dataProvider->getStorableIdentifier()] = $dataProvider;
 
     }
@@ -66,12 +66,12 @@ class Backend implements BackendInterface
 
     public function write(StorableInterface $object)
     {
-        
+
         $dataProviderIdentifier = $object->getStorableIdentifier();
         $schemaIdentifier = strtolower($object->getSchemaName());
 
         if ($this->hasDataProvider($dataProviderIdentifier)) {
-            
+
             error_log(print_r(array_keys($this->dataProviders),true));
             error_log(print_r(array_keys($this->generatorService->schemas),true));
 
@@ -90,17 +90,17 @@ class Backend implements BackendInterface
                 foreach ($schema->getFlatStorage() as $key => $value) {
 
                     if ($reference = $this->generatorService->isReference($value)) {
-                                                
+
                         $referenceSchema = $this->generatorService->getSchema($reference);
-                        
+
                         if ($this->hasDataProvider($referenceSchema->getDataProviderIdentifier())) {
 
                             if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
 
                                 $referenceData = $this->dataProviders[$referenceSchema->getDataProviderIdentifier()]->getStorableData();
 
-                                foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {                                 
-                                    
+                                foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
+
                                     if (isset($referenceData['flat'][$referenceKey])) {
 
                                         $storedObject->{$key . $referenceKey} = $referenceData['flat'][$referenceKey];

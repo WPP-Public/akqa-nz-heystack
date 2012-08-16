@@ -55,7 +55,7 @@ class Storage
     {
 
         if (is_array($this->backends) && count($this->backends) > 0) {
-            
+
             $results = array();
 
             $identifiers = $object->getStorableBackendIdentifiers();
@@ -67,7 +67,7 @@ class Storage
                 $results[$identifier] = $backend->write($object);
 
             }
-            
+
             return $results;
 
         } else {
