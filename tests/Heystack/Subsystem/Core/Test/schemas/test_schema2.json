@@ -1,0 +1,10 @@
+{
+   "data_provider_id":"test",
+   "id":"Test",
+   "flat":{
+      "Test2":"Text"
+   },
+   "related":null,
+   "parent":null,
+   "children":null
+}

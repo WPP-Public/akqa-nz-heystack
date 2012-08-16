@@ -37,14 +37,8 @@ class DataObjectGenerator
 
     public function addSchema(DataObjectGeneratorSchemaInterface $schema, $reference = false, $force = false)
     {
-
-//        $identifier = $schema->getDataProviderIdentifier();
-
-//        if (!$identifier) {
-
-            $identifier = strtolower($schema->getIdentifier());
-
-//        }
+        
+        $identifier = strtolower($schema->getIdentifier());
 
         if ($reference) {
 
@@ -69,7 +63,7 @@ class DataObjectGenerator
     public function addYamlSchema($file, $reference = false, $force = false)
     {
 
-        $this->addSchema(new YamlDataObjectGeneratorSchema($file, $this->stateService), $reference, $force);
+        $this->addSchema(new YamlDataObjectSchema($file, $this->stateService), $reference, $force);
 
     }
 

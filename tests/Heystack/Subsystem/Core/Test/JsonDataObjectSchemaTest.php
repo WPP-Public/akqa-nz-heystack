@@ -2,16 +2,13 @@
 
 namespace Heystack\Subsystem\Core\Test;
 
-use Heystack\Subsystem\Core\Generate\YamlDataObjectGeneratorSchema;
+use Heystack\Subsystem\Core\Generate\JsonDataObjectSchema;
 
-use Heystack\Subsystem\Core\State\StateableInterface;
 use Heystack\Subsystem\Core\State\State;
-use Heystack\Subsystem\Core\State\BackendInterface;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\Yaml\Yaml;
 
-class YamlDataObjectGeneratorSchemaTest extends \PHPUnit_Framework_TestCase
+class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $state;
@@ -22,7 +19,7 @@ class YamlDataObjectGeneratorSchemaTest extends \PHPUnit_Framework_TestCase
 
         $this->state = new State(new TestBackend(), new EventDispatcher());
 
-        $this->schema = new YamlDataObjectGeneratorSchema('/heystack/tests/Heystack/Subsystem/Core/Test/schemas/test_schema.yml', $this->state);
+        $this->schema = new JsonDataObjectSchema('heystack/tests/Heystack/Subsystem/Core/Test/schemas/test_schema.json', $this->state);
 
     }
 
@@ -39,7 +36,7 @@ class YamlDataObjectGeneratorSchemaTest extends \PHPUnit_Framework_TestCase
 
         try {
 
-            new YamlDataObjectGeneratorSchema('fake_file.yml', $this->state);
+            new JsonDataObjectSchema('fake_file.json', $this->state);
 
         } catch (\Exception $e) {
 
@@ -67,7 +64,7 @@ class YamlDataObjectGeneratorSchemaTest extends \PHPUnit_Framework_TestCase
     public function testSchemaMerge()
     {
 
-        $this->schema->mergeSchema(new YamlDataObjectGeneratorSchema('/heystack/tests/Heystack/Subsystem/Core/Test/schemas/test_schema2.yml', $this->state));
+        $this->schema->mergeSchema(new JsonDataObjectSchema('heystack/tests/Heystack/Subsystem/Core/Test/schemas/test_schema2.json', $this->state));
         
         $this->assertEquals(array(
             'Test' => 'Text',

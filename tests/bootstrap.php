@@ -1,12 +1,19 @@
 <?php
 
-define('HEYSTACK_BASE_PATH', dirname(__DIR__));
-define('BASE_PATH', dirname(HEYSTACK_BASE_PATH));
+chdir(dirname(dirname(__DIR__)) . '/sapphire');
+
+$_SERVER['SCRIPT_FILENAME'] = getcwd() . '/main.php';
+
+require_once('core/Core.php');
 
 if (file_exists(HEYSTACK_BASE_PATH . '/vendor/autoload.php')) {
-    $loader = require_once HEYSTACK_BASE_PATH . '/vendor/autoload.php';
+    
+    $loader = require HEYSTACK_BASE_PATH . '/vendor/autoload.php';
+    
 } else {
-    $loader = require_once BASE_PATH . '/vendor/autoload.php';
+    
+    $loader = require BASE_PATH . '/vendor/autoload.php';
+    
 }
 
 $loader->add('Heystack\Subsystem\Core\Test', __DIR__);

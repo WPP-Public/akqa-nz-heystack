@@ -23,7 +23,7 @@ use Symfony\Component\Yaml\Yaml;
  * @author Stevie Mayhew <stevie@heyday.co.nz>
  * @package Heystack
  */
-class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterface, StateableInterface
+class YamlDataObjectSchema implements DataObjectGeneratorSchemaInterface, StateableInterface
 {
 
     private $config;
