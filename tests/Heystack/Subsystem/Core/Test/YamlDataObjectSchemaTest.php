@@ -33,7 +33,7 @@ class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 
     public function testSchema()
     {
-        
+
         $message = null;
 
         try {
@@ -45,7 +45,7 @@ class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
             $message = $e->getMessage();
 
         }
-        
+
         $this->assertEquals('Configuration Error: File doesn\'t exist', $message);
 
         $this->assertEquals('Test', $this->schema->getIdentifier());

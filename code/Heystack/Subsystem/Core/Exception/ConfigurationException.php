@@ -9,12 +9,12 @@ use Monolog\Logger;
 
 class ConfigurationException extends \Exception
 {
-    
+
     public function __construct($message, $code = null, $previous = null)
     {
-        
+
         $message = "Configuration Error: " . $message;
-        
+
         $monolog = ServiceStore::getService(Services::MONOLOG);
 
         if (!defined('UNIT_TESTING') && $monolog instanceof Logger) {
@@ -22,9 +22,9 @@ class ConfigurationException extends \Exception
             $monolog->err($message);
 
         }
-        
+
         parent::__construct($message, $code, $previous);
-        
+
     }
-    
+
 }
