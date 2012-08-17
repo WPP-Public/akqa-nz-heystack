@@ -13,6 +13,8 @@ namespace Heystack\Subsystem\Core;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+use Heystack\Subsystem\Core\Exception\ConfigurationException;
+
 /**
  * Container extension config processor for Heystack.
  *
@@ -52,7 +54,7 @@ abstract class ContainerExtensionConfigProcessor
 
         foreach ($parameters as $name => $parameter) {
             if ($parameter === '$$$') {
-                throw new \Exception('The parameter: ' . $name . ' still has the default value. Please override in your /mysite/config/services.yml file');
+                throw new ConfigurationException('The parameter: ' . $name . ' still has the default value. Please override in your /mysite/config/services.yml file');
             }
         }
     }

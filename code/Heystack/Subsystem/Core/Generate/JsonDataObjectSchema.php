@@ -14,6 +14,8 @@ namespace Heystack\Subsystem\Core\Generate;
 use Heystack\Subsystem\Core\State\StateableInterface;
 use Heystack\Subsystem\Core\State\State;
 
+use Heystack\Subsystem\Core\Exception\ConfigurationException;
+
 /**
  * Uses json files to provide a schema for dataobject class creation
  *
@@ -39,7 +41,7 @@ class JsonDataObjectSchema implements DataObjectGeneratorSchemaInterface, Statea
 
             if (!file_exists(BASE_PATH . '/' . $file)) {
 
-                throw new \Exception('File doesn\'t exist');
+                throw new ConfigurationException('File doesn\'t exist');
 
             }
 
@@ -47,25 +49,25 @@ class JsonDataObjectSchema implements DataObjectGeneratorSchemaInterface, Statea
 
             if (is_null($config) || !is_array($config)) {
 
-                throw new \Exception('Your config is empty');
+                throw new ConfigurationException('Your config is empty');
 
             }
 
             if (!array_key_exists('id', $config)) {
 
-                throw new \Exception('Identifier missing');
+                throw new ConfigurationException('Identifier missing');
 
             }
 
             if (!array_key_exists('flat', $config)) {
 
-                throw new \Exception('Flat config missing');
+                throw new ConfigurationException('Flat config missing');
 
             }
 
             if (!array_key_exists('related', $config)) {
 
-                throw new \Exception('Related config missing');
+                throw new ConfigurationException('Related config missing');
 
             }
 

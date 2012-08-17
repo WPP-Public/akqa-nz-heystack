@@ -17,3 +17,5 @@ if (file_exists(HEYSTACK_BASE_PATH . '/vendor/autoload.php')) {
 }
 
 $loader->add('Heystack\Subsystem\Core\Test', __DIR__);
+
+define('UNIT_TESTING', true);

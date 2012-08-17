@@ -33,16 +33,20 @@ class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 
     public function testSchema()
     {
+        
+        $message = null;
 
         try {
 
             new JsonDataObjectSchema('fake_file.json', $this->state);
 
         } catch (\Exception $e) {
-
-            $this->assertEquals('File doesn\'t exist', $e->getMessage());
+            
+            $message = $e->getMessage();
 
         }
+        
+        $this->assertEquals('Configuration Error: File doesn\'t exist', $message);
 
         $this->assertEquals('Test', $this->schema->getIdentifier());
 

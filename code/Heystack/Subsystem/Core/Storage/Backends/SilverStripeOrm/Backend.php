@@ -16,6 +16,8 @@ use Heystack\Subsystem\Core\Storage\Event;
 use Heystack\Subsystem\Core\Generate\DataObjectGenerator;
 use Heystack\Subsystem\Core\Generate\DataObjectGeneratorSchemaInterface;
 
+use Heystack\Subsystem\Core\Exception\ConfigurationException;
+
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
@@ -107,7 +109,7 @@ class Backend implements BackendInterface
 
                                     } else {
 
-                                        throw new \Exception("No data found for key: $key on identifier: $reference");
+                                        throw new ConfigurationException("No data found for key: $key on identifier: $reference");
 
                                     }
 
@@ -115,13 +117,13 @@ class Backend implements BackendInterface
 
                             } else {
 
-                                throw new \Exception("No schema found for identifier: $reference");
+                                throw new ConfigurationException("No schema found for identifier: $reference");
 
                             }
 
                         } else {
 
-                            throw new \Exception('Reference in flat schema didn\'t have an associated data provider');
+                            throw new ConfigurationException('Reference in flat schema didn\'t have an associated data provider');
 
                         }
 
@@ -133,7 +135,7 @@ class Backend implements BackendInterface
 
                         } else {
 
-                            throw new \Exception("No data found for key: $key on identifier: $dataProviderIdentifier");
+                            throw new ConfigurationException("No data found for key: $key on identifier: $dataProviderIdentifier");
 
                         }
 
@@ -178,7 +180,7 @@ class Backend implements BackendInterface
 
                             } else {
 
-                                throw new \Exception('Reference in related schema didn\'t have an associated data provider');
+                                throw new ConfigurationException('Reference in related schema didn\'t have an associated data provider');
 
                             }
 
@@ -201,13 +203,13 @@ class Backend implements BackendInterface
 
             } else {
 
-                throw new \Exception('No schema found for identifier: ' . $schemaIdentifier);
+                throw new ConfigurationException('No schema found for identifier: ' . $schemaIdentifier);
 
             }
 
         } else {
 
-            throw new \Exception('Couldn\'t find data provider for identifier: ' . $dataProviderIdentifier);
+            throw new ConfigurationException('Couldn\'t find data provider for identifier: ' . $dataProviderIdentifier);
 
         }
 

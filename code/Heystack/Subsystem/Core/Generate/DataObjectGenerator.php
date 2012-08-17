@@ -13,6 +13,8 @@ namespace Heystack\Subsystem\Core\Generate;
 
 use Heystack\Subsystem\Core\State\State;
 
+use Heystack\Subsystem\Core\Exception\ConfigurationException;
+
 /**
  * Generates SilverStripe DataObject classes based of schemas
  *
@@ -67,10 +69,10 @@ class DataObjectGenerator
 
     }
 
-    public function addDataObjectSchema($className, $reference = false)
+    public function addJsonSchema($className, $reference = false, $force = false)
     {
 
-        $this->addSchema(new DataObjectSchema($className), $reference);
+        $this->addSchema(new JsonDataObjectSchema($file, $this->stateService), $reference, $force);
 
     }
 
@@ -335,7 +337,7 @@ class DataObjectGenerator
 
             }
 
-            throw new \Exception("Reference to undefined schema: $identifier");
+            throw new ConfigurationException("Reference to undefined schema: $identifier");
 
         }
 
@@ -358,7 +360,7 @@ class DataObjectGenerator
 
                     if (isset($this->processingFlatStorage[$flatIdentifier])) {
 
-                        throw new \Exception('Circular reference in flat storage');
+                        throw new ConfigurationException('Circular reference in flat storage');
 
                     }
 
@@ -421,7 +423,7 @@ class DataObjectGenerator
 
                     if (isset($this->processingRelatedStorage[$relatedIdentifier])) {
 
-                        throw new \Exception('Circular reference in related storage');
+                        throw new ConfigurationException('Circular reference in related storage');
 
                     }
 
