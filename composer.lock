@@ -1,0 +1,46 @@
+{
+    "hash": "da0dc68b43c730e2fb79f01b10f23b2c",
+    "packages": [
+        {
+            "package": "composer/installers",
+            "version": "dev-master",
+            "source-reference": "2cc9ad106e2a617adba8fd0f948e8873297efd3b",
+            "commit-date": "1344721334"
+        },
+        {
+            "package": "monolog/monolog",
+            "version": "dev-multi-line-formatter",
+            "source-reference": "264b7f7199e6eda9e54614e305083f846a371d58",
+            "commit-date": "1344469397"
+        },
+        {
+            "package": "symfony/config",
+            "version": "v2.0.16"
+        },
+        {
+            "package": "symfony/dependency-injection",
+            "version": "v2.0.16"
+        },
+        {
+            "package": "symfony/event-dispatcher",
+            "version": "v2.0.16"
+        },
+        {
+            "package": "symfony/yaml",
+            "version": "v2.0.16"
+        }
+    ],
+    "packages-dev": [
+        {
+            "package": "silverstripe/sapphire",
+            "version": "2.4.7"
+        }
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "monolog/monolog": 20
+    }
+}
