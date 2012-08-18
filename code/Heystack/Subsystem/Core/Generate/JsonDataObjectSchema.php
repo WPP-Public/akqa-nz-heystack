@@ -39,13 +39,13 @@ class JsonDataObjectSchema implements DataObjectGeneratorSchemaInterface, Statea
 
         if (!$this->restoreState() || isset($_GET['flush'])) {
 
-            if (!file_exists(BASE_PATH . '/' . $file)) {
+            if (!file_exists($file)) {
 
                 throw new ConfigurationException('File doesn\'t exist');
 
             }
 
-            $config = json_decode(file_get_contents(BASE_PATH . '/' . $file), true);
+            $config = json_decode(file_get_contents($file), true);
 
             if (is_null($config) || !is_array($config)) {
 

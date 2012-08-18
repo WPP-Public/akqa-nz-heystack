@@ -19,7 +19,7 @@ class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 
         $this->state = new State(new TestBackend(), new EventDispatcher());
 
-        $this->schema = new JsonDataObjectSchema('heystack/tests/Heystack/Subsystem/Core/Test/schemas/test_schema.json', $this->state);
+        $this->schema = new JsonDataObjectSchema('tests/Heystack/Subsystem/Core/Test/schemas/test_schema.json', $this->state);
 
     }
 
@@ -67,7 +67,7 @@ class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
     public function testSchemaMerge()
     {
 
-        $this->schema->mergeSchema(new JsonDataObjectSchema('heystack/tests/Heystack/Subsystem/Core/Test/schemas/test_schema2.json', $this->state));
+        $this->schema->mergeSchema(new JsonDataObjectSchema('tests/Heystack/Subsystem/Core/Test/schemas/test_schema2.json', $this->state));
 
         $this->assertEquals(array(
             'Test' => 'Text',

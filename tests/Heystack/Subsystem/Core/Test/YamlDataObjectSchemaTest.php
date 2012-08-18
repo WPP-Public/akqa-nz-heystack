@@ -19,7 +19,7 @@ class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 
         $this->state = new State(new TestBackend(), new EventDispatcher());
 
-        $this->schema = new YamlDataObjectSchema('/heystack/tests/Heystack/Subsystem/Core/Test/schemas/test_schema.yml', $this->state);
+        $this->schema = new YamlDataObjectSchema('tests/Heystack/Subsystem/Core/Test/schemas/test_schema.yml', $this->state);
 
     }
 
@@ -67,7 +67,7 @@ class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
     public function testSchemaMerge()
     {
 
-        $this->schema->mergeSchema(new YamlDataObjectSchema('/heystack/tests/Heystack/Subsystem/Core/Test/schemas/test_schema2.yml', $this->state));
+        $this->schema->mergeSchema(new YamlDataObjectSchema('tests/Heystack/Subsystem/Core/Test/schemas/test_schema2.yml', $this->state));
 
         $this->assertEquals(array(
             'Test' => 'Text',

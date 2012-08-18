@@ -42,13 +42,13 @@ class YamlDataObjectSchema implements DataObjectGeneratorSchemaInterface, Statea
 
         if (!$this->restoreState() || isset($_GET['flush'])) {
 
-            if (!file_exists(BASE_PATH . '/' . $file)) {
+            if (!file_exists($file)) {
 
                 throw new ConfigurationException('File doesn\'t exist');
 
             }
 
-            $config = Yaml::parse(BASE_PATH . '/' . $file);
+            $config = Yaml::parse($file);
 
             if (!is_array($config)) {
 
