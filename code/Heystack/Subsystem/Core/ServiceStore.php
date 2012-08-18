@@ -63,7 +63,7 @@ class ServiceStore
     public static function getService($service)
     {
 
-        return self::$serviceContainer->get($service, ContainerInterface::NULL_ON_INVALID_REFERENCE);
+        return self::$serviceContainer instanceof Container ? self::$serviceContainer->get($service, ContainerInterface::NULL_ON_INVALID_REFERENCE) : null;
 
     }
 
