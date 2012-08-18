@@ -1,10 +1,6 @@
 <?php
 
-chdir(dirname(dirname(__DIR__)) . '/sapphire');
-
-$_SERVER['SCRIPT_FILENAME'] = getcwd() . '/main.php';
-
-require_once 'core/Core.php';
+define('HEYSTACK_BASE_PATH', dirname(__DIR__));
 
 if (file_exists(HEYSTACK_BASE_PATH . '/vendor/autoload.php')) {
 
