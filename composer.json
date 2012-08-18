@@ -16,10 +16,20 @@
         "symfony/yaml": "2.0.16",
         "monolog/monolog": "dev-multi-line-formatter"
     },
+    "require-dev": {
+        "silverstripe/sapphire": "2.4.7"
+    },
     "autoload": {
         "psr-0": {
             "Heystack": "code/"
-        }
+        },
+        "classmap": ["sapphire/"]
     },
+    "bin": [
+        "tools/heystack-composer",
+        "tools/heystack-cs-fixer",
+        "tools/heystack-phpdoc",
+        "tools/heystack-stree"
+    ],
     "minimum-stability": "dev"
 }
