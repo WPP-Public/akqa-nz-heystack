@@ -74,9 +74,6 @@ class Backend implements BackendInterface
 
         if ($this->hasDataProvider($dataProviderIdentifier)) {
 
-            error_log(print_r(array_keys($this->dataProviders),true));
-            error_log(print_r(array_keys($this->generatorService->schemas),true));
-
             $dataProvider = $this->dataProviders[$dataProviderIdentifier];
             $schema = $this->generatorService->getSchema($schemaIdentifier);
 

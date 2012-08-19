@@ -65,14 +65,28 @@ class DataObjectGenerator
     public function addYamlSchema($file, $reference = false, $force = false)
     {
 
-        $this->addSchema(new YamlDataObjectSchema($file, $this->stateService), $reference, $force);
+        $this->addSchema(
+            new YamlDataObjectSchema(
+                $file,
+                $this->stateService
+            ),
+            $reference,
+            $force
+        );
 
     }
 
     public function addJsonSchema($className, $reference = false, $force = false)
     {
 
-        $this->addSchema(new JsonDataObjectSchema($file, $this->stateService), $reference, $force);
+        $this->addSchema(
+            new JsonDataObjectSchema(
+                $file,
+                $this->stateService
+            ),
+            $reference,
+            $force
+        );
 
     }
 
@@ -88,7 +102,9 @@ class DataObjectGenerator
 
         if ($this->hasSchema($identifier)) {
 
-            return isset($this->schemas[$identifier]) ? $this->schemas[$identifier] : $this->referenceSchemas[$identifier];
+            return isset($this->schemas[$identifier])
+                ? $this->schemas[$identifier]
+                : $this->referenceSchemas[$identifier];
 
         } else {
 
@@ -143,11 +159,27 @@ class DataObjectGenerator
 
             $this->output('Processing schema: ' . $identifier);
 
-            $flatStorage    = $this->processFlatStorage($schema->getFlatStorage(), $dataProviderID);
-            $relatedStorage = $this->processRelatedStorage($schema->getRelatedStorage(), $dataProviderID);
+            $flatStorage = $this->processFlatStorage(
+                $schema->getFlatStorage(),
+                $dataProviderID
+            );
+
+            $relatedStorage = $this->processRelatedStorage(
+                $schema->getRelatedStorage(),
+                $dataProviderID
+            );
+
             $hasRelatedStorage = $relatedStorage && is_array($relatedStorage) && count($relatedStorage) > 0;
-            $parentStorage  = $this->processParentStorage($schema->getParentStorage(), $dataProviderID);
-            $childStorage   = $this->processChildStorage($schema->getChildStorage(), $dataProviderID);
+
+            $parentStorage = $this->processParentStorage(
+                $schema->getParentStorage(),
+                $dataProviderID
+            );
+
+            $childStorage = $this->processChildStorage(
+                $schema->getChildStorage(),
+                $dataProviderID
+            );
 
             // names for the created objects
             $cachedObjectName           = 'Cached' . $identifier;
@@ -155,7 +187,8 @@ class DataObjectGenerator
             $cachedRelatedObjectName    = 'Cached' . $identifier . 'RelatedData';
             $storedRelatedObjectName    = 'Stored' . $identifier . 'RelatedData';
 
-            $fields = array_keys(is_array($flatStorage) ? $flatStorage : array()) + array_keys(is_array($parentStorage) ? $parentStorage : array());
+            $fields = array_keys(is_array($flatStorage) ? $flatStorage : array())
+                + array_keys(is_array($parentStorage) ? $parentStorage : array());
 
             // create the cached object
             $this->writeDataObject(
@@ -204,7 +237,10 @@ class DataObjectGenerator
                 $managed_models[] = $storedRelatedObjectName;
 
                 // create the storage object
-                if ($force || !file_exists($dirMysite . DIRECTORY_SEPARATOR . $storedRelatedObjectName . '.php')) {
+                if (
+                    $force ||
+                    !file_exists($dirMysite . DIRECTORY_SEPARATOR . $storedRelatedObjectName . '.php')
+                ) {
 
                     $this->writeDataObject(
                         $dirMysite,
@@ -364,7 +400,10 @@ class DataObjectGenerator
 
                     }
 
-                    $extraFlatStorage = $this->processFlatStorage($this->getSchema($flatIdentifier)->getFlatStorage(), $flatIdentifier);
+                    $extraFlatStorage = $this->processFlatStorage(
+                        $this->getSchema($flatIdentifier)->getFlatStorage(),
+                        $flatIdentifier
+                    );
 
                     if (is_array($extraFlatStorage)) {
 
