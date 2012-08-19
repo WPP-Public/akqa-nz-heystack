@@ -76,7 +76,7 @@ class DataObjectGenerator
 
     }
 
-    public function addJsonSchema($className, $reference = false, $force = false)
+    public function addJsonSchema($file, $reference = false, $force = false)
     {
 
         $this->addSchema(
@@ -165,20 +165,17 @@ class DataObjectGenerator
             );
 
             $relatedStorage = $this->processRelatedStorage(
-                $schema->getRelatedStorage(),
-                $dataProviderID
+                $schema->getRelatedStorage()
             );
 
             $hasRelatedStorage = $relatedStorage && is_array($relatedStorage) && count($relatedStorage) > 0;
 
             $parentStorage = $this->processParentStorage(
-                $schema->getParentStorage(),
-                $dataProviderID
+                $schema->getParentStorage()
             );
 
             $childStorage = $this->processChildStorage(
-                $schema->getChildStorage(),
-                $dataProviderID
+                $schema->getChildStorage()
             );
 
             // names for the created objects
@@ -427,7 +424,7 @@ class DataObjectGenerator
 
     }
 
-    protected function processParentStorage($parentStorage, $identifier)
+    protected function processParentStorage($parentStorage)
     {
 
         if (is_array($parentStorage)) {
@@ -449,7 +446,7 @@ class DataObjectGenerator
 
     }
 
-    protected function processRelatedStorage($relatedStorage, $identifier)
+    protected function processRelatedStorage($relatedStorage)
     {
 
         if (is_array($relatedStorage)) {
@@ -488,7 +485,7 @@ class DataObjectGenerator
 
     }
 
-    protected function processChildStorage($childStorage, $identifier)
+    protected function processChildStorage($childStorage)
     {
 
         if (is_array($childStorage)) {
