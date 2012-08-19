@@ -37,7 +37,10 @@ class Backend implements BackendInterface
     private $generatorService = null;
     private $dataProviders = array();
 
-    public function __construct(EventDispatcher $eventService, DataObjectGenerator $generatorService)
+    public function __construct(
+        EventDispatcher $eventService,
+        DataObjectGenerator $generatorService
+    )
     {
 
         $this->eventService = $eventService;
@@ -48,7 +51,9 @@ class Backend implements BackendInterface
     public function addDataProvider(StorableInterface $dataProvider)
     {
 
-        $this->dataProviders[$dataProvider->getStorableIdentifier()] = $dataProvider;
+        $this->dataProviders[
+            $dataProvider->getStorableIdentifier()
+        ] = $dataProvider;
 
     }
 
@@ -88,7 +93,9 @@ class Backend implements BackendInterface
 
                 foreach ($schema->getFlatStorage() as $key => $value) {
 
-                    if ($reference = $this->generatorService->isReference($value)) {
+                    $reference = $this->generatorService->isReference($value);
+
+                    if ($reference) {
 
                         $referenceSchema = $this->generatorService->getSchema($reference);
 
