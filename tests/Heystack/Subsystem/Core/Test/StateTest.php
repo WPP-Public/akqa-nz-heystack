@@ -32,6 +32,13 @@ class StateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $this->state->getByKey('test'));
     }
 
+    public function testRemoveAll()
+    {
+        $this->state->setByKey('test', 'hello');
+        $this->state->removeAll();
+        $this->assertEquals(array(), $this->state->getKeys());
+    }
+
     public function testSetGetStatable()
     {
         $this->state->setObj('test', $obj = new TestStateable());
