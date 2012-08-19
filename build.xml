@@ -14,6 +14,7 @@
   <exec executable="/usr/local/bin/php" failonerror="true">
     <arg value="${basedir}/build/composer.phar" />
     <arg value="install" />
+    <arg value="-v" />
     <arg value="--dev" />
   </exec>
  </target>
