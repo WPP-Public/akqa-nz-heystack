@@ -37,7 +37,11 @@ class DataObjectGenerator
         $this->stateService = $stateService;
     }
 
-    public function addSchema(DataObjectGeneratorSchemaInterface $schema, $reference = false, $force = false)
+    public function addSchema(
+        DataObjectGeneratorSchemaInterface $schema,
+        $reference = false,
+        $force = false
+    )
     {
 
         $identifier = strtolower($schema->getIdentifier());
