@@ -3,7 +3,6 @@
 namespace Heystack\Subsystem\Core\Test;
 
 use Heystack\Subsystem\Core\Storage\Storage;
-use Heystack\Subsystem\Core\Storage\StorableInterface;
 
 class StorageTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,7 +23,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     public function testStorage()
     {
 
-        $storable = new TestStoraable;
+        $storable = new TestStorable;
 
         $this->assertEquals(
             array(
@@ -59,7 +58,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     
     public function testProcessException()
     {
-        $storable = new TestStoraable;
+        $storable = new TestStorable;
 
         $storage = new Storage();
         
@@ -80,44 +79,3 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 
 }
 
-class TestStoraable implements StorableInterface
-{
-
-    public function getSchemaName()
-    {
-
-        return 'test';
-
-    }
-
-    public function getStorableBackendIdentifiers()
-    {
-
-        return array(
-            'test'
-        );
-
-    }
-
-    public function getStorableData()
-    {
-
-        return array(
-            'data' => array(
-                'hello' => 'hello',
-                'hello1' => 'hello',
-                'hello2' => 'hello',
-                'hello3' => 'hello'
-            )
-        );
-
-    }
-
-    public function getStorableIdentifier()
-    {
-
-        return 'test';
-
-    }
-
-}
