@@ -67,7 +67,7 @@ class DataObjectGenerator
 
         $this->addSchema(
             new YamlDataObjectSchema(
-                $file,
+                dirname(HEYSTACK_BASE_PATH) . '/' . $file,
                 $this->stateService
             ),
             $reference,
@@ -81,7 +81,7 @@ class DataObjectGenerator
 
         $this->addSchema(
             new JsonDataObjectSchema(
-                $file,
+                dirname(HEYSTACK_BASE_PATH) . '/' . $file,
                 $this->stateService
             ),
             $reference,
