@@ -71,7 +71,7 @@ class Backend implements BackendInterface
 
     }
     
-    protected function writeStoredDataObject(DataObjectGeneratorSchemaInterface $schema, StorableInterface $dataProviderStorableInterface, StorableInterface $object)
+    protected function writeStoredDataObject(DataObjectGeneratorSchemaInterface $schema, StorableInterface $dataProvider, StorableInterface $object)
     {
 
         $saveable = 'Stored' . $schema->getIdentifier();
