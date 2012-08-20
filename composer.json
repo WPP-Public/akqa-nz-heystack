@@ -23,7 +23,7 @@
         "psr-0": {
             "Heystack": "code/"
         },
-        "classmap": ["sapphire/"]
+        "classmap": ["sapphire/", "code/SilverStripe"]
     },
     "minimum-stability": "dev"
 }
