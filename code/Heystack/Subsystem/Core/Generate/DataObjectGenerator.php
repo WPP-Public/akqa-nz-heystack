@@ -270,8 +270,6 @@ class DataObjectGenerator
 
         $this->output('Finished!');
 
-        exit;
-
     }
 
     protected function writeDataObject($dir, $name, $statics = false, $extends = 'DataObject')
