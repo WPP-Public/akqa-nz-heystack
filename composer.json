@@ -25,11 +25,5 @@
         },
         "classmap": ["sapphire/"]
     },
-    "bin": [
-        "tools/heystack-composer",
-        "tools/heystack-cs-fixer",
-        "tools/heystack-phpdoc",
-        "tools/heystack-stree"
-    ],
     "minimum-stability": "dev"
 }
