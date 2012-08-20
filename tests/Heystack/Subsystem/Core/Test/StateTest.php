@@ -64,25 +64,38 @@ class StateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('test', 'test2'), $this->state->getKeys());
 
     }
-
-}
-
-class TestStateable implements \Serializable
-{
-    protected $data = array('test');
-
-    public function setData($data)
+    
+    public function testDataObjectStateable()
     {
-        $this->data = $data;
+        
+        $do = new TestDataObjectStateable(array(
+            'Hello' => 'test',
+            'Hello2' => 'test'
+        ));
+        
+        $this->state->setObj('test', $do);
+        
+        $this->assertEquals($do->toMap(), $this->state->getObj('test')->toMap());
+        
+    }
+    
+    public function testExtraDataDataObjectStateable()
+    {
+        
+        $do = new TestExtraDataDataObjectStateable(array(
+            'Hello' => 'test',
+            'Hello2' => 'test'
+        ));
+        
+        $do->setExtraData(array(
+            'ExtraData' => 'test',
+            'ExtraData2' => 'test'
+        ));
+        
+        $this->state->setObj('test', $do);
+        
+        $this->assertEquals($do->getExtraData(), $this->state->getObj('test')->getExtraData());
+        
     }
 
-    public function serialize()
-    {
-        return serialize($this->data);
-    }
-
-    public function unserialize($data)
-    {
-        $this->data = unserialize($data);
-    }
 }
