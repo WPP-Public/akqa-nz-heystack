@@ -30,7 +30,9 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  * @package Heystack
  *
  */
-class ContainerExtension extends ContainerExtensionConfigProcessor implements ExtensionInterface
+class ContainerExtension
+    extends ContainerExtensionConfigProcessor
+    implements ExtensionInterface
 {
 
     /**

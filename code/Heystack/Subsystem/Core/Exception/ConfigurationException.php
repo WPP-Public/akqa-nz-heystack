@@ -13,7 +13,7 @@ class ConfigurationException extends \Exception
     public function __construct($message, $code = null, $previous = null)
     {
 
-        $message = "Configuration Error: " . $message;
+        $message = "Configuration Error: $message";
 
         $monolog = ServiceStore::getService(Services::MONOLOG);
 
