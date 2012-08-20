@@ -20,6 +20,27 @@ class SessionBackendTest extends \PHPUnit_Framework_TestCase
         $this->session = null;    
     }
     
+    public function testSessionNotStarted()
+    {
+        
+        $_SESSION = null;
+        
+        $message = null;
+        
+        try {
+            
+            $session = new Session(new \Session($_SESSION));
+            
+        } catch (\Exception $e) {
+            
+            $message = $e->getMessage();
+
+        }
+        
+        $this->assertNotNull($message);
+        
+    }
+    
     public function testSessionStarted()
     {
         
