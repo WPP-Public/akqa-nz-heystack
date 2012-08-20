@@ -15,15 +15,28 @@ class TestExtraDataDataObjectStateable extends \DataObject
 
     protected $extraData = array();
 
-    public function setExtraData(array $extraData)
+    public function configureExtraData(array $extraData)
     {
         $this->extraData = $extraData;
     }
 
     public function getExtraData()
     {
-
         return $this->extraData;
+    }
+    
+    public function setSomething($value)
+    {
+        
+        $this->Something = $value;
+        
+    }
+    
+    public function setSomething2($value)
+    {
+        
+        $this->Something2 = $value;
+        
     }
 
 }

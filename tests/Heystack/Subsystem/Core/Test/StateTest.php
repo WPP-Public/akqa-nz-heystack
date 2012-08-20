@@ -87,14 +87,15 @@ class StateTest extends \PHPUnit_Framework_TestCase
             'Hello2' => 'test'
         ));
         
-        $do->setExtraData(array(
-            'ExtraData' => 'test',
-            'ExtraData2' => 'test'
+        $do->configureExtraData(array(
+            'Something' => 'test',
+            'Something2' => 'test'
         ));
         
         $this->state->setObj('test', $do);
         
-        $this->assertEquals($do->getExtraData(), $this->state->getObj('test')->getExtraData());
+        $this->assertEquals('test', $this->state->getObj('test')->Something);        
+        $this->assertEquals('test', $this->state->getObj('test')->Something2);
         
     }
 
