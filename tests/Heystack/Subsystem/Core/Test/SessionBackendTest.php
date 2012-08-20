@@ -20,6 +20,19 @@ class SessionBackendTest extends \PHPUnit_Framework_TestCase
         $this->session = null;    
     }
     
+    public function testSessionStarted()
+    {
+        
+        $_SESSION = array(
+            'test' => 'yay'
+        );
+        
+        $session = new Session(new \Session($_SESSION)); 
+        
+        $this->assertEquals('yay', $session->getByKey('test'));
+        
+    }
+    
     public function testSetGetByKey()
     {
         
