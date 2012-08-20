@@ -27,7 +27,7 @@ use Heystack\Subsystem\Core\Exception\ConfigurationException;
 class DataObjectGenerator
 {
 
-    public $schemas = array();
+    private $schemas = array();
     private $referenceSchemas = array();
     private $processingFlatStorage = array();
     private $stateService;
