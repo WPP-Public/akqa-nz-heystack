@@ -35,6 +35,17 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    public function testStorageBackends()
+    {
+        
+        $arr = array(new TestStorageBackend);
+
+        $storage = new Storage($arr);
+        
+        $this->assertEquals($arr, $storage->getBackends());
+
+    }
+
 }
 
 class TestStoraable implements StorableInterface

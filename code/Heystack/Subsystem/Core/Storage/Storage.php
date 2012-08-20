@@ -50,7 +50,12 @@ class Storage
         }
 
     }
-
+    
+    public function getBackends()
+    {
+        return $this->backends;
+    }
+    
     public function process(StorableInterface $object)
     {
 
