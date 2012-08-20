@@ -129,7 +129,7 @@ class Backend implements BackendInterface
 
                 } else {
 
-                    throw new ConfigurationException("No data found for key: $key on identifier: $dataProviderIdentifier");
+                    throw new ConfigurationException("No data found for key: $key on identifier: " . $object->getStorableIdentifier());
 
                 }
 
