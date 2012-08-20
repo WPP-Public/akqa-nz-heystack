@@ -56,6 +56,27 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($arr, $this->storage->getBackends());
         
     }
+    
+    public function testProcessException()
+    {
+        $storable = new TestStoraable;
+
+        $storage = new Storage();
+        
+        $message = null;
+        
+        try {
+            
+            $storage->process($storable);
+            
+        } catch (\Exception $e) {
+            
+            $message = $e->getMessage();
+            
+        }
+        
+        $this->assertNotNull($message);
+    }
 
 }
 

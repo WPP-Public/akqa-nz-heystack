@@ -77,7 +77,7 @@ class Storage
 
         } else {
 
-            throw new Exception('Tried to process an storable object with no backends');
+            throw new \Exception('Tried to process an storable object with no backends');
 
         }
 
