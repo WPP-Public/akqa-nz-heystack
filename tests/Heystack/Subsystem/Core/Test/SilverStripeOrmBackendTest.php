@@ -59,8 +59,7 @@ class SilverStripeOrmBackendTest extends \PHPUnit_Framework_TestCase
         $this->backend->addDataProvider($object);
         
         $this->assertEquals('Configuration Error: No schema found for identifier: ' . strtolower($object->getSchemaName()), $this->tryCatchWriteHelper($object));
-        
-        
+
     }
     
     protected function tryCatchWriteHelper($object)
