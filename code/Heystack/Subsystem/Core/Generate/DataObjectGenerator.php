@@ -13,6 +13,8 @@ namespace Heystack\Subsystem\Core\Generate;
 
 use Heystack\Subsystem\Core\State\State;
 
+use Heystack\Subsystem\Core\Exception\ConfigurationException;
+
 /**
  * Generates SilverStripe DataObject classes based of schemas
  *
@@ -25,7 +27,7 @@ use Heystack\Subsystem\Core\State\State;
 class DataObjectGenerator
 {
 
-    public $schemas = array();
+    private $schemas = array();
     private $referenceSchemas = array();
     private $processingFlatStorage = array();
     private $stateService;
@@ -35,16 +37,14 @@ class DataObjectGenerator
         $this->stateService = $stateService;
     }
 
-    public function addSchema(DataObjectGeneratorSchemaInterface $schema, $reference = false, $force = false)
+    public function addSchema(
+        DataObjectGeneratorSchemaInterface $schema,
+        $reference = false,
+        $force = false
+    )
     {
 
-//        $identifier = $schema->getDataProviderIdentifier();
-
-//        if (!$identifier) {
-
-            $identifier = strtolower($schema->getIdentifier());
-
-//        }
+        $identifier = strtolower($schema->getIdentifier());
 
         if ($reference) {
 
@@ -69,14 +69,28 @@ class DataObjectGenerator
     public function addYamlSchema($file, $reference = false, $force = false)
     {
 
-        $this->addSchema(new YamlDataObjectGeneratorSchema($file, $this->stateService), $reference, $force);
+        $this->addSchema(
+            new YamlDataObjectSchema(
+                dirname(HEYSTACK_BASE_PATH) . '/' . $file,
+                $this->stateService
+            ),
+            $reference,
+            $force
+        );
 
     }
 
-    public function addDataObjectSchema($className, $reference = false)
+    public function addJsonSchema($file, $reference = false, $force = false)
     {
 
-        $this->addSchema(new DataObjectSchema($className), $reference);
+        $this->addSchema(
+            new JsonDataObjectSchema(
+                dirname(HEYSTACK_BASE_PATH) . '/' . $file,
+                $this->stateService
+            ),
+            $reference,
+            $force
+        );
 
     }
 
@@ -92,7 +106,9 @@ class DataObjectGenerator
 
         if ($this->hasSchema($identifier)) {
 
-            return isset($this->schemas[$identifier]) ? $this->schemas[$identifier] : $this->referenceSchemas[$identifier];
+            return isset($this->schemas[$identifier])
+                ? $this->schemas[$identifier]
+                : $this->referenceSchemas[$identifier];
 
         } else {
 
@@ -142,24 +158,38 @@ class DataObjectGenerator
         foreach ($this->schemas as $schema) {
 
             $identifier = $schema->getIdentifier();
-            
+
             $dataProviderID = $schema->getDataProviderIdentifier();
 
             $this->output('Processing schema: ' . $identifier);
 
-            $flatStorage    = $this->processFlatStorage($schema->getFlatStorage(), $dataProviderID);
-            $relatedStorage = $this->processRelatedStorage($schema->getRelatedStorage(), $dataProviderID);
+            $flatStorage = $this->processFlatStorage(
+                $schema->getFlatStorage(),
+                $dataProviderID
+            );
+
+            $relatedStorage = $this->processRelatedStorage(
+                $schema->getRelatedStorage()
+            );
+
             $hasRelatedStorage = $relatedStorage && is_array($relatedStorage) && count($relatedStorage) > 0;
-            $parentStorage  = $this->processParentStorage($schema->getParentStorage(), $dataProviderID);
-            $childStorage   = $this->processChildStorage($schema->getChildStorage(), $dataProviderID);
+
+            $parentStorage = $this->processParentStorage(
+                $schema->getParentStorage()
+            );
+
+            $childStorage = $this->processChildStorage(
+                $schema->getChildStorage()
+            );
 
             // names for the created objects
             $cachedObjectName           = 'Cached' . $identifier;
             $storedObjectName           = 'Stored' . $identifier;
             $cachedRelatedObjectName    = 'Cached' . $identifier . 'RelatedData';
             $storedRelatedObjectName    = 'Stored' . $identifier . 'RelatedData';
-            
-            $fields = array_keys(is_array($flatStorage) ? $flatStorage : array()) + array_keys(is_array($parentStorage) ? $parentStorage : array());
+
+            $fields = array_keys(is_array($flatStorage) ? $flatStorage : array())
+                + array_keys(is_array($parentStorage) ? $parentStorage : array());
 
             // create the cached object
             $this->writeDataObject(
@@ -208,7 +238,10 @@ class DataObjectGenerator
                 $managed_models[] = $storedRelatedObjectName;
 
                 // create the storage object
-                if ($force || !file_exists($dirMysite . DIRECTORY_SEPARATOR . $storedRelatedObjectName . '.php')) {
+                if (
+                    $force ||
+                    !file_exists($dirMysite . DIRECTORY_SEPARATOR . $storedRelatedObjectName . '.php')
+                ) {
 
                     $this->writeDataObject(
                         $dirMysite,
@@ -240,8 +273,6 @@ class DataObjectGenerator
         }
 
         $this->output('Finished!');
-
-        exit;
 
     }
 
@@ -334,14 +365,14 @@ class DataObjectGenerator
         if ($value[0] == '+') {
 
             $identifier = strtolower(substr($value, 1));
-            
+
             if ($this->hasSchema($identifier)) {
 
                 return $identifier;
 
             }
 
-            throw new \Exception("Reference to undefined schema: $identifier");
+            throw new ConfigurationException("Reference to undefined schema: $identifier");
 
         }
 
@@ -364,11 +395,14 @@ class DataObjectGenerator
 
                     if (isset($this->processingFlatStorage[$flatIdentifier])) {
 
-                        throw new \Exception('Circular reference in flat storage');
+                        throw new ConfigurationException('Circular reference in flat storage');
 
                     }
-                                      
-                    $extraFlatStorage = $this->processFlatStorage($this->getSchema($flatIdentifier)->getFlatStorage(), $flatIdentifier);
+
+                    $extraFlatStorage = $this->processFlatStorage(
+                        $this->getSchema($flatIdentifier)->getFlatStorage(),
+                        $flatIdentifier
+                    );
 
                     if (is_array($extraFlatStorage)) {
 
@@ -392,7 +426,7 @@ class DataObjectGenerator
 
     }
 
-    protected function processParentStorage($parentStorage, $identifier)
+    protected function processParentStorage($parentStorage)
     {
 
         if (is_array($parentStorage)) {
@@ -414,7 +448,7 @@ class DataObjectGenerator
 
     }
 
-    protected function processRelatedStorage($relatedStorage, $identifier)
+    protected function processRelatedStorage($relatedStorage)
     {
 
         if (is_array($relatedStorage)) {
@@ -427,7 +461,7 @@ class DataObjectGenerator
 
                     if (isset($this->processingRelatedStorage[$relatedIdentifier])) {
 
-                        throw new \Exception('Circular reference in related storage');
+                        throw new ConfigurationException('Circular reference in related storage');
 
                     }
 
@@ -453,7 +487,7 @@ class DataObjectGenerator
 
     }
 
-    protected function processChildStorage($childStorage, $identifier)
+    protected function processChildStorage($childStorage)
     {
 
         if (is_array($childStorage)) {

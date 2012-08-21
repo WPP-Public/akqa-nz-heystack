@@ -21,7 +21,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSetRemove()
     {
-
         $this->config->setConfig('test', 'hello');
 
         $this->assertEquals('hello', $this->config->getConfig('test'));
@@ -29,7 +28,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->config->removeConfig('test');
 
         $this->assertEquals(false, $this->config->getConfig('test'));
-
     }
 
 }

@@ -6,12 +6,11 @@
  */
 
 /**
+ * Allows objects that implement \Heystack\Subsystem\Core\ViewableDataInterface
+ * to be used in SS templates.
  *
- * Alows regular objects that implement ViewableDataInterface to be used in templates
- * 
  * @copyright  Heyday
- * @author Cameron Spiers <cameron@heyday.co.nz>
- * @author  Glenn Bautista <glenn@heyday.co.nz>
+ * @author Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack
  *
  */

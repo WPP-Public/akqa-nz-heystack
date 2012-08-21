@@ -16,6 +16,8 @@ use Heystack\Subsystem\Core\Storage\Event;
 use Heystack\Subsystem\Core\Generate\DataObjectGenerator;
 use Heystack\Subsystem\Core\Generate\DataObjectGeneratorSchemaInterface;
 
+use Heystack\Subsystem\Core\Exception\ConfigurationException;
+
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
@@ -35,7 +37,10 @@ class Backend implements BackendInterface
     private $generatorService = null;
     private $dataProviders = array();
 
-    public function __construct(EventDispatcher $eventService, DataObjectGenerator $generatorService)
+    public function __construct(
+        EventDispatcher $eventService,
+        DataObjectGenerator $generatorService
+    )
     {
 
         $this->eventService = $eventService;
@@ -45,8 +50,10 @@ class Backend implements BackendInterface
 
     public function addDataProvider(StorableInterface $dataProvider)
     {
-        
-        $this->dataProviders[$dataProvider->getStorableIdentifier()] = $dataProvider;
+
+        $this->dataProviders[
+            $dataProvider->getStorableIdentifier()
+        ] = $dataProvider;
 
     }
 
@@ -63,136 +70,151 @@ class Backend implements BackendInterface
         return self::IDENTIFIER;
 
     }
-
-    public function write(StorableInterface $object)
+    
+    protected function writeStoredDataObject(DataObjectGeneratorSchemaInterface $schema, StorableInterface $dataProvider, StorableInterface $object)
     {
-        
-        $dataProviderIdentifier = $object->getStorableIdentifier();
-        $schemaIdentifier = strtolower($object->getSchemaName());
 
-        if ($this->hasDataProvider($dataProviderIdentifier)) {
-            
-            error_log(print_r(array_keys($this->dataProviders),true));
-            error_log(print_r(array_keys($this->generatorService->schemas),true));
+        $saveable = 'Stored' . $schema->getIdentifier();
 
-            $dataProvider = $this->dataProviders[$dataProviderIdentifier];
-            $schema = $this->generatorService->getSchema($schemaIdentifier);
+        $storedObject = new $saveable();
 
-            if ($schema instanceof DataObjectGeneratorSchemaInterface) {
+        $data = $dataProvider->getStorableData();
+        $writeableData = $object->getStorableData();
 
-                $saveable = 'Stored' . $schema->getIdentifier();
+        foreach ($schema->getFlatStorage() as $key => $value) {
 
-                $storedObject = new $saveable();
+            $reference = $this->generatorService->isReference($value);
 
-                $data = $dataProvider->getStorableData();
-                $writeableData = $object->getStorableData();
+            if ($reference) {
 
-                foreach ($schema->getFlatStorage() as $key => $value) {
+                $referenceSchema = $this->generatorService->getSchema($reference);
 
-                    if ($reference = $this->generatorService->isReference($value)) {
-                                                
-                        $referenceSchema = $this->generatorService->getSchema($reference);
-                        
-                        if ($this->hasDataProvider($referenceSchema->getDataProviderIdentifier())) {
+                if ($this->hasDataProvider($referenceSchema->getDataProviderIdentifier())) {
 
-                            if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
+                    if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
 
-                                $referenceData = $this->dataProviders[$referenceSchema->getDataProviderIdentifier()]->getStorableData();
+                        $referenceData = $this->dataProviders[$referenceSchema->getDataProviderIdentifier()]->getStorableData();
 
-                                foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {                                 
-                                    
-                                    if (isset($referenceData['flat'][$referenceKey])) {
+                        foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
 
-                                        $storedObject->{$key . $referenceKey} = $referenceData['flat'][$referenceKey];
+                            if (isset($referenceData['flat'][$referenceKey])) {
 
-                                    } else {
-
-                                        throw new \Exception("No data found for key: $key on identifier: $reference");
-
-                                    }
-
-                                }
+                                $storedObject->{$key . $referenceKey} = $referenceData['flat'][$referenceKey];
 
                             } else {
 
-                                throw new \Exception("No schema found for identifier: $reference");
+                                throw new ConfigurationException("No data found for key: $key on identifier: $reference");
 
                             }
-
-                        } else {
-
-                            throw new \Exception('Reference in flat schema didn\'t have an associated data provider');
 
                         }
 
                     } else {
 
-                        if (array_key_exists($key, $data['flat'])) {
-
-                            $storedObject->$key = $writeableData['flat'][$key];
-
-                        } else {
-
-                            throw new \Exception("No data found for key: $key on identifier: $dataProviderIdentifier");
-
-                        }
+                        throw new ConfigurationException("No schema found for identifier: $reference");
 
                     }
 
+                } else {
+
+                    throw new ConfigurationException('Reference in flat schema didn\'t have an associated data provider');
+
                 }
 
-                // @todo this should be in the config?
-                if (isset($data['parent']) && isset($writeableData['flat']['ParentID'])) {
-                    $storedObject->ParentID = $writeableData['flat']['ParentID'];
+            } else {
+
+                if (array_key_exists($key, $data['flat'])) {
+
+                    $storedObject->$key = $writeableData['flat'][$key];
+
+                } else {
+
+                    throw new ConfigurationException("No data found for key: $key on identifier: " . $object->getStorableIdentifier());
+
                 }
 
-                $storedObject->write();
+            }
 
-                $relatedStorage = $schema->getRelatedStorage();
+        }
 
-                if ($relatedStorage) {
+        // @todo this should be in the config?
+        if (isset($data['parent']) && isset($writeableData['flat']['ParentID'])) {
+            $storedObject->ParentID = $writeableData['flat']['ParentID'];
+        }
 
-                    $saveable = "Stored{$data['id']}RelatedData";
+        $storedObject->write();
+        
+        return $storedObject;
+        
+    }
+    
+    protected function writeStoredRelatedDataObject(DataObjectGeneratorSchemaInterface $schema, $storedObject)
+    {
 
-                    foreach ($relatedStorage as $key => $value) {
+        $relatedStorage = $schema->getRelatedStorage();
 
-                        $storedManyObject = new $saveable();
-                        $storedManyObject->{"Stored{$data['id']}ID"} = $storedObject->ID;
+        if ($relatedStorage) {
 
-                        if ($reference = $this->generatorService->isReference($value)) {
+            $saveable = "Stored{$data['id']}RelatedData";
 
-                            if ($this->hasDataProvider($reference)) {
+            foreach ($relatedStorage as $key => $value) {
 
-                                $referenceSchema = $this->generatorService->getSchema($reference);
-                                $referenceData = $this->dataProviders[$reference]->getStorableData();
+                $storedManyObject = new $saveable();
+                $storedManyObject->{"Stored{$data['id']}ID"} = $storedObject->ID;
 
-                                if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
+                if ($reference = $this->generatorService->isReference($value)) {
 
-                                    foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
+                    if ($this->hasDataProvider($reference)) {
 
-                                        $storedManyObject->{$key . $referenceKey} = $referenceData[$referenceKey];
+                        $referenceSchema = $this->generatorService->getSchema($reference);
+                        $referenceData = $this->dataProviders[$reference]->getStorableData();
 
-                                    }
+                        if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
 
-                                }
+                            foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
 
-                            } else {
-
-                                throw new \Exception('Reference in related schema didn\'t have an associated data provider');
+                                $storedManyObject->{$key . $referenceKey} = $referenceData[$referenceKey];
 
                             }
 
-                        } else {
-
-                            $storedManyObject->{$key} = $data['related'][$key];
-
                         }
 
-                        $storedManyObject->write();
+                    } else {
+
+                        throw new ConfigurationException('Reference in related schema didn\'t have an associated data provider');
 
                     }
 
+                } else {
+
+                    $storedManyObject->{$key} = $data['related'][$key];
+
                 }
+
+                $storedManyObject->write();
+
+            }
+
+        }
+        
+    }
+
+    public function write(StorableInterface $object)
+    {
+
+        $dataProviderIdentifier = $object->getStorableIdentifier();
+        $schemaIdentifier = strtolower($object->getSchemaName());
+
+        if ($this->hasDataProvider($dataProviderIdentifier)) {
+
+            $dataProvider = $this->dataProviders[$dataProviderIdentifier];
+            $schema = $this->generatorService->getSchema($schemaIdentifier);
+
+            if ($schema instanceof DataObjectGeneratorSchemaInterface) {
+                
+                $storedObject = $this->writeStoredDataObject($schema, $dataProvider, $object);
+                
+                $this->writeStoredRelatedDataObject($schema, $storedObject);
 
                 $this->eventService->dispatch(
                     self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
@@ -201,13 +223,13 @@ class Backend implements BackendInterface
 
             } else {
 
-                throw new \Exception('No schema found for identifier: ' . $schemaIdentifier);
+                throw new ConfigurationException('No schema found for identifier: ' . $schemaIdentifier);
 
             }
 
         } else {
 
-            throw new \Exception('Couldn\'t find data provider for identifier: ' . $dataProviderIdentifier);
+            throw new ConfigurationException('Couldn\'t find data provider for identifier: ' . $dataProviderIdentifier);
 
         }
 

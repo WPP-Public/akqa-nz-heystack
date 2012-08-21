@@ -1,9 +1,21 @@
 <?php
 
+/**
+ * This file is part of the Heystack package
+ *
+ * @package Heystack
+ */
+
+/**
+ * Backends namespace
+ */
 namespace Heystack\Subsystem\Core\State\Backends;
 
 use Heystack\Subsystem\Core\State\BackendInterface;
 
+/**
+ * Memcache storage for backend
+ */
 class Memcache implements BackendInterface
 {
 
@@ -26,7 +38,7 @@ class Memcache implements BackendInterface
         }
 
         if (!is_null($prefix)) {
-        
+
             $this->prefix = $prefix;
 
         }

@@ -31,9 +31,5 @@ if (file_exists(HEYSTACK_BASE_PATH . '/vendor/autoload.php')) {
         }
 
     }
-    
-} else {
 
-    $loader = require_once BASE_PATH . '/vendor/autoload.php';
-    
 }
