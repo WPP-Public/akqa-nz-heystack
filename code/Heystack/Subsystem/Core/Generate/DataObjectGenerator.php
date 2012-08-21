@@ -66,12 +66,12 @@ class DataObjectGenerator
 
     }
 
-    public function addYamlSchema($file, $reference = false, $force = false)
+    public function addYamlSchema($file, $reference = false, $force = false, $realpath = false)
     {
 
         $this->addSchema(
             new YamlDataObjectSchema(
-                dirname(HEYSTACK_BASE_PATH) . '/' . $file,
+                $realpath ? $file : dirname(HEYSTACK_BASE_PATH) . '/' . $file,
                 $this->stateService
             ),
             $reference,
@@ -80,12 +80,12 @@ class DataObjectGenerator
 
     }
 
-    public function addJsonSchema($file, $reference = false, $force = false)
+    public function addJsonSchema($file, $reference = false, $force = false, $realpath = false)
     {
 
         $this->addSchema(
             new JsonDataObjectSchema(
-                dirname(HEYSTACK_BASE_PATH) . '/' . $file,
+                $realpath ? $file : dirname(HEYSTACK_BASE_PATH) . '/' . $file,
                 $this->stateService
             ),
             $reference,

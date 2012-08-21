@@ -66,7 +66,7 @@ class DataObjectGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testAddYamlSchema()
     {
 
-        $this->generator->addYamlSchema('heystack/tests/Heystack/Subsystem/Core/Test/schemas/test_schema.yml');
+        $this->generator->addYamlSchema('tests/Heystack/Subsystem/Core/Test/schemas/test_schema.yml', false, false, true);
 
         $this->assertTrue($this->generator->hasSchema('test'));
     }
@@ -74,7 +74,7 @@ class DataObjectGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testAddJsonSchema()
     {
 
-        $this->generator->addJsonSchema('heystack/tests/Heystack/Subsystem/Core/Test/schemas/test_schema.json');
+        $this->generator->addJsonSchema('tests/Heystack/Subsystem/Core/Test/schemas/test_schema.json', false, false, true);
 
         $this->assertTrue($this->generator->hasSchema('test'));
     }
