@@ -3,9 +3,12 @@
 namespace Heystack\Subsystem\Core\Test;
 
 use Heystack\Subsystem\Core\Storage\StorableInterface;
+use Heystack\Subsystem\Core\Storage\Traits\ParentReferenceTrait;
 
 class TestStorable implements StorableInterface
 {
+    
+    use ParentReferenceTrait;
 
     public function getSchemaName()
     {

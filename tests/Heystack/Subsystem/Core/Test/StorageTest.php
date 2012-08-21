@@ -26,13 +26,21 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     {
 
         $storable = new TestStorable;
+        
+        $results = $this->storage->process($storable);
 
         $this->assertEquals(
             array(
                 'test' => $storable->getStorableData()
             ),
-           $this->storage->process($storable)
+            $results
         );
+
+        $storable2 = new TestStorable;
+        
+        $storable2->setParentReference($results['test']);
+        
+        $this->assertEquals($results['test'], $storable2->getParentReference());
 
     }
 
