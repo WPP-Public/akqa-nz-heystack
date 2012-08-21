@@ -40,12 +40,6 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
 
         if (!$this->restoreState() || isset($_GET['flush'])) {
 
-            if (!file_exists($file)) {
-
-                throw new ConfigurationException('File doesn\'t exist');
-
-            }
-
             $config = $this->parseFile($file);
 
             if (!is_array($config)) {

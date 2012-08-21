@@ -11,6 +11,8 @@
  */
 namespace Heystack\Subsystem\Core\Generate;
 
+use Heystack\Subsystem\Core\Exception\ConfigurationException;
+
 /**
  * Uses json files to provide a schema for dataobject class creation
  *
@@ -22,6 +24,12 @@ class JsonDataObjectSchema extends FileDataObjectSchema
 
     protected function parseFile($file)
     {
+
+        if (!file_exists($file)) {
+
+            throw new ConfigurationException('File doesn\'t exist');
+
+        }
 
         return json_decode(file_get_contents($file), true);
 

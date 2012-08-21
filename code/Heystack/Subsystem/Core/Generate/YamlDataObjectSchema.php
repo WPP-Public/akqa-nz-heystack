@@ -11,6 +11,8 @@
  */
 namespace Heystack\Subsystem\Core\Generate;
 
+use Heystack\Subsystem\Core\Exception\ConfigurationException;
+
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -25,6 +27,12 @@ class YamlDataObjectSchema extends FileDataObjectSchema
 
     protected function parseFile($file)
     {
+
+        if (!file_exists($file)) {
+
+            throw new ConfigurationException('File doesn\'t exist');
+
+        }
 
         return Yaml::parse($file);
 
