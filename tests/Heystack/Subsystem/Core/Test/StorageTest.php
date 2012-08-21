@@ -4,6 +4,8 @@ namespace Heystack\Subsystem\Core\Test;
 
 use Heystack\Subsystem\Core\Storage\Storage;
 
+use Heystack\Subsystem\Core\Storage\Event;
+
 class StorageTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -75,6 +77,15 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         }
         
         $this->assertNotNull($message);
+    }
+    
+    public function testEvent()
+    {
+        
+        $event = new Event('test');
+        
+        $this->assertEquals('test', $event->getParentReference());
+        
     }
 
 }
