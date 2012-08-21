@@ -29,7 +29,7 @@ class SessionBackendTest extends \PHPUnit_Framework_TestCase
         
         try {
             
-            $session = new Session(new \Session($_SESSION));
+            new Session(new \Session($_SESSION));
             
         } catch (\Exception $e) {
             
