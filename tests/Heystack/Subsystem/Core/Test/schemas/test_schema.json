@@ -6,5 +6,7 @@
    },
    "related":null,
    "parent":null,
-   "children":null
+   "children":{
+      "Tests":"+Test"
+   }
 }

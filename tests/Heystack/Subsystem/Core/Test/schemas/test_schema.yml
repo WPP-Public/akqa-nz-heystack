@@ -5,3 +5,4 @@ flat:
 related:
 parent:
 children:
+  Tests: +Test
