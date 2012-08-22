@@ -35,6 +35,10 @@ class ContainerExtension
     implements ExtensionInterface
 {
 
+    const IDENTIFIER = 'heystack';
+
+    protected $folder = '/config/';
+
     /**
      * Loads a services.yml file into a fresh container, ready to me merged
      * back into the main container
@@ -48,7 +52,7 @@ class ContainerExtension
 
         $loader = new YamlFileLoader(
             $container,
-            new FileLocator(HEYSTACK_BASE_PATH . '/config/')
+            new FileLocator(HEYSTACK_BASE_PATH . $this->folder)
         );
 
         $loader->load('services.yml');
@@ -62,7 +66,7 @@ class ContainerExtension
      */
     public function getNamespace()
     {
-        return 'heystack';
+        return self::IDENTIFIER;
     }
 
     /**
@@ -80,7 +84,17 @@ class ContainerExtension
      */
     public function getAlias()
     {
-        return 'heystack';
+        return self::IDENTIFIER;
+    }
+
+    public function setFolder($folder)
+    {
+        $this->folder = $folder;
+    }
+
+    public function getFolder()
+    {
+        return $this->folder;
     }
 
 }
