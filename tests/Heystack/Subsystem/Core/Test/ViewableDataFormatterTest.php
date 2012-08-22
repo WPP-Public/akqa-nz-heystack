@@ -53,6 +53,7 @@ class ViewableDataFormatterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Hello', $this->object->Test());
         $this->assertEquals('Yo', $this->object->Test2());
         $this->assertEquals('Awesome', $this->object->TestThing());
+        $this->assertEquals(false, $this->object->Giberish());
     }
 
     /**
@@ -62,6 +63,7 @@ class ViewableDataFormatterTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('Hello', $this->object->Test);
         $this->assertEquals('Yo', $this->object->Test2);
+        $this->assertEquals(false, $this->object->Giberish);
     }
 
     /**

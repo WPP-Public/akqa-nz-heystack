@@ -50,6 +50,7 @@ class ViewableDataFormatter extends ViewableData
         } elseif (in_array($method, $this->obj->getDynamicMethods())) {
             return $this->obj->$method;
         }
+        return false;
     }
 
     public function __get($property)
@@ -57,6 +58,7 @@ class ViewableDataFormatter extends ViewableData
         if (isset($this->obj->$property)) {
             return $this->obj->$property;
         }
+        return false;
     }
 
     public function __set($property, $value)

@@ -9,6 +9,7 @@
  *
  */
 use Heystack\Subsystem\Core\ServiceStore;
+use Heystack\Subsystem\Core\Services;
 
 /**
  *
@@ -37,7 +38,7 @@ class CliInputController extends Controller
 
         parent::__construct();
 
-        $this->inputHandlerService = ServiceStore::getService('cli_input_processor_handler');
+        $this->inputHandlerService = ServiceStore::getService(Services::CLI_INPUT_PROCESSOR_HANDLER);
 
     }
 
