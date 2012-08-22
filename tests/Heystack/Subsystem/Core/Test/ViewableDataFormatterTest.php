@@ -42,6 +42,7 @@ class ViewableDataFormatterTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('Varchar', $this->object->castingHelper('Test'));
         $this->assertEquals('Varchar', $this->object->castingHelper('Test2'));
+        $this->assertEquals(false, $this->object->castingHelper('NotExistant'));
     }
 
     /**
@@ -51,6 +52,7 @@ class ViewableDataFormatterTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('Hello', $this->object->Test());
         $this->assertEquals('Yo', $this->object->Test2());
+        $this->assertEquals('Awesome', $this->object->TestThing());
     }
 
     /**
@@ -79,5 +81,19 @@ class ViewableDataFormatterTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->object->hasMethod('Test'));
         $this->assertTrue($this->object->hasMethod('Test2'));
         $this->assertFalse($this->object->hasMethod('Test3'));
+    }
+
+    public function testConstructor()
+    {
+        $formattor = new \ViewableDataFormatter($viewableData = new TestViewableData(array(
+            'Test' => 'Hello',
+            'Test2' => 'Yo'
+        ), array(
+            'Test' => 'Varchar',
+            'Test2' => 'Varchar'
+        )));
+
+        $this->assertEquals($viewableData, $formattor->getObj());
+
     }
 }

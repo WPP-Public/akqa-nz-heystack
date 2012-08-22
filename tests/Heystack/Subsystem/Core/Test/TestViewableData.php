@@ -38,4 +38,9 @@ class TestViewableData implements ViewableDataInterface
         return $this->castings;
     }
 
+    public function getTestThing()
+    {
+        return 'Awesome';
+    }
+
 }

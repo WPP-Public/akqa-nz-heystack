@@ -69,4 +69,9 @@ class ViewableDataFormatter extends ViewableData
         return method_exists($this->obj, 'get' . $method) || in_array($method, $this->obj->getDynamicMethods());
     }
 
+    public function getObj()
+    {
+        return $this->obj;
+    }
+
 }
