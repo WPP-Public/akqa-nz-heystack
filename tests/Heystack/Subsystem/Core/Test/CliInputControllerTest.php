@@ -43,7 +43,6 @@ class CliInputControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers CliInputController::process
-     * @todo   Implement testProcess().
      */
     public function testProcess()
     {
@@ -51,5 +50,22 @@ class CliInputControllerTest extends \PHPUnit_Framework_TestCase
         $request->match('$Action/$Processor/$ID/$OtherID/$ExtraID');
         $this->assertEquals('Hello', $this->object->handleRequest($request)->getBody());
         $this->assertNotEquals('Hello2', $this->object->handleRequest($request)->getBody());
+    }
+
+    public function testConstruct()
+    {
+
+        $controller = new \CliInputController;
+        $this->assertInternalType('object', $controller);
+
+    }
+
+    public function testSetGetInputHandlerService()
+    {
+        $controller = new \CliInputController;
+
+        $controller->setInputHandlerService($this->inputHandler);
+
+        $this->assertEquals($this->inputHandler, $controller->getInputHandlerService());
     }
 }
