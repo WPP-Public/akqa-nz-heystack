@@ -15,11 +15,15 @@ class ConfigurationException extends \Exception
 
         $message = "Configuration Error: $message";
 
-        $monolog = ServiceStore::getService(Services::MONOLOG);
+        if (!defined('UNIT_TESTING')) {
 
-        if (!defined('UNIT_TESTING') && $monolog instanceof Logger) {
+            $monolog = ServiceStore::getService(Services::MONOLOG);
 
-            $monolog->err($message);
+            if ($monolog instanceof Logger) {
+
+                $monolog->err($message);
+
+            }
 
         }
 
