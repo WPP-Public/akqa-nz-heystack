@@ -19,7 +19,7 @@ class ViewableDataFormatter extends ViewableData
 
     protected $obj;
 
-    public function __construct(\Heystack\Subsystem\Core\ViewableDataInterface $obj)
+    public function __construct(\Heystack\Subsystem\Core\ViewableData\ViewableDataInterface $obj)
     {
         $this->obj = $obj;
 
@@ -61,7 +61,7 @@ class ViewableDataFormatter extends ViewableData
 
     public function __set($property, $value)
     {
-        $this->$property = $value;
+        $this->obj->$property = $value;
     }
 
     public function hasMethod($method)

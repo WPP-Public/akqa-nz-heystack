@@ -36,6 +36,7 @@ class ContainerExtensionConfigProcessorTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+        $this->object = null;
     }
 
     public function testProcessConfig()

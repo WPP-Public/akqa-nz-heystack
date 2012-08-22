@@ -17,6 +17,13 @@ class ViewableDataFormatterTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        $this->object = new \ViewableDataFormatter(new TestViewableData(array(
+            'Test' => 'Hello',
+            'Test2' => 'Yo'
+        ), array(
+            'Test' => 'Varchar',
+            'Test2' => 'Varchar'
+        )));
     }
 
     /**
@@ -25,65 +32,52 @@ class ViewableDataFormatterTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+        $this->object = null;
     }
 
     /**
      * @covers ViewableDataFormatter::castingHelper
-     * @todo   Implement testCastingHelper().
      */
     public function testCastingHelper()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->assertEquals('Varchar', $this->object->castingHelper('Test'));
+        $this->assertEquals('Varchar', $this->object->castingHelper('Test2'));
     }
 
     /**
      * @covers ViewableDataFormatter::__call
-     * @todo   Implement test__call().
      */
     public function test__call()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->assertEquals('Hello', $this->object->Test());
+        $this->assertEquals('Yo', $this->object->Test2());
     }
 
     /**
      * @covers ViewableDataFormatter::__get
-     * @todo   Implement test__get().
      */
     public function test__get()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->assertEquals('Hello', $this->object->Test);
+        $this->assertEquals('Yo', $this->object->Test2);
     }
 
     /**
      * @covers ViewableDataFormatter::__set
-     * @todo   Implement test__set().
      */
     public function test__set()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->object->Something = 'Yay';
+        $this->assertEquals('Yay', $this->object->Something);
     }
 
     /**
      * @covers ViewableDataFormatter::hasMethod
-     * @todo   Implement testHasMethod().
      */
     public function testHasMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->hasMethod('Test'));
+        $this->assertTrue($this->object->hasMethod('Test2'));
+        $this->assertFalse($this->object->hasMethod('Test3'));
     }
 }
