@@ -30,11 +30,24 @@ class ContainerExtensionTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+        $this->object = null;
+    }
+
+    /**
+     *
+     * @covers Heystack\Subsystem\Core\ContainerExtension::setFolder
+     * @covers Heystack\Subsystem\Core\ContainerExtension::getFolder
+     */
+    public function testSetGetFolder()
+    {
+
+        $this->object->setFolder('hello');
+        $this->assertEquals('hello', $this->object->getFolder());
+
     }
 
     /**
      * @covers Heystack\Subsystem\Core\ContainerExtension::load
-     * @todo   Implement testLoad().
      */
     public function testLoad()
     {
@@ -53,7 +66,6 @@ class ContainerExtensionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Heystack\Subsystem\Core\ContainerExtension::getNamespace
-     * @todo   Implement testGetNamespace().
      */
     public function testGetNamespace()
     {
@@ -62,7 +74,6 @@ class ContainerExtensionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Heystack\Subsystem\Core\ContainerExtension::getXsdValidationBasePath
-     * @todo   Implement testGetXsdValidationBasePath().
      */
     public function testGetXsdValidationBasePath()
     {
@@ -71,7 +82,6 @@ class ContainerExtensionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Heystack\Subsystem\Core\ContainerExtension::getAlias
-     * @todo   Implement testGetAlias().
      */
     public function testGetAlias()
     {
