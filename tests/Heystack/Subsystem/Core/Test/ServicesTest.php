@@ -26,6 +26,13 @@ class ServicesTest extends \PHPUnit_Framework_TestCase
     {
     }
 
+    public function testConstruct()
+    {
+
+        $this->assertInternalType('object', new Services);
+
+    }
+
     public function testConsts()
     {
 
