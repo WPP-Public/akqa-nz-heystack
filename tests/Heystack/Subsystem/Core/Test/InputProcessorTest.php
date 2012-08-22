@@ -10,6 +10,10 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 class InputProcessorTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var DataObjectGenerator
+     */
+    protected $generatorService;
+    /**
      * @var Processor
      */
     protected $object;
@@ -21,7 +25,8 @@ class InputProcessorTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
 
-        $this->processor = new Processor(new DataObjectGenerator(new State(new TestBackend(), new EventDispatcher())));
+        $this->generatorService = new DataObjectGenerator(new State(new TestBackend(), new EventDispatcher()));
+        $this->object = new Processor($this->generatorService);
 
     }
 
@@ -31,16 +36,25 @@ class InputProcessorTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+
+        $this->generatorService = null;
+        $this->object = null;
+    }
+
+    /**
+     * @covers Heystack\Subsystem\Core\Generate\Input\Processor::getGeneratorService
+     */
+    public function testGetGeneratorService()
+    {
+        $this->assertEquals($this->generatorService, $this->object->getGeneratorService());
     }
 
     /**
      * @covers Heystack\Subsystem\Core\Generate\Input\Processor::getIdentifier
-     * @todo   Implement testGetIdentifier().
      */
     public function testGetIdentifier()
     {
-        // Remove the following lines when you implement this test.
-        $this->assertEquals(Processor::IDENTIFIER, $this->processor->getIdentifier());
+        $this->assertEquals(Processor::IDENTIFIER, $this->object->getIdentifier());
     }
 
     /**

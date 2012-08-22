@@ -49,4 +49,9 @@ class Processor implements ProcessorInterface
 
     }
 
+    public function getGeneratorService()
+    {
+        return $this->generatorService;
+    }
+
 }
