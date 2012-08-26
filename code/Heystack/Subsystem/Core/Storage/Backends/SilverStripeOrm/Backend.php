@@ -123,7 +123,7 @@ class Backend implements BackendInterface
 
             } else {
 
-                if (array_key_exists($key, $data['flat'])) {
+                if (array_key_exists($key, $writeableData['flat'])) {
 
                     $storedObject->$key = $writeableData['flat'][$key];
 

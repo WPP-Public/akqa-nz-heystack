@@ -30,7 +30,7 @@ class YamlDataObjectSchema extends FileDataObjectSchema
 
         if (!file_exists($file)) {
 
-            throw new ConfigurationException('File doesn\'t exist');
+            throw new ConfigurationException('File doesn\'t exist ' . $file);
 
         }
 
