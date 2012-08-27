@@ -32,6 +32,13 @@ class StateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $this->state->getByKey('test'));
     }
 
+    public function testRemoveAll()
+    {
+        $this->state->setByKey('test', 'hello');
+        $this->state->removeAll();
+        $this->assertEquals(array(), $this->state->getKeys());
+    }
+
     public function testSetGetStatable()
     {
         $this->state->setObj('test', $obj = new TestStateable());
@@ -43,24 +50,53 @@ class StateTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEquals($obj, $this->state->getObj('test'));
     }
 
-}
-
-class TestStateable implements \Serializable
-{
-    protected $data = array('test');
-
-    public function setData($data)
+    public function testGetKeys()
     {
-        $this->data = $data;
+
+        $this->assertEquals(array(), $this->state->getKeys());
+
+        $this->state->setByKey('test', 'Yay');
+
+        $this->assertEquals(array('test'), $this->state->getKeys());
+
+        $this->state->setByKey('test2', 'Yay');
+
+        $this->assertEquals(array('test', 'test2'), $this->state->getKeys());
+
+    }
+    
+    public function testDataObjectStateable()
+    {
+        
+        $do = new TestDataObjectStateable(array(
+            'Hello' => 'test',
+            'Hello2' => 'test'
+        ));
+        
+        $this->state->setObj('test', $do);
+        
+        $this->assertEquals($do->toMap(), $this->state->getObj('test')->toMap());
+        
+    }
+    
+    public function testExtraDataDataObjectStateable()
+    {
+        
+        $do = new TestExtraDataDataObjectStateable(array(
+            'Hello' => 'test',
+            'Hello2' => 'test'
+        ));
+        
+        $do->configureExtraData(array(
+            'Something' => 'test',
+            'Something2' => 'test'
+        ));
+        
+        $this->state->setObj('test', $do);
+        
+        $this->assertEquals('test', $this->state->getObj('test')->Something);        
+        $this->assertEquals('test', $this->state->getObj('test')->Something2);
+        
     }
 
-    public function serialize()
-    {
-        return serialize($this->data);
-    }
-
-    public function unserialize($data)
-    {
-        $this->data = unserialize($data);
-    }
 }

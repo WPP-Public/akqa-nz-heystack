@@ -9,16 +9,21 @@
     ],
     "require": {
         "php": ">=5.4.0",
+        "composer/installers": "*",
         "symfony/event-dispatcher": "2.0.16",
         "symfony/config": "2.0.16",
         "symfony/dependency-injection": "2.0.16",
         "symfony/yaml": "2.0.16",
         "monolog/monolog": "dev-multi-line-formatter"
     },
+    "require-dev": {
+        "silverstripe/sapphire": "2.4.7"
+    },
     "autoload": {
         "psr-0": {
             "Heystack": "code/"
-        }
+        },
+        "classmap": ["sapphire/", "code/SilverStripe"]
     },
     "minimum-stability": "dev"
 }

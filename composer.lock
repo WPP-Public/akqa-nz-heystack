@@ -1,6 +1,12 @@
 {
-    "hash": "c0bd1c1fc457fc26bf0e8724822e3c93",
+    "hash": "2da30fd8451a6ff71ee4a8c1c8ecfc45",
     "packages": [
+        {
+            "package": "composer/installers",
+            "version": "dev-master",
+            "source-reference": "2cc9ad106e2a617adba8fd0f948e8873297efd3b",
+            "commit-date": "1344721334"
+        },
         {
             "package": "monolog/monolog",
             "version": "dev-multi-line-formatter",
@@ -24,7 +30,12 @@
             "version": "v2.0.16"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+        {
+            "package": "silverstripe/sapphire",
+            "version": "2.4.7"
+        }
+    ],
     "aliases": [
 
     ],

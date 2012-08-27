@@ -141,7 +141,7 @@ services:
       arguments: [ @dataobject_generator ]
 
     cli_input_processor_handler:
-      class: Heystack\Subsystem\Core\Input\CliHandler
+      class: %input_processor_handler.class%
       calls:
         - [ addProcessor, [ @dataobject_generator_input_processor ] ]
 

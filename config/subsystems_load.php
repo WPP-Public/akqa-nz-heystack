@@ -31,13 +31,5 @@ if (file_exists(HEYSTACK_BASE_PATH . '/vendor/autoload.php')) {
         }
 
     }
-    
-} else {
-    
-    if (!file_exists(BASE_PATH .'/_composer-autoload/_config.php')) {
 
-        $loader = require_once BASE_PATH . '/vendor/autoload.php';
-        
-    }
-    
 }
