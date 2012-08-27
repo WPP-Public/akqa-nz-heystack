@@ -374,7 +374,7 @@ class DataObjectGenerator
 
                         foreach ($extraFlatStorage as $extraName => $extraValue) {
 
-                            $flatStorage[substr($value, 1) . $extraName] = $extraValue;
+                            $flatStorage[substr($value, 1) . $extraName] = $extraValue; //TODO: Fix me
 
                         }
 
@@ -402,7 +402,7 @@ class DataObjectGenerator
                 if ($parentIdentifier = $this->isReference($value)) {
 
                     unset($parentStorage[$name]);
-                    $parentStorage[$name] = 'Stored' . $parentIdentifier;
+                    $parentStorage[$name] = 'Stored' . $this->getSchema($parentIdentifier)->getIdentifier();
 
                 }
 
@@ -462,7 +462,7 @@ class DataObjectGenerator
 
                 if ($childIdentifier = $this->isReference($value)) {
 
-                    $childStorage[$name] = 'Stored' . substr($value, 1);
+                    $childStorage[$name] = 'Stored' . $this->getSchema($childIdentifier)->getIdentifier();
 
                 }
 
