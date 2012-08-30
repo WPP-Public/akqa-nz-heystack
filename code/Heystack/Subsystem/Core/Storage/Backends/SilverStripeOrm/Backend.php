@@ -220,6 +220,8 @@ class Backend implements BackendInterface
                     self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
                     new Event($storedObject->ID)
                 );
+                
+                return $storedObject;
 
             } else {
 
