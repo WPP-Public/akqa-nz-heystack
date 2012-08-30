@@ -23,7 +23,12 @@
         "psr-0": {
             "Heystack": "code/"
         },
-        "classmap": ["sapphire/", "code/SilverStripe"]
+        "classmap": ["vendor/sapphire/", "code/SilverStripe"]
+    },
+    "extra": {
+        "installer-paths": {
+            "vendor/{$name}/": ["silverstripe/sapphire"]
+        }
     },
     "minimum-stability": "dev"
 }
