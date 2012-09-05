@@ -77,10 +77,15 @@ class Session implements BackendInterface
     public function removeAll(array $exclude = array())
     {
 
-        //TODO: exclude
-
-        $this->session->inst_clearAll();
-        $this->save();
+        foreach (array_keys($this->session->inst_getAll()) as $key) {
+            
+            if (!in_array($key, $exclude)) {
+                
+                $this->removeByKey($key);
+                
+            }
+            
+        }
 
     }
 
