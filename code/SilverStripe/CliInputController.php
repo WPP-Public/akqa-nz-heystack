@@ -9,6 +9,11 @@
  *
  */
 use Heystack\Subsystem\Core\ServiceStore;
+use Heystack\Subsystem\Core\Services;
+
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+
+use Heystack\Subsystem\Core\Input\Handler;
 
 /**
  *
@@ -37,7 +42,11 @@ class CliInputController extends Controller
 
         parent::__construct();
 
-        $this->inputHandlerService = ServiceStore::getService('cli_input_processor_handler');
+        try {
+
+            $this->inputHandlerService = ServiceStore::getService(Services::CLI_INPUT_PROCESSOR_HANDLER);
+
+        } catch (ServiceNotFoundException $e) {}
 
     }
 
@@ -68,6 +77,16 @@ class CliInputController extends Controller
  
         return $this->inputHandlerService->process($request->param('Processor'), $request);
 
+    }
+
+    public function setInputHandlerService(Handler $inputHandlerService)
+    {
+        $this->inputHandlerService = $inputHandlerService;
+    }
+
+    public function getInputHandlerService()
+    {
+        return $this->inputHandlerService;
     }
 
 }

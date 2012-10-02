@@ -1,27 +1,31 @@
 <?php
 
-$loader = require_once HEYSTACK_BASE_PATH . '/vendor/autoload.php';
+if (file_exists(HEYSTACK_BASE_PATH . '/vendor/autoload.php')) {
 
-$subsystems = glob(BASE_PATH . '/*/_heystack_subsystem', GLOB_NOSORT);
+    $loader = require_once HEYSTACK_BASE_PATH . '/vendor/autoload.php';
 
-if (is_array($subsystems)) {
+    $subsystems = glob(BASE_PATH . '/*/_heystack_subsystem', GLOB_NOSORT);
 
-    foreach ($subsystems as $dir) {
+    if (is_array($subsystems)) {
 
-        $dir = dirname($dir);
+        foreach ($subsystems as $dir) {
 
-        if (HEYSTACK_BASE_PATH != $dir) {
+            $dir = dirname($dir);
 
-            $composerDir = $dir . '/vendor/composer';
+            if (HEYSTACK_BASE_PATH != $dir) {
 
-            $map = require $composerDir . '/autoload_namespaces.php';
-            foreach ($map as $namespace => $path) {
-                $loader->add($namespace, $path);
-            }
+                $composerDir = $dir . '/vendor/composer';
 
-            $classMap = require $composerDir . '/autoload_classmap.php';
-            if ($classMap) {
-                $loader->addClassMap($classMap);
+                $map = require $composerDir . '/autoload_namespaces.php';
+                foreach ($map as $namespace => $path) {
+                    $loader->add($namespace, $path);
+                }
+
+                $classMap = require $composerDir . '/autoload_classmap.php';
+                if ($classMap) {
+                    $loader->addClassMap($classMap);
+                }
+
             }
 
         }

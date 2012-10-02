@@ -24,6 +24,8 @@ use Heystack\Subsystem\Core\Generate\DataObjectGenerator;
 class Processor implements ProcessorInterface
 {
 
+    const IDENTIFIER = 'do_generator';
+
     private $generatorService;
 
     public function __construct(DataObjectGenerator $generatorService)
@@ -36,7 +38,7 @@ class Processor implements ProcessorInterface
     public function getIdentifier()
     {
 
-        return 'do_generator';
+        return self::IDENTIFIER;
 
     }
 
@@ -45,6 +47,11 @@ class Processor implements ProcessorInterface
 
         $this->generatorService->process($request->getVar('force'));
 
+    }
+
+    public function getGeneratorService()
+    {
+        return $this->generatorService;
     }
 
 }

@@ -3,6 +3,16 @@
 $subsystems = glob(BASE_PATH . '/*/_heystack_subsystem', GLOB_NOSORT);
 $extensions = array();
 
+$placeExtension = function ($placeExtension, $extensions, $key, $extension) {
+    if (isset($extensions[$key])) {
+        $key++;
+        $extensions = $placeExtension($placeExtension, $extensions, $key, $extension);
+    } else {
+        $extensions[$key] = $extension;
+    }
+    return $extensions;
+};
+
 if (is_array($subsystems)) {
 
     foreach ($subsystems as $dir) {
@@ -15,7 +25,13 @@ if (is_array($subsystems)) {
 
             if (file_exists($filename)) {
 
-                $extensions = $extensions + require_once $filename;
+                $newExtensions = require_once $filename;
+
+                foreach ($newExtensions as $key => $extension) {
+
+                    $extensions = $placeExtension($placeExtension, $extensions, $key, $extension);
+
+                }
 
             }
 

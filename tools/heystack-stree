@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for dir in `ls .`
+do
+    if [ -d $dir ] && [ -f "$dir/_heystack_subsystem" ]; then
+        stree $dir
+    fi
+done

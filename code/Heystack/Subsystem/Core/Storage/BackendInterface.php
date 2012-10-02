@@ -22,5 +22,6 @@ interface BackendInterface
 {
 
     public function write(StorableInterface $object);
+    public function getIdentifier();
 
 }

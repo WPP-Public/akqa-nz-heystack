@@ -14,7 +14,7 @@ namespace Heystack\Subsystem\Core\Generate;
 use Heystack\Subsystem\Core\State\StateableInterface;
 use Heystack\Subsystem\Core\State\State;
 
-use Symfony\Component\Yaml\Yaml;
+use Heystack\Subsystem\Core\Exception\ConfigurationException;
 
 /**
  * Uses yaml files to provide a schema for dataobject class creation
@@ -23,7 +23,7 @@ use Symfony\Component\Yaml\Yaml;
  * @author Stevie Mayhew <stevie@heyday.co.nz>
  * @package Heystack
  */
-class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterface, StateableInterface
+abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterface, StateableInterface
 {
 
     private $config;
@@ -40,35 +40,29 @@ class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterfac
 
         if (!$this->restoreState() || isset($_GET['flush'])) {
 
-            if (!file_exists(BASE_PATH . '/' . $file)) {
-
-                throw new \Exception('File doesn\'t exist');
-
-            }
-
-            $config = Yaml::parse(BASE_PATH . '/' . $file);
+            $config = $this->parseFile($file);
 
             if (!is_array($config)) {
 
-                throw new \Exception('Your config is empty');
+                throw new ConfigurationException('Your config is empty');
 
             }
 
             if (!array_key_exists('id', $config)) {
 
-                throw new \Exception('Identifier missing');
+                throw new ConfigurationException('Identifier missing');
 
             }
 
             if (!array_key_exists('flat', $config)) {
 
-                throw new \Exception('Flat config missing');
+                throw new ConfigurationException('Flat config missing');
 
             }
 
             if (!array_key_exists('related', $config)) {
 
-                throw new \Exception('Related config missing');
+                throw new ConfigurationException('Related config missing');
 
             }
 
@@ -79,6 +73,8 @@ class YamlDataObjectGeneratorSchema implements DataObjectGeneratorSchemaInterfac
         }
 
     }
+
+    abstract protected function parseFile($file);
 
     public function saveState()
     {

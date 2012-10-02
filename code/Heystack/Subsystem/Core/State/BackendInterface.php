@@ -9,5 +9,6 @@ interface BackendInterface
     public function getByKey($key);
     public function removeByKey($key);
     public function removeAll(array $exclude = array());
+    public function getKeys();
 
 }

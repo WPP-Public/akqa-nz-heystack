@@ -1,24 +1,34 @@
 {
     "name": "heystack/heystack",
-    "require": {
-        "php": ">=5.4.0"
-    },
+    "type": "silverstripe-module",
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/heyday/monolog"
+            "type": "composer",
+            "url": "http://packages:satis@packages.heyday.net.nz/"
         }
     ],
     "require": {
-        "symfony/event-dispatcher": "2.0.*",
-        "symfony/config": "2.0.*",
-        "symfony/dependency-injection": "2.0.*",
-        "symfony/yaml": "2.0.*",
-        "monolog/monolog": "dev-feature/object-formatter"
+        "php": ">=5.4.0",
+        "composer/installers": "*",
+        "symfony/event-dispatcher": "2.0.16",
+        "symfony/config": "2.0.16",
+        "symfony/dependency-injection": "2.0.16",
+        "symfony/yaml": "2.0.16",
+        "monolog/monolog": "dev-multi-line-formatter"
+    },
+    "require-dev": {
+        "silverstripe/sapphire": "2.4.7"
     },
     "autoload": {
         "psr-0": {
             "Heystack": "code/"
+        },
+        "classmap": ["vendor/sapphire/", "code/SilverStripe"]
+    },
+    "extra": {
+        "installer-paths": {
+            "vendor/{$name}/": ["silverstripe/sapphire"]
         }
-    }
+    },
+    "minimum-stability": "dev"
 }

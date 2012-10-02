@@ -13,6 +13,8 @@ namespace Heystack\Subsystem\Core;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+use Heystack\Subsystem\Core\Exception\ConfigurationException;
+
 /**
  * Container extension config processor for Heystack.
  *
@@ -28,10 +30,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 abstract class ContainerExtensionConfigProcessor
 {
     /**
-     * Meant to be called in at the tail end of the load function in the inheriting
-     * container extension. This handles all the 'parameters' defined in the services.yml
-     * file found in /mysite/config. It overrides the parameters set in the subsystem's
-     * services.yml file
+     * Meant to be called in at the tail end of the load function in the
+     * inheriting container extension. This handles all the 'parameters'
+     * defined in the services.yml file found in /mysite/config. It overrides
+     * the parameters set in the subsystem's services.yml file
      *
      * @param array                                                   $config
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
@@ -47,12 +49,16 @@ abstract class ContainerExtensionConfigProcessor
                 }
             }
         }
-        
+
         $parameters = $container->getParameterBag()->all();
-        
-        foreach($parameters as $name => $parameter){
-            if($parameter === '$$$'){
-                throw new \Exception('The parameter: ' . $name . ' still has the default value. Please override in your /mysite/config/services.yml file');
+
+        foreach ($parameters as $name => $parameter) {
+            if ($parameter === '$$$') {
+                throw new ConfigurationException(<<<MESSAGE
+The parameter: $name still has the default value.
+Please override in your /mysite/config/services.yml file
+MESSAGE
+);
             }
         }
     }
