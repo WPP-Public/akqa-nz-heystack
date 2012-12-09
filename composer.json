@@ -14,7 +14,7 @@
         "symfony/config": "2.0.16",
         "symfony/dependency-injection": "2.0.16",
         "symfony/yaml": "2.0.16",
-        "monolog/monolog": "dev-multi-line-formatter"
+        "monolog/monolog": "1.1.1"
     },
     "require-dev": {
         "silverstripe/sapphire": "2.4.7"
