@@ -1,5 +1,5 @@
 {
-    "hash": "7cbaa49642de0fc777eb2f30fcc60681",
+    "hash": "ca119343cd229a925883ba768058342b",
     "packages": [
         {
             "name": "composer/installers",
@@ -297,12 +297,709 @@
             "homepage": "http://symfony.com"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+        {
+            "name": "composer/composer",
+            "version": "1.0.0-alpha6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/composer",
+                "reference": "1.0.0-alpha6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/composer/composer/archive/1.0.0-alpha6.zip",
+                "reference": "1.0.0-alpha6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "justinrainbow/json-schema": "1.1.*",
+                "seld/jsonlint": "1.*",
+                "symfony/console": ">=2.1,<3.0",
+                "symfony/finder": ">=2.1,<3.0",
+                "symfony/process": ">=2.1,<3.0"
+            },
+            "suggest": {
+                "ext-zip": "Enabling the zip extension allows you to unzip archives, and allows gzip compression of all internet traffic",
+                "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages"
+            },
+            "time": "2012-10-23 01:54:25",
+            "bin": [
+                "bin/composer"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Composer": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Nils Adermann",
+                    "email": "naderman@naderman.de",
+                    "homepage": "http://www.naderman.de"
+                }
+            ],
+            "description": "Package Manager",
+            "homepage": "http://getcomposer.org/",
+            "keywords": [
+                "package",
+                "dependency",
+                "autoload"
+            ]
+        },
+        {
+            "name": "justinrainbow/json-schema",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/justinrainbow/json-schema.git",
+                "reference": "v1.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/justinrainbow/json-schema/zipball/v1.1.0",
+                "reference": "v1.1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "2012-01-02 16:33:17",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "JsonSchema": "src/"
+                }
+            },
+            "license": [
+                "NewBSD"
+            ],
+            "authors": [
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch",
+                    "homepage": "http://wiedler.ch/igor/"
+                },
+                {
+                    "name": "Bruno Prieto Reis",
+                    "email": "bruno.p.reis@gmail.com"
+                },
+                {
+                    "name": "Justin Rainbow",
+                    "email": "justin.rainbow@gmail.com"
+                },
+                {
+                    "name": "Robert Schönthal",
+                    "email": "seroscho@googlemail.com",
+                    "homepage": "http://digitalkaoz.net"
+                }
+            ],
+            "description": "A library to validate a json schema.",
+            "homepage": "https://github.com/justinrainbow/json-schema",
+            "keywords": [
+                "json",
+                "schema"
+            ]
+        },
+        {
+            "name": "pdepend/pdepend",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/pdepend/pdepend.git",
+                "reference": "1.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/pdepend/pdepend/zipball/1.1.0",
+                "reference": "1.1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.3"
+            },
+            "time": "2012-09-12 04:09:19",
+            "bin": [
+                "src/bin/pdepend"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "description": "Official version of pdepend to be handled with Composer"
+        },
+        {
+            "name": "phploc/phploc",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/sebastianbergmann/phploc.git",
+                "reference": "9433a34cbb0168f0c43ae92cd1196df7d84ba8d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/sebastianbergmann/phploc/archive/9433a34cbb0168f0c43ae92cd1196df7d84ba8d3.zip",
+                "reference": "9433a34cbb0168f0c43ae92cd1196df7d84ba8d3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/finder": "2.1.x-dev",
+                "zetacomponents/console-tools": "dev-master",
+                "sebastian/finder-facade": ">=1.0.5"
+            },
+            "time": "1357555926",
+            "bin": [
+                "composer/bin/phploc"
+            ],
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "A tool for quickly measuring the size of a PHP project.",
+            "homepage": "https://github.com/sebastianbergmann/phploc"
+        },
+        {
+            "name": "phpmd/phpmd",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/phpmd/phpmd.git",
+                "reference": "1.4.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/phpmd/phpmd/archive/1.4.1.zip",
+                "reference": "1.4.1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "pdepend/pdepend": "*"
+            },
+            "time": "2012-12-14 12:25:09",
+            "bin": [
+                "src/bin/phpmd"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "include-path": [
+                "../../pdepend/pdepend/src/main/php",
+                "src/main/php"
+            ],
+            "description": "Official version of PHPMD handled with Composer."
+        },
+        {
+            "name": "sebastian/finder-facade",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/sebastianbergmann/finder-facade.git",
+                "reference": "c90973541f4ef902f9c4c69d2b41e247bb3cc080"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/sebastianbergmann/finder-facade/archive/c90973541f4ef902f9c4c69d2b41e247bb3cc080.zip",
+                "reference": "c90973541f4ef902f9c4c69d2b41e247bb3cc080",
+                "shasum": ""
+            },
+            "require": {
+                "theseer/fdomdocument": ">=1.3.1"
+            },
+            "time": "1357555725",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "FinderFacade is a convenience wrapper for Symfony's Finder component.",
+            "homepage": "https://github.com/sebastianbergmann/finder-facade"
+        },
+        {
+            "name": "seld/jsonlint",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "http://github.com/Seldaek/jsonlint",
+                "reference": "1.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/Seldaek/jsonlint/archive/1.1.0.zip",
+                "reference": "1.1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "2012-12-13 18:26:19",
+            "bin": [
+                "bin/jsonlint"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Seld\\JsonLint": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "JSON Linter",
+            "keywords": [
+                "json",
+                "parser",
+                "linter",
+                "validator"
+            ]
+        },
+        {
+            "name": "silverstripe/framework",
+            "version": "2.4.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/silverstripe/sapphire",
+                "reference": "44c41085b97a8574af9458d2cffe88dc2d5a5060"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/silverstripe/sapphire/archive/44c41085b97a8574af9458d2cffe88dc2d5a5060.zip",
+                "reference": "44c41085b97a8574af9458d2cffe88dc2d5a5060",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4",
+                "composer/installers": "*"
+            },
+            "time": "1357508069",
+            "type": "silverstripe-module",
+            "installation-source": "source",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "SilverStripe",
+                    "homepage": "http://silverstripe.com"
+                },
+                {
+                    "name": "The SilverStripe Community",
+                    "homepage": "http://silverstripe.org"
+                }
+            ],
+            "description": "The SilverStripe Framework",
+            "homepage": "http://silverstripe.org",
+            "keywords": [
+                "framework",
+                "silverstripe"
+            ]
+        },
+        {
+            "name": "squizlabs/php_codesniffer",
+            "version": "1.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/squizlabs/PHP_CodeSniffer",
+                "reference": "1.4.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/squizlabs/PHP_CodeSniffer/archive/1.4.3.zip",
+                "reference": "1.4.3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.2"
+            },
+            "time": "2012-12-04 03:15:31",
+            "bin": [
+                "scripts/phpcs"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "."
+                ]
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Sherwood",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+            "homepage": "http://www.squizlabs.com/php-codesniffer",
+            "keywords": [
+                "standards",
+                "phpcs"
+            ]
+        },
+        {
+            "name": "symfony/console",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Console",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Console",
+                "reference": "04325c50e6eb21c07728ecadd5e35deddea87dad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/symfony/Console/archive/04325c50e6eb21c07728ecadd5e35deddea87dad.zip",
+                "reference": "04325c50e6eb21c07728ecadd5e35deddea87dad",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "1357557396",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Console\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Console Component",
+            "homepage": "http://symfony.com"
+        },
+        {
+            "name": "symfony/finder",
+            "version": "2.1.x-dev",
+            "target-dir": "Symfony/Component/Finder",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Finder",
+                "reference": "0530e25920b845e5fae7d9bd52444221055cc9ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/symfony/Finder/archive/0530e25920b845e5fae7d9bd52444221055cc9ab.zip",
+                "reference": "0530e25920b845e5fae7d9bd52444221055cc9ab",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "1357318854",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Finder": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Finder Component",
+            "homepage": "http://symfony.com"
+        },
+        {
+            "name": "symfony/process",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Process",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Process",
+                "reference": "cad46749e8c89792df9c3b2474e528e925790642"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/symfony/Process/archive/cad46749e8c89792df9c3b2474e528e925790642.zip",
+                "reference": "cad46749e8c89792df9c3b2474e528e925790642",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "1357410275",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Process\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "http://symfony.com"
+        },
+        {
+            "name": "theseer/fdomdocument",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/theseer/fDOMDocument.git",
+                "reference": "a7882cf2121f30c57e9fc8ded2cf0a58001e96cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/theseer/fDOMDocument/archive/a7882cf2121f30c57e9fc8ded2cf0a58001e96cc.zip",
+                "reference": "a7882cf2121f30c57e9fc8ded2cf0a58001e96cc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "ext-dom": "*",
+                "lib-libxml": "*"
+            },
+            "time": "1354320760",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Arne Blankerts",
+                    "email": "arne@blankerts.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "The classes contained within this repository extend the standard DOM to use exceptions at all occasions of errors instead of PHP warnings or notices. They also add various custom methods and shortcuts for convinience and to simplify the usage of DOM.",
+            "homepage": "https://github.com/theseer/fDOMDocument"
+        },
+        {
+            "name": "zetacomponents/base",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zetacomponents/Base.git",
+                "reference": "642f63a8a72c32996f1aaf8a317fdf746bc32ce7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/zetacomponents/Base/archive/642f63a8a72c32996f1aaf8a317fdf746bc32ce7.zip",
+                "reference": "642f63a8a72c32996f1aaf8a317fdf746bc32ce7",
+                "shasum": ""
+            },
+            "require-dev": {
+                "zetacomponents/unit-test": "*"
+            },
+            "time": "1337599296",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Sergey Alexeev"
+                },
+                {
+                    "name": "Sebastian Bergmann"
+                },
+                {
+                    "name": "Jan Borsodi"
+                },
+                {
+                    "name": "Raymond Bosman"
+                },
+                {
+                    "name": "Frederik Holljen"
+                },
+                {
+                    "name": "Kore Nordmann"
+                },
+                {
+                    "name": "Derick Rethans"
+                },
+                {
+                    "name": "Vadym Savchuk"
+                },
+                {
+                    "name": "Tobias Schlitt"
+                },
+                {
+                    "name": "Alexandru Stanoi"
+                }
+            ],
+            "description": "The Base package provides the basic infrastructure that all packages rely on. Therefore every component relies on this package.",
+            "homepage": "https://github.com/zetacomponents"
+        },
+        {
+            "name": "zetacomponents/console-tools",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zetacomponents/ConsoleTools.git",
+                "reference": "90156abef01e4215fda8b9740f77c322f126fb02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/zetacomponents/ConsoleTools/archive/90156abef01e4215fda8b9740f77c322f126fb02.zip",
+                "reference": "90156abef01e4215fda8b9740f77c322f126fb02",
+                "shasum": ""
+            },
+            "require": {
+                "zetacomponents/base": "*"
+            },
+            "require-dev": {
+                "zetacomponents/unit-test": "*"
+            },
+            "time": "1337594134",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Sergey Alexeev"
+                },
+                {
+                    "name": "Sebastian Bergmann"
+                },
+                {
+                    "name": "Jan Borsodi"
+                },
+                {
+                    "name": "Raymond Bosman"
+                },
+                {
+                    "name": "Frederik Holljen"
+                },
+                {
+                    "name": "Kore Nordmann"
+                },
+                {
+                    "name": "Derick Rethans"
+                },
+                {
+                    "name": "Vadym Savchuk"
+                },
+                {
+                    "name": "Tobias Schlitt"
+                },
+                {
+                    "name": "Alexandru Stanoi"
+                }
+            ],
+            "description": "A set of classes to do different actions with the console (also called shell). It can render a progress bar, tables and a status bar and contains a class for parsing command line options.",
+            "homepage": "https://github.com/zetacomponents"
+        }
+    ],
     "aliases": [
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": [
-
-    ]
+    "stability-flags": {
+        "composer/composer": 15,
+        "phploc/phploc": 20
+    }
 }
