@@ -33,6 +33,10 @@
   <mkdir dir="${basedir}/build/logs"/>
   <mkdir dir="${basedir}/build/pdepend"/>
 
+  <exec executable="changephp">
+   <arg value="54" />
+  </exec>
+
   <exec executable="composer">
    <arg value="install" />
    <arg value="--dev" />
