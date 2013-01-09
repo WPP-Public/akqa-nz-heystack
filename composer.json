@@ -10,10 +10,10 @@
     "require": {
         "php": ">=5.4.0",
         "composer/installers": "*",
-        "symfony/event-dispatcher": "2.0.16",
-        "symfony/config": "2.0.16",
-        "symfony/dependency-injection": "2.0.16",
-        "symfony/yaml": "2.0.16",
+        "symfony/event-dispatcher": "2.*",
+        "symfony/config": "2.*",
+        "symfony/dependency-injection": "2.*",
+        "symfony/yaml": "2.*",
         "monolog/monolog": "1.1.1"
     },
     "require-dev": {
