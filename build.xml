@@ -2,10 +2,10 @@
 
 <project name="name-of-project" default="build">
  <target name="build"
-   depends="prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpdoc,phpunit,phpcb"/>
+   depends="prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,sami,phpunit"/>
 
  <target name="build-parallel"
-   depends="prepare,lint,tools-parallel,phpunit,phpcb"/>
+   depends="prepare,lint,tools-parallel,phpunit"/>
 
  <target name="tools-parallel" description="Run tools in parallel">
   <parallel threadCount="2">
@@ -113,24 +113,10 @@
   <exec executable="phpunit" failonerror="true"/>
  </target>
 
- <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
-  <exec executable="phpcb">
-   <arg value="--log" />
-   <arg path="${basedir}/build/logs" />
-   <arg value="--source" />
-   <arg value="${basedir}/code" />
-   <arg value="--output" />
-   <arg path="${basedir}/build/code-browser" />
-  </exec>
- </target>
-
-  <target name="phpdoc" description="Generate API documentation">
-    <exec executable="phpdoc">
-      <arg value="run" />
-      <arg value="-d" />
-      <arg value="${basedir}/code" />
-      <arg value="-t" />
-      <arg value="${basedir}/build/api" />
+  <target name="sami" description="Generate API documentation">
+    <exec executable="${basedir}/vendor/bin/sami.php">
+      <arg value="update" />
+      <arg value="${basedir}/.sami" />
     </exec>
   </target>
 
