@@ -12,7 +12,7 @@
         "composer/installers": "*",
         "symfony/event-dispatcher": "2.*",
         "monolog/monolog": ">=1.0,<1.2-dev",
-				"camspiers/shared-dependency-injection":"~0.1"
+        "camspiers/shared-dependency-injection":"~0.1"
     },
     "require-dev": {
         "silverstripe/framework": "2.4.*",
@@ -28,9 +28,9 @@
         },
         "classmap": ["code/SilverStripe"]
     },
-		"extra": {
-				"branch-alias": {
-						"dev-master": "1.1.x-dev"
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.1.x-dev"
         }
     },
     "minimum-stability": "dev"
