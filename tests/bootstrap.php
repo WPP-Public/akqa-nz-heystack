@@ -13,4 +13,6 @@ if (file_exists(HEYSTACK_BASE_PATH . '/vendor/autoload.php')) {
 
 }
 
+$loader->addClassMap(Composer\Autoload\ClassMapGenerator::createMap(HEYSTACK_BASE_PATH . '/framework'));
+
 $loader->add('Heystack\Subsystem\Core\Test', __DIR__);

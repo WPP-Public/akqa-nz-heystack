@@ -1,2 +1,5 @@
-build
+build/*
+!build/phpmd.xml
 .idea
+framework
+vendor

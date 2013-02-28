@@ -10,24 +10,27 @@
     "require": {
         "php": ">=5.4.0",
         "composer/installers": "*",
-        "symfony/event-dispatcher": "2.0.16",
-        "symfony/config": "2.0.16",
-        "symfony/dependency-injection": "2.0.16",
-        "symfony/yaml": "2.0.16",
-        "monolog/monolog": "1.1.1"
+        "symfony/event-dispatcher": "2.*",
+        "monolog/monolog": ">=1.0,<1.2-dev",
+				"camspiers/shared-dependency-injection":"~0.1"
     },
     "require-dev": {
-        "silverstripe/sapphire": "2.4.7"
+        "silverstripe/framework": "2.4.*",
+        "composer/composer": "1.0.0-alpha6",
+        "phpmd/phpmd": "1.4.*",
+        "phploc/phploc": "dev-master",
+        "pdepend/pdepend": "1.1.*",
+        "sami/sami": "dev-master"
     },
     "autoload": {
         "psr-0": {
             "Heystack": "code/"
         },
-        "classmap": ["vendor/sapphire/", "code/SilverStripe"]
+        "classmap": ["code/SilverStripe"]
     },
-    "extra": {
-        "installer-paths": {
-            "vendor/{$name}/": ["silverstripe/sapphire"]
+		"extra": {
+				"branch-alias": {
+						"dev-master": "1.1.x-dev"
         }
     },
     "minimum-stability": "dev"
