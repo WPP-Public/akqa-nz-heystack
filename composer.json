@@ -11,10 +11,8 @@
         "php": ">=5.4.0",
         "composer/installers": "*",
         "symfony/event-dispatcher": "2.*",
-        "symfony/config": "2.*",
-        "symfony/dependency-injection": "2.*",
-        "symfony/yaml": "2.*",
-        "monolog/monolog": ">=1.0,<1.2-dev"
+        "monolog/monolog": ">=1.0,<1.2-dev",
+				"camspiers/shared-dependency-injection":"~0.1"
     },
     "require-dev": {
         "silverstripe/framework": "2.4.*",
