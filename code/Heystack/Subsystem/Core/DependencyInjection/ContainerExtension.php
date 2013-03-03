@@ -9,7 +9,7 @@
 /**
  * Core namespace
  */
-namespace Heystack\Subsystem\Core;
+namespace Heystack\Subsystem\Core\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;

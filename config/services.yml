@@ -36,7 +36,8 @@ parameters:
     
     storage.class: Heystack\Subsystem\Core\Storage\Storage
     ss_orm_backend.class: Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrm\Backend
-
+    
+    yaml_data_object_schema.class: Heystack\Subsystem\Core\Generate\YamlDataObjectSchema
 
 services:
 

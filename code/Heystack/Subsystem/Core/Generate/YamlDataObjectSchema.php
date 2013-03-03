@@ -27,6 +27,7 @@ class YamlDataObjectSchema extends FileDataObjectSchema
 
     protected function parseFile($file)
     {
+        $file = BASE_PATH . '/' . $file;
 
         if (!file_exists($file)) {
 

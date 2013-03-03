@@ -66,34 +66,6 @@ class DataObjectGenerator
 
     }
 
-    public function addYamlSchema($file, $reference = false, $force = false, $realpath = false)
-    {
-
-        $this->addSchema(
-            new YamlDataObjectSchema(
-                $realpath ? $file : dirname(HEYSTACK_BASE_PATH) . '/' . $file,
-                $this->stateService
-            ),
-            $reference,
-            $force
-        );
-
-    }
-
-    public function addJsonSchema($file, $reference = false, $force = false, $realpath = false)
-    {
-
-        $this->addSchema(
-            new JsonDataObjectSchema(
-                $realpath ? $file : dirname(HEYSTACK_BASE_PATH) . '/' . $file,
-                $this->stateService
-            ),
-            $reference,
-            $force
-        );
-
-    }
-
     public function hasSchema($identifier)
     {
 
@@ -198,7 +170,7 @@ class DataObjectGenerator
                 array(
                     'db'                => $flatStorage,
                     'has_one'           => $parentStorage,
-                    'has_many'          => $childStorage + ($hasRelatedStorage ? array(
+                    'has_many'          => (array) $childStorage + ($hasRelatedStorage ? array(
                         $storedRelatedObjectName => $storedRelatedObjectName
                     ): array()),
                     'summary_fields'    => array_merge(array('Created'), $fields),

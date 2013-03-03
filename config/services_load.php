@@ -2,7 +2,7 @@
 
 use Camspiers\DependencyInjection\SharedContainerFactory;
 
-$file = HEYSTACK_BASE_PATH . '/cache/container.php';
+$file = HEYSTACK_BASE_PATH . '/cache/HeystackServiceContainer.php';
 
 if (file_exists($file) && !isset($_GET['flush'])) {
 
@@ -15,11 +15,11 @@ if (file_exists($file) && !isset($_GET['flush'])) {
 	
 	if(file_exists(BASE_PATH . '/mysite/config/services.yml')){
 		
-		$servicesConfigruationPath = BASE_PATH . 'mysite/config';
+		$servicesConfigruationPath = BASE_PATH . '/mysite/config';
 		
 	}
 	
-	SharedContainerFactory:requireExtensionConfigs(BASE_PATH, '*/config', 'extensions.php');
+	SharedContainerFactory::requireExtensionConfigs(BASE_PATH, '*/config', 'extensions.php');
 	
 	SharedContainerFactory::dumpContainer(
 		$container = SharedContainerFactory::createContainer(
