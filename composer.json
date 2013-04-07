@@ -12,7 +12,7 @@
         "composer/installers": "*",
         "symfony/event-dispatcher": "2.*",
         "monolog/monolog": ">=1.0,<1.2-dev",
-        "camspiers/shared-dependency-injection":"0.1.*"
+        "camspiers/shared-dependency-injection":"~0.2"
     },
     "require-dev": {
         "silverstripe/framework": "2.4.*",

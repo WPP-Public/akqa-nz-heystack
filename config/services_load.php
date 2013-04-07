@@ -19,7 +19,11 @@ if (file_exists($file) && !isset($_GET['flush'])) {
 		
 	}
 	
-	SharedContainerFactory::requireExtensionConfigs(BASE_PATH, '*/config', 'extensions.php');
+	SharedContainerFactory::requireExtensionConfigs(
+        array(
+            BASE_PATH . '/*/config/extensions.php'
+        )
+    );
 	
 	SharedContainerFactory::dumpContainer(
 		$container = SharedContainerFactory::createContainer(
