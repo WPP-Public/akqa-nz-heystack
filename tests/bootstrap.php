@@ -2,6 +2,7 @@
 
 define('UNIT_TESTING', true);
 define('HEYSTACK_BASE_PATH', dirname(__DIR__));
+define('BASE_PATH', realpath(HEYSTACK_BASE_PATH));
 
 if (file_exists(HEYSTACK_BASE_PATH . '/vendor/autoload.php')) {
 
@@ -13,6 +14,7 @@ if (file_exists(HEYSTACK_BASE_PATH . '/vendor/autoload.php')) {
 
 }
 
-$loader->addClassMap(Composer\Autoload\ClassMapGenerator::createMap(HEYSTACK_BASE_PATH . '/framework'));
+use Symfony\Component\ClassLoader\ClassMapGenerator;
 
+$loader->addClassMap(ClassMapGenerator::createMap(HEYSTACK_BASE_PATH . '/sapphire'));
 $loader->add('Heystack\Subsystem\Core\Test', __DIR__);

@@ -1,22 +1,16 @@
 {
     "name": "heystack/heystack",
     "type": "silverstripe-module",
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "http://packages:satis@packages.heyday.net.nz/"
-        }
-    ],
     "require": {
         "php": ">=5.4.0",
-        "composer/installers": "*",
+        "composer/installers": "~1.0.0",
         "symfony/event-dispatcher": "2.*",
         "monolog/monolog": ">=1.0,<1.2-dev",
         "camspiers/shared-dependency-injection":"~0.2"
     },
     "require-dev": {
-        "silverstripe/framework": "2.4.*",
-        "composer/composer": "1.0.0-alpha6",
+        "silverstripe/framework": "~2.4",
+        "symfony/class-loader": "~2.2",
         "phpmd/phpmd": "1.4.*",
         "phploc/phploc": "dev-master",
         "pdepend/pdepend": "1.1.*",
@@ -29,9 +23,13 @@
         "classmap": ["code/SilverStripe"]
     },
     "extra": {
+        "installer-paths": {
+            "sapphire": [
+                "silverstripe/framework"
+            ]
+        },
         "branch-alias": {
             "dev-master": "1.1.x-dev"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
