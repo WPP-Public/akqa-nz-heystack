@@ -23,7 +23,6 @@
         },
         "classmap": ["code/SilverStripe"]
     },
-    "bin": ["bin/heystack"],
     "extra": {
         "installer-paths": {
             "sapphire": [
