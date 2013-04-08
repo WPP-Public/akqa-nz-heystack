@@ -7,22 +7,10 @@ use Heystack\Subsystem\Core\Console\Command\GenerateContainer;
 use Composer\Autoload\ClassLoader;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\ClassLoader\ClassMapGenerator;
 
-/**
- * Support autoloading when running as installed package
- */
-$files = array(
-    HEYSTACK_BASE_PATH . '/../vendor/autoload.php'
-);
-
-/**
- * Loop through the potential autoload locations
- */
-foreach ($files as $file) {
-    if (file_exists($file)) {
-        $loader = require_once $file;
-        break;
-    }
+if (file_exists(HEYSTACK_BASE_PATH . '/../vendor/autoload.php')) {
+    $loader = require_once HEYSTACK_BASE_PATH . '/../vendor/autoload.php';
 }
 
 /**
@@ -32,6 +20,16 @@ if (is_null($loader) || !$loader instanceof ClassLoader) {
     echo 'You must first install the vendors using composer.' . PHP_EOL;
     exit(1);
 }
+
+$loader->addClassMap(ClassMapGenerator::createMap(BASE_PATH . '/sapphire'));
+
+/**
+ * For each subsystem load their config
+ */
+foreach (glob(BASE_PATH . '/*/_heystack_subsystem') as $file) {
+    require_once dirname($file) . '/_config.php';
+}
+
 
 /**
  * If the container doesn't exist generate one before requiring it

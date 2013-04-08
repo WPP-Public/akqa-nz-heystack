@@ -3,7 +3,7 @@
 namespace Heystack\Subsystem\Core\Console\Command;
 
 use Camspiers\DependencyInjection\SharedContainerFactory;
-use Heystack\Subsystem\Core\DependencyInjection\CompilerPass\Command;
+use Symfony\Component\Console\Command\Command;
 use RuntimeException;
 use Symfony\Component\Console\Input;
 use Symfony\Component\Console\Output;
