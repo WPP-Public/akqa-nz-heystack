@@ -4,36 +4,14 @@ use Camspiers\DependencyInjection\SharedContainerFactory;
 
 $file = HEYSTACK_BASE_PATH . '/cache/HeystackServiceContainer.php';
 
-if (file_exists($file) && !isset($_GET['flush'])) {
+if (file_exists($file)) {
 
     require_once $file;
     $container = new HeystackServiceContainer();
 
 } else {
-	
-	$servicesConfigruationPath = HEYSTACK_BASE_PATH . '/config';
-	
-	if(file_exists(BASE_PATH . '/mysite/config/services.yml')){
-		
-		$servicesConfigruationPath = BASE_PATH . '/mysite/config';
-		
-	}
-	
-	SharedContainerFactory::requireExtensionConfigs(
-        array(
-            BASE_PATH . '/*/config/extensions.php'
-        )
-    );
-	
-	SharedContainerFactory::dumpContainer(
-		$container = SharedContainerFactory::createContainer(
-			array(),
-			$servicesConfigruationPath . '/services.yml'
-		),
-		'HeystackServiceContainer',
-		HEYSTACK_BASE_PATH . '/cache/'
-	);
-
+    echo 'Heystack requires a container to run. Please run \'heystack generate-container\'', PHP_EOL;
+    exit(1);
 }
 
 Heystack\Subsystem\Core\ServiceStore::set($container);

@@ -8,6 +8,8 @@ parameters:
     input_processor_handler.class: Heystack\Subsystem\Core\Input\Handler
     output_processor_handler.class: Heystack\Subsystem\Core\Output\Handler
 
+    console.application.class: Heystack\Subsystem\Core\Console\Application
+    console.command.generate_container.class: Heystack\Subsystem\Core\Console\Command\GenerateContainer
     session.class: Session
 
     monolog.name: global
@@ -40,6 +42,14 @@ parameters:
     yaml_data_object_schema.class: Heystack\Subsystem\Core\Generate\YamlDataObjectSchema
 
 services:
+    # Console
+    console.application:
+        class: %console.application.class%
+
+    console.command.generate_container:
+        class: %console.command.generate_container.class%
+        tags:
+          - { name: console.application.command }
 
     memcache:
         class: %memcache.class%

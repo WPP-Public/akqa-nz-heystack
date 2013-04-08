@@ -9,3 +9,4 @@ SharedContainerFactory::addCompilerPass(new DependencyInjection\CompilerPass\Inp
 SharedContainerFactory::addCompilerPass(new DependencyInjection\CompilerPass\OutputProcessorHandler());
 SharedContainerFactory::addCompilerPass(new DependencyInjection\CompilerPass\SilverStripeOrm());
 SharedContainerFactory::addCompilerPass(new DependencyInjection\CompilerPass\DataObjectGenerator());
+SharedContainerFactory::addCompilerPass(new DependencyInjection\CompilerPass\Command());

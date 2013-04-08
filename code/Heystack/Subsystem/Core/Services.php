@@ -20,7 +20,7 @@ namespace Heystack\Subsystem\Core;
  */
 final class Services
 {
-
+    const CONSOLE_APPLICATION = 'console.application';
     const MEMCACHE = 'memcache';
     const SESSION = 'session';
     const BACKEND_MEMCACHE = 'backend_memcache';
