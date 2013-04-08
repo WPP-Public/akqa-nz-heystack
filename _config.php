@@ -6,24 +6,11 @@
 
 define('HEYSTACK_BASE_PATH', __DIR__);
 
-$file = HEYSTACK_BASE_PATH . '/cache/HeystackServiceContainer.php';
+use Heystack\Subsystem\Core;
 
-if (file_exists($file)) {
-
-    require_once $file;
-    $container = new HeystackServiceContainer();
-
-} else {
-    echo 'Heystack requires a container to run. Please run \'heystack generate-container\'', PHP_EOL;
-    exit(1);
+if (file_exists(BASE_PATH . '/mysite/code/HeystackServiceContainer.php')) {
+    require_once BASE_PATH . '/mysite/code/HeystackServiceContainer.php';
+    Core\ServiceStore::set($container = new HeystackServiceContainer());
+    Session::start();
+    $container->get('event_dispatcher')->dispatch(Core\Events::READY);
 }
-
-Heystack\Subsystem\Core\ServiceStore::set($container);
-
-return $container;
-
-$container = require_once HEYSTACK_BASE_PATH . '/config/services_load.php';
-
-Session::start();
-
-$container->get('event_dispatcher')->dispatch(\Heystack\Subsystem\Core\Events::READY);

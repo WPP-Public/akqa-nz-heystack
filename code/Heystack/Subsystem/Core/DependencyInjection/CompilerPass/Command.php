@@ -40,7 +40,7 @@ class Command implements CompilerPassInterface
         foreach ($taggedServices as $id => $attributes) {
             foreach ($attributes as $attribute) {
                 $definition->addMethodCall(
-                    'addCommand',
+                    'add',
                     array(
                         new Reference($id)
                     )

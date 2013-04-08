@@ -6,22 +6,22 @@
  */
 require_once __DIR__ . '/../code/bootstrap.php';
 
-use Camspiers\StatisticalClassifier\Config\Config;
-
-$containerClass = Config::getOption('container_class');
-$container = new $containerClass;
+/**
+ * Get the container
+ */
+$container = Heystack\Subsystem\Core\ServiceStore::get();
 
 /**
  * If the container in use doesn't have console.application then there is a big problem
  */
 if (!$container->has('console.application')) {
-    unlink(Config::getOptionPath('container_dir') . "/$containerClass.php");
+    unlink(BASE_PATH . '/mysite/code/HeystackServiceContainer.php');
     echo 'There appears to be a problem with your container. The service \'console.application\' must exist.', PHP_EOL;
-    echo 'The current container has been deleted, please make the required modifications and re-run the classifier', PHP_EOL;
+    echo 'The current container has been deleted, please make the required modifications', PHP_EOL;
     exit(1);
 }
 
 /**
  * Everything appears in order, run the application
  */
-$container->get('console.application')->setContainer($container)->run();
+$container->get('console.application')->run();

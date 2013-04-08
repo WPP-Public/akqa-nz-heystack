@@ -1,16 +1,11 @@
 <?php
 
-define('HEYSTACK_BASE_PATH', dirname(__DIR__));
-define('BASE_PATH', dirname(HEYSTACK_BASE_PATH));
+define('BASE_PATH', dirname(dirname(__DIR__)));
 
-use Heystack\Subsystem\Core\Console\Command\GenerateContainer;
 use Composer\Autoload\ClassLoader;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\NullOutput;
-use Symfony\Component\ClassLoader\ClassMapGenerator;
 
-if (file_exists(HEYSTACK_BASE_PATH . '/../vendor/autoload.php')) {
-    $loader = require_once HEYSTACK_BASE_PATH . '/../vendor/autoload.php';
+if (file_exists(BASE_PATH . '/vendor/autoload.php')) {
+    $loader = require_once BASE_PATH . '/vendor/autoload.php';
 }
 
 /**
@@ -21,27 +16,29 @@ if (is_null($loader) || !$loader instanceof ClassLoader) {
     exit(1);
 }
 
-$loader->addClassMap(ClassMapGenerator::createMap(BASE_PATH . '/sapphire'));
-
 /**
- * For each subsystem load their config
+ * Load silverstripe
  */
-foreach (glob(BASE_PATH . '/*/_heystack_subsystem') as $file) {
-    require_once dirname($file) . '/_config.php';
-}
+$_FILE_TO_URL_MAPPING[BASE_PATH] = 'http://localhost';
 
+require_once BASE_PATH . '/sapphire/core/Core.php';
+require_once BASE_PATH . '/sapphire/core/model/DB.php';
+
+global $databaseConfig;
+\DB::connect($databaseConfig);
+
+use Heystack\Subsystem\Core\Console\Command\GenerateContainer;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\NullOutput;
 
 /**
  * If the container doesn't exist generate one before requiring it
  */
-if (!file_exists(HEYSTACK_BASE_PATH . '/cache/HeystackServiceContainer.php')) {
+if (!file_exists(BASE_PATH . '/mysite/code/HeystackServiceContainer.php')) {
     (new GenerateContainer())->run(
         new ArrayInput(array()),
         new NullOutput()
     );
+    echo 'Please re-run your command, as the container didn\'t exist and had to be generated', PHP_EOL;
+    exit(1);
 }
-
-/**
- * Require the container
- */
-require_once HEYSTACK_BASE_PATH . '/cache/HeystackServiceContainer.php';

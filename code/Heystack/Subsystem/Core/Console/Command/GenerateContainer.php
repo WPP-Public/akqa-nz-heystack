@@ -30,26 +30,22 @@ class GenerateContainer extends Command
     protected function execute(Input\InputInterface $input, Output\OutputInterface $output)
     {
         $servicesConfigruationPath = HEYSTACK_BASE_PATH . '/config';
-
-        if (file_exists(BASE_PATH . '/mysite/config/services.yml')){
-
+        if (file_exists(BASE_PATH . '/mysite/config/services.yml')) {
             $servicesConfigruationPath = BASE_PATH . '/mysite/config';
-
         }
-
         SharedContainerFactory::requireExtensionConfigs(
             array(
                 BASE_PATH . '/*/config/extensions.php'
             )
         );
-
         SharedContainerFactory::dumpContainer(
             $container = SharedContainerFactory::createContainer(
                 array(),
                 $servicesConfigruationPath . '/services.yml'
             ),
             'HeystackServiceContainer',
-            HEYSTACK_BASE_PATH . '/cache/'
+            BASE_PATH . '/mysite/code/'
         );
+        $output->writeln('Container generated');
     }
 }
