@@ -3,10 +3,12 @@
 namespace Heystack\Subsystem\Core\Console\Command;
 
 use Camspiers\DependencyInjection\SharedContainerFactory;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Command\Command;
 use RuntimeException;
 use Symfony\Component\Console\Input;
 use Symfony\Component\Console\Output;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class GenerateContainer extends Command
 {
@@ -18,7 +20,14 @@ class GenerateContainer extends Command
     {
         $this
             ->setName('generate-container')
-            ->setDescription('Generate container');
+            ->setDescription('Generate container')
+            ->addOption(
+                'mode',
+                'm',
+                Input\InputOption::VALUE_OPTIONAL,
+                'The mode (dev, live, test)',
+                null
+            );
     }
     /**
      * Generate the container
@@ -29,23 +38,30 @@ class GenerateContainer extends Command
      */
     protected function execute(Input\InputInterface $input, Output\OutputInterface $output)
     {
-        $servicesConfigruationPath = HEYSTACK_BASE_PATH . '/config';
-        if (file_exists(BASE_PATH . '/mysite/config/services.yml')) {
-            $servicesConfigruationPath = BASE_PATH . '/mysite/config';
+        $mode = \Director::get_environment_type();
+
+        if ($input->getOption('mode')) {
+            $mode = $input->getOption('mode');
         }
+
         SharedContainerFactory::requireExtensionConfigs(
             array(
                 BASE_PATH . '/*/config/extensions.php'
             )
         );
+
         SharedContainerFactory::dumpContainer(
             $container = SharedContainerFactory::createContainer(
-                array(),
-                $servicesConfigruationPath . '/services.yml'
+                array(
+                    BASE_PATH . '/mysite/config/',
+                    HEYSTACK_BASE_PATH . '/config/'
+                ),
+                "services_$mode.yml"
             ),
             'HeystackServiceContainer',
             BASE_PATH . '/mysite/code/'
         );
+
         $output->writeln('Container generated');
     }
 }
