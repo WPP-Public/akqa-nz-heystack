@@ -51,7 +51,7 @@ class GenerateContainer extends Command
         );
 
         SharedContainerFactory::dumpContainer(
-            $container = SharedContainerFactory::createContainer(
+            SharedContainerFactory::createContainer(
                 array(
                     BASE_PATH . '/mysite/config/',
                     HEYSTACK_BASE_PATH . '/config/'

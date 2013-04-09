@@ -8,7 +8,7 @@
         "symfony/dependency-injection": "~2.2",
         "symfony/console": "~2.2",
         "monolog/monolog": ">=1.0,<1.2-dev",
-        "camspiers/shared-dependency-injection":"~0.2"
+        "camspiers/shared-dependency-injection":"~0.4"
     },
     "require-dev": {
         "silverstripe/framework": "~2.4",
