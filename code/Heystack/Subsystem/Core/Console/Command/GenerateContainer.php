@@ -58,7 +58,7 @@ class GenerateContainer extends Command
                 ),
                 "services_$mode.yml"
             ),
-            'HeystackServiceContainer',
+            "HeystackServiceContainer$mode",
             BASE_PATH . '/mysite/code/'
         );
 
