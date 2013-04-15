@@ -25,54 +25,72 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
  *
  *
  *
- * @author Cam Spiers <cameron@heyday.co.nz>
+ * @author  Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack
  */
 class Backend implements BackendInterface
 {
-
+    /**
+     *
+     */
     const IDENTIFIER = 'silverstripe_orm';
-
+    /**
+     * @var null|\Symfony\Component\EventDispatcher\EventDispatcher
+     */
     private $eventService = null;
+    /**
+     * @var \Heystack\Subsystem\Core\Generate\DataObjectGenerator|null
+     */
     private $generatorService = null;
+    /**
+     * @var array
+     */
     private $dataProviders = array();
-
+    /**
+     * @param EventDispatcher     $eventService
+     * @param DataObjectGenerator $generatorService
+     */
     public function __construct(
         EventDispatcher $eventService,
         DataObjectGenerator $generatorService
-    )
-    {
-
+    ) {
         $this->eventService = $eventService;
         $this->generatorService = $generatorService;
-
     }
-
+    /**
+     * @param StorableInterface $dataProvider
+     */
     public function addDataProvider(StorableInterface $dataProvider)
     {
-
-        $this->dataProviders[
-            $dataProvider->getStorableIdentifier()
-        ] = $dataProvider;
-
+        $this->dataProviders[$dataProvider->getStorableIdentifier()] = $dataProvider;
     }
-
+    /**
+     * @param $dataProviderIdentifier
+     * @return bool
+     */
     public function hasDataProvider($dataProviderIdentifier)
     {
-
         return isset($this->dataProviders[$dataProviderIdentifier]);
-
     }
-
+    /**
+     * @return string
+     */
     public function getIdentifier()
     {
-
         return self::IDENTIFIER;
-
     }
-    
-    protected function writeStoredDataObject(DataObjectGeneratorSchemaInterface $schema, StorableInterface $dataProvider, StorableInterface $object)
-    {
+    /**
+     * @param DataObjectGeneratorSchemaInterface $schema
+     * @param StorableInterface                  $dataProvider
+     * @param StorableInterface                  $object
+     * @return mixed
+     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     */
+    protected function writeStoredDataObject(
+        DataObjectGeneratorSchemaInterface $schema,
+        StorableInterface $dataProvider,
+        StorableInterface $object
+    ) {
 
         $saveable = 'Stored' . $schema->getIdentifier();
 
@@ -93,7 +111,8 @@ class Backend implements BackendInterface
 
                     if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
 
-                        $referenceData = $this->dataProviders[$referenceSchema->getDataProviderIdentifier()]->getStorableData();
+                        $referenceData = $this->dataProviders[$referenceSchema->getDataProviderIdentifier(
+                        )]->getStorableData();
 
                         foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
 
@@ -129,7 +148,8 @@ class Backend implements BackendInterface
 
                 } else {
 
-                    throw new ConfigurationException("No data found for key: $key on identifier: " . $object->getStorableIdentifier());
+                    throw new ConfigurationException("No data found for key: $key on identifier: " . $object->getStorableIdentifier(
+                    ));
 
                 }
 
@@ -143,17 +163,23 @@ class Backend implements BackendInterface
         }
 
         $storedObject->write();
-        
+
         return $storedObject;
-        
+
     }
-    
+
+    /**
+     * @param DataObjectGeneratorSchemaInterface $schema
+     * @param                                    $storedObject
+     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     */
     protected function writeStoredRelatedDataObject(DataObjectGeneratorSchemaInterface $schema, $storedObject)
     {
-
         $relatedStorage = $schema->getRelatedStorage();
 
         if ($relatedStorage) {
+
+            throw new \RuntimeException('Related storage is buggy and not yet supported');
 
             $saveable = "Stored{$data['id']}RelatedData";
 
@@ -196,9 +222,13 @@ class Backend implements BackendInterface
             }
 
         }
-        
-    }
 
+    }
+    /**
+     * @param StorableInterface $object
+     * @return mixed
+     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     */
     public function write(StorableInterface $object)
     {
 
@@ -211,16 +241,17 @@ class Backend implements BackendInterface
             $schema = $this->generatorService->getSchema($schemaIdentifier);
 
             if ($schema instanceof DataObjectGeneratorSchemaInterface) {
-                
+
                 $storedObject = $this->writeStoredDataObject($schema, $dataProvider, $object);
-                
+                //CachedTransaction
+
                 $this->writeStoredRelatedDataObject($schema, $storedObject);
 
                 $this->eventService->dispatch(
                     self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
                     new Event($storedObject->ID)
                 );
-                
+
                 return $storedObject;
 
             } else {
@@ -236,5 +267,4 @@ class Backend implements BackendInterface
         }
 
     }
-
 }

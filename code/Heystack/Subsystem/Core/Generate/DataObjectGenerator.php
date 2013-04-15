@@ -27,22 +27,41 @@ use Heystack\Subsystem\Core\Exception\ConfigurationException;
 class DataObjectGenerator
 {
 
+    /**
+     * @var array
+     */
     private $schemas = array();
+    /**
+     * @var array
+     */
     private $referenceSchemas = array();
+    /**
+     * @var array
+     */
     private $processingFlatStorage = array();
+    /**
+     * @var \Heystack\Subsystem\Core\State\State
+     */
     private $stateService;
 
+    /**
+     * @param State $stateService
+     */
     public function __construct(State $stateService)
     {
         $this->stateService = $stateService;
     }
 
+    /**
+     * @param DataObjectGeneratorSchemaInterface $schema
+     * @param bool                               $reference
+     * @param bool                               $force
+     */
     public function addSchema(
         DataObjectGeneratorSchemaInterface $schema,
         $reference = false,
         $force = false
-    )
-    {
+    ) {
 
         $identifier = strtolower($schema->getIdentifier());
 
@@ -66,6 +85,10 @@ class DataObjectGenerator
 
     }
 
+    /**
+     * @param $identifier
+     * @return bool
+     */
     public function hasSchema($identifier)
     {
 
@@ -73,6 +96,10 @@ class DataObjectGenerator
 
     }
 
+    /**
+     * @param $identifier
+     * @return bool
+     */
     public function getSchema($identifier)
     {
 
@@ -90,11 +117,14 @@ class DataObjectGenerator
 
     }
 
+    /**
+     * @param bool $force
+     */
     public function process($force = false)
     {
 
         // get all the previously created objects and delete them
-        $cachedFiles = glob(BASE_PATH . '/heystack/cache/Stored*', GLOB_NOSORT);
+        $cachedFiles = glob(BASE_PATH . '/heystack/cache/Cached*', GLOB_NOSORT);
 
         foreach ($cachedFiles as $cachedFile) {
 
@@ -140,12 +170,6 @@ class DataObjectGenerator
                 $dataProviderID
             );
 
-            $relatedStorage = $this->processRelatedStorage(
-                $schema->getRelatedStorage()
-            );
-
-            $hasRelatedStorage = $relatedStorage && is_array($relatedStorage) && count($relatedStorage) > 0;
-
             $parentStorage = $this->processParentStorage(
                 $schema->getParentStorage()
             );
@@ -157,8 +181,6 @@ class DataObjectGenerator
             // names for the created objects
             $cachedObjectName           = 'Cached' . $identifier;
             $storedObjectName           = 'Stored' . $identifier;
-            $cachedRelatedObjectName    = 'Cached' . $identifier . 'RelatedData';
-            $storedRelatedObjectName    = 'Stored' . $identifier . 'RelatedData';
 
             $fields = array_keys(is_array($flatStorage) ? $flatStorage : array())
                 + array_keys(is_array($parentStorage) ? $parentStorage : array());
@@ -170,9 +192,7 @@ class DataObjectGenerator
                 array(
                     'db'                => $flatStorage,
                     'has_one'           => $parentStorage,
-                    'has_many'          => (array) $childStorage + ($hasRelatedStorage ? array(
-                        $storedRelatedObjectName => $storedRelatedObjectName
-                    ): array()),
+                    'has_many'          => (array) $childStorage,
                     'summary_fields'    => array_merge(array('Created'), $fields),
                     'searchable_fields' => $fields,
                     'singular_name'     => $identifier,
@@ -191,38 +211,6 @@ class DataObjectGenerator
                     false,
                     $cachedObjectName
                 );
-
-            }
-
-            if ($hasRelatedStorage) {
-
-                $this->writeDataObject(
-                    $dirCache,
-                    $cachedRelatedObjectName,
-                    array(
-                        'db' => $relatedStorage,
-                        'has_one' => array(
-                            $storedObjectName => $storedObjectName
-                        )
-                    )
-                );
-
-                $managed_models[] = $storedRelatedObjectName;
-
-                // create the storage object
-                if (
-                    $force ||
-                    !file_exists($dirMysite . DIRECTORY_SEPARATOR . $storedRelatedObjectName . '.php')
-                ) {
-
-                    $this->writeDataObject(
-                        $dirMysite,
-                        $storedRelatedObjectName,
-                        false,
-                        $cachedRelatedObjectName
-                    );
-
-                }
 
             }
 
@@ -248,6 +236,12 @@ class DataObjectGenerator
 
     }
 
+    /**
+     * @param        $dir
+     * @param        $name
+     * @param bool   $statics
+     * @param string $extends
+     */
     protected function writeDataObject($dir, $name, $statics = false, $extends = 'DataObject')
     {
 
@@ -291,6 +285,12 @@ class DataObjectGenerator
 
     }
 
+    /**
+     * @param        $dir
+     * @param        $name
+     * @param bool   $statics
+     * @param string $extends
+     */
     protected function writeModelAdmin($dir, $name, $statics = false, $extends = 'ModelAdmin')
     {
 
@@ -329,6 +329,11 @@ class DataObjectGenerator
 
     }
 
+    /**
+     * @param $value
+     * @return bool|string
+     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     */
     public function isReference($value)
     {
 
@@ -352,6 +357,12 @@ class DataObjectGenerator
 
     }
 
+    /**
+     * @param $flatStorage
+     * @param $identifier
+     * @return array
+     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     */
     protected function processFlatStorage($flatStorage, $identifier)
     {
 
@@ -398,6 +409,10 @@ class DataObjectGenerator
 
     }
 
+    /**
+     * @param $parentStorage
+     * @return array
+     */
     protected function processParentStorage($parentStorage)
     {
 
@@ -420,45 +435,10 @@ class DataObjectGenerator
 
     }
 
-    protected function processRelatedStorage($relatedStorage)
-    {
-
-        if (is_array($relatedStorage)) {
-
-            foreach ($relatedStorage as $name => $value) {
-
-                if ($relatedIdentifier = $this->isReference($value)) {
-
-                    unset($relatedStorage[$name]);
-
-                    if (isset($this->processingRelatedStorage[$relatedIdentifier])) {
-
-                        throw new ConfigurationException('Circular reference in related storage');
-
-                    }
-
-                    $extraRelatedStorage = $this->getSchema($relatedIdentifier)->getFlatStorage();
-
-                    if (is_array($extraRelatedStorage)) {
-
-                        foreach ($extraRelatedStorage as $extraName => $extraValue) {
-
-                            $relatedStorage[substr($value, 1) . $extraName] = $extraValue;
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-        }
-
-        return $relatedStorage;
-
-    }
-
+    /**
+     * @param $childStorage
+     * @return array
+     */
     protected function processChildStorage($childStorage)
     {
 
@@ -480,6 +460,11 @@ class DataObjectGenerator
 
     }
 
+    /**
+     * @param        $content
+     * @param string $tab
+     * @return mixed
+     */
     protected function beautify($content, $tab = '    ')
     {
 
@@ -487,6 +472,10 @@ class DataObjectGenerator
 
     }
 
+    /**
+     * @param        $message
+     * @param string $break
+     */
     protected function output($message, $break = PHP_EOL)
     {
 
