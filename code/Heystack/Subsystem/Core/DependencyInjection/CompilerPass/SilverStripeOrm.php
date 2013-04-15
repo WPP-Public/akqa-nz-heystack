@@ -24,8 +24,8 @@ use Heystack\Subsystem\Core\Services;
  * this compiler pass will merge those calls without overwriting.
  *
  * @copyright  Heyday
- * @author Glenn Bautista
- * @package Heystack
+ * @author     Glenn Bautista
+ * @package    Heystack
  */
 class SilverStripeOrm implements CompilerPassInterface
 {
@@ -35,23 +35,23 @@ class SilverStripeOrm implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
 
-        if(!$container->hasDefinition(Services::SS_ORM_BACKEND)){
-            
+        if (!$container->hasDefinition(Services::SS_ORM_BACKEND)) {
+
             return;
-            
+
         }
-        
+
         $definition = $container->getDefinition(Services::SS_ORM_BACKEND);
-        
+
         $taggedServices = $container->findTaggedServiceIds(Services::SS_ORM_BACKEND . '.data_provider');
-        
-        foreach($taggedServices as $id => $attributes){
-            
+
+        foreach ($taggedServices as $id => $attributes) {
+
             $definition->addMethodCall(
                 'addDataProvider',
                 array(new Reference($id))
             );
-            
+
         }
 
     }
