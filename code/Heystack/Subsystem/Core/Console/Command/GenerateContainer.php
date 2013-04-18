@@ -58,7 +58,7 @@ class GenerateContainer extends Command
                         BASE_PATH . '/mysite/config/',
                         HEYSTACK_BASE_PATH . '/config/'
                     ),
-                    "servicexs_$mode.yml"
+                    "services_$mode.yml"
                 ),
                 "HeystackServiceContainer$mode",
                 HEYSTACK_BASE_PATH . '/cache/'
