@@ -169,62 +169,6 @@ class Backend implements BackendInterface
     }
 
     /**
-     * @param DataObjectGeneratorSchemaInterface $schema
-     * @param                                    $storedObject
-     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
-     */
-    protected function writeStoredRelatedDataObject(DataObjectGeneratorSchemaInterface $schema, $storedObject)
-    {
-        $relatedStorage = $schema->getRelatedStorage();
-
-        if ($relatedStorage) {
-
-            throw new \RuntimeException('Related storage is buggy and not yet supported');
-
-            $saveable = "Stored{$data['id']}RelatedData";
-
-            foreach ($relatedStorage as $key => $value) {
-
-                $storedManyObject = new $saveable();
-                $storedManyObject->{"Stored{$data['id']}ID"} = $storedObject->ID;
-
-                if ($reference = $this->generatorService->isReference($value)) {
-
-                    if ($this->hasDataProvider($reference)) {
-
-                        $referenceSchema = $this->generatorService->getSchema($reference);
-                        $referenceData = $this->dataProviders[$reference]->getStorableData();
-
-                        if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
-
-                            foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
-
-                                $storedManyObject->{$key . $referenceKey} = $referenceData[$referenceKey];
-
-                            }
-
-                        }
-
-                    } else {
-
-                        throw new ConfigurationException('Reference in related schema didn\'t have an associated data provider');
-
-                    }
-
-                } else {
-
-                    $storedManyObject->{$key} = $data['related'][$key];
-
-                }
-
-                $storedManyObject->write();
-
-            }
-
-        }
-
-    }
-    /**
      * @param StorableInterface $object
      * @return mixed
      * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
@@ -243,9 +187,7 @@ class Backend implements BackendInterface
             if ($schema instanceof DataObjectGeneratorSchemaInterface) {
 
                 $storedObject = $this->writeStoredDataObject($schema, $dataProvider, $object);
-                //CachedTransaction
 
-                $this->writeStoredRelatedDataObject($schema, $storedObject);
 
                 $this->eventService->dispatch(
                     self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
