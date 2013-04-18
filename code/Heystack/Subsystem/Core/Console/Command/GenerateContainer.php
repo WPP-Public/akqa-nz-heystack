@@ -50,18 +50,26 @@ class GenerateContainer extends Command
             )
         );
 
-        SharedContainerFactory::dumpContainer(
-            SharedContainerFactory::createContainer(
-                array(
-                    BASE_PATH . '/mysite/config/',
-                    HEYSTACK_BASE_PATH . '/config/'
-                ),
-                "services_$mode.yml"
-            ),
-            "HeystackServiceContainer$mode",
-            BASE_PATH . '/mysite/code/'
-        );
+        try {
 
-        $output->writeln('Container generated');
+            SharedContainerFactory::dumpContainer(
+                SharedContainerFactory::createContainer(
+                    array(
+                        BASE_PATH . '/mysite/config/',
+                        HEYSTACK_BASE_PATH . '/config/'
+                    ),
+                    "servicexs_$mode.yml"
+                ),
+                "HeystackServiceContainer$mode",
+                HEYSTACK_BASE_PATH . '/cache/'
+            );
+
+            $output->writeln('Container generated');
+
+        } catch (\Exception $e) {
+
+            $this->getApplication()->getLogger()->addCritical($e->getMessage());
+
+        }
     }
 }

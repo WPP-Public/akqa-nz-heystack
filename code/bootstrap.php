@@ -24,6 +24,7 @@ $_FILE_TO_URL_MAPPING[BASE_PATH] = 'http://localhost';
 require_once BASE_PATH . '/sapphire/core/Core.php';
 require_once BASE_PATH . '/sapphire/core/model/DB.php';
 
+\ManifestBuilder::create_manifest_file();
 global $databaseConfig;
 \DB::connect($databaseConfig);
 
@@ -34,7 +35,7 @@ use Symfony\Component\Console\Output\NullOutput;
 /**
  * If the container doesn't exist generate one before requiring it
  */
-if (!file_exists(BASE_PATH . '/mysite/code/HeystackServiceContainer.php')) {
+if (!file_exists(HEYSTACK_BASE_PATH . '/cache/HeystackServiceContainer' . Director::get_environment_type() . '.php')) {
     (new GenerateContainer())->run(
         new ArrayInput(array()),
         new NullOutput()

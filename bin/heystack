@@ -15,7 +15,7 @@ $container = Heystack\Subsystem\Core\ServiceStore::get();
  * If the container in use doesn't have console.application then there is a big problem
  */
 if (!$container->has('console.application')) {
-    unlink(BASE_PATH . '/mysite/code/HeystackServiceContainer.php');
+    unlink(HEYSTACK_BASE_PATH . '/cache/HeystackServiceContainer' . Director::get_environment_type() . '.php');
     echo 'There appears to be a problem with your container. The service \'console.application\' must exist.', PHP_EOL;
     echo 'The current container has been deleted, please make the required modifications', PHP_EOL;
     exit(1);

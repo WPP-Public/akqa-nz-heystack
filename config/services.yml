@@ -45,6 +45,8 @@ services:
     # Console
     console.application:
         class: %console.application.class%
+        calls:
+          - [ setLogger, [ @monolog ] ]
 
     console.command.generate_container:
         class: %console.command.generate_container.class%
