@@ -34,7 +34,6 @@ class DataObjectGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testAddByReferenceSchema()
     {
-
         $this->generator->addSchema(new TestDataObjectSchema('test'), true);
 
         $this->assertTrue($this->generator->hasSchema('test'));
@@ -42,7 +41,6 @@ class DataObjectGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testForceAddSchema()
     {
-
         $this->generator->addSchema(new TestDataObjectSchema('test'));
 
         $this->assertTrue($this->generator->hasSchema('test'));
@@ -65,16 +63,36 @@ class DataObjectGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testAddYamlSchema()
     {
+        $stub = $this->getMockBuilder('Heystack\Subsystem\Core\State\State')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $this->generator->addYamlSchema('tests/Heystack/Subsystem/Core/Test/schemas/test_schema.yml', false, false, true);
+        $this->generator->addSchema(
+            new YamlDataObjectSchema(
+                'tests/Heystack/Subsystem/Core/Test/schemas/test_schema.yml',
+                $stub
+            ),
+            false,
+            false
+        );
 
         $this->assertTrue($this->generator->hasSchema('test'));
     }
 
     public function testAddJsonSchema()
     {
+        $stub = $this->getMockBuilder('Heystack\Subsystem\Core\State\State')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $this->generator->addJsonSchema('tests/Heystack/Subsystem/Core/Test/schemas/test_schema.json', false, false, true);
+        $this->generator->addSchema(
+            new JsonDataObjectSchema(
+                'tests/Heystack/Subsystem/Core/Test/schemas/test_schema.json',
+                $stub
+            ),
+            false,
+            false
+        );
 
         $this->assertTrue($this->generator->hasSchema('test'));
     }

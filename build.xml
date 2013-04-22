@@ -2,7 +2,7 @@
 
 <project name="name-of-project" default="build">
  <target name="build"
-   depends="prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,sami,phpunit"/>
+   depends="prepare,lint,pdepend,phpmd-ci,phpcs-ci,sami,phpunit"/>
 
  <target name="build-parallel"
    depends="prepare,lint,tools-parallel,phpunit"/>
@@ -14,7 +14,6 @@
     <antcall target="phpmd-ci"/>
    </sequential>
    <antcall target="phpcs-ci"/>
-   <antcall target="phploc"/>
   </parallel>
  </target>
 
@@ -59,14 +58,6 @@
     <modified />
    </fileset>
   </apply>
- </target>
-
- <target name="phploc" description="Measure project size using PHPLOC">
-  <exec executable="${basedir}/vendor/bin/phploc">
-   <arg value="--log-csv" />
-   <arg value="${basedir}/build/logs/phploc.csv" />
-   <arg value="code" />
-  </exec>
  </target>
 
  <target name="pdepend" description="Calculate software metrics using PHP_Depend">
