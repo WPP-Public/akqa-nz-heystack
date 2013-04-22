@@ -11,6 +11,7 @@
  */
 namespace Heystack\Subsystem\Core\Input;
 
+use Heystack\Subsystem\Core\Identifier\Identifier;
 use Heystack\Subsystem\Core\Input\ProcessorInterface;
 
 use Heystack\Subsystem\Core\Processor\HandlerTrait;
@@ -43,15 +44,10 @@ class GroupedProcessor implements ProcessorInterface
      */
     public function __construct($identifier, $processors = null)
     {
-
         $this->identifier = $identifier;
-
         if (is_array($processors)) {
-
             $this->setProcessors($processors);
-
         }
-
     }
 
     /**
@@ -60,30 +56,24 @@ class GroupedProcessor implements ProcessorInterface
      */
     public function addProcessor(ProcessorInterface $processor)
     {
-
-        $this->processors[$processor->getIdentifier()] = $processor;
-
+        $this->processors[$processor->getIdentifier()->getPrimary()] = $processor;
     }
 
     /**
      * Returns the identifier of this processor
-     * @return [type] [description]
+     * @return \Heystack\Subsystem\Core\Identifier\Identifier
      */
     public function getIdentifier()
     {
-
-        return $this->identifier;
-
+        return new Identifier($this->identifier);
     }
 
     /**
      * Runs over the list of processors running them all in turn
      * @param  \SS_HTTPRequest $request The request object to pass into processors
-     * @return [type]          [description]
      */
     public function process(\SS_HTTPRequest $request)
     {
-
         $results = array();
 
         foreach ($this->processors as $identifier => $processor) {
@@ -93,7 +83,5 @@ class GroupedProcessor implements ProcessorInterface
         }
 
         return $results;
-
     }
-
 }

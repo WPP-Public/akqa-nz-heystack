@@ -12,35 +12,35 @@ class Identifier implements IdentifierInterface
     /**
      * @var
      */
-    protected $identifier;
+    protected $primary;
     /**
      * @var array
      */
-    protected $subidentifiers = array();
+    protected $secondaries = array();
     /**
-     * @param $identifier
-     * @param array $subidentifiers
+     * @param $primary
+     * @param array $secondaries
      */
-    public function __construct($identifier, array $subidentifiers = null)
+    public function __construct($primary, array $secondaries = null)
     {
-        $this->identifier = $identifier;
-        if (is_array($subidentifiers)) {
-            $this->subidentifiers = $subidentifiers;
+        $this->primary = $primary;
+        if (is_array($secondaries)) {
+            $this->secondaries = $secondaries;
         }
     }
     /**
      * @return
      */
-    public function getIdentifier()
+    public function getPrimary()
     {
-        return $this->identifier;
+        return $this->primary;
     }
     /**
      * @return array
      */
-    public function getSubidentifiers()
+    public function getSecondaries()
     {
-        return $this->subidentifiers;
+        return $this->secondaries;
     }
     /**
      * @param IdentifierInterface $identifier
@@ -48,7 +48,7 @@ class Identifier implements IdentifierInterface
      */
     public function isMatch(IdentifierInterface $identifier)
     {
-        return $this->identifier === $identifier->getIdentifier();
+        return $this->primary === $identifier->getPrimary();
     }
     /**
      * @param IdentifierInterface $identifier
@@ -56,6 +56,6 @@ class Identifier implements IdentifierInterface
      */
     public function isMatchStrict(IdentifierInterface $identifier)
     {
-        return $this->isMatch($identifier) && $this->subidentifiers === $identifier->getSubidentifiers();
+        return $this->isMatch($identifier) && $this->secondaries === $identifier->getSecondaries();
     }
 }

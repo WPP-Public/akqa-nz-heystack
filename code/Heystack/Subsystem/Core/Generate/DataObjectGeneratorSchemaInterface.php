@@ -18,15 +18,39 @@ namespace Heystack\Subsystem\Core\Generate;
  * @author Stevie Mayhew <stevie@heyday.co.nz>
  * @package Heystack
  */
+/**
+ * Class DataObjectGeneratorSchemaInterface
+ * @package Heystack\Subsystem\Core\Generate
+ */
 interface DataObjectGeneratorSchemaInterface
 {
-
+    /**
+     * @return \Heystack\Subsystem\Core\Identifier\Identifier
+     */
     public function getIdentifier();
+    /**
+     * @return mixed
+     */
     public function getDataProviderIdentifier();
+    /**
+     * @return mixed
+     */
     public function getFlatStorage();
+    /**
+     * @return mixed
+     */
     public function getRelatedStorage();
+    /**
+     * @return mixed
+     */
     public function getParentStorage();
+    /**
+     * @return mixed
+     */
     public function getChildStorage();
+    /**
+     * @param DataObjectGeneratorSchemaInterface $schema
+     * @return mixed
+     */
     public function mergeSchema(DataObjectGeneratorSchemaInterface $schema);
-
 }

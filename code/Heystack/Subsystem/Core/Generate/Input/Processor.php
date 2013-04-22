@@ -11,6 +11,7 @@
  */
 namespace Heystack\Subsystem\Core\Generate\Input;
 
+use Heystack\Subsystem\Core\Identifier\Identifier;
 use Heystack\Subsystem\Core\Input\ProcessorInterface;
 use Heystack\Subsystem\Core\Generate\DataObjectGenerator;
 
@@ -24,34 +25,44 @@ use Heystack\Subsystem\Core\Generate\DataObjectGenerator;
 class Processor implements ProcessorInterface
 {
 
+    /**
+     *
+     */
     const IDENTIFIER = 'do_generator';
 
+    /**
+     * @var \Heystack\Subsystem\Core\Generate\DataObjectGenerator
+     */
     private $generatorService;
-
+    /**
+     * @param DataObjectGenerator $generatorService
+     */
     public function __construct(DataObjectGenerator $generatorService)
     {
 
         $this->generatorService = $generatorService;
 
     }
-
+    /**
+     * @return \Heystack\Subsystem\Core\Identifier\Identifier
+     */
     public function getIdentifier()
     {
-
-        return self::IDENTIFIER;
-
+        return new Identifier(self::IDENTIFIER);
     }
-
+    /**
+     * @param \SS_HTTPRequest $request
+     * @return mixed|void
+     */
     public function process(\SS_HTTPRequest $request)
     {
-
         $this->generatorService->process($request->getVar('force'));
-
     }
-
+    /**
+     * @return DataObjectGenerator
+     */
     public function getGeneratorService()
     {
         return $this->generatorService;
     }
-
 }

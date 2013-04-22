@@ -48,7 +48,7 @@ class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(strpos($message, 'Configuration Error: File doesn\'t exist') !== false);
 
-        $this->assertEquals('Test', $this->schema->getIdentifier());
+        $this->assertEquals('Test', $this->schema->getIdentifier()->getPrimary());
 
         $this->assertEquals('test', $this->schema->getDataProviderIdentifier());
 

@@ -12,11 +12,11 @@ interface IdentifierInterface
     /**
      * @return
      */
-    public function getIdentifier();
+    public function getPrimary();
     /**
      * @return array
      */
-    public function getSubidentifiers();
+    public function getSecondaries();
     /**
      * @param IdentifierInterface $identifier
      * @return bool

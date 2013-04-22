@@ -2,13 +2,11 @@
 
 namespace Heystack\Subsystem\Core\Test;
 
+use Heystack\Subsystem\Core\Identifier\Identifier;
 use Heystack\Subsystem\Core\Storage\StorableInterface;
 use Heystack\Subsystem\Core\Storage\BackendInterface;
 
 /**
- *
- *
- *
  *
  * @author Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack
@@ -16,18 +14,20 @@ use Heystack\Subsystem\Core\Storage\BackendInterface;
 class TestStorageBackend implements BackendInterface
 {
 
+    /**
+     * @return \Heystack\Subsystem\Core\Identifier\Identifier
+     */
     public function getIdentifier()
     {
-
-        return 'test';
-
+        return new Identifier('test');
     }
 
+    /**
+     * @param StorableInterface $object
+     * @return mixed
+     */
     public function write(StorableInterface $object)
     {
-
         return $object->getStorableData();
-
     }
-
 }

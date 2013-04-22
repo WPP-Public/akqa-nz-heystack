@@ -11,6 +11,7 @@
  */
 namespace Heystack\Subsystem\Core\Generate;
 
+use Heystack\Subsystem\Core\Identifier\Identifier;
 use Heystack\Subsystem\Core\State\StateableInterface;
 use Heystack\Subsystem\Core\State\State;
 
@@ -85,12 +86,12 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
     {
         return $this->config = $this->stateService->getByKey($this->stateKey);
     }
-
+    /**
+     * @return bool|\Heystack\Subsystem\Core\Identifier\Identifier
+     */
     public function getIdentifier()
     {
-
-        return isset($this->config['id']) ? $this->config['id'] : false;
-
+        return isset($this->config['id']) ? new Identifier($this->config['id']) : false;
     }
 
     public function getDataProviderIdentifier()

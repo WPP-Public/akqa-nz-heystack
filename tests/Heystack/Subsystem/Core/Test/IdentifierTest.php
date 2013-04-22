@@ -26,7 +26,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
     {
         $stub = $this->getMock('Heystack\Subsystem\Core\Identifier\IdentifierInterface');
         $stub->expects($this->any())
-            ->method('getIdentifier')
+            ->method('getPrimary')
             ->will($this->returnValue('test'));
 
         $this->assertTrue(
@@ -35,7 +35,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 
         $stub = $this->getMock('Heystack\Subsystem\Core\Identifier\IdentifierInterface');
         $stub->expects($this->any())
-            ->method('getIdentifier')
+            ->method('getPrimary')
             ->will($this->returnValue('test2'));
 
         $this->assertFalse(
@@ -48,11 +48,11 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
         $stub = $this->getMock('Heystack\Subsystem\Core\Identifier\IdentifierInterface');
 
         $stub->expects($this->any())
-            ->method('getIdentifier')
+            ->method('getPrimary')
             ->will($this->returnValue('test'));
 
         $stub->expects($this->any())
-            ->method('getSubidentifiers')
+            ->method('getSecondaries')
             ->will($this->returnValue(array('test')));
 
         $this->assertTrue(
@@ -62,11 +62,11 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
         $stub = $this->getMock('Heystack\Subsystem\Core\Identifier\IdentifierInterface');
 
         $stub->expects($this->any())
-            ->method('getIdentifier')
+            ->method('getPrimary')
             ->will($this->returnValue('test'));
 
         $stub->expects($this->any())
-            ->method('getSubidentifiers')
+            ->method('getSecondaries')
             ->will($this->returnValue(array('test2')));
 
         $this->assertFalse(

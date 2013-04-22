@@ -22,7 +22,7 @@ class GroupedInputProcessorTest extends \PHPUnit_Framework_TestCase
     public function testProcess()
     {
 
-        $this->assertEquals('test', $this->groupedProcessor->getIdentifier());
+        $this->assertEquals('test', $this->groupedProcessor->getIdentifier()->getPrimary());
 
         $processor = new TestInputProcessor('test_input_processor');
         $processor2 = new TestInputProcessor('test_input_processor2', 'sweet');

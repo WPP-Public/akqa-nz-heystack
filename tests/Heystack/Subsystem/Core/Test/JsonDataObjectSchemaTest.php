@@ -48,7 +48,7 @@ class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('Configuration Error: File doesn\'t exist', $message);
 
-        $this->assertEquals('Test', $this->schema->getIdentifier());
+        $this->assertEquals('Test', $this->schema->getIdentifier()->getPrimary());
 
         $this->assertEquals('test', $this->schema->getDataProviderIdentifier());
 

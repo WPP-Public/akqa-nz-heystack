@@ -10,6 +10,7 @@
  */
 namespace Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrm;
 
+use Heystack\Subsystem\Core\Identifier\Identifier;
 use Heystack\Subsystem\Core\Storage\StorableInterface;
 use Heystack\Subsystem\Core\Storage\BackendInterface;
 use Heystack\Subsystem\Core\Storage\Event;
@@ -77,7 +78,7 @@ class Backend implements BackendInterface
      */
     public function getIdentifier()
     {
-        return self::IDENTIFIER;
+        return new Identifier(self::IDENTIFIER);
     }
     /**
      * @param DataObjectGeneratorSchemaInterface $schema
@@ -92,7 +93,7 @@ class Backend implements BackendInterface
         StorableInterface $object
     ) {
 
-        $saveable = 'Stored' . $schema->getIdentifier();
+        $saveable = 'Stored' . $schema->getIdentifier()->getPrimary();
 
         $storedObject = new $saveable();
 

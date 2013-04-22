@@ -22,8 +22,7 @@ interface ProcessorInterface
 {
     /**
      * Returns the identifier of the processor
-     *
-     * @return string Identifier of processor
+     * @return \Heystack\Subsystem\Core\Identifier\Identifier
      */
     public function getIdentifier();
 

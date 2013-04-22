@@ -63,7 +63,7 @@ class DataObjectGenerator
         $force = false
     ) {
 
-        $identifier = strtolower($schema->getIdentifier());
+        $identifier = strtolower($schema->getIdentifier()->getPrimary());
 
         if ($reference) {
 
@@ -159,7 +159,7 @@ class DataObjectGenerator
 
         foreach ($this->schemas as $schema) {
 
-            $identifier = $schema->getIdentifier();
+            $identifier = $schema->getIdentifier()->getPrimary();
 
             $dataProviderID = $schema->getDataProviderIdentifier();
 
@@ -423,7 +423,7 @@ class DataObjectGenerator
                 if ($parentIdentifier = $this->isReference($value)) {
 
                     unset($parentStorage[$name]);
-                    $parentStorage[$name] = 'Stored' . $this->getSchema($parentIdentifier)->getIdentifier();
+                    $parentStorage[$name] = 'Stored' . $this->getSchema($parentIdentifier)->getIdentifier()->getPrimary();
 
                 }
 
@@ -448,7 +448,7 @@ class DataObjectGenerator
 
                 if ($childIdentifier = $this->isReference($value)) {
 
-                    $childStorage[$name] = 'Stored' . $this->getSchema($childIdentifier)->getIdentifier();
+                    $childStorage[$name] = 'Stored' . $this->getSchema($childIdentifier)->getIdentifier()->getPrimary();
 
                 }
 

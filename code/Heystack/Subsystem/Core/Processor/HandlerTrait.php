@@ -45,9 +45,7 @@ trait HandlerTrait
      */
     public function getProcessor($name)
     {
-
         return isset($this->processors[$name]) ? $this->processors[$name] : false;
-
     }
 
     /**
@@ -57,9 +55,7 @@ trait HandlerTrait
      */
     public function hasProcessor($name)
     {
-
         return isset($this->processors[$name]);
-
     }
 
     /**
@@ -68,9 +64,7 @@ trait HandlerTrait
      */
     public function getProcessors()
     {
-
         return $this->processors;
-
     }
 
     /**
@@ -81,7 +75,6 @@ trait HandlerTrait
      */
     public function setProcessors(array $processors)
     {
-
         $this->processors = array();
 
         foreach ($processors as $processor) {
@@ -89,7 +82,6 @@ trait HandlerTrait
             $this->addProcessor($processor);
 
         }
-
     }
 
 }

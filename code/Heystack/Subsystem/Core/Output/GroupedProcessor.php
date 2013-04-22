@@ -11,6 +11,7 @@
  */
 namespace Heystack\Subsystem\Core\Output;
 
+use Heystack\Subsystem\Core\Identifier\Identifier;
 use Heystack\Subsystem\Core\Output\ProcessorInterface;
 
 use Heystack\Subsystem\Core\Processor\HandlerTrait;
@@ -29,13 +30,11 @@ class GroupedProcessor implements ProcessorInterface
 {
 
     use HandlerTrait;
-
     /**
      * Identifier of the grouped processor
      * @var string
      */
     private $identifier;
-
     /**
      * Runs when the object is instantiated and sees the processors and identifier
      * @param string $identifier Identifier for the group of processors
@@ -53,27 +52,21 @@ class GroupedProcessor implements ProcessorInterface
         }
 
     }
-
     /**
      * Adds an output processor to the array of processors, storing it by its identifier
      * @param ProcessorInterface $processor The output processor
      */
     public function addProcessor(ProcessorInterface $processor)
     {
-
-        $this->processors[$processor->getIdentifier()] = $processor;
-
+        $this->processors[$processor->getIdentifier()->getPrimary()] = $processor;
     }
-
     /**
      * Returns the identifier of this processor
-     * @return [type] [description]
+     * @return \Heystack\Subsystem\Core\Identifier\Identifier
      */
     public function getIdentifier()
     {
-
-        return $this->identifier;
-
+        return new Identifier($this->identifier);
     }
 
     /**
@@ -84,15 +77,9 @@ class GroupedProcessor implements ProcessorInterface
      */
     public function process(\Controller $controller, $result = null)
     {
-
         foreach ($this->processors as $processor) {
-
             $processor->process($controller, $result);
-
         }
-
         return $controller->getResponse();
-
     }
-
 }

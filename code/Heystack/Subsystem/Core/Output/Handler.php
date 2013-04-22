@@ -39,9 +39,7 @@ class Handler
      */
     public function addProcessor(ProcessorInterface $processor)
     {
-
-        $this->processors[$processor->getIdentifier()] = $processor;
-
+        $this->processors[$processor->getIdentifier()->getPrimary()] = $processor;
     }
 
     /**
@@ -53,17 +51,10 @@ class Handler
      */
     public function process($identifier, \Controller $controller, $result = null)
     {
-
         if ($this->hasProcessor($identifier)) {
-
             return $this->processors[$identifier]->process($controller, $result);
-
         } else {
-
             return false;
-
         }
-
     }
-
 }
