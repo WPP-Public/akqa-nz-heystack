@@ -27,4 +27,14 @@ interface IdentifierInterface
      * @return bool
      */
     public function isMatchStrict(IdentifierInterface $identifier);
+    /**
+     * Generate the full representation of the Identifier as a string
+     * @return string
+     */
+    public function getFull();
+    /**
+     * Return the full representation of the Identifier as a string
+     * @return string
+     */
+    public function __toString();
 }
