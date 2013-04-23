@@ -1,9 +1,5 @@
 <?php
 
-\Director::addRules(100, array(
-    \CliInputController::$url_segment . '/$Action/$Processor/$ID/$OtherID/$ExtraID' => 'CliInputController'
-));
-
 define('HEYSTACK_BASE_PATH', __DIR__);
 
 use Heystack\Subsystem\Core;

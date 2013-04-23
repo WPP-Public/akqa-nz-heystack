@@ -7,10 +7,16 @@ parameters:
     event_dispatcher.class: Symfony\Component\EventDispatcher\EventDispatcher
     input_processor_handler.class: Heystack\Subsystem\Core\Input\Handler
     output_processor_handler.class: Heystack\Subsystem\Core\Output\Handler
-
     console.application.class: Heystack\Subsystem\Core\Console\Application
     console.command.generate_container.class: Heystack\Subsystem\Core\Console\Command\GenerateContainer
+    console.command.generate_dataobjects.class: Heystack\Subsystem\Core\Console\Command\GenerateDataObjects
+
     session.class: Session
+    dataobject_generator.class: Heystack\Subsystem\Core\Generate\DataObjectGenerator
+
+    storage.class: Heystack\Subsystem\Core\Storage\Storage
+    ss_orm_backend.class: Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrm\Backend
+    yaml_data_object_schema.class: Heystack\Subsystem\Core\Generate\YamlDataObjectSchema
 
     monolog.name: global
 
@@ -32,14 +38,6 @@ parameters:
     memcache.port: 11211
     
     memcache.prefix: heystack_
-    
-    dataobject_generator.class: Heystack\Subsystem\Core\Generate\DataObjectGenerator
-    dataobject_generator_input_processor.class: Heystack\Subsystem\Core\Generate\Input\Processor
-    
-    storage.class: Heystack\Subsystem\Core\Storage\Storage
-    ss_orm_backend.class: Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrm\Backend
-    
-    yaml_data_object_schema.class: Heystack\Subsystem\Core\Generate\YamlDataObjectSchema
 
 services:
     # Console
@@ -52,6 +50,10 @@ services:
         class: %console.command.generate_container.class%
         tags:
           - { name: console.application.command }
+
+    console.command.generate_dataobjects:
+      class: %console.command.generate_dataobjects.class%
+      arguments: [ @dataobject_generator ]
 
     memcache:
         class: %memcache.class%
@@ -148,15 +150,6 @@ services:
     dataobject_generator:
       arguments: [ @state_global ]
       class: %dataobject_generator.class%
-
-    dataobject_generator_input_processor:
-      class: %dataobject_generator_input_processor.class%
-      arguments: [ @dataobject_generator ]
-
-    cli_input_processor_handler:
-      class: %input_processor_handler.class%
-      calls:
-        - [ addProcessor, [ @dataobject_generator_input_processor ] ]
 
     ss_orm_backend:
       class: %ss_orm_backend.class%
