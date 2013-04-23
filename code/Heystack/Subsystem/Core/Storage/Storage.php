@@ -43,7 +43,7 @@ class Storage
      */
     public function addBackend(BackendInterface $backend)
     {
-        $this->backends[$backend->getIdentifier()->getPrimary()] = $backend;
+        $this->backends[$backend->getIdentifier()->getFull()] = $backend;
     }
 
     /**

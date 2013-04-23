@@ -93,7 +93,7 @@ class Backend implements BackendInterface
         StorableInterface $object
     ) {
 
-        $saveable = 'Stored' . $schema->getIdentifier()->getPrimary();
+        $saveable = 'Stored' . $schema->getIdentifier()->getFull();
 
         $storedObject = new $saveable();
 

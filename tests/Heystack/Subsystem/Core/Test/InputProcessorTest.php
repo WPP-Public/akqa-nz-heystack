@@ -46,7 +46,7 @@ class InputProcessorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetIdentifier()
     {
-        $this->assertEquals(Processor::IDENTIFIER, $this->object->getIdentifier()->getPrimary());
+        $this->assertEquals(Processor::IDENTIFIER, $this->object->getIdentifier()->getFull());
     }
 
     /**

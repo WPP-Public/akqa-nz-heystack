@@ -34,7 +34,7 @@ class SilverStripeOrmBackendTest extends \PHPUnit_Framework_TestCase
     public function testIdentifier()
     {
         
-        $this->assertEquals(Backend::IDENTIFIER, $this->backend->getIdentifier()->getPrimary());
+        $this->assertEquals(Backend::IDENTIFIER, $this->backend->getIdentifier()->getFull());
         
     }
     

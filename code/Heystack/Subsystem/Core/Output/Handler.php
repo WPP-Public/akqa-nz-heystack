@@ -39,7 +39,7 @@ class Handler
      */
     public function addProcessor(ProcessorInterface $processor)
     {
-        $this->processors[$processor->getIdentifier()->getPrimary()] = $processor;
+        $this->processors[$processor->getIdentifier()->getFull()] = $processor;
     }
 
     /**

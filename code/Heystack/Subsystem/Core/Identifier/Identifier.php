@@ -10,6 +10,10 @@ namespace Heystack\Subsystem\Core\Identifier;
 class Identifier implements IdentifierInterface
 {
     /**
+     *
+     */
+    const GLUE = '.';
+    /**
      * @var
      */
     protected $primary;
@@ -41,6 +45,28 @@ class Identifier implements IdentifierInterface
     public function getSecondaries()
     {
         return $this->secondaries;
+    }
+    /**
+     * @return string
+     */
+    public function getFull()
+    {
+        return implode(
+            self::GLUE,
+            array_merge(
+                array(
+                    $this->primary
+                ),
+                $this->secondaries
+            )
+        );
+    }
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getFull();
     }
     /**
      * @param IdentifierInterface $identifier

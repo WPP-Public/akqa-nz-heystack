@@ -56,7 +56,7 @@ class GroupedProcessor implements ProcessorInterface
      */
     public function addProcessor(ProcessorInterface $processor)
     {
-        $this->processors[$processor->getIdentifier()->getPrimary()] = $processor;
+        $this->processors[$processor->getIdentifier()->getFull()] = $processor;
     }
 
     /**
