@@ -54,6 +54,8 @@ services:
     console.command.generate_dataobjects:
       class: %console.command.generate_dataobjects.class%
       arguments: [ @dataobject_generator ]
+      tags:
+        - { name: console.application.command }
 
     memcache:
         class: %memcache.class%

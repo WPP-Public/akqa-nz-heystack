@@ -14,10 +14,7 @@ use Symfony\Component\Console\Output;
 use Heystack\Subsystem\Core\Generate\DataObjectGenerator;
 
 /**
- * Kicks off the generator service from a cli controller
- *
  * @author Cam Spiers <cameron@heyday.co.nz>
- * @author Stevie Mayhew <stevie@heyday.co.nz>
  * @package Heystack
  */
 class GenerateDataObjects extends Command
@@ -30,9 +27,10 @@ class GenerateDataObjects extends Command
     /**
      * @param \Heystack\Subsystem\Core\Generate\DataObjectGenerator $generatorService
      */
-    public function __construct(DOGenerator $generatorService)
+    public function __construct(DataObjectGenerator $generatorService)
     {
         $this->generatorService = $generatorService;
+        parent::__construct();
     }
     /**
      * Configure the commands options
