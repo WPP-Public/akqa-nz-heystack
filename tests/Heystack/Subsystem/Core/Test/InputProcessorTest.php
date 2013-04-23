@@ -3,16 +3,10 @@
 namespace Heystack\Subsystem\Core\Test;
 
 use Heystack\Subsystem\Core\Generate\Input\Processor;
-use Heystack\Subsystem\Core\Generate\DataObjectGenerator;
-use Heystack\Subsystem\Core\State\State;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class InputProcessorTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var DataObjectGenerator
-     */
-    protected $generatorService;
+    protected $generatorStub;
     /**
      * @var Processor
      */
@@ -24,10 +18,10 @@ class InputProcessorTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-
-        $this->generatorService = new DataObjectGenerator(new State(new TestBackend(), new EventDispatcher()));
-        $this->object = new Processor($this->generatorService);
-
+        $this->generatorStub = $this->getMockBuilder('Heystack\Subsystem\Core\Generate\DataObjectGenerator')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->object = new Processor($this->generatorStub);
     }
 
     /**
@@ -36,8 +30,6 @@ class InputProcessorTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-
-        $this->generatorService = null;
         $this->object = null;
     }
 
@@ -46,7 +38,7 @@ class InputProcessorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetGeneratorService()
     {
-        $this->assertEquals($this->generatorService, $this->object->getGeneratorService());
+        $this->assertEquals($this->generatorStub, $this->object->getGeneratorService());
     }
 
     /**

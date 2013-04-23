@@ -3,100 +3,92 @@
 namespace Heystack\Subsystem\Core\Test;
 
 use Heystack\Subsystem\Core\State\State;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class StateTest extends \PHPUnit_Framework_TestCase
 {
     protected $state;
+    protected $backendMock;
 
     protected function setUp()
     {
-        $this->state = new State(new TestBackend(), new EventDispatcher());
+        $this->backendMock = $this->getMock('Heystack\Subsystem\Core\State\BackendInterface');
+        $this->state = new State($this->backendMock);
     }
 
     protected function tearDown()
     {
         $this->state = null;
+        $this->backendMock = null;
     }
 
-    public function testSetGet()
+    public function testSet()
     {
+        $this->backendMock->expects($this->once())
+            ->method('setByKey')
+            ->with($this->equalTo('test'), $this->equalTo(serialize('hello')));
+
         $this->state->setByKey('test', 'hello');
-        $this->assertEquals('hello', $this->state->getByKey('test'));
+    }
+    public function testGet()
+    {
+        $this->backendMock->expects($this->once())
+            ->method('getByKey')
+            ->with($this->equalTo('test'));
+
+        $this->state->getByKey('test');
     }
 
     public function testRemove()
     {
-        $this->state->setByKey('test', 'hello');
+        $this->backendMock->expects($this->once())
+            ->method('removeByKey')
+            ->with($this->equalTo('test'));
+
         $this->state->removeByKey('test');
-        $this->assertEquals(null, $this->state->getByKey('test'));
     }
 
     public function testRemoveAll()
     {
-        $this->state->setByKey('test', 'hello');
+        $this->backendMock->expects($this->once())
+            ->method('removeAll')
+            ->with($this->equalTo(array()));
+
         $this->state->removeAll();
-        $this->assertEquals(array(), $this->state->getKeys());
     }
 
-    public function testSetGetStatable()
+    public function testRemoveAllWithExclude()
     {
-        $this->state->setObj('test', $obj = new TestStateable());
+        $this->backendMock->expects($this->once())
+            ->method('removeAll')
+            ->with($this->equalTo(array('test')));
 
-        $this->assertEquals($obj, $this->state->getObj('test'));
+        $this->state->removeAll(array('test'));
+    }
 
-        $obj->setData(array('test2'));
+    public function testSetStatable()
+    {
+        $stub = $this->getMock('Serializable');
 
-        $this->assertNotEquals($obj, $this->state->getObj('test'));
+        $this->backendMock->expects($this->once())
+            ->method('setByKey')
+            ->with($this->equalTo('test'), $this->equalTo(serialize($stub)));
+
+        $this->state->setObj('test', $stub);
+    }
+
+    public function testGetStatable()
+    {
+        $this->backendMock->expects($this->once())
+            ->method('getByKey')
+            ->with($this->equalTo('test'));
+
+        $this->state->getObj('test');
     }
 
     public function testGetKeys()
     {
-
-        $this->assertEquals(array(), $this->state->getKeys());
-
-        $this->state->setByKey('test', 'Yay');
-
-        $this->assertEquals(array('test'), $this->state->getKeys());
-
-        $this->state->setByKey('test2', 'Yay');
-
-        $this->assertEquals(array('test', 'test2'), $this->state->getKeys());
-
+        $this->backendMock->expects($this->once())
+            ->method('getKeys');
+        $this->state->getKeys();
     }
-    
-    public function testDataObjectStateable()
-    {
-        
-        $do = new TestDataObjectStateable(array(
-            'Hello' => 'test',
-            'Hello2' => 'test'
-        ));
-        
-        $this->state->setObj('test', $do);
-        
-        $this->assertEquals($do->toMap(), $this->state->getObj('test')->toMap());
-        
-    }
-    
-    public function testExtraDataDataObjectStateable()
-    {
-        
-        $do = new TestExtraDataDataObjectStateable(array(
-            'Hello' => 'test',
-            'Hello2' => 'test'
-        ));
-        
-        $do->configureExtraData(array(
-            'Something' => 'test',
-            'Something2' => 'test'
-        ));
-        
-        $this->state->setObj('test', $do);
-        
-        $this->assertEquals('test', $this->state->getObj('test')->Something);        
-        $this->assertEquals('test', $this->state->getObj('test')->Something2);
-        
-    }
-
 }

@@ -16,8 +16,9 @@ class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-
-        $this->state = new State(new TestBackend(), new EventDispatcher());
+        $this->state = $this->getMockBuilder('Heystack\Subsystem\Core\State\State')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->schema = new YamlDataObjectSchema('tests/Heystack/Subsystem/Core/Test/schemas/test_schema.yml', $this->state);
 

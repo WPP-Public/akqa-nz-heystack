@@ -15,13 +15,13 @@ class SilverStripeOrmBackendTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+        $this->state = $this->getMockBuilder('Heystack\Subsystem\Core\State\State')
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->backend = new Backend(
             new EventDispatcher(),
             new DataObjectGenerator(
-                new State(
-                    new TestBackend(),
-                    new EventDispatcher()
-                )
+                $this->state
             )
         );
     }

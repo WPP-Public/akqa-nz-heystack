@@ -5,18 +5,20 @@ namespace Heystack\Subsystem\Core\Test;
 use Heystack\Subsystem\Core\Generate\DataObjectGenerator;
 use Heystack\Subsystem\Core\Generate\JsonDataObjectSchema;
 use Heystack\Subsystem\Core\Generate\YamlDataObjectSchema;
-use Heystack\Subsystem\Core\State\State;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Heystack\Subsystem\Core\Exception\ConfigurationException;
 
 class DataObjectGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-
+    protected $stateStub;
     protected $generator;
 
     protected function setUp()
     {
-        $this->generator = new DataObjectGenerator(new State(new TestBackend(), new EventDispatcher()));
+        $this->stateStub = $this->getMockBuilder('Heystack\Subsystem\Core\State\State')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->generator = new DataObjectGenerator($this->stateStub);
     }
 
     protected function tearDown()
@@ -63,14 +65,10 @@ class DataObjectGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testAddYamlSchema()
     {
-        $stub = $this->getMockBuilder('Heystack\Subsystem\Core\State\State')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->generator->addSchema(
             new YamlDataObjectSchema(
                 'tests/Heystack/Subsystem/Core/Test/schemas/test_schema.yml',
-                $stub
+                $this->stateStub
             ),
             false,
             false
@@ -81,14 +79,11 @@ class DataObjectGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testAddJsonSchema()
     {
-        $stub = $this->getMockBuilder('Heystack\Subsystem\Core\State\State')
-            ->disableOriginalConstructor()
-            ->getMock();
 
         $this->generator->addSchema(
             new JsonDataObjectSchema(
                 'tests/Heystack/Subsystem/Core/Test/schemas/test_schema.json',
-                $stub
+                $this->stateStub
             ),
             false,
             false

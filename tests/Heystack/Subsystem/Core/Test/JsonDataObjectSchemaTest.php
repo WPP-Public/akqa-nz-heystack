@@ -4,10 +4,6 @@ namespace Heystack\Subsystem\Core\Test;
 
 use Heystack\Subsystem\Core\Generate\JsonDataObjectSchema;
 
-use Heystack\Subsystem\Core\State\State;
-
-use Symfony\Component\EventDispatcher\EventDispatcher;
-
 class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -16,10 +12,14 @@ class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+        $this->state = $this->getMockBuilder('Heystack\Subsystem\Core\State\State')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $this->state = new State(new TestBackend(), new EventDispatcher());
-
-        $this->schema = new JsonDataObjectSchema('tests/Heystack/Subsystem/Core/Test/schemas/test_schema.json', $this->state);
+        $this->schema = new JsonDataObjectSchema(
+            'tests/Heystack/Subsystem/Core/Test/schemas/test_schema.json',
+            $this->state
+        );
 
     }
 

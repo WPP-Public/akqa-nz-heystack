@@ -21,9 +21,9 @@ class InputHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testProcessorHandlerTrait()
     {
-        $processor = new TestInputProcessor('test_input_processor');
-        $processor2 = new TestInputProcessor('test_input_processor2');
-        $processor3 = new TestInputProcessor('test_input_processor3');
+        $processor = $this->getProcessorStub('test_input_processor');
+        $processor2 = $this->getProcessorStub('test_input_processor2');
+        $processor3 = $this->getProcessorStub('test_input_processor3');
 
         $this->handler->addProcessor($processor);
 
@@ -35,24 +35,32 @@ class InputHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($this->handler->hasProcessor('fake'));
 
-        $this->assertEquals(array(
-            'test_input_processor' => $processor
-                ), $this->handler->getProcessors());
+        $this->assertEquals(
+            array(
+                'test_input_processor' => $processor
+            ),
+            $this->handler->getProcessors()
+        );
 
-        $this->handler->setProcessors(array(
-            $processor2,
-            $processor3
-        ));
+        $this->handler->setProcessors(
+            array(
+                $processor2,
+                $processor3
+            )
+        );
 
-        $this->assertEquals(array(
-            'test_input_processor2' => $processor2,
-            'test_input_processor3' => $processor3,
-                ), $this->handler->getProcessors());
+        $this->assertEquals(
+            array(
+                'test_input_processor2' => $processor2,
+                'test_input_processor3' => $processor3,
+            ),
+            $this->handler->getProcessors()
+        );
     }
 
     public function testProcess()
     {
-        $this->handler->addProcessor(new TestInputProcessor('test', 'oh yeah!'));
+        $this->handler->addProcessor($this->getProcessorStub('test', 'oh yeah!'));
 
         $request = new \SS_HTTPRequest('GET', '/');
 
@@ -61,4 +69,22 @@ class InputHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('oh yeah!', $this->handler->process('test', $request));
     }
 
+    protected function getProcessorStub($identifier, $process = null)
+    {
+        $identifierStub = $this->getMock('Heystack\Subsystem\Core\Identifier\IdentifierInterface');
+        $identifierStub->expects($this->any())
+            ->method('getPrimary')
+            ->will($this->returnValue($identifier));
+
+        $processorStub = $this->getMock('Heystack\Subsystem\Core\Input\ProcessorInterface');
+        $processorStub->expects($this->any())
+            ->method('getIdentifier')
+            ->will($this->returnValue($identifierStub));
+
+        $processorStub->expects($this->any())
+            ->method('process')
+            ->will($this->returnValue($process));
+
+        return $processorStub;
+    }
 }
