@@ -3,6 +3,9 @@
 namespace Heystack\Subsystem\Core\Console\Command;
 
 use Camspiers\DependencyInjection\SharedContainerFactory;
+use Heystack\Subsystem\Core\Console\Application;
+use Heystack\Subsystem\Core\ServiceStore;
+use Heystack\Subsystem\Core\Services;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input;
@@ -66,8 +69,18 @@ class GenerateContainer extends Command
 
         } catch (\Exception $e) {
 
-            $this->getApplication()->getLogger()->addCritical($e->getMessage());
+            $this->getLogger()->addCritical($e->getMessage());
 
+        }
+    }
+
+    protected function getLogger()
+    {
+        $application = $this->getApplication();
+        if ($application instanceof Application) {
+            return $application->getLogger();
+        } else {
+            return ServiceStore::getService(Services::MONOLOG);
         }
     }
 }

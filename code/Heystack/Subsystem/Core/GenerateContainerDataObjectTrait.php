@@ -4,6 +4,7 @@ namespace Heystack\Subsystem\Core;
 
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
+use Heystack\Subsystem\Core\Console\Command\GenerateContainer;
 
 /**
  * Provides the functionality for regenerating the container after saving/deleting a dataobject
