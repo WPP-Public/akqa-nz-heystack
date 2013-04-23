@@ -20,12 +20,26 @@ namespace Heystack\Subsystem\Core\Storage;
  * @author Stevie Mayhew <stevie@heyday.co.nz>
  * @package Heystack
  */
+/**
+ * Class StorableInterface
+ * @package Heystack\Subsystem\Core\Storage
+ */
 interface StorableInterface
 {
-
+    /**
+     * @return mixed
+     */
     public function getStorableIdentifier();
+    /**
+     * @return mixed
+     */
     public function getStorableData();
+    /**
+     * @return mixed
+     */
     public function getStorableBackendIdentifiers();
+    /**
+     * @return mixed
+     */
     public function getSchemaName();
-
 }
