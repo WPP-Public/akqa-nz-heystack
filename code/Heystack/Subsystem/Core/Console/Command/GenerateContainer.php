@@ -6,6 +6,7 @@ use Camspiers\DependencyInjection\SharedContainerFactory;
 use Heystack\Subsystem\Core\Console\Application;
 use Heystack\Subsystem\Core\ServiceStore;
 use Heystack\Subsystem\Core\Services;
+use Monolog\Logger;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input;
@@ -69,7 +70,12 @@ class GenerateContainer extends Command
 
         } catch (\Exception $e) {
 
-            $this->getLogger()->addCritical($e->getMessage());
+            $logger = $this->getLogger();
+            if ($logger instanceof Logger) {
+                $this->getLogger()->addCritical($e->getMessage());
+            } else {
+                throw new \Exception($e->getMessage());
+            }
 
         }
     }
