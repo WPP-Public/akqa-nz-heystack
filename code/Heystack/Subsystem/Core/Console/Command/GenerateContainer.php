@@ -72,7 +72,7 @@ class GenerateContainer extends Command
 
             $logger = $this->getLogger();
             if ($logger instanceof Logger) {
-                $this->getLogger()->addCritical($e->getMessage());
+                $logger->addCritical($e->getMessage());
             } else {
                 throw new \Exception($e->getMessage());
             }
