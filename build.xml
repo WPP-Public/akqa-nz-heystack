@@ -23,8 +23,8 @@
         <delete dir="${basedir}/build/coverage"/>
         <delete dir="${basedir}/build/logs"/>
         <delete dir="${basedir}/build/pdepend"/>
-        <delete dir="${basedir}/build/sapphire"/>
-        <delete dir="${basedir}/build/vendor"/>
+        <delete dir="${basedir}/sapphire"/>
+        <delete dir="${basedir}/vendor"/>
     </target>
 
     <target name="prepare" depends="clean" description="Prepare for build">
@@ -33,10 +33,6 @@
         <mkdir dir="${basedir}/build/coverage"/>
         <mkdir dir="${basedir}/build/logs"/>
         <mkdir dir="${basedir}/build/pdepend"/>
-
-        <exec executable="changephp">
-            <arg value="54"/>
-        </exec>
 
         <exec executable="composer">
             <arg value="install"/>

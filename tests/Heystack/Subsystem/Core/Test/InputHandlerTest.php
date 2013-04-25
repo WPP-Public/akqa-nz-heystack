@@ -73,7 +73,7 @@ class InputHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $identifierStub = $this->getMock('Heystack\Subsystem\Core\Identifier\IdentifierInterface');
         $identifierStub->expects($this->any())
-            ->method('getPrimary')
+            ->method('getFull')
             ->will($this->returnValue($identifier));
 
         $processorStub = $this->getMock('Heystack\Subsystem\Core\Input\ProcessorInterface');
