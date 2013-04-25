@@ -35,23 +35,22 @@ class InputProcessorHandler implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
 
-        if(!$container->hasDefinition(Services::INPUT_PROCESSOR_HANDLER)){
-            
+        if (!$container->hasDefinition(Services::INPUT_PROCESSOR_HANDLER)) {
             return;
-            
+
         }
-        
+
         $definition = $container->getDefinition(Services::INPUT_PROCESSOR_HANDLER);
-        
+
         $taggedServices = $container->findTaggedServiceIds(Services::INPUT_PROCESSOR_HANDLER . '.processor');
-        
-        foreach($taggedServices as $id => $attributes){
-            
+
+        foreach ($taggedServices as $id => $attributes) {
+
             $definition->addMethodCall(
                 'addProcessor',
                 array(new Reference($id))
             );
-            
+
         }
 
     }

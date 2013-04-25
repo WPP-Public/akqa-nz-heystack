@@ -70,7 +70,7 @@ class GroupedProcessor implements ProcessorInterface
 
     /**
      * Runs over the list of processors running them all in turn
-     * @param  \SS_HTTPRequest $request The request object to pass into processors
+     * @param \SS_HTTPRequest $request The request object to pass into processors
      */
     public function process(\SS_HTTPRequest $request)
     {

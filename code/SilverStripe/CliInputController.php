@@ -57,7 +57,6 @@ class CliInputController extends Controller
 
         // Unless called from the command line, all CliControllers need ADMIN privileges
         if (!Director::is_cli() && !Permission::check("ADMIN")) {
-
             return Security::permissionFailure();
 
         }
@@ -74,7 +73,7 @@ class CliInputController extends Controller
     {
 
         $request = $this->getRequest();
- 
+
         return $this->inputHandlerService->process($request->param('Processor'), $request);
 
     }

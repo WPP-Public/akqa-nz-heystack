@@ -6,8 +6,6 @@ use Heystack\Subsystem\Core\Generate\YamlDataObjectSchema;
 
 use Heystack\Subsystem\Core\State\State;
 
-use Symfony\Component\EventDispatcher\EventDispatcher;
-
 class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 {
 

@@ -96,35 +96,30 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
 
     public function getDataProviderIdentifier()
     {
-
         return isset($this->config['data_provider_id']) ? $this->config['data_provider_id'] : false;
 
     }
 
     public function getFlatStorage()
     {
-
         return isset($this->config['flat']) ? $this->config['flat'] : array();
 
     }
 
     public function getRelatedStorage()
     {
-
         return isset($this->config['related']) ? $this->config['related'] : array();
 
     }
 
     public function getParentStorage()
     {
-
         return isset($this->config['parent']) ? $this->config['parent'] : array();
 
     }
 
     public function getChildStorage()
     {
-
         return isset($this->config['children']) ? $this->config['children'] : array();
 
     }

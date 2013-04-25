@@ -80,6 +80,7 @@ class GroupedProcessor implements ProcessorInterface
         foreach ($this->processors as $processor) {
             $processor->process($controller, $result);
         }
+
         return $controller->getResponse();
     }
 }

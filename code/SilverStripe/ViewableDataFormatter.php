@@ -33,11 +33,9 @@ class ViewableDataFormatter extends ViewableData
         $castings = $this->obj->getCastings();
 
         if (isset($castings[$field])) {
-
             return $castings[$field];
 
         } else {
-
             return parent::castingHelper($field);
         }
 
@@ -50,6 +48,7 @@ class ViewableDataFormatter extends ViewableData
         } elseif (in_array($method, $this->obj->getDynamicMethods())) {
             return $this->obj->$method;
         }
+
         return false;
     }
 
@@ -58,6 +57,7 @@ class ViewableDataFormatter extends ViewableData
         if (isset($this->obj->$property)) {
             return $this->obj->$property;
         }
+
         return false;
     }
 

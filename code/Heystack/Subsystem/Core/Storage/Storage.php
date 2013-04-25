@@ -65,7 +65,7 @@ class Storage
     }
 
     /**
-     * @param StorableInterface $object
+     * @param  StorableInterface $object
      * @return array
      * @throws \Exception
      */

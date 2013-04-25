@@ -111,19 +111,19 @@ class DataObjectGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('test', $this->generator->isReference('+test'));
         $this->assertFalse($this->generator->isReference('test'));
-        
+
         $message = null;
 
         try {
-            
+
             $this->generator->isReference('+test1');
 
         } catch (ConfigurationException $e) {
-            
+
             $message = $e->getMessage();
-            
+
         }
-        
+
         $this->assertNotNull($message);
     }
 

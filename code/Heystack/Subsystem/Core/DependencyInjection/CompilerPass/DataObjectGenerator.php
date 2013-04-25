@@ -35,7 +35,6 @@ class DataObjectGenerator implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition(Services::DATAOBJECT_GENERATOR)) {
-
             return;
 
         }

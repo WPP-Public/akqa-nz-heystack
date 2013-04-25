@@ -36,7 +36,6 @@ class SilverStripeOrm implements CompilerPassInterface
     {
 
         if (!$container->hasDefinition(Services::SS_ORM_BACKEND)) {
-
             return;
 
         }

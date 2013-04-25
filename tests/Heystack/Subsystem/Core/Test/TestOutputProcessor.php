@@ -39,8 +39,8 @@ class TestOutputProcessor implements \Heystack\Subsystem\Core\Output\ProcessorIn
     }
 
     /**
-     * @param \Controller $controller
-     * @param null        $result
+     * @param  \Controller $controller
+     * @param  null        $result
      * @return string
      */
     public function process(\Controller $controller, $result = null)

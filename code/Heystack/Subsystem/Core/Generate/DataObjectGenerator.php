@@ -91,7 +91,6 @@ class DataObjectGenerator
      */
     public function hasSchema($identifier)
     {
-
         return isset($this->schemas[$identifier]) || isset($this->referenceSchemas[$identifier]);
 
     }
@@ -104,13 +103,11 @@ class DataObjectGenerator
     {
 
         if ($this->hasSchema($identifier)) {
-
             return isset($this->schemas[$identifier])
                 ? $this->schemas[$identifier]
                 : $this->referenceSchemas[$identifier];
 
         } else {
-
             return false;
 
         }
@@ -344,7 +341,6 @@ class DataObjectGenerator
             $identifier = strtolower(substr($value, 1));
 
             if ($this->hasSchema($identifier)) {
-
                 return $identifier;
 
             }
@@ -461,13 +457,12 @@ class DataObjectGenerator
     }
 
     /**
-     * @param        $content
-     * @param string $tab
+     * @param         $content
+     * @param  string $tab
      * @return mixed
      */
     protected function beautify($content, $tab = '    ')
     {
-
         return str_replace("\n", "\n" . $tab, $content);
 
     }

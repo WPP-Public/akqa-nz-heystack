@@ -45,7 +45,6 @@ class Config
      */
     public function getConfig($identifier)
     {
-
         return array_key_exists($identifier, $this->data)
             ? $this->data[$identifier]
             : false;

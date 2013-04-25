@@ -23,7 +23,7 @@ class TestStorageBackend implements BackendInterface
     }
 
     /**
-     * @param StorableInterface $object
+     * @param  StorableInterface $object
      * @return mixed
      */
     public function write(StorableInterface $object)

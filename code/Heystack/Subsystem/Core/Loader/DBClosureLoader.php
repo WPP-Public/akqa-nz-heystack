@@ -5,7 +5,6 @@ namespace Heystack\Subsystem\Core\Loader;
 use Closure;
 use SQLQuery;
 use Symfony\Component\Config\Loader\Loader;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class DBLoader
@@ -18,7 +17,7 @@ class DBClosureLoader extends Loader
      */
     protected $handler;
     /**
-     * @param callable         $handler
+     * @param callable $handler
      */
     public function __construct(Closure $handler)
     {

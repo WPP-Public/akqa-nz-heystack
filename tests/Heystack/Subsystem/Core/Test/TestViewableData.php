@@ -10,7 +10,7 @@ class TestViewableData implements ViewableDataInterface
     protected $dynamicMethods = array();
     protected $castings = array();
 
-    function __construct($data = array(), $castings = array())
+    public function __construct($data = array(), $castings = array())
     {
         foreach ($data as $key => $value) {
 

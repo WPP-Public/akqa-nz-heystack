@@ -7,19 +7,17 @@ use Heystack\Subsystem\Core\Storage\Traits\ParentReferenceTrait;
 
 class TestStorable implements StorableInterface
 {
-    
+
     use ParentReferenceTrait;
 
     public function getSchemaName()
     {
-
         return 'test';
 
     }
 
     public function getStorableBackendIdentifiers()
     {
-
         return array(
             'test'
         );
@@ -28,7 +26,6 @@ class TestStorable implements StorableInterface
 
     public function getStorableData()
     {
-
         return array(
             'data' => array(
                 'hello' => 'hello',
@@ -42,7 +39,6 @@ class TestStorable implements StorableInterface
 
     public function getStorableIdentifier()
     {
-
         return 'test';
 
     }

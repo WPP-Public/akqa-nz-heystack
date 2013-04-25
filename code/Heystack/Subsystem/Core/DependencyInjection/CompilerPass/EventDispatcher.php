@@ -35,23 +35,22 @@ class EventDispatcher implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
 
-        if(!$container->hasDefinition(Services::EVENT_DISPATCHER)){
-            
+        if (!$container->hasDefinition(Services::EVENT_DISPATCHER)) {
             return;
-            
+
         }
-        
+
         $definition = $container->getDefinition(Services::EVENT_DISPATCHER);
-        
+
         $taggedServices = $container->findTaggedServiceIds(Services::EVENT_DISPATCHER . '.subscriber');
-        
-        foreach($taggedServices as $id => $attributes){
-            
+
+        foreach ($taggedServices as $id => $attributes) {
+
             $definition->addMethodCall(
                 'addSubscriber',
                 array(new Reference($id))
             );
-            
+
         }
 
     }

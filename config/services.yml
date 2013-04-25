@@ -36,7 +36,7 @@ parameters:
     memcache.class: Memcache
     memcache.host: localhost
     memcache.port: 11211
-    
+
     memcache.prefix: heystack_
 
 services:
@@ -59,7 +59,7 @@ services:
 
     memcache:
         class: %memcache.class%
-        calls: 
+        calls:
             - [ connect, [ %memcache.host%, %memcache.port% ] ]
 
     session:

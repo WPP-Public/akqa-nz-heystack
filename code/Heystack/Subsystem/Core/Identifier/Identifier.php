@@ -69,7 +69,7 @@ class Identifier implements IdentifierInterface
         return $this->getFull();
     }
     /**
-     * @param IdentifierInterface $identifier
+     * @param  IdentifierInterface $identifier
      * @return bool
      */
     public function isMatch(IdentifierInterface $identifier)
@@ -77,7 +77,7 @@ class Identifier implements IdentifierInterface
         return $this->primary === $identifier->getPrimary();
     }
     /**
-     * @param IdentifierInterface $identifier
+     * @param  IdentifierInterface $identifier
      * @return bool
      */
     public function isMatchStrict(IdentifierInterface $identifier)

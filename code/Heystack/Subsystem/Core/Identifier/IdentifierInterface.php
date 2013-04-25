@@ -18,12 +18,12 @@ interface IdentifierInterface
      */
     public function getSecondaries();
     /**
-     * @param IdentifierInterface $identifier
+     * @param  IdentifierInterface $identifier
      * @return bool
      */
     public function isMatch(IdentifierInterface $identifier);
     /**
-     * @param IdentifierInterface $identifier
+     * @param  IdentifierInterface $identifier
      * @return bool
      */
     public function isMatchStrict(IdentifierInterface $identifier);

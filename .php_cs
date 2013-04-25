@@ -4,7 +4,9 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->name('*.php')
     ->exclude(array(
         'vendor',
-        'cache'
+        'cache',
+        'build',
+        'sapphire'
     ))
     ->in(__DIR__);
 

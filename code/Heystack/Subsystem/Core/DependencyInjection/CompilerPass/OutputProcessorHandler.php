@@ -35,23 +35,22 @@ class OutputProcessorHandler implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
 
-        if(!$container->hasDefinition(Services::OUTPUT_PROCESSOR_HANDLER)){
-            
+        if (!$container->hasDefinition(Services::OUTPUT_PROCESSOR_HANDLER)) {
             return;
-            
+
         }
-        
+
         $definition = $container->getDefinition(Services::OUTPUT_PROCESSOR_HANDLER);
-        
+
         $taggedServices = $container->findTaggedServiceIds(Services::OUTPUT_PROCESSOR_HANDLER . '.processor');
-        
-        foreach($taggedServices as $id => $attributes){
-            
+
+        foreach ($taggedServices as $id => $attributes) {
+
             $definition->addMethodCall(
                 'addProcessor',
                 array(new Reference($id))
             );
-            
+
         }
 
     }

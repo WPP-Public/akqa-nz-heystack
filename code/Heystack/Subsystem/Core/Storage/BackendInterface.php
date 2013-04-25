@@ -17,7 +17,7 @@ namespace Heystack\Subsystem\Core\Storage;
 interface BackendInterface
 {
     /**
-     * @param StorableInterface $object
+     * @param  StorableInterface $object
      * @return mixed
      */
     public function write(StorableInterface $object);

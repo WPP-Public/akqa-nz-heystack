@@ -24,19 +24,19 @@ class TestExtraDataDataObjectStateable extends \DataObject
     {
         return $this->extraData;
     }
-    
+
     public function setSomething($value)
     {
-        
+
         $this->Something = $value;
-        
+
     }
-    
+
     public function setSomething2($value)
     {
-        
+
         $this->Something2 = $value;
-        
+
     }
 
 }

@@ -49,7 +49,7 @@ interface DataObjectGeneratorSchemaInterface
      */
     public function getChildStorage();
     /**
-     * @param DataObjectGeneratorSchemaInterface $schema
+     * @param  DataObjectGeneratorSchemaInterface $schema
      * @return mixed
      */
     public function mergeSchema(DataObjectGeneratorSchemaInterface $schema);

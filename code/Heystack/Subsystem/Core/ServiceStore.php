@@ -12,7 +12,6 @@
 namespace Heystack\Subsystem\Core;
 
 use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Service store allows acess to the Symfony dependency injection container from SilverStripe code.
@@ -40,7 +39,6 @@ class ServiceStore
      */
     public static function get()
     {
-
         return self::$serviceContainer;
 
     }
@@ -62,7 +60,6 @@ class ServiceStore
      */
     public static function getService($service)
     {
-
         return self::$serviceContainer instanceof Container ? self::$serviceContainer->get($service) : null;
 
     }

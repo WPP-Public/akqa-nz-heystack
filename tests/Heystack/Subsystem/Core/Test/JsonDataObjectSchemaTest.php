@@ -55,7 +55,6 @@ class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             'Test' => 'Text'
         ), $this->schema->getFlatStorage());
-        
 
         $this->assertEquals(array(), $this->schema->getRelatedStorage());
 

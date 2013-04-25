@@ -10,7 +10,6 @@ trait DataObjectSerializableTrait
     public function serialize()
     {
         if ($this instanceof ExtraDataInterface) {
-
             return serialize(array($this->record,$this->getExtraData()));
 
         }

@@ -18,7 +18,7 @@ class TestDataObjectSchema implements DataObjectGeneratorSchemaInterface
     /**
      * @param $id
      */
-    function __construct($id)
+    public function __construct($id)
     {
         $this->id = $id;
     }
@@ -72,7 +72,7 @@ class TestDataObjectSchema implements DataObjectGeneratorSchemaInterface
         return array();
     }
     /**
-     * @param DataObjectGeneratorSchemaInterface $schema
+     * @param  DataObjectGeneratorSchemaInterface $schema
      * @return bool
      */
     public function mergeSchema(DataObjectGeneratorSchemaInterface $schema)

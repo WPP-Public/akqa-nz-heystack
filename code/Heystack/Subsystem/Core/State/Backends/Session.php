@@ -46,7 +46,6 @@ class Session implements BackendInterface
 
     public function getKeys()
     {
-
         return array_keys($this->session->inst_getAll());
 
     }
@@ -61,7 +60,6 @@ class Session implements BackendInterface
 
     public function getByKey($key)
     {
-
         return $this->session->inst_get($key);
 
     }
@@ -78,13 +76,13 @@ class Session implements BackendInterface
     {
 
         foreach (array_keys($this->session->inst_getAll()) as $key) {
-            
+
             if (!in_array($key, $exclude)) {
-                
+
                 $this->removeByKey($key);
-                
+
             }
-            
+
         }
 
     }

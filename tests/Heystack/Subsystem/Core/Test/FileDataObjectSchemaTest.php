@@ -78,7 +78,6 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
             $stub->__construct(serialize($config), $this->stateStub);
 
         } catch (ConfigurationException $e) {
-
             return $e->getMessage();
 
         }

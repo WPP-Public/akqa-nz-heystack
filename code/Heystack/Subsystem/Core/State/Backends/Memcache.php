@@ -87,14 +87,12 @@ class Memcache implements BackendInterface
 
     public function getByKey($key)
     {
-
         return $this->memcache->get($this->key($key));
 
     }
 
     public function removeByKey($key)
     {
-
         return $this->memcache->delete($this->key($key));
 
     }
@@ -116,7 +114,6 @@ class Memcache implements BackendInterface
 
     protected function key($key)
     {
-
         return !is_null($this->session) ? session_id() . '_' . $key : $this->prefix . $key;
 
     }

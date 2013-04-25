@@ -10,11 +10,10 @@ class TestContainerExtension implements ExtensionInterface
 
     protected $arguments = array();
 
-    function __construct($arguments)
+    public function __construct($arguments)
     {
         $this->arguments = $arguments;
     }
-
 
     /**
      * Loads a specific configuration.
@@ -76,6 +75,5 @@ class TestContainerExtension implements ExtensionInterface
     {
         return 'test_extension';
     }
-
 
 }

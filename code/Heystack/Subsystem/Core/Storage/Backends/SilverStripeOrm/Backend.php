@@ -81,9 +81,9 @@ class Backend implements BackendInterface
         return new Identifier(self::IDENTIFIER);
     }
     /**
-     * @param DataObjectGeneratorSchemaInterface $schema
-     * @param StorableInterface                  $dataProvider
-     * @param StorableInterface                  $object
+     * @param  DataObjectGeneratorSchemaInterface                        $schema
+     * @param  StorableInterface                                         $dataProvider
+     * @param  StorableInterface                                         $object
      * @return mixed
      * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
      */
@@ -170,7 +170,7 @@ class Backend implements BackendInterface
     }
 
     /**
-     * @param StorableInterface $object
+     * @param  StorableInterface                                         $object
      * @return mixed
      * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
      */
@@ -188,7 +188,6 @@ class Backend implements BackendInterface
             if ($schema instanceof DataObjectGeneratorSchemaInterface) {
 
                 $storedObject = $this->writeStoredDataObject($schema, $dataProvider, $object);
-
 
                 $this->eventService->dispatch(
                     self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
