@@ -1,12 +1,11 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
+namespace Heystack\Subsystem\Core\Generate;
 
 use Heystack\Subsystem\Core\Exception\ConfigurationException;
 
 class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 {
-
     protected $stateStub;
     protected $schema;
 
@@ -64,7 +63,6 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 
     public function helperTryCatch($config)
     {
-
         try {
 
             $stub = $this->getMockBuilder(
@@ -83,6 +81,5 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
         }
 
         return null;
-
     }
 }

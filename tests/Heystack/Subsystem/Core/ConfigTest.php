@@ -1,12 +1,9 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
-
-use Heystack\Subsystem\Core\Config;
+namespace Heystack\Subsystem\Core;
 
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {
-
     protected $config;
 
     protected function setUp()
@@ -29,5 +26,4 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(false, $this->config->getConfig('test'));
     }
-
 }

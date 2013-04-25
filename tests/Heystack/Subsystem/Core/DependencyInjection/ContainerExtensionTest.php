@@ -1,8 +1,7 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
+namespace Heystack\Subsystem\Core\DependencyInjection;
 
-use Heystack\Subsystem\Core\DependencyInjection\ContainerExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ContainerExtensionTest extends \PHPUnit_Framework_TestCase

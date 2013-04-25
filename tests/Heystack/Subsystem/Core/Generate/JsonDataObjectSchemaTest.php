@@ -1,12 +1,9 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
-
-use Heystack\Subsystem\Core\Generate\JsonDataObjectSchema;
+namespace Heystack\Subsystem\Core\Generate;
 
 class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 {
-
     protected $state;
     protected $schema;
 
@@ -33,7 +30,6 @@ class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 
     public function testSchema()
     {
-
         $message = null;
 
         try {
@@ -52,35 +48,45 @@ class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('test', $this->schema->getDataProviderIdentifier());
 
-        $this->assertEquals(array(
-            'Test' => 'Text'
-        ), $this->schema->getFlatStorage());
+        $this->assertEquals(
+            array(
+                'Test' => 'Text'
+            ),
+            $this->schema->getFlatStorage()
+        );
 
         $this->assertEquals(array(), $this->schema->getRelatedStorage());
 
         $this->assertEquals(array(), $this->schema->getParentStorage());
 
-        $this->assertEquals(array(
-            'Tests' => '+Test'
-        ), $this->schema->getChildStorage());
-
+        $this->assertEquals(
+            array(
+                'Tests' => '+Test'
+            ),
+            $this->schema->getChildStorage()
+        );
     }
 
     public function testSchemaMerge()
     {
+        $this->schema->mergeSchema(
+            new JsonDataObjectSchema('tests/Heystack/Subsystem/Core/Test/schemas/test_schema2.json', $this->state)
+        );
 
-        $this->schema->mergeSchema(new JsonDataObjectSchema('tests/Heystack/Subsystem/Core/Test/schemas/test_schema2.json', $this->state));
+        $this->assertEquals(
+            array(
+                'Test'  => 'Text',
+                'Test2' => 'Text'
+            ),
+            $this->schema->getFlatStorage()
+        );
 
-        $this->assertEquals(array(
-            'Test' => 'Text',
-            'Test2' => 'Text'
-        ), $this->schema->getFlatStorage());
-
-        $this->assertEquals(array(
-            'Tests' => '+Test',
-            'Tests2' => '+Test2'
-        ), $this->schema->getChildStorage());
-
+        $this->assertEquals(
+            array(
+                'Tests'  => '+Test',
+                'Tests2' => '+Test2'
+            ),
+            $this->schema->getChildStorage()
+        );
     }
-
 }

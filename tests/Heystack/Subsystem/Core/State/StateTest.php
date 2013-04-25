@@ -1,8 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
-
-use Heystack\Subsystem\Core\State\State;
+namespace Heystack\Subsystem\Core\State;
 
 class StateTest extends \PHPUnit_Framework_TestCase
 {

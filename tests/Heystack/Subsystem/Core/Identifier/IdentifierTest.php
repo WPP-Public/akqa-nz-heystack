@@ -1,8 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
-
-use Heystack\Subsystem\Core\Identifier\Identifier;
+namespace Heystack\Subsystem\Core\Identifier;
 
 class IdentifierTest extends \PHPUnit_Framework_TestCase
 {
