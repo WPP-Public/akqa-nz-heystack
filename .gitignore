@@ -1,5 +1,4 @@
-build/*
-!build/phpmd.xml
-.idea
-sapphire
-vendor
+/build
+/.idea
+/sapphire
+/vendor

@@ -2,7 +2,7 @@
 
 define('UNIT_TESTING', true);
 define('HEYSTACK_BASE_PATH', dirname(__DIR__));
-define('BASE_PATH', realpath(HEYSTACK_BASE_PATH));
+define('BASE_PATH', HEYSTACK_BASE_PATH);
 
 if (file_exists(HEYSTACK_BASE_PATH . '/vendor/autoload.php')) {
 
