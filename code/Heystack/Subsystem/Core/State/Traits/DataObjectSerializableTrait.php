@@ -20,7 +20,6 @@ trait DataObjectSerializableTrait
 
     public function unserialize($data)
     {
-
         $this->class = get_class($this);
 
         if ($this instanceof ExtraDataInterface) {
@@ -34,7 +33,5 @@ trait DataObjectSerializableTrait
             $this->record = unserialize($data);
 
         }
-
     }
-
 }
