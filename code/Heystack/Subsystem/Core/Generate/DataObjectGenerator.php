@@ -119,20 +119,8 @@ class DataObjectGenerator
      */
     public function process($force = false)
     {
-
-        // get all the previously created objects and delete them
-        $cachedFiles = glob(BASE_PATH . '/heystack/cache/Cached*', GLOB_NOSORT);
-
-        foreach ($cachedFiles as $cachedFile) {
-
-            $this->output('Deleting: ' . $cachedFile);
-
-            unlink($cachedFile);
-
-        }
-
-        $dirMysite = BASE_PATH . DIRECTORY_SEPARATOR . 'mysite/code/HeystackStorage';
-        $dirCache = realpath(BASE_PATH . DIRECTORY_SEPARATOR . 'heystack/cache');
+        $dirMysite = BASE_PATH . '/mysite/code/HeystackStorage';
+        $dirCache = $dirMysite . '/cache';
 
         // check if the generated directoru exists, if not create it
         if (!is_dir($dirMysite)) {
@@ -143,12 +131,22 @@ class DataObjectGenerator
 
         }
 
-        // check if the cached directoru exists, if not create it
         if (!is_dir($dirCache)) {
 
             $this->output('Creating: ' . $dirCache);
 
             mkdir($dirCache);
+
+        }
+
+        // get all the previously created objects and delete them
+        $cachedFiles = glob($dirCache . '/Cached*', GLOB_NOSORT);
+
+        foreach ($cachedFiles as $cachedFile) {
+
+            $this->output('Deleting: ' . $cachedFile);
+
+            unlink($cachedFile);
 
         }
 
