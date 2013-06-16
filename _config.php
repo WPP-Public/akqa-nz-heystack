@@ -2,17 +2,32 @@
 
 define('HEYSTACK_BASE_PATH', __DIR__);
 
-use Heystack\Subsystem\Core;
+/**
+ * Heystack requires config from environment
+ */
+require_once SAPPHIRE_PATH . '/conf/ConfigureFromEnv.php';
 
-require_once 'conf/ConfigureFromEnv.php';
+/**
+ * Ensure things have been configured
+ */
+global $databaseConfig;
 
-$mode = Director::get_environment_type();
-$containerName = "HeystackServiceContainer$mode";
-$containerFile = HEYSTACK_BASE_PATH . "/cache/$containerName.php";
-
-if (file_exists($containerFile)) {
-    require_once $containerFile;
-    Core\ServiceStore::set($container = new $containerName());
-    Session::start();
-    $container->get('event_dispatcher')->dispatch(Core\Events::READY);
+if (!isset($databaseConfig['database']) || !$databaseConfig['database']) {
+    throw new \RuntimeException(
+        'Heystack requires configuration from environment please add an _ss_environment.php ' .
+        'file and ensure the environment type and database details are present'
+    );
 }
+
+/**
+ * Session needs to be started before dispatching the ready event
+ */
+Session::start();
+
+/**
+ * Get the container (creating it if needed)
+ */
+$container = require_once HEYSTACK_BASE_PATH . '/config/container.php';
+$container->get('event_dispatcher')->dispatch(Heystack\Subsystem\Core\Events::READY);
+
+

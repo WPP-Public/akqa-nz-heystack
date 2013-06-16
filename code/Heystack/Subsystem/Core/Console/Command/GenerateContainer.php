@@ -40,6 +40,10 @@ class GenerateContainer extends Command
      */
     protected function execute(Input\InputInterface $input, Output\OutputInterface $output)
     {
+        // Ensure database connection
+        global $databaseConfig;
+        \DB::connect($databaseConfig);
+
         $mode = \Director::get_environment_type();
 
         if ($input->getOption('mode')) {

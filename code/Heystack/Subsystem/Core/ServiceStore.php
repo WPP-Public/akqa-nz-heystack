@@ -49,9 +49,7 @@ class ServiceStore
      */
     public static function set(Container $container)
     {
-
-        self::$serviceContainer = $container;
-
+        return self::$serviceContainer = $container;
     }
     /**
      * Gets a specific service by name from the service container
