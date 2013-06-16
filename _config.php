@@ -1,5 +1,8 @@
 <?php
 
+use Heystack\Subsystem\Core\Events;
+use Heystack\Subsystem\Core\Services;
+
 define('HEYSTACK_BASE_PATH', __DIR__);
 
 /**
@@ -28,6 +31,6 @@ Session::start();
  * Get the container (creating it if needed)
  */
 $container = require_once HEYSTACK_BASE_PATH . '/config/container.php';
-$container->get('event_dispatcher')->dispatch(Heystack\Subsystem\Core\Events::READY);
+$container->get(Services::EVENT_DISPATCHER)->dispatch(Events::READY);
 
 

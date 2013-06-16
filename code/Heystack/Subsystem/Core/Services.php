@@ -48,5 +48,4 @@ final class Services
 
     const SS_ORM_BACKEND = 'ss_orm_backend';
     const STORAGE = 'storage';
-
 }
