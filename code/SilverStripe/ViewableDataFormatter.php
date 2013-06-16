@@ -55,7 +55,7 @@ class ViewableDataFormatter extends \ViewableData
         if (method_exists($this->obj, 'get' . $method)) {
             return call_user_func_array(array($this->obj, 'get' . $method), $arguments);
         } elseif (in_array($method, $this->obj->getDynamicMethods())) {
-            return $this->obj->$method;
+            return call_user_func_array(array($this->obj, $method), $arguments);
         }
 
         return false;
