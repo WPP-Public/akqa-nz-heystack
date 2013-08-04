@@ -1,7 +1,7 @@
 <?php
 
 namespace Heystack\Subsystem\Core\Interfaces;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class HasDealHandlerInterface
@@ -18,5 +18,5 @@ interface HasEventServiceInterface
      * @param HasEventServiceInterface $eventService
      * @return mixed
      */
-    public function setEventService(EventDispatcher $eventService);
+    public function setEventService(EventDispatcherInterface $eventService);
 }

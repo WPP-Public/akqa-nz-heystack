@@ -1,22 +1,22 @@
 <?php
 
 namespace Heystack\Subsystem\Core\Traits;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 trait HasEventService
 {
     /**
-     * @var \Heystack\Subsystem\Deals\Interfaces\DealHandlerInterface
+     * @var \Symfony\Component\EventDispatcher\EventDispatcher
      */
     protected $eventService;
 
-    public function setEventService(EventDispatcher $eventService)
+    public function setEventService(EventDispatcherInterface $eventService)
     {
         $this->$eventService = $eventService;
     }
 
     /**
-     * @return \Heystack\Subsystem\Deals\Interfaces\DealHandlerInterface
+     * @return \Symfony\Component\EventDispatcher\EventDispatcher
      */
     public function getEventService()
     {
