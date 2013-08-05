@@ -14,7 +14,7 @@ namespace Heystack\Subsystem\Core\State\Backends;
 use Heystack\Subsystem\Core\State\BackendInterface;
 
 /**
- * Memcache storage for backend
+ * Null backend storage
  */
 class NullBackend implements BackendInterface
 {
