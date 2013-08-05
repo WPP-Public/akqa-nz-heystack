@@ -37,7 +37,6 @@ class EventDispatcher implements CompilerPassInterface
 
         if (!$container->hasDefinition(Services::EVENT_DISPATCHER)) {
             return;
-
         }
 
         $definition = $container->getDefinition(Services::EVENT_DISPATCHER);

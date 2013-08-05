@@ -15,6 +15,12 @@ class State
      * @var BackendInterface|null
      */
     private $backend = null;
+
+    /**
+     * @var
+     */
+    private $enabled = true;
+
     /**
      * @param BackendInterface $backend
      */
@@ -28,7 +34,9 @@ class State
      */
     public function setObj($key, \Serializable $obj)
     {
-        $this->setByKey($key, $obj);
+        if ($this->getEnabled()) {
+            $this->setByKey($key, $obj);
+        }
     }
     /**
      * @param $key
@@ -44,7 +52,9 @@ class State
      */
     public function setByKey($key, $val)
     {
-        $this->backend->setByKey($key, serialize($val));
+        if ($this->getEnabled()) {
+            $this->backend->setByKey($key, serialize($val));
+        }
     }
     /**
      * @param $key
@@ -74,5 +84,15 @@ class State
     public function getKeys()
     {
         return $this->backend->getKeys();
+    }
+
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
+    public function getEnabled()
+    {
+        return $this->enabled;
     }
 }

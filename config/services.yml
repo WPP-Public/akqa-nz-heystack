@@ -4,7 +4,7 @@ parameters:
     state.class: Heystack\Subsystem\Core\State\State
     backend_session.class: Heystack\Subsystem\Core\State\Backends\Session
     backend_memcache.class: Heystack\Subsystem\Core\State\Backends\Memcache
-    event_dispatcher.class: Symfony\Component\EventDispatcher\EventDispatcher
+    event_dispatcher.class: Heystack\Subsystem\Core\EventDispatcher
     input_processor_handler.class: Heystack\Subsystem\Core\Input\Handler
     output_processor_handler.class: Heystack\Subsystem\Core\Output\Handler
     console.application.class: Heystack\Subsystem\Core\Console\Application

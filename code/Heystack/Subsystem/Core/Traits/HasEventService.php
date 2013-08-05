@@ -12,7 +12,7 @@ trait HasEventService
 
     public function setEventService(EventDispatcherInterface $eventService)
     {
-        $this->$eventService = $eventService;
+        $this->eventService = $eventService;
     }
 
     /**
