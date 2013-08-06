@@ -7,6 +7,6 @@ interface HasDataInterface
 {
 
     public function setData($data);
-    public function getData($data);
+    public function getData();
 
 }
