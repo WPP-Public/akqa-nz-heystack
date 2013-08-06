@@ -15,5 +15,6 @@ interface HasStateServiceInterface
      * @param HasStateServiceInterface $eventService
      * @return mixed
      */
-    public function setStateService(State $eventService);
+    public function setStateService(State $stateService);
+    public function getStateService();
 }
