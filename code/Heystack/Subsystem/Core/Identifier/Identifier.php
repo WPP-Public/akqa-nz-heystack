@@ -51,15 +51,21 @@ class Identifier implements IdentifierInterface
      */
     public function getFull()
     {
-        return implode(
-            self::GLUE,
-            array_merge(
-                array(
-                    $this->primary
-                ),
-                $this->secondaries
-            )
-        );
+        if (count($this->secondaries)) {
+
+            return implode(
+                self::GLUE,
+                array_merge(
+                    array(
+                        $this->primary
+                    ),
+                    $this->secondaries
+                )
+            );
+
+        }
+
+        return $this->primary;
     }
     /**
      * @return string
