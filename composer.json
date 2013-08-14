@@ -21,7 +21,8 @@
         "psr-0": {
             "Heystack": "code/"
         },
-        "classmap": ["code/SilverStripe"]
+        "classmap": ["code/SilverStripe"],
+        "files": ["code/Heystack/Subsystem/Code/Util/functions.php"]
     },
     "extra": {
         "installer-paths": {
