@@ -4,11 +4,11 @@
     "require": {
         "php": ">=5.4.0",
         "composer/installers": "~1.0.0",
-        "symfony/event-dispatcher": "~2.2",
-        "symfony/dependency-injection": "~2.2",
-        "symfony/console": "~2.2",
-        "monolog/monolog": ">=1.0,<1.2-dev",
-        "camspiers/shared-dependency-injection":"~0.4"
+        "symfony/event-dispatcher": "~2.3",
+        "symfony/dependency-injection": "~2.3",
+        "symfony/console": "~2.3",
+        "monolog/monolog": "~1.6",
+        "camspiers/shared-dependency-injection": "~0.4"
     },
     "require-dev": {
         "silverstripe/framework": "~2.4",
@@ -22,7 +22,7 @@
             "Heystack": "code/"
         },
         "classmap": ["code/SilverStripe"],
-        "files": ["code/Heystack/Subsystem/Code/Util/functions.php"]
+        "files": ["code/Heystack/Subsystem/Core/Util/functions.php"]
     },
     "extra": {
         "installer-paths": {
