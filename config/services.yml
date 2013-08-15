@@ -100,9 +100,6 @@ services:
     output_processor_handler:
       class: %output_processor_handler.class%
 
-    monolog_multiline_formatter:
-      class: Monolog\Formatter\MultiLineFormatter
-
     monolog_web_processor:
       class: Monolog\Processor\WebProcessor
 
@@ -115,20 +112,14 @@ services:
     monolog_stream_handler:
       class: Monolog\Handler\StreamHandler
       arguments: [ %monolog.stream_handler.file_location%,  %monolog.level.debug%]
-      calls:
-        - [ setFormatter, [ @monolog_multiline_formatter ] ]
 
     monolog_dev_stream_handler:
       class: Monolog\Handler\StreamHandler
       arguments: [ %monolog.stream_handler.dev_file_location%, %monolog.level.debug%]
-      calls:
-        - [ setFormatter, [ @monolog_multiline_formatter ] ]
 
     monolog_mail_handler:
       class: Monolog\Handler\NativeMailerHandler
       arguments: [ %monolog.mail_handler.to%, %monolog.mail_handler.subject%, %monolog.mail_handler.from%, %monolog.level.error% ]
-      calls:
-        - [ setFormatter, [ @monolog_multiline_formatter ] ]
 
     monolog_chrome_handler:
         class: Monolog\Handler\ChromePHPHandler

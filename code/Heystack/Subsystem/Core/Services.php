@@ -33,7 +33,6 @@ final class Services
     const INPUT_PROCESSOR_HANDLER = 'input_processor_handler';
     const OUTPUT_PROCESSOR_HANDLER = 'output_processor_handler';
 
-    const MONOLOG_MULTILINE_FORMATTER = 'monolog_multiline_formatter';
     const MONOLOG_WEB_PROCESSOR = 'monolog_web_processor';
     const MONOLOG_PEAK_MEMORY_PROCESSOR = 'monolog_peak_memory_processor';
     const MONOLOG_INTROSPECTION_PROCESSOR = 'monolog_introspection_processor';
