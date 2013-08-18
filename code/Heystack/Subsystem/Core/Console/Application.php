@@ -20,7 +20,7 @@ class Application extends BaseApplication
      */
     public function __construct()
     {
-        parent::__construct('Heystack', '1.1');
+        parent::__construct('Heystack', '2.1.1');
     }
     /**
      * @param Logger $logger
