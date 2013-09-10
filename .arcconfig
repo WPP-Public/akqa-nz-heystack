@@ -1,8 +1,6 @@
 {
   "project_id": "Heystack",
   "conduit_uri": "https://phabricator.heyday.net.nz/",
-  "unit.engine": "PhpunitTestEngine",
-  "phpunit_config": "phpunit.xml.dist",
   "lint.engine.single.linter": "ArcanistPhpcsLinter",
   "lint.engine": "ArcanistSingleLintEngine",
   "lint.phpcs.standard": "PSR2"

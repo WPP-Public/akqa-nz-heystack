@@ -24,16 +24,14 @@ if (is_null($loader) || !$loader instanceof ClassLoader) {
  */
 $_FILE_TO_URL_MAPPING[BASE_PATH] = 'http://localhost';
 
-require_once BASE_PATH . '/sapphire/core/Core.php';
+require_once BASE_PATH . '/framework/core/Core.php';
 
 if (function_exists('mb_http_output')) {
     mb_http_output('UTF-8');
     mb_internal_encoding('UTF-8');
 }
 
-require_once BASE_PATH . '/sapphire/core/model/DB.php';
-
-\ManifestBuilder::create_manifest_file();
+//\ManifestBuilder::create_manifest_file();
 /**
  * End: Load silverstripe
  */

@@ -7,6 +7,7 @@
  */
 
 use Heystack\Subsystem\Core\ViewableData\ViewableDataInterface;
+
 /**
  * Allows objects that implement \Heystack\Subsystem\Core\ViewableDataInterface
  * to be used in SS templates.
@@ -16,12 +17,56 @@ use Heystack\Subsystem\Core\ViewableData\ViewableDataInterface;
  * @package Heystack
  *
  */
-class ViewableDataFormatter extends \ViewableData
+class ViewableDataFormatter extends \ViewableData implements ArrayAccess
 {
     /**
      * @var Heystack\Subsystem\Core\ViewableData\ViewableDataInterface
      */
     protected $obj;
+
+    /**
+     * Implements ArrayAccess for use in DBFields when casting.
+     * No functionality is required
+     * @param mixed $offset
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return false;
+    }
+
+    /**
+     * Implements ArrayAccess for use in DBFields when casting.
+     * No functionality is required
+     * @param mixed $offset
+     * @return mixed|null
+     */
+    public function offsetGet($offset)
+    {
+        return null;
+    }
+
+    /**
+     * Implements ArrayAccess for use in DBFields when casting.
+     * No functionality is required
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value)
+    {
+        //Do nothing
+    }
+
+    /**
+     * Implements ArrayAccess for use in DBFields when casting.
+     * No functionality is required
+     * @param mixed $offset
+     */
+    public function offsetUnset($offset)
+    {
+        //Do nothing
+    }
+
     /**
      * @param ViewableDataInterface $obj
      */
@@ -32,6 +77,7 @@ class ViewableDataFormatter extends \ViewableData
         parent::__construct();
 
     }
+
     /**
      * @param string $field
      * @return string
@@ -45,9 +91,10 @@ class ViewableDataFormatter extends \ViewableData
             return parent::castingHelper($field);
         }
     }
+
     /**
      * @param string $method
-     * @param array  $arguments
+     * @param array $arguments
      * @return bool|mixed
      */
     public function __call($method, $arguments)
@@ -60,6 +107,7 @@ class ViewableDataFormatter extends \ViewableData
 
         return false;
     }
+
     /**
      * @param string $property
      * @return bool
@@ -72,14 +120,16 @@ class ViewableDataFormatter extends \ViewableData
 
         return false;
     }
+
     /**
      * @param string $property
-     * @param mixed  $value
+     * @param mixed $value
      */
     public function __set($property, $value)
     {
         $this->obj->$property = $value;
     }
+
     /**
      * @param string $method
      * @return bool
@@ -88,6 +138,7 @@ class ViewableDataFormatter extends \ViewableData
     {
         return method_exists($this->obj, 'get' . $method) || in_array($method, $this->obj->getDynamicMethods());
     }
+
     /**
      * @return ViewableDataInterface
      */

@@ -8,7 +8,7 @@ define('HEYSTACK_BASE_PATH', __DIR__);
 /**
  * Heystack requires config from environment
  */
-require_once SAPPHIRE_PATH . '/conf/ConfigureFromEnv.php';
+require_once FRAMEWORK_PATH . '/conf/ConfigureFromEnv.php';
 
 /**
  * Ensure things have been configured
@@ -32,5 +32,3 @@ Session::start();
  */
 $container = require_once HEYSTACK_BASE_PATH . '/config/container.php';
 $container->get(Services::EVENT_DISPATCHER)->dispatch(Events::READY);
-
-

@@ -54,8 +54,8 @@ class DataObjectGenerator
 
     /**
      * @param DataObjectGeneratorSchemaInterface $schema
-     * @param bool                               $reference
-     * @param bool                               $force
+     * @param bool $reference
+     * @param bool $force
      */
     public function addSchema(
         DataObjectGeneratorSchemaInterface $schema,
@@ -174,8 +174,8 @@ class DataObjectGenerator
             );
 
             // names for the created objects
-            $cachedObjectName           = 'Cached' . $identifier;
-            $storedObjectName           = 'Stored' . $identifier;
+            $cachedObjectName = 'Cached' . $identifier;
+            $storedObjectName = 'Stored' . $identifier;
 
             $fields = array_keys(is_array($flatStorage) ? $flatStorage : array())
                 + array_keys(is_array($parentStorage) ? $parentStorage : array());
@@ -185,13 +185,13 @@ class DataObjectGenerator
                 $dirCache,
                 $cachedObjectName,
                 array(
-                    'db'                => $flatStorage,
-                    'has_one'           => $parentStorage,
-                    'has_many'          => (array) $childStorage,
-                    'summary_fields'    => array_merge(array('Created'), $fields),
+                    'db' => $flatStorage,
+                    'has_one' => $parentStorage,
+                    'has_many' => (array)$childStorage,
+                    'summary_fields' => array_merge(array('Created'), $fields),
                     'searchable_fields' => $fields,
-                    'singular_name'     => $identifier,
-                    'plural_name'       => $identifier . 's'
+                    'singular_name' => $identifier,
+                    'plural_name' => $identifier . 's'
                 )
             );
 
@@ -234,7 +234,7 @@ class DataObjectGenerator
     /**
      * @param        $dir
      * @param        $name
-     * @param bool   $statics
+     * @param bool $statics
      * @param string $extends
      */
     protected function writeDataObject($dir, $name, $statics = false, $extends = 'DataObject')
@@ -259,20 +259,22 @@ class DataObjectGenerator
         file_put_contents(
             $dir . DIRECTORY_SEPARATOR . $name . '.php',
             singleton('ViewableData')->renderWith(
-                'DataObject_php',
-                array_merge(array(
-                    'D'                 => '$',
-                    'P'                 => '<?php',
-                    'Name'              => $name,
-                    'Extends'           => $extends,
-                    'db'                => false,
-                    'has_one'           => false,
-                    'has_many'          => false,
-                    'summary_fields'    => false,
-                    'searchable_fields' => false,
-                    'singular_name'     => false,
-                    'plural_name'       => false
-                ), $statics)
+                HEYSTACK_BASE_PATH . '/code/Heystack/Subsystem/Core/Generate/templates/DataObject_php.ss',
+                array_merge(
+                    array(
+                        'PHPTag' => '<?php',
+                        'Name' => $name,
+                        'Extends' => $extends,
+                        'db' => false,
+                        'has_one' => false,
+                        'has_many' => false,
+                        'summary_fields' => false,
+                        'searchable_fields' => false,
+                        'singular_name' => false,
+                        'plural_name' => false
+                    ),
+                    $statics
+                )
             )
         );
 
@@ -283,7 +285,7 @@ class DataObjectGenerator
     /**
      * @param        $dir
      * @param        $name
-     * @param bool   $statics
+     * @param bool $statics
      * @param string $extends
      */
     protected function writeModelAdmin($dir, $name, $statics = false, $extends = 'ModelAdmin')
@@ -308,12 +310,11 @@ class DataObjectGenerator
         file_put_contents(
             $dir . DIRECTORY_SEPARATOR . $name . '.php',
             singleton('ViewableData')->renderWith(
-                'ModelAdmin_php',
+                HEYSTACK_BASE_PATH . '/code/Heystack/Subsystem/Core/Generate/templates/ModelAdmin_php.ss',
                 array(
-                    'D'         => '$',
-                    'P'         => '<?php',
-                    'Name'      => $name,
-                    'Extends'   => $extends
+                    'PHPTag' => '<?php',
+                    'Name' => $name,
+                    'Extends' => $extends
                 )
                 +
                 $statics
@@ -475,5 +476,4 @@ class DataObjectGenerator
         echo $message, $break;
 
     }
-
 }

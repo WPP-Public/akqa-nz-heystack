@@ -11,7 +11,7 @@
         "camspiers/shared-dependency-injection": "~0.4"
     },
     "require-dev": {
-        "silverstripe/framework": "~2.4",
+        "silverstripe/framework": "~3.1@dev",
         "symfony/class-loader": "~2.2",
         "phpmd/phpmd": "1.4.*",
         "pdepend/pdepend": "1.1.*",
@@ -25,14 +25,8 @@
         "files": ["code/Heystack/Subsystem/Core/Util/functions.php"]
     },
     "extra": {
-        "installer-paths": {
-            "sapphire": [
-                "silverstripe/framework"
-            ]
-        },
         "branch-alias": {
-            "dev-master": "2.0.x-dev",
-            "dev-1.0": "1.0.x-dev"
+            "dev-master": "3.0.x-dev"
         }
     }
 }
