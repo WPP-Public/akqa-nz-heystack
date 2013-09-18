@@ -1,12 +1,14 @@
 <?php
-
 /**
  * This file is part of the Heystack package
  *
  * @package Heystack
  */
 
-use Heystack\Subsystem\Core\ViewableData\ViewableDataInterface;
+/**
+ * ViewableData namespace
+ */
+namespace Heystack\Subsystem\Core\ViewableData;
 
 /**
  * Allows objects that implement \Heystack\Subsystem\Core\ViewableDataInterface
@@ -14,10 +16,11 @@ use Heystack\Subsystem\Core\ViewableData\ViewableDataInterface;
  *
  * @copyright  Heyday
  * @author Cam Spiers <cameron@heyday.co.nz>
+ * @author Glenn Bautista <glenn@heyday.co.nz>
  * @package Heystack
  *
  */
-class ViewableDataFormatter extends \ViewableData implements ArrayAccess
+class ViewableDataFormatter extends \ViewableData implements \ArrayAccess
 {
     /**
      * @var Heystack\Subsystem\Core\ViewableData\ViewableDataInterface

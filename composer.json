@@ -21,7 +21,6 @@
         "psr-0": {
             "Heystack": "code/"
         },
-        "classmap": ["code/SilverStripe"],
         "files": ["code/Heystack/Subsystem/Core/Util/functions.php"]
     },
     "extra": {

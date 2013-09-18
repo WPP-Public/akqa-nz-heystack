@@ -7,7 +7,7 @@
  */
 
 /**
- * Core namespace
+ * DependencyInjection namespace
  */
 namespace Heystack\Subsystem\Core\DependencyInjection;
 
@@ -30,9 +30,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  * @package Heystack
  *
  */
-class ContainerExtension
-    extends ContainerExtensionConfigProcessor
-    implements ExtensionInterface
+class ContainerExtension extends ContainerExtensionConfigProcessor implements ExtensionInterface
 {
 
     const IDENTIFIER = 'heystack';
@@ -43,7 +41,7 @@ class ContainerExtension
      * Loads a services.yml file into a fresh container, ready to me merged
      * back into the main container
      *
-     * @param  array            $config
+     * @param  array $config
      * @param  ContainerBuilder $container
      * @return null
      */
@@ -96,5 +94,4 @@ class ContainerExtension
     {
         return $this->folder;
     }
-
 }

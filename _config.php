@@ -2,6 +2,7 @@
 
 use Heystack\Subsystem\Core\Events;
 use Heystack\Subsystem\Core\Services;
+use Heystack\Subsystem\Core\DependencyInjection\SilverStripe\HeystackInjectionCreator;
 
 define('HEYSTACK_BASE_PATH', __DIR__);
 
@@ -32,3 +33,5 @@ Session::start();
  */
 $container = require_once HEYSTACK_BASE_PATH . '/config/container.php';
 $container->get(Services::EVENT_DISPATCHER)->dispatch(Events::READY);
+
+Injector::inst()->setObjectCreator(new HeystackInjectionCreator($container));
