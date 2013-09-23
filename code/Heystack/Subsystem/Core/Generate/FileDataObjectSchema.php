@@ -20,19 +20,33 @@ use Heystack\Subsystem\Core\Exception\ConfigurationException;
 /**
  * Uses yaml files to provide a schema for dataobject class creation
  *
- * @author Cam Spiers <cameron@heyday.co.nz>
- * @author Stevie Mayhew <stevie@heyday.co.nz>
+ * @author  Cam Spiers <cameron@heyday.co.nz>
+ * @author  Stevie Mayhew <stevie@heyday.co.nz>
  * @package Heystack
  */
 abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterface, StateableInterface
 {
 
+    /**
+     * @var array
+     */
     private $config;
 
+    /**
+     * @var \Heystack\Subsystem\Core\State\State
+     */
     private $stateService;
 
+    /**
+     * @var string
+     */
     private $stateKey;
 
+    /**
+     * @param       $file
+     * @param State $stateService
+     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     */
     public function __construct($file, State $stateService)
     {
         $this->stateService = $stateService;
@@ -67,21 +81,31 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
 
             }
 
-             $this->config = $config;
+            $this->config = $config;
 
-             $this->saveState();
+            $this->saveState();
 
         }
 
     }
 
+    /**
+     * @param $file
+     * @return mixed
+     */
     abstract protected function parseFile($file);
 
+    /**
+     *
+     */
     public function saveState()
     {
         $this->stateService->setByKey($this->stateKey, $this->config);
     }
 
+    /**
+     * @return mixed
+     */
     public function restoreState()
     {
         return $this->config = $this->stateService->getByKey($this->stateKey);
@@ -94,36 +118,55 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
         return isset($this->config['id']) ? new Identifier($this->config['id']) : false;
     }
 
+    /**
+     * @return bool
+     */
     public function getDataProviderIdentifier()
     {
         return isset($this->config['data_provider_id']) ? $this->config['data_provider_id'] : false;
 
     }
 
+    /**
+     * @return array
+     */
     public function getFlatStorage()
     {
-        return isset($this->config['flat']) ? $this->config['flat'] : array();
+        return isset($this->config['flat']) ? $this->config['flat'] : [];
 
     }
 
+    /**
+     * @return array
+     */
     public function getRelatedStorage()
     {
-        return isset($this->config['related']) ? $this->config['related'] : array();
+        return isset($this->config['related']) ? $this->config['related'] : [];
 
     }
 
+    /**
+     * @return array
+     */
     public function getParentStorage()
     {
-        return isset($this->config['parent']) ? $this->config['parent'] : array();
+        return isset($this->config['parent']) ? $this->config['parent'] : [];
 
     }
 
+    /**
+     * @return array
+     */
     public function getChildStorage()
     {
-        return isset($this->config['children']) ? $this->config['children'] : array();
+        return isset($this->config['children']) ? $this->config['children'] : [];
 
     }
 
+    /**
+     * @param DataObjectGeneratorSchemaInterface $schema
+     * @return void
+     */
     public function mergeSchema(DataObjectGeneratorSchemaInterface $schema)
     {
 
@@ -152,5 +195,4 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
         }
 
     }
-
 }

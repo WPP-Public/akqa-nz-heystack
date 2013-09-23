@@ -22,8 +22,8 @@ use Symfony\Component\DependencyInjection\Container;
  * services
  *
  * @copyright  Heyday
- * @author Cam Spiers <cameron@heyday.co.nz>
- * @package Heystack
+ * @author     Cam Spiers <cameron@heyday.co.nz>
+ * @package    Heystack
  *
  */
 class ServiceStore
@@ -61,5 +61,4 @@ class ServiceStore
         return self::$serviceContainer instanceof Container ? self::$serviceContainer->get($service) : null;
 
     }
-
 }

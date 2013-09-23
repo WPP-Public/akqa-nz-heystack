@@ -4,8 +4,8 @@ namespace Heystack\Subsystem\Core\Console\Command;
 
 use Camspiers\DependencyInjection\SharedContainerFactory;
 use Heystack\Subsystem\Core\Console\Application;
-use Heystack\Subsystem\Core\ServiceStore;
 use Heystack\Subsystem\Core\Services;
+use Heystack\Subsystem\Core\ServiceStore;
 use Monolog\Logger;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
@@ -51,19 +51,17 @@ class GenerateContainer extends Command
         }
 
         SharedContainerFactory::requireExtensionConfigs(
-            array(
-                BASE_PATH . '/*/config/extensions.php'
-            )
+            [BASE_PATH . '/*/config/extensions.php']
         );
 
         try {
 
             SharedContainerFactory::dumpContainer(
                 SharedContainerFactory::createContainer(
-                    array(
+                    [
                         BASE_PATH . '/mysite/config/',
                         HEYSTACK_BASE_PATH . '/config/'
-                    ),
+                    ],
                     "services_$mode.yml"
                 ),
                 "HeystackServiceContainer$mode",

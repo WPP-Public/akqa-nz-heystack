@@ -11,11 +11,10 @@
  */
 namespace Heystack\Subsystem\Core\DependencyInjection\CompilerPass;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Reference;
-
 use Heystack\Subsystem\Core\Services;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Merges extensions definition calls into the container builder.
@@ -47,9 +46,7 @@ class DataObjectGenerator implements CompilerPassInterface
 
             $params = reset($attributes);
 
-            $schemaParameters = array(
-                new Reference($id)
-            );
+            $schemaParameters = [new Reference($id)];
 
             if (isset($params) && is_array($params) && count($params)) {
 

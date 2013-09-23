@@ -11,9 +11,8 @@
  */
 namespace Heystack\Subsystem\Core\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
 use Heystack\Subsystem\Core\Exception\ConfigurationException;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Container extension config processor for Heystack.
@@ -22,9 +21,9 @@ use Heystack\Subsystem\Core\Exception\ConfigurationException;
  * the system and subsystems.
  *
  * @copyright  Heyday
- * @author Cam Spiers <cameron@heyday.co.nz>
- * @author Glenn Bautista <glenn@heyday.co.nz>
- * @package Heystack
+ * @author     Cam Spiers <cameron@heyday.co.nz>
+ * @author     Glenn Bautista <glenn@heyday.co.nz>
+ * @package    Heystack
  *
  */
 abstract class ContainerExtensionConfigProcessor
@@ -54,13 +53,13 @@ abstract class ContainerExtensionConfigProcessor
 
         foreach ($parameters as $name => $parameter) {
             if ($parameter === '$$$') {
-                throw new ConfigurationException(<<<MESSAGE
+                throw new ConfigurationException(
+<<<MESSAGE
 The parameter: $name still has the default value.
 Please override in your /mysite/config/services.yml file
 MESSAGE
-);
+                );
             }
         }
     }
-
 }

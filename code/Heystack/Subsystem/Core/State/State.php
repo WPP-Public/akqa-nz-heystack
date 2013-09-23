@@ -74,7 +74,7 @@ class State
     /**
      * @param array $exclude
      */
-    public function removeAll(array $exclude = array())
+    public function removeAll(array $exclude = [])
     {
         $this->backend->removeAll($exclude);
     }

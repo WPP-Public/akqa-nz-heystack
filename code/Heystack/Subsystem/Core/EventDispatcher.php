@@ -17,8 +17,8 @@ class EventDispatcher extends SymfonyEventDispatcher
     protected $enabled = true;
 
     /**
-     * @param string $eventName
-     * @param Event $event
+     * @param  string     $eventName
+     * @param  Event      $event
      * @return bool|Event
      */
     public function dispatch($eventName, Event $event = null)

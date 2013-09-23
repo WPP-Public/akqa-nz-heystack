@@ -13,7 +13,6 @@ namespace Heystack\Subsystem\Core\Output;
 
 use Heystack\Subsystem\Core\Identifier\Identifier;
 use Heystack\Subsystem\Core\Output\ProcessorInterface;
-
 use Heystack\Subsystem\Core\Processor\HandlerTrait;
 
 /**
@@ -21,15 +20,16 @@ use Heystack\Subsystem\Core\Processor\HandlerTrait;
  *
  * Enables the ability to trigger multiple output processors from one request
  *
- * @author Cam Spiers <cameron@heyday.co.nz>
- * @author Stevie Mayhew <stevie@heyday.co.nz>
- * @author Glenn Bautista <glenn@heyday.co.nz>
+ * @author  Cam Spiers <cameron@heyday.co.nz>
+ * @author  Stevie Mayhew <stevie@heyday.co.nz>
+ * @author  Glenn Bautista <glenn@heyday.co.nz>
  * @package Heystack
  */
 class GroupedProcessor implements ProcessorInterface
 {
 
     use HandlerTrait;
+
     /**
      * Identifier of the grouped processor
      * @var string

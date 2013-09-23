@@ -57,7 +57,7 @@ class Memcache implements BackendInterface
 
             if (!is_array($this->keys)) {
 
-                $this->keys = array();
+                $this->keys = [];
 
             }
 
@@ -97,7 +97,7 @@ class Memcache implements BackendInterface
 
     }
 
-    public function removeAll(array $exclude = array())
+    public function removeAll(array $exclude = [])
     {
 
         if (is_array($this->keys)) {
@@ -117,5 +117,4 @@ class Memcache implements BackendInterface
         return !is_null($this->session) ? session_id() . '_' . $key : $this->prefix . $key;
 
     }
-
 }

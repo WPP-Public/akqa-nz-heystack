@@ -14,8 +14,8 @@ namespace Heystack\Subsystem\Core;
 /**
  *
  * @copyright  Heyday
- * @author Cam Spiers <cameron@heyday.co.nz>
- * @package Heystack
+ * @author     Cam Spiers <cameron@heyday.co.nz>
+ * @package    Heystack
  *
  */
 final class Services

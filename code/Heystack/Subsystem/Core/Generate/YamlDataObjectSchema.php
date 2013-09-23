@@ -12,19 +12,22 @@
 namespace Heystack\Subsystem\Core\Generate;
 
 use Heystack\Subsystem\Core\Exception\ConfigurationException;
-
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * Uses yaml files to provide a schema for dataobject class creation
  *
- * @author Cam Spiers <cameron@heyday.co.nz>
- * @author Stevie Mayhew <stevie@heyday.co.nz>
+ * @author  Cam Spiers <cameron@heyday.co.nz>
+ * @author  Stevie Mayhew <stevie@heyday.co.nz>
  * @package Heystack
  */
 class YamlDataObjectSchema extends FileDataObjectSchema
 {
-
+    /**
+     * @param $file
+     * @return array
+     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     */
     protected function parseFile($file)
     {
         $file = BASE_PATH . '/' . $file;
@@ -38,5 +41,4 @@ class YamlDataObjectSchema extends FileDataObjectSchema
         return Yaml::parse($file);
 
     }
-
 }

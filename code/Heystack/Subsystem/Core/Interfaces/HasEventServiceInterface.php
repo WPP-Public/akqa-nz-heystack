@@ -1,6 +1,7 @@
 <?php
 
 namespace Heystack\Subsystem\Core\Interfaces;
+
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -15,7 +16,7 @@ interface HasEventServiceInterface
     public function getEventService();
 
     /**
-     * @param HasEventServiceInterface $eventService
+     * @param  HasEventServiceInterface $eventService
      * @return mixed
      */
     public function setEventService(EventDispatcherInterface $eventService);

@@ -11,11 +11,10 @@
  */
 namespace Heystack\Subsystem\Core\DependencyInjection\CompilerPass;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Reference;
-
 use Heystack\Subsystem\Core\Services;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Merges extensions definition calls into the container builder.
@@ -48,7 +47,7 @@ class SilverStripeOrm implements CompilerPassInterface
 
             $definition->addMethodCall(
                 'addDataProvider',
-                array(new Reference($id))
+                [new Reference($id)]
             );
 
         }

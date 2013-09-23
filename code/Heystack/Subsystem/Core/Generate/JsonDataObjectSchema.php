@@ -16,12 +16,16 @@ use Heystack\Subsystem\Core\Exception\ConfigurationException;
 /**
  * Uses json files to provide a schema for dataobject class creation
  *
- * @author Cam Spiers <cameron@heyday.co.nz>
+ * @author  Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack
  */
 class JsonDataObjectSchema extends FileDataObjectSchema
 {
-
+    /**
+     * @param $file
+     * @return mixed
+     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     */
     protected function parseFile($file)
     {
 
@@ -34,5 +38,4 @@ class JsonDataObjectSchema extends FileDataObjectSchema
         return json_decode(file_get_contents($file), true);
 
     }
-
 }

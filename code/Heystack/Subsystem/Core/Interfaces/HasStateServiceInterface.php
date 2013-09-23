@@ -12,7 +12,7 @@ interface HasStateServiceInterface
 {
 
     /**
-     * @param HasStateServiceInterface $eventService
+     * @param  HasStateServiceInterface $eventService
      * @return mixed
      */
     public function setStateService(State $stateService);

@@ -1,6 +1,7 @@
 <?php
 
 namespace Heystack\Subsystem\Core\Traits;
+
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 trait HasEventService

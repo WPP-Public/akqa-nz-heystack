@@ -4,7 +4,7 @@ namespace Heystack\Subsystem\Core\Identifier;
 
 /**
  * Class Identifier
- * @author Cam Spiers <cameron@heyday.co.nz>
+ * @author  Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack\Subsystem\Core\Identifier
  */
 class Identifier implements IdentifierInterface
@@ -20,9 +20,9 @@ class Identifier implements IdentifierInterface
     /**
      * @var array
      */
-    protected $secondaries = array();
+    protected $secondaries = [];
     /**
-     * @param $primary
+     * @param       $primary
      * @param array $secondaries
      */
     public function __construct($primary, array $secondaries = null)
@@ -52,13 +52,10 @@ class Identifier implements IdentifierInterface
     public function getFull()
     {
         if (count($this->secondaries)) {
-
             return implode(
                 self::GLUE,
                 array_merge(
-                    array(
-                        $this->primary
-                    ),
+                    [$this->primary],
                     $this->secondaries
                 )
             );

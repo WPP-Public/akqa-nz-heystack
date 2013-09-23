@@ -11,17 +11,16 @@
  */
 namespace Heystack\Subsystem\Core\Generate;
 
-use Heystack\Subsystem\Core\State\State;
-
 use Heystack\Subsystem\Core\Exception\ConfigurationException;
+use Heystack\Subsystem\Core\State\State;
 
 /**
  * Generates SilverStripe DataObject classes based of schemas
  *
  * Generates SilverStripe DataObject classes and extensions based on added schemas
  *
- * @author Cam Spiers <cameron@heyday.co.nz>
- * @author Stevie Mayhew <stevie@heyday.co.nz>
+ * @author  Cam Spiers <cameron@heyday.co.nz>
+ * @author  Stevie Mayhew <stevie@heyday.co.nz>
  * @package Heystack
  */
 class DataObjectGenerator
@@ -30,15 +29,15 @@ class DataObjectGenerator
     /**
      * @var array
      */
-    private $schemas = array();
+    private $schemas = [];
     /**
      * @var array
      */
-    private $referenceSchemas = array();
+    private $referenceSchemas = [];
     /**
      * @var array
      */
-    private $processingFlatStorage = array();
+    private $processingFlatStorage = [];
     /**
      * @var \Heystack\Subsystem\Core\State\State
      */
@@ -150,7 +149,7 @@ class DataObjectGenerator
 
         }
 
-        $managed_models = array();
+        $managed_models = [];
 
         foreach ($this->schemas as $schema) {
 
@@ -218,11 +217,11 @@ class DataObjectGenerator
             $this->writeModelAdmin(
                 $dirCache,
                 'GeneratedModelAdmin',
-                array(
+                [
                     'managed_models' => $managed_models,
-                    'url_segment' => 'generated-admin',
-                    'menu_title' => 'Admin'
-                )
+                    'url_segment'    => 'generated-admin',
+                    'menu_title'     => 'Admin'
+                ]
             );
 
         }

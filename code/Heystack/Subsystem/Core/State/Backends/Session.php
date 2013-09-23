@@ -72,7 +72,7 @@ class Session implements BackendInterface
 
     }
 
-    public function removeAll(array $exclude = array())
+    public function removeAll(array $exclude = [])
     {
 
         foreach (array_keys($this->session->inst_getAll()) as $key) {
@@ -93,5 +93,4 @@ class Session implements BackendInterface
         $this->session->inst_save();
 
     }
-
 }

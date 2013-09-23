@@ -13,7 +13,6 @@ namespace Heystack\Subsystem\Core\Input;
 
 use Heystack\Subsystem\Core\Identifier\Identifier;
 use Heystack\Subsystem\Core\Input\ProcessorInterface;
-
 use Heystack\Subsystem\Core\Processor\HandlerTrait;
 
 /**
@@ -21,9 +20,9 @@ use Heystack\Subsystem\Core\Processor\HandlerTrait;
  *
  * Enables the ability to trigger multiple intput processors from one request
  *
- * @author Cam Spiers <cameron@heyday.co.nz>
- * @author Stevie Mayhew <stevie@heyday.co.nz>
- * @author Glenn Bautista <glenn@heyday.co.nz>
+ * @author  Cam Spiers <cameron@heyday.co.nz>
+ * @author  Stevie Mayhew <stevie@heyday.co.nz>
+ * @author  Glenn Bautista <glenn@heyday.co.nz>
  * @package Heystack
  */
 class GroupedProcessor implements ProcessorInterface
@@ -74,7 +73,7 @@ class GroupedProcessor implements ProcessorInterface
      */
     public function process(\SS_HTTPRequest $request)
     {
-        $results = array();
+        $results = [];
 
         foreach ($this->processors as $identifier => $processor) {
 

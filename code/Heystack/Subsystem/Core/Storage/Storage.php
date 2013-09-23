@@ -10,13 +10,13 @@
  */
 namespace Heystack\Subsystem\Core\Storage;
 
-/**
- *
- * Stores objects that implement StorableInterface using backends
- *
- * @author  Cam Spiers <cameron@heyday.co.nz>
- * @package Heystack
- */
+    /**
+     *
+     * Stores objects that implement StorableInterface using backends
+     *
+     * @author  Cam Spiers <cameron@heyday.co.nz>
+     * @package Heystack
+     */
 /**
  * Class Storage
  * @package Heystack\Subsystem\Core\Storage
@@ -27,7 +27,7 @@ class Storage
     /**
      * @var array
      */
-    private $backends = array();
+    private $backends = [];
     /**
      * @param array $backends
      */
@@ -73,7 +73,7 @@ class Storage
     {
         if (is_array($this->backends) && count($this->backends) > 0) {
 
-            $results = array();
+            $results = [];
 
             $identifiers = $object->getStorableBackendIdentifiers();
 

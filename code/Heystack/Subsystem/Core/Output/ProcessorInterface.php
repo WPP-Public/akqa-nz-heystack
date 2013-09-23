@@ -15,7 +15,7 @@ namespace Heystack\Subsystem\Core\Output;
  * Interface for input processors
  *
  * Input processors need to implement this interface in order to be added to a processors handler.
- * @author Cam Spiers <cameron@heyday.co.nz>
+ * @author  Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack
  */
 interface ProcessorInterface
@@ -33,5 +33,4 @@ interface ProcessorInterface
      * @param mixed       $result     The result from the input processor
      */
     public function process(\Controller $controller, $result = null);
-
 }

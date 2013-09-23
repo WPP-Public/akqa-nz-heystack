@@ -4,7 +4,7 @@ namespace Heystack\Subsystem\Core\Identifier;
 
 /**
  * Class IdentifierInterface
- * @author Cam Spiers <cameron@heyday.co.nz>
+ * @author  Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack\Subsystem\Core\Identifier
  */
 interface IdentifierInterface

@@ -16,5 +16,4 @@ trait HasStateService
         $this->stateService = $stateService;
     }
 
-
 }

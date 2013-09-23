@@ -17,7 +17,7 @@ namespace Heystack\Subsystem\Core\Processor;
  * Stores an array of processors and provides methods for setting, getting
  * and adding processors to the array. Forces traiting class to implement abstract methods.
  *
- * @author Cam Spiers <cameron@heyday.co.nz>
+ * @author  Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack
  */
 trait HandlerTrait
@@ -26,7 +26,7 @@ trait HandlerTrait
      * Stores processors by an identifier key
      * @var array
      */
-    private $processors = array();
+    private $processors = [];
 
     /**
      * Force traiting class to implement a method to add processors
@@ -75,7 +75,7 @@ trait HandlerTrait
      */
     public function setProcessors(array $processors)
     {
-        $this->processors = array();
+        $this->processors = [];
 
         foreach ($processors as $processor) {
 

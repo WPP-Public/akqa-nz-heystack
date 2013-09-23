@@ -8,13 +8,13 @@
 
 namespace Heystack\Subsystem\Core\Console\Command;
 
+use Heystack\Subsystem\Core\Generate\DataObjectGenerator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input;
 use Symfony\Component\Console\Output;
-use Heystack\Subsystem\Core\Generate\DataObjectGenerator;
 
 /**
- * @author Cam Spiers <cameron@heyday.co.nz>
+ * @author  Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack
  */
 class GenerateDataObjects extends Command

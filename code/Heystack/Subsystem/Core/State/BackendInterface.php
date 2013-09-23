@@ -28,7 +28,7 @@ interface BackendInterface
      * @param  array $exclude
      * @return mixed
      */
-    public function removeAll(array $exclude = array());
+    public function removeAll(array $exclude = []);
     /**
      * @return mixed
      */

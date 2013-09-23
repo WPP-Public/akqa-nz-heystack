@@ -10,15 +10,13 @@
  */
 namespace Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrm;
 
-use Heystack\Subsystem\Core\Identifier\Identifier;
-use Heystack\Subsystem\Core\Storage\StorableInterface;
-use Heystack\Subsystem\Core\Storage\BackendInterface;
-use Heystack\Subsystem\Core\Storage\Event;
+use Heystack\Subsystem\Core\Exception\ConfigurationException;
 use Heystack\Subsystem\Core\Generate\DataObjectGenerator;
 use Heystack\Subsystem\Core\Generate\DataObjectGeneratorSchemaInterface;
-
-use Heystack\Subsystem\Core\Exception\ConfigurationException;
-
+use Heystack\Subsystem\Core\Identifier\Identifier;
+use Heystack\Subsystem\Core\Storage\BackendInterface;
+use Heystack\Subsystem\Core\Storage\Event;
+use Heystack\Subsystem\Core\Storage\StorableInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
@@ -46,7 +44,7 @@ class Backend implements BackendInterface
     /**
      * @var array
      */
-    private $dataProviders = array();
+    private $dataProviders = [];
     /**
      * @param EventDispatcher     $eventService
      * @param DataObjectGenerator $generatorService
@@ -66,19 +64,59 @@ class Backend implements BackendInterface
         $this->dataProviders[$dataProvider->getStorableIdentifier()] = $dataProvider;
     }
     /**
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return new Identifier(self::IDENTIFIER);
+    }
+    /**
+     * @param  StorableInterface                                         $object
+     * @return mixed
+     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     */
+    public function write(StorableInterface $object)
+    {
+
+        $dataProviderIdentifier = $object->getStorableIdentifier();
+        $schemaIdentifier = strtolower($object->getSchemaName());
+
+        if ($this->hasDataProvider($dataProviderIdentifier)) {
+
+            $dataProvider = $this->dataProviders[$dataProviderIdentifier];
+            $schema = $this->generatorService->getSchema($schemaIdentifier);
+
+            if ($schema instanceof DataObjectGeneratorSchemaInterface) {
+
+                $storedObject = $this->writeStoredDataObject($schema, $dataProvider, $object);
+
+                $this->eventService->dispatch(
+                    self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
+                    new Event($storedObject->ID)
+                );
+
+                return $storedObject;
+
+            } else {
+
+                throw new ConfigurationException('No schema found for identifier: ' . $schemaIdentifier);
+
+            }
+
+        } else {
+
+            throw new ConfigurationException('Couldn\'t find data provider for identifier: ' . $dataProviderIdentifier);
+
+        }
+
+    }
+    /**
      * @param $dataProviderIdentifier
      * @return bool
      */
     public function hasDataProvider($dataProviderIdentifier)
     {
         return isset($this->dataProviders[$dataProviderIdentifier]);
-    }
-    /**
-     * @return string
-     */
-    public function getIdentifier()
-    {
-        return new Identifier(self::IDENTIFIER);
     }
     /**
      * @param  DataObjectGeneratorSchemaInterface                        $schema
@@ -149,8 +187,9 @@ class Backend implements BackendInterface
 
                 } else {
 
-                    throw new ConfigurationException("No data found for key: $key on identifier: " . $object->getStorableIdentifier(
-                    ));
+                    throw new ConfigurationException(
+                        "No data found for key: $key on identifier: " . $object->getStorableIdentifier()
+                    );
 
                 }
 
@@ -166,47 +205,6 @@ class Backend implements BackendInterface
         $storedObject->write();
 
         return $storedObject;
-
-    }
-
-    /**
-     * @param  StorableInterface                                         $object
-     * @return mixed
-     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
-     */
-    public function write(StorableInterface $object)
-    {
-
-        $dataProviderIdentifier = $object->getStorableIdentifier();
-        $schemaIdentifier = strtolower($object->getSchemaName());
-
-        if ($this->hasDataProvider($dataProviderIdentifier)) {
-
-            $dataProvider = $this->dataProviders[$dataProviderIdentifier];
-            $schema = $this->generatorService->getSchema($schemaIdentifier);
-
-            if ($schema instanceof DataObjectGeneratorSchemaInterface) {
-
-                $storedObject = $this->writeStoredDataObject($schema, $dataProvider, $object);
-
-                $this->eventService->dispatch(
-                    self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
-                    new Event($storedObject->ID)
-                );
-
-                return $storedObject;
-
-            } else {
-
-                throw new ConfigurationException('No schema found for identifier: ' . $schemaIdentifier);
-
-            }
-
-        } else {
-
-            throw new ConfigurationException('Couldn\'t find data provider for identifier: ' . $dataProviderIdentifier);
-
-        }
 
     }
 }

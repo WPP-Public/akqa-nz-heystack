@@ -11,11 +11,10 @@
  */
 namespace Heystack\Subsystem\Core\DependencyInjection\CompilerPass;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Reference;
-
 use Heystack\Subsystem\Core\Services;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Merges extensions definition calls into the container builder.
@@ -24,8 +23,8 @@ use Heystack\Subsystem\Core\Services;
  * this compiler pass will merge those calls without overwriting.
  *
  * @copyright  Heyday
- * @author Glenn Bautista
- * @package Heystack
+ * @author     Glenn Bautista
+ * @package    Heystack
  */
 class EventDispatcher implements CompilerPassInterface
 {
@@ -47,7 +46,7 @@ class EventDispatcher implements CompilerPassInterface
 
             $definition->addMethodCall(
                 'addSubscriber',
-                array(new Reference($id))
+                [new Reference($id)]
             );
 
         }

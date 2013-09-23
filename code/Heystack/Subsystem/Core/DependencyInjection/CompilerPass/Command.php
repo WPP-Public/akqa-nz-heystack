@@ -41,9 +41,7 @@ class Command implements CompilerPassInterface
             foreach ($attributes as $attribute) {
                 $definition->addMethodCall(
                     'add',
-                    array(
-                        new Reference($id)
-                    )
+                    [new Reference($id)]
                 );
             }
         }

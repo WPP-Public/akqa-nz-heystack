@@ -11,13 +11,13 @@
  */
 namespace Heystack\Subsystem\Core\Generate;
 
-/**
- * Defines how a schema should work
- *
- * @author Cam Spiers <cameron@heyday.co.nz>
- * @author Stevie Mayhew <stevie@heyday.co.nz>
- * @package Heystack
- */
+    /**
+     * Defines how a schema should work
+     *
+     * @author  Cam Spiers <cameron@heyday.co.nz>
+     * @author  Stevie Mayhew <stevie@heyday.co.nz>
+     * @package Heystack
+     */
 /**
  * Class DataObjectGeneratorSchemaInterface
  * @package Heystack\Subsystem\Core\Generate

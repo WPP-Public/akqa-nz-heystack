@@ -13,8 +13,8 @@ namespace Heystack\Subsystem\Core\ViewableData;
 /**
  * Implementing class can be wrapped in a ViewableDataFormattor and then used in templates
  *
- * @author Cam Spiers <cameron@heyday.co.nz>
- * @author Glenn Bautista <glenn@heyday.co.nz>
+ * @author  Cam Spiers <cameron@heyday.co.nz>
+ * @author  Glenn Bautista <glenn@heyday.co.nz>
  * @package Heystack
  */
 interface ViewableDataInterface
