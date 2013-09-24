@@ -9,12 +9,12 @@ require_once __DIR__ . '/../code/bootstrap.php';
 /**
  * Get the container
  */
-$container = Heystack\Subsystem\Core\ServiceStore::get();
+$application = Injector::inst()->get('heystack.console.application');
 
 /**
  * If the container in use doesn't have console.application then there is a big problem
  */
-if (!$container->has('console.application')) {
+if (!$application) {
     unlink(HEYSTACK_BASE_PATH . '/cache/HeystackServiceContainer' . Director::get_environment_type() . '.php');
     echo 'There appears to be a problem with your container. The service \'console.application\' must exist.', PHP_EOL;
     echo 'The current container has been deleted, please make the required modifications', PHP_EOL;
@@ -24,4 +24,4 @@ if (!$container->has('console.application')) {
 /**
  * Everything appears in order, run the application
  */
-$container->get('console.application')->run();
+$application->run();

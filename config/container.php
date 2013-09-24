@@ -1,6 +1,5 @@
 <?php
 
-use Heystack\Subsystem\Core\ServiceStore;
 use Heystack\Subsystem\Core\Console\Command\GenerateContainer;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
@@ -17,4 +16,4 @@ if (!file_exists($containerFile)) {
 
 require_once $containerFile;
 
-return ServiceStore::set(new $containerName());
+return new $containerName();

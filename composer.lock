@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "adbea8231e96a3a87a0c2fe368e710a8",
+    "hash": "457b53ccb4777e7e45c05a8bbc6c15d0",
     "packages": [
         {
             "name": "camspiers/shared-dependency-injection",
-            "version": "0.4.1",
+            "version": "0.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/camspiers/shared-dependency-injection.git",
-                "reference": "7482484e0864aec8650e3e9656ffb4d177d4b47e"
+                "reference": "9d6f2a5d089a15c687bbb5e61befa3658ae65687"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/camspiers/shared-dependency-injection/zipball/7482484e0864aec8650e3e9656ffb4d177d4b47e",
-                "reference": "7482484e0864aec8650e3e9656ffb4d177d4b47e",
+                "url": "https://api.github.com/repos/camspiers/shared-dependency-injection/zipball/9d6f2a5d089a15c687bbb5e61befa3658ae65687",
+                "reference": "9d6f2a5d089a15c687bbb5e61befa3658ae65687",
                 "shasum": ""
             },
             "require": {
@@ -41,7 +41,7 @@
                 }
             ],
             "description": "Shared Dependency Injection",
-            "time": "2013-04-09 05:12:02"
+            "time": "2013-09-22 23:09:40"
         },
         {
             "name": "composer/installers",
@@ -84,7 +84,7 @@
                 {
                     "name": "Kyle Robinson Young",
                     "email": "kyle@dontkry.com",
-                    "homepage": "https://github.com/shama",
+                    "homepage": "http://dontkry.com",
                     "role": "Developer"
                 }
             ],
@@ -728,12 +728,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Sami.git",
-                "reference": "cc3bcaf63a87378957921f10d3ef16c493f2c5c7"
+                "reference": "a0c61407331850fa3999127496d7e7e4a1919829"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Sami/zipball/cc3bcaf63a87378957921f10d3ef16c493f2c5c7",
-                "reference": "cc3bcaf63a87378957921f10d3ef16c493f2c5c7",
+                "url": "https://api.github.com/repos/fabpot/Sami/zipball/a0c61407331850fa3999127496d7e7e4a1919829",
+                "reference": "a0c61407331850fa3999127496d7e7e4a1919829",
                 "shasum": ""
             },
             "require": {
@@ -777,7 +777,7 @@
             "keywords": [
                 "phpdoc"
             ],
-            "time": "2013-08-04 15:19:13"
+            "time": "2013-09-19 04:52:25"
         },
         {
             "name": "silverstripe/framework",

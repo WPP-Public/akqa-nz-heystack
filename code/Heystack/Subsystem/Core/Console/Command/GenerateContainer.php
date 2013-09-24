@@ -62,10 +62,13 @@ class GenerateContainer extends Command
                         BASE_PATH . '/mysite/config/',
                         HEYSTACK_BASE_PATH . '/config/'
                     ],
-                    "services_$mode.yml"
+                    "services_$mode.yml",
+                    [],
+                    "Heystack\\Subsystem\\Core\\DependencyInjection\\SilverStripe\\HeystackSilverStripeContainerBuilder"
                 ),
                 "HeystackServiceContainer$mode",
-                HEYSTACK_BASE_PATH . '/cache/'
+                HEYSTACK_BASE_PATH . '/cache/',
+                "Heystack\\Subsystem\\Core\\DependencyInjection\\SilverStripe\\HeystackSilverStripeContainer"
             );
 
             $output->writeln('Container generated');

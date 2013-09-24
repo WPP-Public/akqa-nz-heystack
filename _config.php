@@ -32,6 +32,7 @@ Session::start();
  * Get the container (creating it if needed)
  */
 $container = require_once HEYSTACK_BASE_PATH . '/config/container.php';
-$container->get(Services::EVENT_DISPATCHER)->dispatch(Events::READY);
 
 Injector::inst()->setObjectCreator(new HeystackInjectionCreator($container));
+
+$container->get(Services::EVENT_DISPATCHER)->dispatch(Events::READY);
