@@ -3,7 +3,7 @@
 namespace Heystack\Subsystem\Core\Loader;
 
 use Closure;
-use SQLQuery;
+use DataList;
 use Symfony\Component\Config\Loader\Loader;
 
 /**
@@ -16,6 +16,7 @@ class DBClosureLoader extends Loader
      * @var callable
      */
     protected $handler;
+
     /**
      * @param callable $handler
      */
@@ -23,23 +24,23 @@ class DBClosureLoader extends Loader
     {
         $this->handler = $handler;
     }
+
     /**
      * Loads a resource.
      *
-     * @param mixed  $resource The resource
-     * @param string $type     The resource type
+     * @param mixed $resource The resource
+     * @param string $type The resource type
+     * @throws \InvalidArgumentException
      */
     public function load($resource, $type = null)
     {
         $handler = $this->handler;
-        $builder = new \DataObject();
-        $records = $builder->buildDataObjectSet($resource->execute());
-        if ($records instanceof \DataObjectSet && count($records) > 0) {
-            foreach ($records as $record) {
-                $handler(
-                    $record
-                );
+        if ($resource instanceof DataList) {
+            foreach ($resource as $record) {
+                $handler($record);
             }
+        } else {
+            throw new \InvalidArgumentException('Resource provided to DBClosureLoader is not a DataList');
         }
     }
     /**
@@ -52,7 +53,7 @@ class DBClosureLoader extends Loader
      */
     public function supports($resource, $type = null)
     {
-        return $resource instanceof SQLQuery;
+        return $resource instanceof DataList;
     }
 
 }

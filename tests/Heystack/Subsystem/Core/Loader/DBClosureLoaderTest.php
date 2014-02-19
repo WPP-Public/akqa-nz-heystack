@@ -1,4 +1,5 @@
 <?php
+
 namespace Heystack\Subsystem\Core\Loader;
 
 /**

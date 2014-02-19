@@ -44,7 +44,7 @@ class GenerateDataObjects extends Command
             ->addOption(
                 'force',
                 'f',
-                Input\InputOption::VALUE_OPTIONAL,
+                Input\InputOption::VALUE_NONE,
                 'Whether to force the generation',
                 null
             );
