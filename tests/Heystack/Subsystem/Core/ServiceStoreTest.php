@@ -8,9 +8,9 @@ class ServiceStoreTest extends \PHPUnit_Framework_TestCase
     {
         $this->container = $this->getMock(
             'Symfony\Component\DependencyInjection\Container',
-            array(
+            [
                 'getTestService'
-            )
+            ]
         );
         $this->container->expects($this->any())
             ->method('getTestService')

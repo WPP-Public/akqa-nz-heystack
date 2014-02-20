@@ -4,7 +4,7 @@ namespace Heystack\Subsystem\Core\Test;
 
 class TestStateable implements \Serializable
 {
-    protected $data = array('test');
+    protected $data = ['test'];
 
     public function setData($data)
     {

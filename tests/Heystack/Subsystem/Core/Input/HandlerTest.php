@@ -33,24 +33,24 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->handler->hasProcessor('fake'));
 
         $this->assertEquals(
-            array(
+            [
                 'test_input_processor' => $processor
-            ),
+            ],
             $this->handler->getProcessors()
         );
 
         $this->handler->setProcessors(
-            array(
+            [
                 $processor2,
                 $processor3
-            )
+            ]
         );
 
         $this->assertEquals(
-            array(
+            [
                 'test_input_processor2' => $processor2,
                 'test_input_processor3' => $processor3,
-            ),
+            ],
             $this->handler->getProcessors()
         );
     }

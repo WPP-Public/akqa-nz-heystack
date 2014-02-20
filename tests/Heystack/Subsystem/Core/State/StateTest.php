@@ -49,7 +49,7 @@ class StateTest extends \PHPUnit_Framework_TestCase
     {
         $this->backendMock->expects($this->once())
             ->method('removeAll')
-            ->with($this->equalTo(array()));
+            ->with($this->equalTo([]));
 
         $this->state->removeAll();
     }
@@ -58,9 +58,9 @@ class StateTest extends \PHPUnit_Framework_TestCase
     {
         $this->backendMock->expects($this->once())
             ->method('removeAll')
-            ->with($this->equalTo(array('test')));
+            ->with($this->equalTo(['test']));
 
-        $this->state->removeAll(array('test'));
+        $this->state->removeAll(['test']);
     }
 
     public function testSetStatable()

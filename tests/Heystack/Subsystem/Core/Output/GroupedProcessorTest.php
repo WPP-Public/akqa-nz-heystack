@@ -21,11 +21,11 @@ class GroupedProcessorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test', $this->groupedProcessor->getIdentifier()->getFull());
 
         $this->groupedProcessor->setProcessors(
-            array(
+            [
                 $this->getProcessorStub('test_output_processor'),
                 $this->getProcessorStub('test_output_processor2', 'sweet'),
                 $this->getProcessorStub('test_output_processor3', 'working')
-            )
+            ]
         );
 
         $this->assertEquals(null, $this->groupedProcessor->process(new \Controller()));

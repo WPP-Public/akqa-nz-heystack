@@ -9,7 +9,7 @@ $containerFile = HEYSTACK_BASE_PATH . "/cache/$containerName.php";
 
 if (!file_exists($containerFile)) {
     (new GenerateContainer())->run(
-        new ArrayInput(array()),
+        new ArrayInput([]),
         new NullOutput()
     );
 }

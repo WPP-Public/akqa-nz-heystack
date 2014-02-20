@@ -30,9 +30,9 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $results = $this->storage->process($storable);
 
         $this->assertEquals(
-            array(
+            [
                 'test' => $storable->getStorableData()
-            ),
+            ],
             $results
         );
 
@@ -47,7 +47,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     public function testStorageBackends()
     {
 
-        $arr = array('test' => new TestStorageBackend);
+        $arr = ['test' => new TestStorageBackend];
 
         $storage = new Storage($arr);
 
@@ -58,7 +58,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     public function testSetBackends()
     {
 
-        $arr = array('test' => new TestStorageBackend);
+        $arr = ['test' => new TestStorageBackend];
 
         $this->storage->setBackends($arr);
 

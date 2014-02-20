@@ -21,14 +21,14 @@ class ViewableDataFormatterTest extends \PHPUnit_Framework_TestCase
     {
         $this->object = new ViewableDataFormatter(
             new TestViewableData(
-                array(
+                [
                     'Test' => 'Hello',
                     'Test2' => 'Yo'
-                ),
-                array(
+                ],
+                [
                     'Test' => 'Varchar',
                     'Test2' => 'Varchar'
-                )
+                ]
             )
         );
     }
@@ -96,14 +96,14 @@ class ViewableDataFormatterTest extends \PHPUnit_Framework_TestCase
     {
         $formatter = new ViewableDataFormatter(
             $viewableData = new TestViewableData(
-                array(
+                [
                     'Test' => 'Hello',
                     'Test2' => 'Yo'
-                ),
-                array(
+                ],
+                [
                     'Test' => 'Varchar',
                     'Test2' => 'Varchar'
-                )
+                ]
             )
         );
 

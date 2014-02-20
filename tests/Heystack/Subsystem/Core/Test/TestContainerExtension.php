@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 class TestContainerExtension implements ExtensionInterface
 {
 
-    protected $arguments = array();
+    protected $arguments = [];
 
     public function __construct($arguments)
     {

@@ -49,20 +49,20 @@ class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test', $this->schema->getDataProviderIdentifier());
 
         $this->assertEquals(
-            array(
+            [
                 'Test' => 'Text'
-            ),
+            ],
             $this->schema->getFlatStorage()
         );
 
-        $this->assertEquals(array(), $this->schema->getRelatedStorage());
+        $this->assertEquals([], $this->schema->getRelatedStorage());
 
-        $this->assertEquals(array(), $this->schema->getParentStorage());
+        $this->assertEquals([], $this->schema->getParentStorage());
 
         $this->assertEquals(
-            array(
+            [
                 'Tests' => '+Test'
-            ),
+            ],
             $this->schema->getChildStorage()
         );
     }
@@ -74,18 +74,18 @@ class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            array(
+            [
                 'Test'  => 'Text',
                 'Test2' => 'Text'
-            ),
+            ],
             $this->schema->getFlatStorage()
         );
 
         $this->assertEquals(
-            array(
+            [
                 'Tests'  => '+Test',
                 'Tests2' => '+Test2'
-            ),
+            ],
             $this->schema->getChildStorage()
         );
     }

@@ -176,22 +176,22 @@ class DataObjectGenerator
             $cachedObjectName = 'Cached' . $identifier;
             $storedObjectName = 'Stored' . $identifier;
 
-            $fields = array_keys(is_array($flatStorage) ? $flatStorage : array())
-                + array_keys(is_array($parentStorage) ? $parentStorage : array());
+            $fields = array_keys(is_array($flatStorage) ? $flatStorage : [])
+                + array_keys(is_array($parentStorage) ? $parentStorage : []);
 
             // create the cached object
             $this->writeDataObject(
                 $dirCache,
                 $cachedObjectName,
-                array(
+                [
                     'db' => $flatStorage,
                     'has_one' => $parentStorage,
                     'has_many' => (array)$childStorage,
-                    'summary_fields' => array_merge(array('Created'), $fields),
+                    'summary_fields' => array_merge(['Created'], $fields),
                     'searchable_fields' => $fields,
                     'singular_name' => $identifier,
                     'plural_name' => $identifier . 's'
-                )
+                ]
             );
 
             $managed_models[] = $storedObjectName;
@@ -251,7 +251,7 @@ class DataObjectGenerator
 
         } else {
 
-            $statics = array();
+            $statics = [];
 
         }
 
@@ -260,7 +260,7 @@ class DataObjectGenerator
             singleton('ViewableData')->renderWith(
                 HEYSTACK_BASE_PATH . '/code/Heystack/Subsystem/Core/Generate/templates/DataObject_php.ss',
                 array_merge(
-                    array(
+                    [
                         'PHPTag' => '<?php',
                         'Name' => $name,
                         'Extends' => $extends,
@@ -271,7 +271,7 @@ class DataObjectGenerator
                         'searchable_fields' => false,
                         'singular_name' => false,
                         'plural_name' => false
-                    ),
+                    ],
                     $statics
                 )
             )
@@ -302,7 +302,7 @@ class DataObjectGenerator
 
         } else {
 
-            $statics = array();
+            $statics = [];
 
         }
 
@@ -310,11 +310,11 @@ class DataObjectGenerator
             $dir . DIRECTORY_SEPARATOR . $name . '.php',
             singleton('ViewableData')->renderWith(
                 HEYSTACK_BASE_PATH . '/code/Heystack/Subsystem/Core/Generate/templates/ModelAdmin_php.ss',
-                array(
+                [
                     'PHPTag' => '<?php',
                     'Name' => $name,
                     'Extends' => $extends
-                )
+                ]
                 +
                 $statics
             )

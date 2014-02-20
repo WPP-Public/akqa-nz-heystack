@@ -25,37 +25,37 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
     {
 
         $this->assertEquals('Configuration Error: Your config is empty', $this->helperTryCatch(false));
-        $this->assertEquals('Configuration Error: Identifier missing', $this->helperTryCatch(array()));
+        $this->assertEquals('Configuration Error: Identifier missing', $this->helperTryCatch([]));
         $this->assertEquals(
             'Configuration Error: Flat config missing',
             $this->helperTryCatch(
-                array(
+                [
                     'id' => 'test'
-                )
+                ]
             )
         );
         $this->assertEquals(
             'Configuration Error: Related config missing',
             $this->helperTryCatch(
-                array(
+                [
                     'id'   => 'test',
-                    'flat' => array(
+                    'flat' => [
                         'Test' => 'Text'
-                    )
-                )
+                    ]
+                ]
             )
         );
         $this->assertNull(
             $this->helperTryCatch(
-                array(
+                [
                     'id'      => 'test',
-                    'flat'    => array(
+                    'flat'    => [
                         'Test' => 'Text'
-                    ),
-                    'related' => array(
+                    ],
+                    'related' => [
                         'Something'
-                    )
-                )
+                    ]
+                ]
             )
         );
 

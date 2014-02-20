@@ -25,21 +25,21 @@ class GroupedProcessorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test', $this->groupedProcessor->getIdentifier()->getFull());
 
         $this->groupedProcessor->setProcessors(
-            array(
+            [
                 $this->getProcessorStub('test_input_processor'),
                 $this->getProcessorStub('test_input_processor2', 'sweet'),
                 $this->getProcessorStub('test_input_processor3', 'working')
-            )
+            ]
         );
 
         $results = $this->groupedProcessor->process(new \SS_HTTPRequest('GET', '/'));
 
         $this->assertEquals(
-            array(
+            [
                 'test_input_processor'  => '',
                 'test_input_processor2' => 'sweet',
                 'test_input_processor3' => 'working'
-            ),
+            ],
             $results
         );
 

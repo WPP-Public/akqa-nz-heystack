@@ -11,9 +11,9 @@ class SessionBackendTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $_SESSION = array(
+        $_SESSION = [
             'HTTP_USER_AGENT' => ''
-        );
+        ];
         $this->session = new Session(new \Session($_SESSION));
     }
 
@@ -46,9 +46,9 @@ class SessionBackendTest extends \PHPUnit_Framework_TestCase
     public function testSessionStarted()
     {
 
-        $_SESSION = array(
+        $_SESSION = [
             'test' => 'yay'
-        );
+        ];
 
         $session = new Session(new \Session($_SESSION));
 
@@ -70,7 +70,7 @@ class SessionBackendTest extends \PHPUnit_Framework_TestCase
 
         $this->session->setByKey('test', 'yay');
 
-        $this->assertEquals(array('HTTP_USER_AGENT', 'test'), $this->session->getKeys());
+        $this->assertEquals(['HTTP_USER_AGENT', 'test'], $this->session->getKeys());
 
     }
 
@@ -97,11 +97,11 @@ class SessionBackendTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(false, $this->session->getByKey('test2'));
 
         $this->assertEquals(
-            array(
+            [
                 'HTTP_USER_AGENT',
                 'test',
                 'test2'
-            ),
+            ],
             $this->session->getKeys()
         );
 

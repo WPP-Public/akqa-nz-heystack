@@ -34,7 +34,7 @@ class ContainerExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->object->setFolder('/tests/Heystack/Subsystem/Core/Test/services/');
 
-        $this->object->load(array(), $containerBuilder);
+        $this->object->load([], $containerBuilder);
 
         $this->assertTrue($containerBuilder->has('example'));
 

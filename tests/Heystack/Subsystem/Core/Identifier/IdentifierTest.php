@@ -10,9 +10,9 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
     {
         $this->identifier = new Identifier(
             'test',
-            array(
+            [
                 'test'
-            )
+            ]
         );
     }
 
@@ -51,7 +51,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 
         $stub->expects($this->any())
             ->method('getSecondaries')
-            ->will($this->returnValue(array('test')));
+            ->will($this->returnValue(['test']));
 
         $this->assertTrue(
             $this->identifier->isMatchStrict($stub)
@@ -65,7 +65,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 
         $stub->expects($this->any())
             ->method('getSecondaries')
-            ->will($this->returnValue(array('test2')));
+            ->will($this->returnValue(['test2']));
 
         $this->assertFalse(
             $this->identifier->isMatchStrict($stub)

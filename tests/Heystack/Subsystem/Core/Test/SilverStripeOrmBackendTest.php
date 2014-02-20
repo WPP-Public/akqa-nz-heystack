@@ -50,9 +50,9 @@ class SilverStripeOrmBackendTest extends \PHPUnit_Framework_TestCase
     public function testWrite()
     {
 
-        $object = new TestDataObjectStorable(array(
+        $object = new TestDataObjectStorable([
             'Test' => 'Test'
-        ));
+        ]);
 
         $this->assertEquals('Configuration Error: Couldn\'t find data provider for identifier: ' . $object->getStorableIdentifier(), $this->tryCatchWriteHelper($object));
 

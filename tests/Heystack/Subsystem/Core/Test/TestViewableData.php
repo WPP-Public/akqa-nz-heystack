@@ -7,10 +7,10 @@ use Heystack\Subsystem\Core\ViewableData\ViewableDataInterface;
 class TestViewableData implements ViewableDataInterface
 {
 
-    protected $dynamicMethods = array();
-    protected $castings = array();
+    protected $dynamicMethods = [];
+    protected $castings = [];
 
-    public function __construct($data = array(), $castings = array())
+    public function __construct($data = [], $castings = [])
     {
         foreach ($data as $key => $value) {
 

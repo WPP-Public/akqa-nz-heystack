@@ -13,7 +13,7 @@ class TestExtraDataDataObjectStateable extends \DataObject
     use DataObjectSerializableTrait;
     use ExtraDataTrait;
 
-    protected $extraData = array();
+    protected $extraData = [];
 
     public function configureExtraData(array $extraData)
     {

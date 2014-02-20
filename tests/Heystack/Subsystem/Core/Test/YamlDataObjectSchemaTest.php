@@ -51,17 +51,17 @@ class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('test', $this->schema->getDataProviderIdentifier());
 
-        $this->assertEquals(array(
+        $this->assertEquals([
             'Test' => 'Text'
-        ), $this->schema->getFlatStorage());
+        ], $this->schema->getFlatStorage());
 
-        $this->assertEquals(array(), $this->schema->getRelatedStorage());
+        $this->assertEquals([], $this->schema->getRelatedStorage());
 
-        $this->assertEquals(array(), $this->schema->getParentStorage());
+        $this->assertEquals([], $this->schema->getParentStorage());
 
-        $this->assertEquals(array(
+        $this->assertEquals([
             'Tests' => '+Test'
-        ), $this->schema->getChildStorage());
+        ], $this->schema->getChildStorage());
 
     }
 
@@ -70,15 +70,15 @@ class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 
         $this->schema->mergeSchema(new YamlDataObjectSchema('tests/Heystack/Subsystem/Core/Test/schemas/test_schema2.yml', $this->state));
 
-        $this->assertEquals(array(
+        $this->assertEquals([
             'Test' => 'Text',
             'Test2' => 'Text'
-        ), $this->schema->getFlatStorage());
+        ], $this->schema->getFlatStorage());
 
-        $this->assertEquals(array(
+        $this->assertEquals([
             'Tests' => '+Test',
             'Tests2' => '+Test2'
-        ), $this->schema->getChildStorage());
+        ], $this->schema->getChildStorage());
 
     }
 
