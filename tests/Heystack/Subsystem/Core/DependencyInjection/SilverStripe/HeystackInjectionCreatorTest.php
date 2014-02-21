@@ -2,7 +2,6 @@
 
 namespace Heystack\Subsystem\Core\DependencyInjection\SilverStripe;
 
-
 use Heystack\Subsystem\Core\State\State;
 
 class HeystackInjectionCreatorTest extends \PHPUnit_Framework_TestCase

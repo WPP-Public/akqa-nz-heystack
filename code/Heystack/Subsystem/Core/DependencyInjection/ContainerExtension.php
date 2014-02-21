@@ -40,7 +40,7 @@ class ContainerExtension extends ContainerExtensionConfigProcessor implements Ex
      * Loads a services.yml file into a fresh container, ready to me merged
      * back into the main container
      *
-     * @param  array $config
+     * @param  array            $config
      * @param  ContainerBuilder $container
      * @return null
      */

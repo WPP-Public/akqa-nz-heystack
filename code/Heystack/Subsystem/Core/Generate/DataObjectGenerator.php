@@ -53,8 +53,8 @@ class DataObjectGenerator
 
     /**
      * @param DataObjectGeneratorSchemaInterface $schema
-     * @param bool $reference
-     * @param bool $force
+     * @param bool                               $reference
+     * @param bool                               $force
      */
     public function addSchema(
         DataObjectGeneratorSchemaInterface $schema,
@@ -186,7 +186,7 @@ class DataObjectGenerator
                 [
                     'db' => $flatStorage,
                     'has_one' => $parentStorage,
-                    'has_many' => (array)$childStorage,
+                    'has_many' => (array) $childStorage,
                     'summary_fields' => array_merge(['Created'], $fields),
                     'searchable_fields' => $fields,
                     'singular_name' => $identifier,
@@ -233,7 +233,7 @@ class DataObjectGenerator
     /**
      * @param        $dir
      * @param        $name
-     * @param bool $statics
+     * @param bool   $statics
      * @param string $extends
      */
     protected function writeDataObject($dir, $name, $statics = false, $extends = 'DataObject')
@@ -284,7 +284,7 @@ class DataObjectGenerator
     /**
      * @param        $dir
      * @param        $name
-     * @param bool $statics
+     * @param bool   $statics
      * @param string $extends
      */
     protected function writeModelAdmin($dir, $name, $statics = false, $extends = 'ModelAdmin')

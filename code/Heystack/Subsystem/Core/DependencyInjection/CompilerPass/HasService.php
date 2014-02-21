@@ -30,7 +30,7 @@ abstract class HasService implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $serviceName = $this->getServiceName();
-        
+
         if (!$serviceName || !$container->hasDefinition($serviceName)) {
             return;
         }
@@ -42,4 +42,4 @@ abstract class HasService implements CompilerPassInterface
             );
         }
     }
-} 
+}

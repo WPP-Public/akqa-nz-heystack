@@ -43,8 +43,8 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
     private $stateKey;
 
     /**
-     * @param       $file
-     * @param State $stateService
+     * @param                                                            $file
+     * @param  State                                                     $stateService
      * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
      */
     public function __construct($file, State $stateService)
@@ -164,7 +164,7 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
     }
 
     /**
-     * @param DataObjectGeneratorSchemaInterface $schema
+     * @param  DataObjectGeneratorSchemaInterface $schema
      * @return void
      */
     public function mergeSchema(DataObjectGeneratorSchemaInterface $schema)

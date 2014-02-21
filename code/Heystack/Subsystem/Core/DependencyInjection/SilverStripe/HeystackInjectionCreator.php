@@ -41,7 +41,7 @@ class HeystackInjectionCreator extends \InjectionCreator
      * Creates or retrieves the service that is requested
      *
      * @param $class name of service
-     * @param array $params
+     * @param  array                     $params
      * @return mixed|object
      * @throws \InvalidArgumentException
      */

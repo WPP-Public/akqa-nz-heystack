@@ -10,9 +10,7 @@
  */
 namespace Heystack\Subsystem\Core\DependencyInjection\SilverStripe;
 
-
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class HeystackSilverStripeContainerBuilder
@@ -28,7 +26,7 @@ class HeystackSilverStripeContainerBuilder extends ContainerBuilder
     /**
      * Always return true if the service being queried is namespaced silverstripe
      *
-     * @param string $id
+     * @param  string $id
      * @return bool
      */
     public function has($id)

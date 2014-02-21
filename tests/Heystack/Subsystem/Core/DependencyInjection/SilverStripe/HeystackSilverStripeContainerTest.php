@@ -2,7 +2,6 @@
 
 namespace Heystack\Subsystem\Core\DependencyInjection\SilverStripe;
 
-
 class HeystackSilverStripeContainerTest extends \PHPUnit_Framework_TestCase
 {
     protected $container;

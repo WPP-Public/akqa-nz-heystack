@@ -28,8 +28,8 @@ class DBClosureLoader extends Loader
     /**
      * Loads a resource.
      *
-     * @param mixed $resource The resource
-     * @param string $type The resource type
+     * @param  mixed                     $resource The resource
+     * @param  string                    $type     The resource type
      * @throws \InvalidArgumentException
      */
     public function load($resource, $type = null)

@@ -30,7 +30,7 @@ class ViewableDataFormatter extends \ViewableData implements \ArrayAccess
     /**
      * Implements ArrayAccess for use in DBFields when casting.
      * No functionality is required
-     * @param mixed $offset
+     * @param  mixed $offset
      * @return bool
      */
     public function offsetExists($offset)
@@ -41,7 +41,7 @@ class ViewableDataFormatter extends \ViewableData implements \ArrayAccess
     /**
      * Implements ArrayAccess for use in DBFields when casting.
      * No functionality is required
-     * @param mixed $offset
+     * @param  mixed      $offset
      * @return mixed|null
      */
     public function offsetGet($offset)
@@ -82,7 +82,7 @@ class ViewableDataFormatter extends \ViewableData implements \ArrayAccess
     }
 
     /**
-     * @param string $field
+     * @param  string $field
      * @return string
      */
     public function castingHelper($field)
@@ -96,8 +96,8 @@ class ViewableDataFormatter extends \ViewableData implements \ArrayAccess
     }
 
     /**
-     * @param string $method
-     * @param array $arguments
+     * @param  string     $method
+     * @param  array      $arguments
      * @return bool|mixed
      */
     public function __call($method, $arguments)
@@ -112,7 +112,7 @@ class ViewableDataFormatter extends \ViewableData implements \ArrayAccess
     }
 
     /**
-     * @param string $property
+     * @param  string $property
      * @return bool
      */
     public function __get($property)
@@ -126,7 +126,7 @@ class ViewableDataFormatter extends \ViewableData implements \ArrayAccess
 
     /**
      * @param string $property
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function __set($property, $value)
     {
@@ -134,7 +134,7 @@ class ViewableDataFormatter extends \ViewableData implements \ArrayAccess
     }
 
     /**
-     * @param string $method
+     * @param  string $method
      * @return bool
      */
     public function hasMethod($method)
