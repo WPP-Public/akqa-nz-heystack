@@ -1,8 +1,8 @@
 <?php
 
-namespace Heystack\Subsystem\Core\State\Traits;
+namespace Heystack\Core\State\Traits;
 
-use Heystack\Subsystem\Core\State\ExtraDataInterface;
+use Heystack\Core\State\ExtraDataInterface;
 
 trait DataObjectSerializableTrait
 {

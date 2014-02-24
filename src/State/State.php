@@ -1,12 +1,12 @@
 <?php
 
-namespace Heystack\Subsystem\Core\State;
+namespace Heystack\Core\State;
 
-use Heystack\Subsystem\Core\State\BackendInterface;
+use Heystack\Core\State\BackendInterface;
 
 /**
  * Class State
- * @package Heystack\Subsystem\Core\State
+ * @package Heystack\Core\State
  */
 class State
 {

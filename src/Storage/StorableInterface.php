@@ -8,7 +8,7 @@
 /**
  * Storage namespace
  */
-namespace Heystack\Subsystem\Core\Storage;
+namespace Heystack\Core\Storage;
 
     /**
      * Interface for storable objects
@@ -22,7 +22,7 @@ namespace Heystack\Subsystem\Core\Storage;
      */
 /**
  * Class StorableInterface
- * @package Heystack\Subsystem\Core\Storage
+ * @package Heystack\Core\Storage
  */
 interface StorableInterface
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Console;
+namespace Heystack\Core\Console;
 
 use Monolog\Logger;
 use Symfony\Component\Console\Application as BaseApplication;
 
 /**
  * Class Application
- * @package Heystack\Subsystem\Core\Console
+ * @package Heystack\Core\Console
  */
 class Application extends BaseApplication
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Exception;
+namespace Heystack\Core\Exception;
 
-use Heystack\Subsystem\Core\Services;
-use Heystack\Subsystem\Core\ServiceStore;
+use Heystack\Core\Services;
+use Heystack\Core\ServiceStore;
 use Monolog\Logger;
 
 /**
  * Class ConfigurationException
- * @package Heystack\Subsystem\Core\Exception
+ * @package Heystack\Core\Exception
  */
 class ConfigurationException extends \Exception
 {

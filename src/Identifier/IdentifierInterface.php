@@ -1,11 +1,11 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Identifier;
+namespace Heystack\Core\Identifier;
 
 /**
  * Class IdentifierInterface
  * @author  Cam Spiers <cameron@heyday.co.nz>
- * @package Heystack\Subsystem\Core\Identifier
+ * @package Heystack\Core\Identifier
  */
 interface IdentifierInterface
 {

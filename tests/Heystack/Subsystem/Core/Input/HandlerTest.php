@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Input;
+namespace Heystack\Core\Input;
 
 class HandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -68,12 +68,12 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
     protected function getProcessorStub($identifier, $process = null)
     {
-        $identifierStub = $this->getMock('Heystack\Subsystem\Core\Identifier\IdentifierInterface');
+        $identifierStub = $this->getMock('Heystack\Core\Identifier\IdentifierInterface');
         $identifierStub->expects($this->any())
             ->method('getFull')
             ->will($this->returnValue($identifier));
 
-        $processorStub = $this->getMock('Heystack\Subsystem\Core\Input\ProcessorInterface');
+        $processorStub = $this->getMock('Heystack\Core\Input\ProcessorInterface');
         $processorStub->expects($this->any())
             ->method('getIdentifier')
             ->will($this->returnValue($identifierStub));

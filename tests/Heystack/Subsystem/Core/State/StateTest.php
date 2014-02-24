@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\State;
+namespace Heystack\Core\State;
 
 class StateTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,7 +9,7 @@ class StateTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->backendMock = $this->getMock('Heystack\Subsystem\Core\State\BackendInterface');
+        $this->backendMock = $this->getMock('Heystack\Core\State\BackendInterface');
         $this->state = new State($this->backendMock);
     }
 

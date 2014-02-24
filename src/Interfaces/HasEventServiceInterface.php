@@ -1,12 +1,12 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Interfaces;
+namespace Heystack\Core\Interfaces;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class HasDealHandlerInterface
- * @package Heystack\Subsystem\Deals\Interfaces
+ * @package Heystack\Deals\Interfaces
  */
 interface HasEventServiceInterface
 {

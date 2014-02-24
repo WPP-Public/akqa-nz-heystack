@@ -1,10 +1,10 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
+namespace Heystack\Core\Test;
 
-use Heystack\Subsystem\Core\Storage\Storage;
+use Heystack\Core\Storage\Storage;
 
-use Heystack\Subsystem\Core\Storage\Event;
+use Heystack\Core\Storage\Event;
 
 class StorageTest extends \PHPUnit_Framework_TestCase
 {

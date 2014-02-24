@@ -9,9 +9,9 @@
 /**
  * CompilerPass namespace
  */
-namespace Heystack\Subsystem\Core\DependencyInjection\CompilerPass;
+namespace Heystack\Core\DependencyInjection\CompilerPass;
 
-use Heystack\Subsystem\Core\Services;
+use Heystack\Core\Services;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

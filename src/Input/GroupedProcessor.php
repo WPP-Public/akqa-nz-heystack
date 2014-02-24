@@ -9,11 +9,11 @@
 /**
  * Input namespace
  */
-namespace Heystack\Subsystem\Core\Input;
+namespace Heystack\Core\Input;
 
-use Heystack\Subsystem\Core\Identifier\Identifier;
-use Heystack\Subsystem\Core\Input\ProcessorInterface;
-use Heystack\Subsystem\Core\Processor\HandlerTrait;
+use Heystack\Core\Identifier\Identifier;
+use Heystack\Core\Input\ProcessorInterface;
+use Heystack\Core\Processor\HandlerTrait;
 
 /**
  * Allows a group/array processors to be run from a single identifier
@@ -60,7 +60,7 @@ class GroupedProcessor implements ProcessorInterface
 
     /**
      * Returns the identifier of this processor
-     * @return \Heystack\Subsystem\Core\Identifier\Identifier
+     * @return \Heystack\Core\Identifier\Identifier
      */
     public function getIdentifier()
     {

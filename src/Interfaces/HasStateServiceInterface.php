@@ -1,12 +1,12 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Interfaces;
+namespace Heystack\Core\Interfaces;
 
-use Heystack\Subsystem\Core\State\State;
+use Heystack\Core\State\State;
 
 /**
  * Class HasStateServiceInterface
- * @package Heystack\Subsystem\Core\Interfaces
+ * @package Heystack\Core\Interfaces
  */
 interface HasStateServiceInterface
 {

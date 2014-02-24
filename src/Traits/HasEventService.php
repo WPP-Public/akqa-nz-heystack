@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Traits;
+namespace Heystack\Core\Traits;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

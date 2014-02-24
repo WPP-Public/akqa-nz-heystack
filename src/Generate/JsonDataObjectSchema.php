@@ -9,9 +9,9 @@
 /**
  * Generate namespace
  */
-namespace Heystack\Subsystem\Core\Generate;
+namespace Heystack\Core\Generate;
 
-use Heystack\Subsystem\Core\Exception\ConfigurationException;
+use Heystack\Core\Exception\ConfigurationException;
 
 /**
  * Uses json files to provide a schema for dataobject class creation
@@ -24,7 +24,7 @@ class JsonDataObjectSchema extends FileDataObjectSchema
     /**
      * @param $file
      * @return mixed
-     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     * @throws \Heystack\Core\Exception\ConfigurationException
      */
     protected function parseFile($file)
     {

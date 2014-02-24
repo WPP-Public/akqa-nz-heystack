@@ -8,7 +8,7 @@
 /**
  * Storage namespace
  */
-namespace Heystack\Subsystem\Core\Storage;
+namespace Heystack\Core\Storage;
 
 /**
  * @author  Cam Spiers <cameron@heyday.co.nz>
@@ -22,7 +22,7 @@ interface BackendInterface
      */
     public function write(StorableInterface $object);
     /**
-     * @return \Heystack\Subsystem\Core\Identifier\Identifier
+     * @return \Heystack\Core\Identifier\Identifier
      */
     public function getIdentifier();
 }

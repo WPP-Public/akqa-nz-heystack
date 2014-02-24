@@ -1,8 +1,8 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
+namespace Heystack\Core\Test;
 
-use Heystack\Subsystem\Core\State\Traits\DataObjectSerializableTrait;
+use Heystack\Core\State\Traits\DataObjectSerializableTrait;
 
 class TestDataObjectStateable extends \DataObject implements \Serializable
 {

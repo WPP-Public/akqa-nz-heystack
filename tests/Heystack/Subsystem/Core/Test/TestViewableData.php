@@ -1,8 +1,8 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
+namespace Heystack\Core\Test;
 
-use Heystack\Subsystem\Core\ViewableData\ViewableDataInterface;
+use Heystack\Core\ViewableData\ViewableDataInterface;
 
 class TestViewableData implements ViewableDataInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
+namespace Heystack\Core\Test;
 
 class TestStateable implements \Serializable
 {

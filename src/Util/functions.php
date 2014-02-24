@@ -11,7 +11,7 @@
  * Facebook, Inc. (http://www.facebook.com/facebook).
  */
 
-namespace Heystack\Subsystem\Core\Util;
+namespace Heystack\Core\Util;
 
 /**
  * Access an array index, retrieving the value stored there if it exists or

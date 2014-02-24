@@ -9,7 +9,7 @@
 /**
  * DataObjectHandler namespace
  */
-namespace Heystack\Subsystem\Core\DataObjectHandler;
+namespace Heystack\Core\DataObjectHandler;
 
 /**
  * Generates SilverStripe DataObject classes based of schemas

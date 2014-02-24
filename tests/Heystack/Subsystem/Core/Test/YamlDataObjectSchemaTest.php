@@ -1,10 +1,10 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
+namespace Heystack\Core\Test;
 
-use Heystack\Subsystem\Core\Generate\YamlDataObjectSchema;
+use Heystack\Core\Generate\YamlDataObjectSchema;
 
-use Heystack\Subsystem\Core\State\State;
+use Heystack\Core\State\State;
 
 class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +14,7 @@ class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->state = $this->getMockBuilder('Heystack\Subsystem\Core\State\State')
+        $this->state = $this->getMockBuilder('Heystack\Core\State\State')
             ->disableOriginalConstructor()
             ->getMock();
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Output;
+namespace Heystack\Core\Output;
 
 class GroupedProcessorTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,12 +33,12 @@ class GroupedProcessorTest extends \PHPUnit_Framework_TestCase
 
     protected function getProcessorStub($identifier, $process = null)
     {
-        $identifierStub = $this->getMock('Heystack\Subsystem\Core\Identifier\IdentifierInterface');
+        $identifierStub = $this->getMock('Heystack\Core\Identifier\IdentifierInterface');
         $identifierStub->expects($this->any())
             ->method('getFull')
             ->will($this->returnValue($identifier));
 
-        $processorStub = $this->getMock('Heystack\Subsystem\Core\Output\ProcessorInterface');
+        $processorStub = $this->getMock('Heystack\Core\Output\ProcessorInterface');
         $processorStub->expects($this->any())
             ->method('getIdentifier')
             ->will($this->returnValue($identifierStub));

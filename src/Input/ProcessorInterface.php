@@ -9,7 +9,7 @@
 /**
  * Core namespace
  */
-namespace Heystack\Subsystem\Core\Input;
+namespace Heystack\Core\Input;
 
 /**
  * Interface for input processors
@@ -23,7 +23,7 @@ interface ProcessorInterface
 
     /**
      * Returns the identifier of the processor
-     * @return \Heystack\Subsystem\Core\Identifier\Identifier
+     * @return \Heystack\Core\Identifier\Identifier
      */
     public function getIdentifier();
 

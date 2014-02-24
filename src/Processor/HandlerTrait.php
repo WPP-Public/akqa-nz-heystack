@@ -9,7 +9,7 @@
 /**
  * Processor namespace
  */
-namespace Heystack\Subsystem\Core\Processor;
+namespace Heystack\Core\Processor;
 
 /**
  * Provides standard processor handling functionality.

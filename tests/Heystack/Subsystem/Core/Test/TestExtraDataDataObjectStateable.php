@@ -1,10 +1,10 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
+namespace Heystack\Core\Test;
 
-use Heystack\Subsystem\Core\State\Traits\DataObjectSerializableTrait;
-use Heystack\Subsystem\Core\State\Traits\ExtraDataTrait;
-use Heystack\Subsystem\Core\State\ExtraDataInterface;
+use Heystack\Core\State\Traits\DataObjectSerializableTrait;
+use Heystack\Core\State\Traits\ExtraDataTrait;
+use Heystack\Core\State\ExtraDataInterface;
 
 class TestExtraDataDataObjectStateable extends \DataObject
     implements ExtraDataInterface, \Serializable

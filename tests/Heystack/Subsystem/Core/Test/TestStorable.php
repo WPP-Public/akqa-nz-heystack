@@ -1,9 +1,9 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
+namespace Heystack\Core\Test;
 
-use Heystack\Subsystem\Core\Storage\StorableInterface;
-use Heystack\Subsystem\Core\Storage\Traits\ParentReferenceTrait;
+use Heystack\Core\Storage\StorableInterface;
+use Heystack\Core\Storage\Traits\ParentReferenceTrait;
 
 class TestStorable implements StorableInterface
 {

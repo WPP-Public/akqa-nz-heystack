@@ -1,8 +1,8 @@
 <?php
 
-use Heystack\Subsystem\Core\Events;
-use Heystack\Subsystem\Core\Services;
-use Heystack\Subsystem\Core\DependencyInjection\SilverStripe\HeystackInjectionCreator;
+use Heystack\Core\Events;
+use Heystack\Core\Services;
+use Heystack\Core\DependencyInjection\SilverStripe\HeystackInjectionCreator;
 
 define('HEYSTACK_BASE_PATH', __DIR__);
 

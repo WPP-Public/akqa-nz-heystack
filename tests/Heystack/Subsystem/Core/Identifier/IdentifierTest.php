@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Identifier;
+namespace Heystack\Core\Identifier;
 
 class IdentifierTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,7 +22,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
     }
     public function testIsMatch()
     {
-        $stub = $this->getMock('Heystack\Subsystem\Core\Identifier\IdentifierInterface');
+        $stub = $this->getMock('Heystack\Core\Identifier\IdentifierInterface');
         $stub->expects($this->any())
             ->method('getPrimary')
             ->will($this->returnValue('test'));
@@ -31,7 +31,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
             $this->identifier->isMatch($stub)
         );
 
-        $stub = $this->getMock('Heystack\Subsystem\Core\Identifier\IdentifierInterface');
+        $stub = $this->getMock('Heystack\Core\Identifier\IdentifierInterface');
         $stub->expects($this->any())
             ->method('getPrimary')
             ->will($this->returnValue('test2'));
@@ -43,7 +43,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
 
     public function testIsMatchStrict()
     {
-        $stub = $this->getMock('Heystack\Subsystem\Core\Identifier\IdentifierInterface');
+        $stub = $this->getMock('Heystack\Core\Identifier\IdentifierInterface');
 
         $stub->expects($this->any())
             ->method('getPrimary')
@@ -57,7 +57,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
             $this->identifier->isMatchStrict($stub)
         );
 
-        $stub = $this->getMock('Heystack\Subsystem\Core\Identifier\IdentifierInterface');
+        $stub = $this->getMock('Heystack\Core\Identifier\IdentifierInterface');
 
         $stub->expects($this->any())
             ->method('getPrimary')

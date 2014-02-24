@@ -1,13 +1,13 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Traits;
+namespace Heystack\Core\Traits;
 
-use Heystack\Subsystem\Core\State\State;
+use Heystack\Core\State\State;
 
 trait HasStateService
 {
     /**
-     * @var \Heystack\Subsystem\Core\State\State
+     * @var \Heystack\Core\State\State
      */
     protected $stateService;
 

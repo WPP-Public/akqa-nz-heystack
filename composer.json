@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Heystack\\Subsystem\\Core\\": "src/"
+            "Heystack\\Core\\": "src/"
         },
         "files": ["src/Util/functions.php"]
     },

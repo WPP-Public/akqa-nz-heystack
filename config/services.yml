@@ -1,23 +1,23 @@
 parameters:
 
-    config.class: Heystack\Subsystem\Core\Config
-    state.class: Heystack\Subsystem\Core\State\State
-    backend_session.class: Heystack\Subsystem\Core\State\Backends\Session
-    backend_memcache.class: Heystack\Subsystem\Core\State\Backends\Memcache
-    event_dispatcher.class: Heystack\Subsystem\Core\EventDispatcher
-    input_processor_handler.class: Heystack\Subsystem\Core\Input\Handler
-    output_processor_handler.class: Heystack\Subsystem\Core\Output\Handler
-    console.application.class: Heystack\Subsystem\Core\Console\Application
-    console.command.generate_container.class: Heystack\Subsystem\Core\Console\Command\GenerateContainer
-    console.command.generate_dataobjects.class: Heystack\Subsystem\Core\Console\Command\GenerateDataObjects
+    config.class: Heystack\Core\Config
+    state.class: Heystack\Core\State\State
+    backend_session.class: Heystack\Core\State\Backends\Session
+    backend_memcache.class: Heystack\Core\State\Backends\Memcache
+    event_dispatcher.class: Heystack\Core\EventDispatcher
+    input_processor_handler.class: Heystack\Core\Input\Handler
+    output_processor_handler.class: Heystack\Core\Output\Handler
+    console.application.class: Heystack\Core\Console\Application
+    console.command.generate_container.class: Heystack\Core\Console\Command\GenerateContainer
+    console.command.generate_dataobjects.class: Heystack\Core\Console\Command\GenerateDataObjects
 
     session.class: Session
-    dataobject_generator.class: Heystack\Subsystem\Core\Generate\DataObjectGenerator
-    dataobject_handler.class: Heystack\Subsystem\Core\DataObjectHandler\SS2DataObjectHandler
+    dataobject_generator.class: Heystack\Core\Generate\DataObjectGenerator
+    dataobject_handler.class: Heystack\Core\DataObjectHandler\SS2DataObjectHandler
 
-    storage.class: Heystack\Subsystem\Core\Storage\Storage
-    ss_orm_backend.class: Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrm\Backend
-    yaml_data_object_schema.class: Heystack\Subsystem\Core\Generate\YamlDataObjectSchema
+    storage.class: Heystack\Core\Storage\Storage
+    ss_orm_backend.class: Heystack\Core\Storage\Backends\SilverStripeOrm\Backend
+    yaml_data_object_schema.class: Heystack\Core\Generate\YamlDataObjectSchema
 
     monolog.name: global
 

@@ -9,9 +9,9 @@
 /**
  * Core namespace
  */
-namespace Heystack\Subsystem\Core\DependencyInjection;
+namespace Heystack\Core\DependencyInjection;
 
-use Heystack\Subsystem\Core\Exception\ConfigurationException;
+use Heystack\Core\Exception\ConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**

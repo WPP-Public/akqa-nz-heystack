@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Loader;
+namespace Heystack\Core\Loader;
 
 use Closure;
 use DataList;
@@ -8,7 +8,7 @@ use Symfony\Component\Config\Loader\Loader;
 
 /**
  * Class DBLoader
- * @package Heystack\Subsystem\Core\Loader
+ * @package Heystack\Core\Loader
  */
 class DBClosureLoader extends Loader
 {

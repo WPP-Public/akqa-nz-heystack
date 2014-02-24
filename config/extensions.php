@@ -1,7 +1,7 @@
 <?php
 
 use Camspiers\DependencyInjection\SharedContainerFactory;
-use Heystack\Subsystem\Core\DependencyInjection;
+use Heystack\Core\DependencyInjection;
 
 SharedContainerFactory::addExtension(new DependencyInjection\ContainerExtension());
 SharedContainerFactory::addCompilerPass(new DependencyInjection\CompilerPass\EventDispatcher());

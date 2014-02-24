@@ -1,10 +1,10 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Generate;
+namespace Heystack\Core\Generate;
 
 /**
  * Class DataObjectGeneratorTest
- * @package Heystack\Subsystem\Core\Generate
+ * @package Heystack\Core\Generate
  */
 class DataObjectGeneratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,13 +30,13 @@ class DataObjectGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->state = $this->getMockBuilder('Heystack\Subsystem\Core\State\State')
+        $this->state = $this->getMockBuilder('Heystack\Core\State\State')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->identifier = $this->getMock('Heystack\Subsystem\Core\Identifier\IdentifierInterface');
+        $this->identifier = $this->getMock('Heystack\Core\Identifier\IdentifierInterface');
 
-        $this->schema = $this->getMock('Heystack\Subsystem\Core\Generate\DataObjectGeneratorSchemaInterface');
+        $this->schema = $this->getMock('Heystack\Core\Generate\DataObjectGeneratorSchemaInterface');
 
         $this->schema->expects($this->any())
             ->method('getIdentifier')
@@ -139,7 +139,7 @@ class DataObjectGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->generator->isReference('test'));
     }
     /**
-     * @expectedException Heystack\Subsystem\Core\Exception\ConfigurationException
+     * @expectedException Heystack\Core\Exception\ConfigurationException
      */
     public function testIsReferenceException()
     {

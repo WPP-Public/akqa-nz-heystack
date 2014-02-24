@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Storage\Traits;
+namespace Heystack\Core\Storage\Traits;
 
 trait ParentReferenceTrait
 {

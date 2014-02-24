@@ -9,7 +9,7 @@
 /**
  * Generate namespace
  */
-namespace Heystack\Subsystem\Core\Generate;
+namespace Heystack\Core\Generate;
 
     /**
      * Defines how a schema should work
@@ -20,12 +20,12 @@ namespace Heystack\Subsystem\Core\Generate;
      */
 /**
  * Class DataObjectGeneratorSchemaInterface
- * @package Heystack\Subsystem\Core\Generate
+ * @package Heystack\Core\Generate
  */
 interface DataObjectGeneratorSchemaInterface
 {
     /**
-     * @return \Heystack\Subsystem\Core\Identifier\Identifier
+     * @return \Heystack\Core\Identifier\Identifier
      */
     public function getIdentifier();
     /**

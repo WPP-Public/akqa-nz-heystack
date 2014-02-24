@@ -8,10 +8,10 @@
 /**
  * ViewableData namespace
  */
-namespace Heystack\Subsystem\Core\ViewableData;
+namespace Heystack\Core\ViewableData;
 
 /**
- * Allows objects that implement \Heystack\Subsystem\Core\ViewableDataInterface
+ * Allows objects that implement \Heystack\Core\ViewableDataInterface
  * to be used in SS templates.
  *
  * @copyright  Heyday
@@ -23,7 +23,7 @@ namespace Heystack\Subsystem\Core\ViewableData;
 class ViewableDataFormatter extends \ViewableData implements \ArrayAccess
 {
     /**
-     * @var Heystack\Subsystem\Core\ViewableData\ViewableDataInterface
+     * @var Heystack\Core\ViewableData\ViewableDataInterface
      */
     protected $obj;
 

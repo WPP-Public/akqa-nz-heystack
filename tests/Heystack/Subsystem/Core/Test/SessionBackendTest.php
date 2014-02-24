@@ -1,8 +1,8 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
+namespace Heystack\Core\Test;
 
-use Heystack\Subsystem\Core\State\Backends\Session;
+use Heystack\Core\State\Backends\Session;
 
 class SessionBackendTest extends \PHPUnit_Framework_TestCase
 {

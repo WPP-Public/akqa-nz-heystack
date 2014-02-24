@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\State;
+namespace Heystack\Core\State;
 
 interface ExtraDataInterface
 {

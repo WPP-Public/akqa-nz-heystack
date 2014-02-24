@@ -1,21 +1,21 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
+namespace Heystack\Core\Test;
 
-use Heystack\Subsystem\Core\State\State;
+use Heystack\Core\State\State;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Heystack\Subsystem\Core\Generate\DataObjectGenerator;
+use Heystack\Core\Generate\DataObjectGenerator;
 
-use Heystack\Subsystem\Core\Exception\ConfigurationException;
+use Heystack\Core\Exception\ConfigurationException;
 
-use Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrm\Backend;
+use Heystack\Core\Storage\Backends\SilverStripeOrm\Backend;
 
 class SilverStripeOrmBackendTest extends \PHPUnit_Framework_TestCase
 {
 
     protected function setUp()
     {
-        $this->state = $this->getMockBuilder('Heystack\Subsystem\Core\State\State')
+        $this->state = $this->getMockBuilder('Heystack\Core\State\State')
             ->disableOriginalConstructor()
             ->getMock();
         $this->backend = new Backend(

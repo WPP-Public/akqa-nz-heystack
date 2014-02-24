@@ -1,10 +1,10 @@
 <?php
 
-namespace Heystack\Subsystem\Core\State;
+namespace Heystack\Core\State;
 
 /**
  * Class BackendInterface
- * @package Heystack\Subsystem\Core\State
+ * @package Heystack\Core\State
  */
 interface BackendInterface
 {

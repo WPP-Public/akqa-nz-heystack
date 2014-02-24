@@ -9,13 +9,13 @@
 /**
  * Generate namespace
  */
-namespace Heystack\Subsystem\Core\Generate;
+namespace Heystack\Core\Generate;
 
-use Heystack\Subsystem\Core\Identifier\Identifier;
-use Heystack\Subsystem\Core\State\StateableInterface;
-use Heystack\Subsystem\Core\State\State;
+use Heystack\Core\Identifier\Identifier;
+use Heystack\Core\State\StateableInterface;
+use Heystack\Core\State\State;
 
-use Heystack\Subsystem\Core\Exception\ConfigurationException;
+use Heystack\Core\Exception\ConfigurationException;
 
 /**
  * Uses yaml files to provide a schema for dataobject class creation
@@ -33,7 +33,7 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
     private $config;
 
     /**
-     * @var \Heystack\Subsystem\Core\State\State
+     * @var \Heystack\Core\State\State
      */
     private $stateService;
 
@@ -45,7 +45,7 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
     /**
      * @param                                                            $file
      * @param  State                                                     $stateService
-     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     * @throws \Heystack\Core\Exception\ConfigurationException
      */
     public function __construct($file, State $stateService)
     {
@@ -111,7 +111,7 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
         return $this->config = $this->stateService->getByKey($this->stateKey);
     }
     /**
-     * @return bool|\Heystack\Subsystem\Core\Identifier\Identifier
+     * @return bool|\Heystack\Core\Identifier\Identifier
      */
     public function getIdentifier()
     {

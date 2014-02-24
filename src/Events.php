@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core;
+namespace Heystack\Core;
 
 final class Events
 {

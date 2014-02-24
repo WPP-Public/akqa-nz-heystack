@@ -9,10 +9,10 @@
 /**
  * Generate namespace
  */
-namespace Heystack\Subsystem\Core\Generate;
+namespace Heystack\Core\Generate;
 
-use Heystack\Subsystem\Core\Exception\ConfigurationException;
-use Heystack\Subsystem\Core\State\State;
+use Heystack\Core\Exception\ConfigurationException;
+use Heystack\Core\State\State;
 
 /**
  * Generates SilverStripe DataObject classes based of schemas
@@ -39,7 +39,7 @@ class DataObjectGenerator
      */
     private $processingFlatStorage = [];
     /**
-     * @var \Heystack\Subsystem\Core\State\State
+     * @var \Heystack\Core\State\State
      */
     private $stateService;
 
@@ -327,7 +327,7 @@ class DataObjectGenerator
     /**
      * @param $value
      * @return bool|string
-     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     * @throws \Heystack\Core\Exception\ConfigurationException
      */
     public function isReference($value)
     {
@@ -355,7 +355,7 @@ class DataObjectGenerator
      * @param $flatStorage
      * @param $identifier
      * @return array
-     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     * @throws \Heystack\Core\Exception\ConfigurationException
      */
     protected function processFlatStorage($flatStorage, $identifier)
     {

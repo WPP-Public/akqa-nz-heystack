@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\State\Traits;
+namespace Heystack\Core\State\Traits;
 
 trait ExtraDataTrait
 {

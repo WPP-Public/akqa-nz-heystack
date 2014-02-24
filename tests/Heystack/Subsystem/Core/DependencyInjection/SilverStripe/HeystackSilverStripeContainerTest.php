@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\DependencyInjection\SilverStripe;
+namespace Heystack\Core\DependencyInjection\SilverStripe;
 
 class HeystackSilverStripeContainerTest extends \PHPUnit_Framework_TestCase
 {

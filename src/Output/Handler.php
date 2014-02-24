@@ -9,10 +9,10 @@
 /**
  * Output namespace
  */
-namespace Heystack\Subsystem\Core\Output;
+namespace Heystack\Core\Output;
 
-use Heystack\Subsystem\Core\Output\ProcessorInterface;
-use Heystack\Subsystem\Core\Processor\HandlerTrait;
+use Heystack\Core\Output\ProcessorInterface;
+use Heystack\Core\Processor\HandlerTrait;
 
 /**
  * Holds and handlers output processors.

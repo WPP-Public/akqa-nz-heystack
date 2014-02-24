@@ -8,7 +8,7 @@
 /**
  * ViewableData namespace
  */
-namespace Heystack\Subsystem\Core\ViewableData;
+namespace Heystack\Core\ViewableData;
 
 /**
  * Implementing class can be wrapped in a ViewableDataFormattor and then used in templates

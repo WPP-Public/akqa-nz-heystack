@@ -1,11 +1,11 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Console\Command;
+namespace Heystack\Core\Console\Command;
 
 use Camspiers\DependencyInjection\SharedContainerFactory;
-use Heystack\Subsystem\Core\Console\Application;
-use Heystack\Subsystem\Core\Services;
-use Heystack\Subsystem\Core\ServiceStore;
+use Heystack\Core\Console\Application;
+use Heystack\Core\Services;
+use Heystack\Core\ServiceStore;
 use Monolog\Logger;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
@@ -64,11 +64,11 @@ class GenerateContainer extends Command
                     ],
                     "services_$mode.yml",
                     [],
-                    "Heystack\\Subsystem\\Core\\DependencyInjection\\SilverStripe\\HeystackSilverStripeContainerBuilder"
+                    "Heystack\\Core\\DependencyInjection\\SilverStripe\\HeystackSilverStripeContainerBuilder"
                 ),
                 "HeystackServiceContainer$mode",
                 HEYSTACK_BASE_PATH . '/cache/',
-                "Heystack\\Subsystem\\Core\\DependencyInjection\\SilverStripe\\HeystackSilverStripeContainer"
+                "Heystack\\Core\\DependencyInjection\\SilverStripe\\HeystackSilverStripeContainer"
             );
 
             $output->writeln('Container generated');

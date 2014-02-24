@@ -1,10 +1,10 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Interfaces;
+namespace Heystack\Core\Interfaces;
 
 /**
  * Class HasDataInterface
- * @package Heystack\Subsystem\Core\Interfaces
+ * @package Heystack\Core\Interfaces
  */
 interface HasDataInterface
 {

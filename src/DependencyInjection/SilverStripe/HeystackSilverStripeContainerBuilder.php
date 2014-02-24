@@ -8,7 +8,7 @@
 /**
  * DependencyInjection namespace
  */
-namespace Heystack\Subsystem\Core\DependencyInjection\SilverStripe;
+namespace Heystack\Core\DependencyInjection\SilverStripe;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

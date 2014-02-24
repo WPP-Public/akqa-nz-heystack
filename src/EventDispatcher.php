@@ -1,13 +1,13 @@
 <?php
 
-namespace Heystack\Subsystem\Core;
+namespace Heystack\Core;
 
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
 /**
  * Class EventDispatcher
- * @package Heystack\Subsystem\Core
+ * @package Heystack\Core
  */
 class EventDispatcher extends SymfonyEventDispatcher
 {

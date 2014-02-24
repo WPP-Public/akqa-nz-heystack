@@ -8,15 +8,15 @@
 /**
  * Storage namespace
  */
-namespace Heystack\Subsystem\Core\Storage\Backends\SilverStripeOrm;
+namespace Heystack\Core\Storage\Backends\SilverStripeOrm;
 
-use Heystack\Subsystem\Core\Exception\ConfigurationException;
-use Heystack\Subsystem\Core\Generate\DataObjectGenerator;
-use Heystack\Subsystem\Core\Generate\DataObjectGeneratorSchemaInterface;
-use Heystack\Subsystem\Core\Identifier\Identifier;
-use Heystack\Subsystem\Core\Storage\BackendInterface;
-use Heystack\Subsystem\Core\Storage\Event;
-use Heystack\Subsystem\Core\Storage\StorableInterface;
+use Heystack\Core\Exception\ConfigurationException;
+use Heystack\Core\Generate\DataObjectGenerator;
+use Heystack\Core\Generate\DataObjectGeneratorSchemaInterface;
+use Heystack\Core\Identifier\Identifier;
+use Heystack\Core\Storage\BackendInterface;
+use Heystack\Core\Storage\Event;
+use Heystack\Core\Storage\StorableInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
@@ -38,7 +38,7 @@ class Backend implements BackendInterface
      */
     private $eventService = null;
     /**
-     * @var \Heystack\Subsystem\Core\Generate\DataObjectGenerator|null
+     * @var \Heystack\Core\Generate\DataObjectGenerator|null
      */
     private $generatorService = null;
     /**
@@ -73,7 +73,7 @@ class Backend implements BackendInterface
     /**
      * @param  StorableInterface                                         $object
      * @return mixed
-     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     * @throws \Heystack\Core\Exception\ConfigurationException
      */
     public function write(StorableInterface $object)
     {
@@ -123,7 +123,7 @@ class Backend implements BackendInterface
      * @param  StorableInterface                                         $dataProvider
      * @param  StorableInterface                                         $object
      * @return mixed
-     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     * @throws \Heystack\Core\Exception\ConfigurationException
      */
     protected function writeStoredDataObject(
         DataObjectGeneratorSchemaInterface $schema,

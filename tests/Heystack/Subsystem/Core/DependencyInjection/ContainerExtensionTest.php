@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\DependencyInjection;
+namespace Heystack\Core\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

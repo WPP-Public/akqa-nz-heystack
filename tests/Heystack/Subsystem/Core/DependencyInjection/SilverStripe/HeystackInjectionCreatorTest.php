@@ -1,8 +1,8 @@
 <?php
 
-namespace Heystack\Subsystem\Core\DependencyInjection\SilverStripe;
+namespace Heystack\Core\DependencyInjection\SilverStripe;
 
-use Heystack\Subsystem\Core\State\State;
+use Heystack\Core\State\State;
 
 class HeystackInjectionCreatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,7 +10,7 @@ class HeystackInjectionCreatorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $stateService = $this->getMockBuilder('Heystack\Subsystem\Core\State\State')
+        $stateService = $this->getMockBuilder('Heystack\Core\State\State')
             ->disableOriginalConstructor()
             ->getMock();
 

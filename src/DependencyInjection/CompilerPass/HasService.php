@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Subsystem\Core\DependencyInjection\CompilerPass;
+namespace Heystack\Core\DependencyInjection\CompilerPass;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Class HasService
- * @package Heystack\Subsystem\Core\DependencyInjection\CompilerPass
+ * @package Heystack\Core\DependencyInjection\CompilerPass
  */
 abstract class HasService implements CompilerPassInterface
 {

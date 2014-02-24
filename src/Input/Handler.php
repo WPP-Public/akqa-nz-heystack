@@ -9,10 +9,10 @@
 /**
  * Input namespace
  */
-namespace Heystack\Subsystem\Core\Input;
+namespace Heystack\Core\Input;
 
-use Heystack\Subsystem\Core\Input\ProcessorInterface;
-use Heystack\Subsystem\Core\Processor\HandlerTrait;
+use Heystack\Core\Input\ProcessorInterface;
+use Heystack\Core\Processor\HandlerTrait;
 
 /**
  * Hold and handles input processors.

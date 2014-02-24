@@ -8,7 +8,7 @@
 /**
  * Storage namespace
  */
-namespace Heystack\Subsystem\Core\Storage;
+namespace Heystack\Core\Storage;
 
 use Symfony\Component\EventDispatcher\Event as SymfonyEvent;
 

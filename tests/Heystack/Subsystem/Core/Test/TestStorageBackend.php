@@ -1,10 +1,10 @@
 <?php
 
-namespace Heystack\Subsystem\Core\Test;
+namespace Heystack\Core\Test;
 
-use Heystack\Subsystem\Core\Identifier\Identifier;
-use Heystack\Subsystem\Core\Storage\StorableInterface;
-use Heystack\Subsystem\Core\Storage\BackendInterface;
+use Heystack\Core\Identifier\Identifier;
+use Heystack\Core\Storage\StorableInterface;
+use Heystack\Core\Storage\BackendInterface;
 
 /**
  *
@@ -15,7 +15,7 @@ class TestStorageBackend implements BackendInterface
 {
 
     /**
-     * @return \Heystack\Subsystem\Core\Identifier\Identifier
+     * @return \Heystack\Core\Identifier\Identifier
      */
     public function getIdentifier()
     {

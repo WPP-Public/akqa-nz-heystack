@@ -9,9 +9,9 @@
 /**
  * Backends namespace
  */
-namespace Heystack\Subsystem\Core\State\Backends;
+namespace Heystack\Core\State\Backends;
 
-use Heystack\Subsystem\Core\State\BackendInterface;
+use Heystack\Core\State\BackendInterface;
 
 /**
  * Session storage for backend

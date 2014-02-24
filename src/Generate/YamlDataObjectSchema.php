@@ -9,9 +9,9 @@
 /**
  * Generate namespace
  */
-namespace Heystack\Subsystem\Core\Generate;
+namespace Heystack\Core\Generate;
 
-use Heystack\Subsystem\Core\Exception\ConfigurationException;
+use Heystack\Core\Exception\ConfigurationException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -26,7 +26,7 @@ class YamlDataObjectSchema extends FileDataObjectSchema
     /**
      * @param $file
      * @return array
-     * @throws \Heystack\Subsystem\Core\Exception\ConfigurationException
+     * @throws \Heystack\Core\Exception\ConfigurationException
      */
     protected function parseFile($file)
     {

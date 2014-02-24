@@ -9,7 +9,7 @@
 /**
  * DependencyInjection namespace
  */
-namespace Heystack\Subsystem\Core\DependencyInjection;
+namespace Heystack\Core\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
