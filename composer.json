@@ -18,10 +18,10 @@
         "sami/sami": "dev-master"
     },
     "autoload": {
-        "psr-0": {
-            "Heystack": "code/"
+        "psr-4": {
+            "Heystack\\Subsystem\\Core\\": "src/"
         },
-        "files": ["code/Heystack/Subsystem/Core/Util/functions.php"]
+        "files": ["src/Util/functions.php"]
     },
     "extra": {
         "branch-alias": {

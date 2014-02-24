@@ -4,7 +4,7 @@
 /**
  * Use the bootstrap to ensure all environment based configs and autoloader are ready
  */
-require_once __DIR__ . '/../code/bootstrap.php';
+require_once __DIR__ . '/bootstrap.php';
 
 /**
  * Get the container
