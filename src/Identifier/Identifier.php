@@ -23,7 +23,7 @@ class Identifier implements IdentifierInterface
     protected $secondaries = [];
 
     /**
-     * @param       $primary
+     * @param string $primary
      * @param array $secondaries
      */
     public function __construct($primary, array $secondaries = null)
@@ -35,7 +35,7 @@ class Identifier implements IdentifierInterface
     }
 
     /**
-     * @return
+     * @return string
      */
     public function getPrimary()
     {

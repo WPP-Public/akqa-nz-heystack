@@ -10,7 +10,7 @@ namespace Heystack\Core\Identifier;
 interface IdentifierInterface
 {
     /**
-     * @return
+     * @return string
      */
     public function getPrimary();
 
