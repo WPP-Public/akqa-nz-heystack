@@ -1,6 +1,7 @@
 <?php
 
 use Sami\Sami;
+use Sami\Version\GitVersionCollection;
 use Symfony\Component\Finder\Finder;
 
 $iterator = Finder::create()
@@ -9,11 +10,20 @@ $iterator = Finder::create()
     ->exclude('build')
     ->exclude('vendor')
     ->exclude('tests')
-    ->exclude('sapphire')
+    ->exclude('framework')
     ->in(__DIR__);
+
+$versions = GitVersionCollection::create($dir)
+    ->addFromTags('*')
+    ->add('2.1', '2.1 branch')
+    ->add('1.0', '1.0 branch')
+    ->add('master', 'master branch');
 
 return new Sami($iterator, array(
     'title'                => 'Heystack API',
-    'build_dir'            => __DIR__ . '/build/api',
-    'cache_dir'            => __DIR__ . '/build/apicache'
+    'versions'             => $versions,
+    'theme'                => 'enhanced',
+    'build_dir'            => __DIR__ . '/build/api/%version%',
+    'cache_dir'            => __DIR__ . '/build/apicache/%version%',
+    'default_opened_level' => 1,
 ));
