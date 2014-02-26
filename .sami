@@ -11,7 +11,8 @@ $iterator = Finder::create()
     ->exclude('vendor')
     ->exclude('tests')
     ->exclude('framework')
-    ->in(__DIR__);
+    ->exclude('sapphire')
+    ->in($dir = __DIR__);
 
 $versions = GitVersionCollection::create($dir)
     ->addFromTags('*')
@@ -25,5 +26,5 @@ return new Sami($iterator, array(
     'theme'                => 'enhanced',
     'build_dir'            => __DIR__ . '/build/api/%version%',
     'cache_dir'            => __DIR__ . '/build/apicache/%version%',
-    'default_opened_level' => 1,
+    'default_opened_level' => 2,
 ));
