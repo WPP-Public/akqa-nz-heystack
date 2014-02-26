@@ -29,16 +29,6 @@ trait HandlerTrait
     private $processors = [];
 
     /**
-     * Force traiting class to implement a method to add processors
-     */
-    abstract public function addProcessor();
-
-    /**
-     *  Force traiting class to implement a method for processing
-     */
-    abstract public function process();
-
-    /**
      * Return a processor by an identifier if it exists
      * @param  string $name The processor identifier
      * @return mixed  The processor if it exists
@@ -83,5 +73,4 @@ trait HandlerTrait
 
         }
     }
-
 }

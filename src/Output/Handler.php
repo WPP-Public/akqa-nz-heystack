@@ -11,7 +11,6 @@
  */
 namespace Heystack\Core\Output;
 
-use Heystack\Core\Output\ProcessorInterface;
 use Heystack\Core\Processor\HandlerTrait;
 
 /**
@@ -25,7 +24,7 @@ use Heystack\Core\Processor\HandlerTrait;
  * @author  Glenn Bautista <glenn@heyday.co.nz>
  * @package Heystack
  */
-class Handler
+class Handler implements HandlerInterface
 {
     /**
      * Use the handler trait
