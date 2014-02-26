@@ -8,15 +8,15 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  * Class HasEventService
  * @package Heystack\Core\Traits
  */
-trait HasEventService
+trait HasEventServiceTrait
 {
     /**
-     * @var \Symfony\Component\EventDispatcher\EventDispatcher
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
     protected $eventService;
 
     /**
-     * @param EventDispatcherInterface $eventService
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventService
      */
     public function setEventService(EventDispatcherInterface $eventService)
     {
@@ -24,7 +24,7 @@ trait HasEventService
     }
 
     /**
-     * @return \Symfony\Component\EventDispatcher\EventDispatcher
+     * @return \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
     public function getEventService()
     {

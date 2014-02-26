@@ -8,7 +8,7 @@ use Heystack\Core\State\State;
  * Class HasStateService
  * @package Heystack\Core\Traits
  */
-trait HasStateService
+trait HasStateServiceTrait
 {
     /**
      * @var \Heystack\Core\State\State
@@ -21,5 +21,13 @@ trait HasStateService
     public function setStateService(State $stateService)
     {
         $this->stateService = $stateService;
+    }
+
+    /**
+     * @return State
+     */
+    public function getStateService()
+    {
+        return $this->stateService;
     }
 }
