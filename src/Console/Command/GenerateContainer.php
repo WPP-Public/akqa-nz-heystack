@@ -2,15 +2,15 @@
 
 namespace Heystack\Core\Console\Command;
 
-use Camspiers\DependencyInjection\SharedContainerFactory;
-use Heystack\Core\Console\Application;
-use Heystack\Core\Services;
-use Heystack\Core\ServiceStore;
-use Monolog\Logger;
-use RuntimeException;
+use Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainerBuilder;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input;
 use Symfony\Component\Console\Output;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
+use RuntimeException;
 
 class GenerateContainer extends Command
 {
@@ -31,67 +31,114 @@ class GenerateContainer extends Command
                 null
             );
     }
+
     /**
-     * Generate the container
-     * @param  Input\InputInterface   $input  The commands input
-     * @param  Output\OutputInterface $output The commands output
-     * @throws RuntimeException
-     * @return null
+     * @param Input\InputInterface $input
+     * @param Output\OutputInterface $output
+     * @return int|null|void
+     * @throws \Exception
      */
     protected function execute(Input\InputInterface $input, Output\OutputInterface $output)
     {
         // Ensure database connection
         global $databaseConfig;
         \DB::connect($databaseConfig);
-
-        $mode = \Director::get_environment_type();
-
+        
+        // Get mode
         if ($input->getOption('mode')) {
             $mode = $input->getOption('mode');
+        } else {
+            $mode = \Director::get_environment_type();
         }
 
-        SharedContainerFactory::requireExtensionConfigs(
-            [BASE_PATH . '/*/config/extensions.php']
-        );
+        $container = $this->createContainer();
 
-        try {
+        $this->loadConfig($container, $mode);
 
-            SharedContainerFactory::dumpContainer(
-                SharedContainerFactory::createContainer(
-                    [
-                        BASE_PATH . '/mysite/config/',
-                        HEYSTACK_BASE_PATH . '/config/'
-                    ],
-                    "services_$mode.yml",
-                    [],
-                    "Heystack\\Core\\DependencyInjection\\SilverStripe\\HeystackSilverStripeContainerBuilder"
-                ),
-                "HeystackServiceContainer$mode",
-                HEYSTACK_BASE_PATH . '/cache/',
-                "Heystack\\Core\\DependencyInjection\\SilverStripe\\HeystackSilverStripeContainer"
-            );
+        $this->dumpContainer($mode, $container);
 
-            $output->writeln('Container generated');
-
-        } catch (\Exception $e) {
-
-            $logger = $this->getLogger();
-            if ($logger instanceof Logger) {
-                $logger->addCritical($e->getMessage());
-            } else {
-                throw new \Exception($e->getMessage());
-            }
-
-        }
+        $output->writeln('Container generated');
     }
 
-    protected function getLogger()
+    /**
+     * @return HeystackSilverStripeContainerBuilder
+     */
+    protected function createContainer()
     {
-        $application = $this->getApplication();
-        if ($application instanceof Application) {
-            return $application->getLogger();
-        } else {
-            return ServiceStore::getService(Services::MONOLOG);
+        $container = new HeystackSilverStripeContainerBuilder();
+
+        foreach (new \DirectoryIterator(BASE_PATH) as $directory) {
+            if (!file_exists($directory . '/_heystack_subsystem')) {
+                continue;
+            }
+
+            if (file_exists($directory . '/config/extensions.php')) {
+                $extensions = require $directory . '/config/extensions.php';
+
+                if (is_array($extensions)) {
+                    foreach ($extensions as $extension) {
+                        $container->registerExtension($extension);
+                    }
+                }
+            }
+
+            if (file_exists($directory . '/config/compiler_passes.php')) {
+                $compilerPasses = require $directory . '/config/compiler_passes.php';
+
+                if (is_array($compilerPasses)) {
+                    foreach ($compilerPasses as $compilerPass) {
+                        if (is_array($compilerPass)) {
+                            list($compilerPass, $type) = $compilerPass;
+                        } else {
+                            $type = PassConfig::TYPE_BEFORE_OPTIMIZATION;
+                        }
+                        $container->addCompilerPass($compilerPass, $type);
+                    }
+                }
+            }
         }
+        return $container;
+    }
+
+    /**
+     * @param $container
+     * @param $mode
+     */
+    protected function loadConfig($container, $mode)
+    {
+        $loader = new YamlFileLoader(
+            $container,
+            new FileLocator(BASE_PATH . '/mysite/config/')
+        );
+
+        $loader->load("services_$mode.yml");
+    }
+
+    /**
+     * @param $container
+     * @param $mode
+     * @throws \RuntimeException
+     */
+    protected function dumpContainer($container, $mode)
+    {
+        $location = HEYSTACK_BASE_PATH . '/cache/';
+
+        if (!file_exists($location)) {
+            throw new RuntimeException('Dump location does not exist');
+        }
+
+        $class = "HeystackServiceContainer$mode";
+
+        $container->compile();
+
+        $dumper = new PhpDumper($container);
+
+        file_put_contents(
+            realpath($location) . "$class.php",
+            $dumper->dump([
+                'class' => $class,
+                'base_class' => "Heystack\\Core\\DependencyInjection\\SilverStripe\\HeystackSilverStripeContainer"
+            ])
+        );
     }
 }

@@ -12,28 +12,10 @@ use Symfony\Component\Console\Application as BaseApplication;
 class Application extends BaseApplication
 {
     /**
-     * @var
-     */
-    protected $logger;
-    /**
      *
      */
     public function __construct()
     {
-        parent::__construct('Heystack', '2.1.1');
-    }
-    /**
-     * @param Logger $logger
-     */
-    public function setLogger(Logger $logger)
-    {
-        $this->logger = $logger;
-    }
-    /**
-     * @return Logger
-     */
-    public function getLogger()
-    {
-        return $this->logger;
+        parent::__construct('Heystack', '3.0.0');
     }
 }
