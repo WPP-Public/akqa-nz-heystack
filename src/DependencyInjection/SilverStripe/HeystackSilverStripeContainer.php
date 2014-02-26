@@ -22,6 +22,9 @@ use Symfony\Component\DependencyInjection\Container;
  */
 class HeystackSilverStripeContainer extends Container
 {
+    /**
+     * @var \Injector
+     */
     protected $injector;
 
     /**
