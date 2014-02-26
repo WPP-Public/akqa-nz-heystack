@@ -1,5 +1,4 @@
 parameters:
-
     config.class: Heystack\Core\Config
     state.class: Heystack\Core\State\State
     backend_session.class: Heystack\Core\State\Backends\Session
@@ -13,7 +12,6 @@ parameters:
 
     session.class: Session
     dataobject_generator.class: Heystack\Core\Generate\DataObjectGenerator
-    dataobject_handler.class: Heystack\Core\DataObjectHandler\SS2DataObjectHandler
 
     storage.class: Heystack\Core\Storage\Storage
     ss_orm_backend.class: Heystack\Core\Storage\Backends\SilverStripeOrm\Backend
@@ -92,9 +90,6 @@ services:
     dataobject_generator:
       arguments: [ @state_global ]
       class: %dataobject_generator.class%
-
-    dataobject_handler:
-      class: %dataobject_handler.class%
 
     ss_orm_backend:
       class: %ss_orm_backend.class%
