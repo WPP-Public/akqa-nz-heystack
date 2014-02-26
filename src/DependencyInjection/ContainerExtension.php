@@ -29,37 +29,31 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  * @package Heystack
  *
  */
-class ContainerExtension extends ContainerExtensionConfigProcessor implements ExtensionInterface
+class ContainerExtension implements ExtensionInterface
 {
-
     const IDENTIFIER = 'heystack';
-
-    protected $folder = '/config/';
 
     /**
      * Loads a services.yml file into a fresh container, ready to me merged
      * back into the main container
      *
-     * @param  array            $config
+     * @param  array $config
      * @param  ContainerBuilder $container
      * @return null
      */
     public function load(array $config, ContainerBuilder $container)
     {
-
         $loader = new YamlFileLoader(
             $container,
-            new FileLocator(HEYSTACK_BASE_PATH . $this->folder)
+            new FileLocator(HEYSTACK_BASE_PATH . '/config/')
         );
 
         $loader->load('services.yml');
-
-        $this->processConfig($config, $container);
     }
 
     /**
      * Returns the namespace of the container extension
-     * @return type
+     * @return string
      */
     public function getNamespace()
     {
@@ -77,20 +71,10 @@ class ContainerExtension extends ContainerExtensionConfigProcessor implements Ex
 
     /**
      * Returns the container extensions alias
-     * @return type
+     * @return string
      */
     public function getAlias()
     {
         return self::IDENTIFIER;
-    }
-
-    public function setFolder($folder)
-    {
-        $this->folder = $folder;
-    }
-
-    public function getFolder()
-    {
-        return $this->folder;
     }
 }
