@@ -16,7 +16,7 @@ require_once FRAMEWORK_PATH . '/conf/ConfigureFromEnv.php';
  */
 global $databaseConfig;
 
-if (!isset($databaseConfig['database']) || !$databaseConfig['database']) {
+if (empty($databaseConfig['database'])) {
     throw new \RuntimeException(
         'Heystack requires configuration from environment please add an _ss_environment.php ' .
         'file and ensure the environment type and database details are present'
@@ -29,10 +29,13 @@ if (!isset($databaseConfig['database']) || !$databaseConfig['database']) {
 Session::start();
 
 /**
- * Get the container (creating it if needed)
+ * Load the autoloader if it exists
  */
-$container = require_once HEYSTACK_BASE_PATH . '/config/container.php';
+if (file_exists(BASE_PATH . '/vendor/autoload.php')) {
+    require_once BASE_PATH . '/vendor/autoload.php';
+}
 
+$container = require_once HEYSTACK_BASE_PATH . '/config/container.php';
 Injector::inst()->setObjectCreator(new HeystackInjectionCreator($container));
 
 $container->get(Services::EVENT_DISPATCHER)->dispatch(Events::READY);
