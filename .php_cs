@@ -6,7 +6,7 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
         'vendor',
         'cache',
         'build',
-        'sapphire'
+        'framework'
     ))
     ->in(__DIR__);
 
