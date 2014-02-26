@@ -1,8 +1,0 @@
-#!/bin/bash
-
-for dir in `ls .`
-do
-    if [ -d $dir ] && [ -f "$dir/_heystack_subsystem" ] && [ -f "$dir/.php_cs" ]; then
-        php-cs-fixer fix $dir
-    fi
-done
