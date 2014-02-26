@@ -12,7 +12,6 @@
 namespace Heystack\Core\Output;
 
 use Heystack\Core\Identifier\Identifier;
-use Heystack\Core\Output\ProcessorInterface;
 use Heystack\Core\Processor\HandlerTrait;
 
 /**
@@ -35,6 +34,7 @@ class GroupedProcessor implements ProcessorInterface
      * @var string
      */
     private $identifier;
+
     /**
      * Runs when the object is instantiated and sees the processors and identifier
      * @param string $identifier Identifier for the group of processors
@@ -52,6 +52,7 @@ class GroupedProcessor implements ProcessorInterface
         }
 
     }
+
     /**
      * Adds an output processor to the array of processors, storing it by its identifier
      * @param ProcessorInterface $processor The output processor
@@ -60,6 +61,7 @@ class GroupedProcessor implements ProcessorInterface
     {
         $this->processors[$processor->getIdentifier()->getFull()] = $processor;
     }
+
     /**
      * Returns the identifier of this processor
      * @return \Heystack\Core\Identifier\Identifier

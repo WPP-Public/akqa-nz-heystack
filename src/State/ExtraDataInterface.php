@@ -6,6 +6,7 @@ interface ExtraDataInterface
 {
 
     public function setExtraData(array $data);
+
     public function getExtraData();
 
 }

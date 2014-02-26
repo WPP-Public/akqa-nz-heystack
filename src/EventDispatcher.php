@@ -26,7 +26,7 @@ class EventDispatcher extends SymfonyEventDispatcher
         if ($this->enabled) {
             return parent::dispatch($eventName, $event);
         } else {
-            return $event ?: new Event();
+            return $event ? : new Event();
         }
     }
 

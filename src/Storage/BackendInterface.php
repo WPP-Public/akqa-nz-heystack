@@ -21,6 +21,7 @@ interface BackendInterface
      * @return mixed
      */
     public function write(StorableInterface $object);
+
     /**
      * @return \Heystack\Core\Identifier\Identifier
      */

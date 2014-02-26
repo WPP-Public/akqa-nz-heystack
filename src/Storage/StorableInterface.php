@@ -30,14 +30,17 @@ interface StorableInterface
      * @return mixed
      */
     public function getStorableIdentifier();
+
     /**
      * @return mixed
      */
     public function getStorableData();
+
     /**
      * @return mixed
      */
     public function getStorableBackendIdentifiers();
+
     /**
      * @return mixed
      */

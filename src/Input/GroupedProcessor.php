@@ -12,7 +12,6 @@
 namespace Heystack\Core\Input;
 
 use Heystack\Core\Identifier\Identifier;
-use Heystack\Core\Input\ProcessorInterface;
 use Heystack\Core\Processor\HandlerTrait;
 
 /**
@@ -69,7 +68,8 @@ class GroupedProcessor implements ProcessorInterface
 
     /**
      * Runs over the list of processors running them all in turn
-     * @param \SS_HTTPRequest $request The request object to pass into processors
+     * @param  \SS_HTTPRequest $request The request object to pass into processors
+     * @return array
      */
     public function process(\SS_HTTPRequest $request)
     {

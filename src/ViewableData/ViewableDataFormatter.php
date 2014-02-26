@@ -23,7 +23,7 @@ namespace Heystack\Core\ViewableData;
 class ViewableDataFormatter extends \ViewableData implements \ArrayAccess
 {
     /**
-     * @var Heystack\Core\ViewableData\ViewableDataInterface
+     * @var \Heystack\Core\ViewableData\ViewableDataInterface
      */
     protected $obj;
 

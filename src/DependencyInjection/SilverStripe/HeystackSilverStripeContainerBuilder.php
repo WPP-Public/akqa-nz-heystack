@@ -26,7 +26,7 @@ class HeystackSilverStripeContainerBuilder extends ContainerBuilder
      * @var \Injector
      */
     protected $injector;
-    
+
     public function __construct()
     {
         $this->injector = \Injector::inst();

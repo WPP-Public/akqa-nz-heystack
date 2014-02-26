@@ -11,11 +11,11 @@
  */
 namespace Heystack\Core\Generate;
 
+use Heystack\Core\Exception\ConfigurationException;
 use Heystack\Core\Identifier\Identifier;
-use Heystack\Core\State\StateableInterface;
 use Heystack\Core\State\State;
 
-use Heystack\Core\Exception\ConfigurationException;
+use Heystack\Core\State\StateableInterface;
 
 /**
  * Uses yaml files to provide a schema for dataobject class creation
@@ -43,8 +43,8 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
     private $stateKey;
 
     /**
-     * @param                                                            $file
-     * @param  State                                                     $stateService
+     * @param                                                  $file
+     * @param  State                                           $stateService
      * @throws \Heystack\Core\Exception\ConfigurationException
      */
     public function __construct($file, State $stateService)
@@ -110,6 +110,7 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
     {
         return $this->config = $this->stateService->getByKey($this->stateKey);
     }
+
     /**
      * @return bool|\Heystack\Core\Identifier\Identifier
      */

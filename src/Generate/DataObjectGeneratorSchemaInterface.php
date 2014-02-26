@@ -28,26 +28,32 @@ interface DataObjectGeneratorSchemaInterface
      * @return \Heystack\Core\Identifier\Identifier
      */
     public function getIdentifier();
+
     /**
      * @return mixed
      */
     public function getDataProviderIdentifier();
+
     /**
      * @return mixed
      */
     public function getFlatStorage();
+
     /**
      * @return mixed
      */
     public function getRelatedStorage();
+
     /**
      * @return mixed
      */
     public function getParentStorage();
+
     /**
      * @return mixed
      */
     public function getChildStorage();
+
     /**
      * @param  DataObjectGeneratorSchemaInterface $schema
      * @return mixed

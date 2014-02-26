@@ -60,7 +60,8 @@ class DataObjectGenerator
         DataObjectGeneratorSchemaInterface $schema,
         $reference = false,
         $force = false
-    ) {
+    )
+    {
 
         $identifier = strtolower($schema->getIdentifier()->getFull());
 
@@ -219,8 +220,8 @@ class DataObjectGenerator
                 'GeneratedModelAdmin',
                 [
                     'managed_models' => $managed_models,
-                    'url_segment'    => 'generated-admin',
-                    'menu_title'     => 'Admin'
+                    'url_segment' => 'generated-admin',
+                    'menu_title' => 'Admin'
                 ]
             );
 

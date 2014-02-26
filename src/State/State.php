@@ -2,8 +2,6 @@
 
 namespace Heystack\Core\State;
 
-use Heystack\Core\State\BackendInterface;
-
 /**
  * Class State
  * @package Heystack\Core\State
@@ -28,6 +26,7 @@ class State
     {
         $this->backend = $backend;
     }
+
     /**
      * @param               $key
      * @param \Serializable $obj
@@ -38,6 +37,7 @@ class State
             $this->setByKey($key, $obj);
         }
     }
+
     /**
      * @param $key
      * @return mixed
@@ -46,6 +46,7 @@ class State
     {
         return $this->getByKey($key);
     }
+
     /**
      * @param $key
      * @param $val
@@ -56,6 +57,7 @@ class State
             $this->backend->setByKey($key, serialize($val));
         }
     }
+
     /**
      * @param $key
      * @return mixed
@@ -64,6 +66,7 @@ class State
     {
         return unserialize($this->backend->getByKey($key));
     }
+
     /**
      * @param $key
      */
@@ -71,6 +74,7 @@ class State
     {
         $this->backend->removeByKey($key);
     }
+
     /**
      * @param array $exclude
      */
@@ -78,6 +82,7 @@ class State
     {
         $this->backend->removeAll($exclude);
     }
+
     /**
      * @return mixed
      */

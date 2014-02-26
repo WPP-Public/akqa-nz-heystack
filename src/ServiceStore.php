@@ -42,6 +42,7 @@ class ServiceStore
         return self::$serviceContainer;
 
     }
+
     /**
      * Sets the service container
      * @param  Container $container
@@ -51,6 +52,7 @@ class ServiceStore
     {
         return self::$serviceContainer = $container;
     }
+
     /**
      * Gets a specific service by name from the service container
      * @param  string $service

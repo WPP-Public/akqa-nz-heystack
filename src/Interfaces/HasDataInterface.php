@@ -13,6 +13,7 @@ interface HasDataInterface
      * @return mixed
      */
     public function setData($data);
+
     /**
      * @return mixed
      */

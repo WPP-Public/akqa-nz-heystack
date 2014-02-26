@@ -2,7 +2,6 @@
 
 namespace Heystack\Core\Console;
 
-use Monolog\Logger;
 use Symfony\Component\Console\Application as BaseApplication;
 
 /**

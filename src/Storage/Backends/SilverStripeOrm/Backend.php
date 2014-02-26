@@ -45,6 +45,7 @@ class Backend implements BackendInterface
      * @var array
      */
     private $dataProviders = [];
+
     /**
      * @param EventDispatcher     $eventService
      * @param DataObjectGenerator $generatorService
@@ -52,10 +53,12 @@ class Backend implements BackendInterface
     public function __construct(
         EventDispatcher $eventService,
         DataObjectGenerator $generatorService
-    ) {
+    )
+    {
         $this->eventService = $eventService;
         $this->generatorService = $generatorService;
     }
+
     /**
      * @param StorableInterface $dataProvider
      */
@@ -63,6 +66,7 @@ class Backend implements BackendInterface
     {
         $this->dataProviders[$dataProvider->getStorableIdentifier()] = $dataProvider;
     }
+
     /**
      * @return string
      */
@@ -70,8 +74,9 @@ class Backend implements BackendInterface
     {
         return new Identifier(self::IDENTIFIER);
     }
+
     /**
-     * @param  StorableInterface                                         $object
+     * @param  StorableInterface                               $object
      * @return mixed
      * @throws \Heystack\Core\Exception\ConfigurationException
      */
@@ -110,6 +115,7 @@ class Backend implements BackendInterface
         }
 
     }
+
     /**
      * @param $dataProviderIdentifier
      * @return bool
@@ -118,10 +124,11 @@ class Backend implements BackendInterface
     {
         return isset($this->dataProviders[$dataProviderIdentifier]);
     }
+
     /**
-     * @param  DataObjectGeneratorSchemaInterface                        $schema
-     * @param  StorableInterface                                         $dataProvider
-     * @param  StorableInterface                                         $object
+     * @param  DataObjectGeneratorSchemaInterface              $schema
+     * @param  StorableInterface                               $dataProvider
+     * @param  StorableInterface                               $object
      * @return mixed
      * @throws \Heystack\Core\Exception\ConfigurationException
      */
@@ -129,7 +136,8 @@ class Backend implements BackendInterface
         DataObjectGeneratorSchemaInterface $schema,
         StorableInterface $dataProvider,
         StorableInterface $object
-    ) {
+    )
+    {
 
         $saveable = 'Stored' . $schema->getIdentifier()->getFull();
 
@@ -150,8 +158,7 @@ class Backend implements BackendInterface
 
                     if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
 
-                        $referenceData = $this->dataProviders[$referenceSchema->getDataProviderIdentifier(
-                        )]->getStorableData();
+                        $referenceData = $this->dataProviders[$referenceSchema->getDataProviderIdentifier()]->getStorableData();
 
                         foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
 

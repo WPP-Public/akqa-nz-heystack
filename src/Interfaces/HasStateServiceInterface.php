@@ -10,11 +10,14 @@ use Heystack\Core\State\State;
  */
 interface HasStateServiceInterface
 {
-
     /**
-     * @param  HasStateServiceInterface $eventService
+     * @param  State $stateService
      * @return mixed
      */
     public function setStateService(State $stateService);
+
+    /**
+     * @return mixed
+     */
     public function getStateService();
 }

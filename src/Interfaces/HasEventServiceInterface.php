@@ -5,19 +5,19 @@ namespace Heystack\Core\Interfaces;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Class HasDealHandlerInterface
- * @package Heystack\Deals\Interfaces
+ * Interface HasEventServiceInterface
+ * @package Heystack\Core\Interfaces
  */
 interface HasEventServiceInterface
 {
     /**
-     * @return HasEventServiceInterface
+     * @return \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
     public function getEventService();
 
     /**
-     * @param  HasEventServiceInterface $eventService
-     * @return mixed
+     * @param  \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventService
+     * @return void
      */
     public function setEventService(EventDispatcherInterface $eventService);
 }

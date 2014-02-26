@@ -28,6 +28,7 @@ class Storage
      * @var array
      */
     private $backends = [];
+
     /**
      * @param array $backends
      */

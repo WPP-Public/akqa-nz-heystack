@@ -19,11 +19,11 @@ use Symfony\Component\Console\Output;
  */
 class GenerateDataObjects extends Command
 {
-
     /**
      * @var \Heystack\Core\Generate\DataObjectGenerator
      */
     private $generatorService;
+
     /**
      * @param \Heystack\Core\Generate\DataObjectGenerator $generatorService
      */
@@ -32,6 +32,7 @@ class GenerateDataObjects extends Command
         $this->generatorService = $generatorService;
         parent::__construct();
     }
+
     /**
      * Configure the commands options
      * @return null
@@ -49,11 +50,11 @@ class GenerateDataObjects extends Command
                 null
             );
     }
+
     /**
      * Generate the container
      * @param  Input\InputInterface   $input  The commands input
      * @param  Output\OutputInterface $output The commands output
-     * @throws RuntimeException
      * @return null
      */
     protected function execute(Input\InputInterface $input, Output\OutputInterface $output)

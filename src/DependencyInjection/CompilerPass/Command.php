@@ -38,7 +38,7 @@ class Command implements CompilerPassInterface
         $taggedServices = $container->findTaggedServiceIds(Services::CONSOLE_APPLICATION . '.command');
 
         foreach ($taggedServices as $id => $attributes) {
-            foreach ($attributes as $attribute) {
+            foreach ($attributes as $_) {
                 $definition->addMethodCall(
                     'add',
                     [new Reference($id)]

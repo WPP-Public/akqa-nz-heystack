@@ -3,14 +3,14 @@
 namespace Heystack\Core\Console\Command;
 
 use Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainerBuilder;
+use RuntimeException;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input;
 use Symfony\Component\Console\Output;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
-use RuntimeException;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class GenerateContainer extends Command
 {
@@ -33,8 +33,8 @@ class GenerateContainer extends Command
     }
 
     /**
-     * @param Input\InputInterface $input
-     * @param Output\OutputInterface $output
+     * @param  Input\InputInterface   $input
+     * @param  Output\OutputInterface $output
      * @return int|null|void
      * @throws \Exception
      */
@@ -43,7 +43,7 @@ class GenerateContainer extends Command
         // Ensure database connection
         global $databaseConfig;
         \DB::connect($databaseConfig);
-        
+
         // Get mode
         if ($input->getOption('mode')) {
             $mode = $input->getOption('mode');
@@ -97,6 +97,7 @@ class GenerateContainer extends Command
                 }
             }
         }
+
         return $container;
     }
 

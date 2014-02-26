@@ -26,6 +26,7 @@ trait GenerateContainerDataObjectTrait
             new NullOutput()
         );
     }
+
     /**
      * Regenerate the container
      */

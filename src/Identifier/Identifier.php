@@ -21,6 +21,7 @@ class Identifier implements IdentifierInterface
      * @var array
      */
     protected $secondaries = [];
+
     /**
      * @param       $primary
      * @param array $secondaries
@@ -32,6 +33,7 @@ class Identifier implements IdentifierInterface
             $this->secondaries = $secondaries;
         }
     }
+
     /**
      * @return
      */
@@ -39,6 +41,7 @@ class Identifier implements IdentifierInterface
     {
         return $this->primary;
     }
+
     /**
      * @return array
      */
@@ -46,6 +49,7 @@ class Identifier implements IdentifierInterface
     {
         return $this->secondaries;
     }
+
     /**
      * @return string
      */
@@ -64,6 +68,7 @@ class Identifier implements IdentifierInterface
 
         return $this->primary;
     }
+
     /**
      * @return string
      */
@@ -71,6 +76,7 @@ class Identifier implements IdentifierInterface
     {
         return $this->getFull();
     }
+
     /**
      * @param  IdentifierInterface $identifier
      * @return bool
@@ -79,6 +85,7 @@ class Identifier implements IdentifierInterface
     {
         return $this->primary === $identifier->getPrimary();
     }
+
     /**
      * @param  IdentifierInterface $identifier
      * @return bool

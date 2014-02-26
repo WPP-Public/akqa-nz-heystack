@@ -43,6 +43,7 @@ class DBClosureLoader extends Loader
             throw new \InvalidArgumentException('Resource provided to DBClosureLoader is not a DataList');
         }
     }
+
     /**
      * Returns true if this class supports the given resource.
      *
