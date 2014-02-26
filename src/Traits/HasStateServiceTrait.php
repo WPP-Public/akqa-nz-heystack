@@ -4,6 +4,10 @@ namespace Heystack\Core\Traits;
 
 use Heystack\Core\State\State;
 
+/**
+ * Class HasStateService
+ * @package Heystack\Core\Traits
+ */
 trait HasStateService
 {
     /**
@@ -11,9 +15,11 @@ trait HasStateService
      */
     protected $stateService;
 
+    /**
+     * @param State $stateService
+     */
     public function setStateService(State $stateService)
     {
         $this->stateService = $stateService;
     }
-
 }

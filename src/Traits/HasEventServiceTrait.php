@@ -4,6 +4,10 @@ namespace Heystack\Core\Traits;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
+/**
+ * Class HasEventService
+ * @package Heystack\Core\Traits
+ */
 trait HasEventService
 {
     /**
@@ -11,6 +15,9 @@ trait HasEventService
      */
     protected $eventService;
 
+    /**
+     * @param EventDispatcherInterface $eventService
+     */
     public function setEventService(EventDispatcherInterface $eventService)
     {
         $this->eventService = $eventService;
