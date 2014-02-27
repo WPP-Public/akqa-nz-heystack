@@ -55,7 +55,7 @@ class GenerateContainer extends Command
 
         $this->loadConfig($container, $mode);
 
-        $this->dumpContainer($mode, $container);
+        $this->dumpContainer($container, $mode);
 
         $output->writeln('Container generated');
     }
@@ -109,12 +109,10 @@ class GenerateContainer extends Command
      */
     protected function loadConfig($container, $mode)
     {
-        $loader = new YamlFileLoader(
+        (new YamlFileLoader(
             $container,
             new FileLocator(BASE_PATH . '/mysite/config/')
-        );
-
-        $loader->load("services_$mode.yml");
+        ))->load("services_$mode.yml");
     }
 
     /**
@@ -122,7 +120,7 @@ class GenerateContainer extends Command
      * @param $mode
      * @throws \RuntimeException
      */
-    protected function dumpContainer($container, $mode)
+    protected function dumpContainer(HeystackSilverStripeContainerBuilder $container, $mode)
     {
         $location = HEYSTACK_BASE_PATH . '/cache/';
 

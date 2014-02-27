@@ -43,12 +43,10 @@ class ContainerExtension implements ExtensionInterface
      */
     public function load(array $config, ContainerBuilder $container)
     {
-        $loader = new YamlFileLoader(
+        (new YamlFileLoader(
             $container,
             new FileLocator(HEYSTACK_BASE_PATH . '/config/')
-        );
-
-        $loader->load('services.yml');
+        ))->load('services.yml');
     }
 
     /**

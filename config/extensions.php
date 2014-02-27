@@ -1,7 +1,7 @@
 <?php
 
-use Heystack\Core\DependencyInjection;
+use Heystack\Core\DependencyInjection\ContainerExtension;
 
 return [
-    new DependencyInjection\ContainerExtension()
+    new ContainerExtension()
 ];
