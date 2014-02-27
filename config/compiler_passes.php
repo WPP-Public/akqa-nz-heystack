@@ -9,5 +9,5 @@ return [
     new CompilerPass\SilverStripeOrm(),
     new CompilerPass\DataObjectGenerator(),
     new CompilerPass\Command(),
-    new CompilerPass\HasHeystackServices(),
+    new CompilerPass\HasLoggerService()
 ];
