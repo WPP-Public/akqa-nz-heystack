@@ -68,6 +68,8 @@ class GenerateContainer extends Command
         $container = new HeystackSilverStripeContainerBuilder();
 
         foreach (new \DirectoryIterator(BASE_PATH) as $directory) {
+            $directory = BASE_PATH . '/' . $directory;
+
             if (!file_exists($directory . '/_heystack_subsystem')) {
                 continue;
             }
