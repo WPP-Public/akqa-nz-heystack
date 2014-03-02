@@ -3,5 +3,6 @@
   "conduit_uri": "https://phabricator.heyday.net.nz/",
   "lint.engine.single.linter": "ArcanistPhpcsLinter",
   "lint.engine": "ArcanistSingleLintEngine",
-  "lint.phpcs.standard": "PSR2"
+  "lint.phpcs.standard": "PSR2",
+  "unit.engine": "PhpunitTestEngine"
 }

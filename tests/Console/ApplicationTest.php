@@ -27,28 +27,4 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
     }
-
-    /**
-     * @covers Heystack\Core\Console\Application::setLogger
-     * @todo   Implement testSetLogger().
-     */
-    public function testSetLogger()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Heystack\Core\Console\Application::getLogger
-     * @todo   Implement testGetLogger().
-     */
-    public function testGetLogger()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
 }

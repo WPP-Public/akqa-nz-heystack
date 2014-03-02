@@ -61,7 +61,13 @@ class HeystackSilverStripeContainer extends Container
     public function get($id, $invalidBehavior = self::EXCEPTION_ON_INVALID_REFERENCE)
     {
         if (substr($id, 0, 13) === 'silverstripe.') {
-            return $this->getInjector()->get(substr($id, 13));
+            $id = substr($id, 13);
+            if ($mapping = $this->getParameter('silverstripe_service_mapping')) {
+                if (isset($mapping[$id])) {
+                    $id = $mapping[$id];
+                }
+            }
+            return $this->getInjector()->get($id);
         } else {
             return parent::get($id, $invalidBehavior);
         }

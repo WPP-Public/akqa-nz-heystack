@@ -42,7 +42,13 @@ class HeystackSilverStripeContainerBuilder extends ContainerBuilder
     public function has($id)
     {
         if (substr($id, 0, 13) === 'silverstripe.') {
-            return (bool) $this->injector->get(substr($id, 13));
+            $id = substr($id, 13);
+            if ($mapping = $this->getParameter('silverstripe_service_mapping')) {
+                if (isset($mapping[$id])) {
+                    $id = $mapping[$id];
+                }
+            }
+            return (bool) $this->injector->get($id);
         } else {
             return parent::has($id);
         }

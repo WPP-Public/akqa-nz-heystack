@@ -135,7 +135,7 @@ class GenerateContainer extends Command
         $dumper = new PhpDumper($container);
 
         file_put_contents(
-            realpath($location) . "$class.php",
+            realpath($location) . "/$class.php",
             $dumper->dump([
                 'class' => $class,
                 'base_class' => "Heystack\\Core\\DependencyInjection\\SilverStripe\\HeystackSilverStripeContainer"

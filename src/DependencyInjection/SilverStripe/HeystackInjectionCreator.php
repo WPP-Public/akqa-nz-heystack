@@ -45,7 +45,7 @@ class HeystackInjectionCreator extends \InjectionCreator
      * @return mixed|object
      * @throws \InvalidArgumentException
      */
-    public function create($class, array $params = [])
+    public function create($class, $params = array())
     {
         if (substr($class, 0, 9) === 'heystack.') {
             $class = substr($class, 9);
