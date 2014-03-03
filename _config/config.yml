@@ -1,0 +1,37 @@
+---
+Only:
+  environment: dev
+---
+Injector:
+  HeystackServiceContainer:
+    class: HeystackServiceContainerdev
+
+---
+Only:
+  environment: test
+---
+Injector:
+  HeystackServiceContainer:
+    class: HeystackServiceContainertest
+
+---
+Only:
+  environment: live
+---
+Injector:
+  HeystackServiceContainer:
+    class: HeystackServiceContainerlive
+
+---
+Name: heystack
+---
+Injector:
+  HeystackBootstrap:
+    class: Heystack\Core\Bootstrap
+    constructor:
+      0: '%$HeystackServiceContainer'
+
+  RequestProcessor:
+    properties:
+      filters:
+        - '%$HeystackBootstrap'

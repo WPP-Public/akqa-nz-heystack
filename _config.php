@@ -1,9 +1,5 @@
 <?php
 
-use Heystack\Core\Events;
-use Heystack\Core\Services;
-use Heystack\Core\DependencyInjection\SilverStripe\HeystackInjectionCreator;
-
 define('HEYSTACK_BASE_PATH', __DIR__);
 
 /**
@@ -35,7 +31,4 @@ if (file_exists(BASE_PATH . '/vendor/autoload.php')) {
     require_once BASE_PATH . '/vendor/autoload.php';
 }
 
-$container = require_once HEYSTACK_BASE_PATH . '/config/container.php';
-Injector::inst()->setObjectCreator(new HeystackInjectionCreator($container));
-
-$container->get(Services::EVENT_DISPATCHER)->dispatch(Events::READY);
+require_once HEYSTACK_BASE_PATH . '/config/container.php';

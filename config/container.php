@@ -15,5 +15,3 @@ if (!file_exists($containerFile)) {
 }
 
 require_once $containerFile;
-
-return new $containerName();

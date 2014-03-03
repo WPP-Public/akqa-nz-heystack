@@ -6,10 +6,13 @@
  */
 require_once __DIR__ . '/bootstrap.php';
 
+$injector = Injector::inst();
+$injector->get('HeystackBootstrap');
+
 /**
  * Get the container
  */
-$application = Injector::inst()->get('heystack.console.application');
+$application = $injector->get('heystack.console.application');
 
 /**
  * If the container in use doesn't have console.application then there is a big problem
