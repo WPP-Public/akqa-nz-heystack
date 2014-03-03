@@ -38,31 +38,29 @@ class HeystackInjectionCreator extends \InjectionCreator
     }
 
     /**
-     * Creates or retrieves the service that is requested
-     *
-     * @param $class name of service
-     * @param  array                     $params
+     * @param string $service
+     * @param array $params
      * @return mixed|object
      * @throws \InvalidArgumentException
      */
-    public function create($class, $params = array())
+    public function create($service, array $params = array())
     {
-        if (substr($class, 0, 9) === 'heystack.') {
-            $class = substr($class, 9);
-            if ($this->heystackContainer->has($class)) {
-                return $this->heystackContainer->get($class);
-            } elseif ($this->heystackContainer->hasParameter($class)) {
-                return $this->heystackContainer->getParameter($class);
+        if (substr($service, 0, 9) === 'heystack.') {
+            $service = substr($service, 9);
+            if ($this->heystackContainer->has($service)) {
+                return $this->heystackContainer->get($service);
+            } elseif ($this->heystackContainer->hasParameter($service)) {
+                return $this->heystackContainer->getParameter($service);
             } else {
                 throw new \InvalidArgumentException(
                     sprintf(
                         "Requested Heystack service or parameter '%s' doesn't exist",
-                        $class
+                        $service
                     )
                 );
             }
         } else {
-            return parent::create($class, $params);
+            return parent::create($service, $params);
         }
     }
 }
