@@ -1,5 +1,4 @@
 parameters:
-    config.class: Heystack\Core\Config
     state.class: Heystack\Core\State\State
     backend_session.class: Heystack\Core\State\Backends\Session
     backend_memcache.class: Heystack\Core\State\Backends\Memcache
@@ -33,17 +32,19 @@ parameters:
 services:
     console.application:
         class: %console.application.class%
+        tags:
+          - { name: autoinject, adder: true }
 
     console.command.generate_container:
         class: %console.command.generate_container.class%
         tags:
-          - { name: console.application.command }
+          - { name: autoinject.provides, all: true }
 
     console.command.generate_dataobjects:
       class: %console.command.generate_dataobjects.class%
-      arguments: [ @dataobject_generator ]
       tags:
-        - { name: console.application.command }
+        - { name: autoinject, all: true }
+        - { name: autoinject.provides, all: true }
 
     memcache:
         class: %memcache.class%
@@ -53,6 +54,8 @@ services:
     session:
         class: %session.class%
         arguments: [[]]
+        tags:
+          - { name: autoinject.provides, all: true }
 
     backend_memcache:
         class: %backend_memcache.class%
@@ -64,38 +67,50 @@ services:
 
     backend_session:
         class: %backend_session.class%
-        arguments: [@session]
+        tags:
+          - { name: autoinject, all: true }
+          - { name: autoinject.provides, interfaces: true }
 
     state:
         class: %state.class%
-        arguments: [@backend_session]
+        tags:
+          - { name: autoinject, all: true }
+          - { name: autoinject.provides, all: true }
 
     state_global:
         class: %state.class%
-        arguments: [@backend_session]
-
-    config:
-        class: %config.class%
-        arguments: []
+        tags:
+          - { name: autoinject, all: true }
 
     event_dispatcher:
         class: %event_dispatcher.class%
+        tags:
+          - { name: autoinject.provides, all: true }
 
     input_processor_handler:
       class: %input_processor_handler.class%
+      tags:
+        - { name: autoinject, all: true }
 
     output_processor_handler:
       class: %output_processor_handler.class%
+      tags:
+        - { name: autoinject, all: true }
 
     dataobject_generator:
       arguments: [ @state_global ]
       class: %dataobject_generator.class%
+      tags:
+        - { name: autoinject.provides, all: true }
 
     ss_orm_backend:
       class: %ss_orm_backend.class%
-      arguments: [ @event_dispatcher, @dataobject_generator ]
+      tags:
+        - { name: autoinject, all: true }
+        - { name: autoinject.provides, all: true }
 
     storage:
       class: %storage.class%
-      calls:
-        - [ addBackend, [ @ss_orm_backend ] ]
+      tags:
+        - { name: autoinject, adder: true }
+        - { name: autoinject.provides, all: true }

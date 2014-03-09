@@ -9,5 +9,6 @@ return [
     new CompilerPass\SilverStripeOrm(),
     new CompilerPass\DataObjectGenerator(),
     new CompilerPass\Command(),
-    new CompilerPass\HasLoggerService()
+    new CompilerPass\HasLoggerService(),
+    new CompilerPass\AutoInject()
 ];
