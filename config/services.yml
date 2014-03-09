@@ -8,6 +8,7 @@ parameters:
     console.application.class: Heystack\Core\Console\Application
     console.command.generate_container.class: Heystack\Core\Console\Command\GenerateContainer
     console.command.generate_dataobjects.class: Heystack\Core\Console\Command\GenerateDataObjects
+    console.command.flush_cache.class: Heystack\Core\Console\Command\FlushCache
 
     session.class: Session
     dataobject_generator.class: Heystack\Core\Generate\DataObjectGenerator
@@ -29,7 +30,15 @@ parameters:
 
     memcache.prefix: heystack_
 
+    doctrine_cache.class: Doctrine\Common\Cache\FilesystemCache
+
 services:
+    doctrine_cache:
+      class: %doctrine_cache.class%
+      arguments: [ '../heystack/cache/' ]
+      tags:
+          - { name: autoinject.provides, all: true }
+
     console.application:
         class: %console.application.class%
         tags:
@@ -42,6 +51,12 @@ services:
 
     console.command.generate_dataobjects:
       class: %console.command.generate_dataobjects.class%
+      tags:
+        - { name: autoinject, all: true }
+        - { name: autoinject.provides, all: true }
+
+    console.command.flush_cache:
+      class: %console.command.flush_cache.class%
       tags:
         - { name: autoinject, all: true }
         - { name: autoinject.provides, all: true }
@@ -61,10 +76,6 @@ services:
         class: %backend_memcache.class%
         arguments: [@memcache, @session]
 
-    backend_global_memcache:
-        class: %backend_memcache.class%
-        arguments: [@memcache, null, %memcache.prefix%]
-
     backend_session:
         class: %backend_session.class%
         tags:
@@ -76,9 +87,6 @@ services:
         tags:
           - { name: autoinject, all: true }
           - { name: autoinject.provides, all: true }
-
-    state_global:
-        class: %state.class%
         tags:
           - { name: autoinject, all: true }
 
