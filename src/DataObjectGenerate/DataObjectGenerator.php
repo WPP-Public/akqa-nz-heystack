@@ -185,7 +185,7 @@ class DataObjectGenerator
         file_put_contents(
             $dir . DIRECTORY_SEPARATOR . $name . '.php',
             singleton('ViewableData')->renderWith(
-                HEYSTACK_BASE_PATH . '/src/Generate/templates/DataObject_php.ss',
+                HEYSTACK_BASE_PATH . '/src/DataObjectGenerate/templates/DataObject_php.ss',
                 array_merge(
                     [
                         'PHPTag' => '<?php',
@@ -234,7 +234,7 @@ class DataObjectGenerator
         file_put_contents(
             $dir . DIRECTORY_SEPARATOR . $name . '.php',
             singleton('ViewableData')->renderWith(
-                HEYSTACK_BASE_PATH . '/src/Generate/templates/ModelAdmin_php.ss',
+                HEYSTACK_BASE_PATH . '/src/DataObjectGenerate/templates/ModelAdmin_php.ss',
                 [
                     'PHPTag' => '<?php',
                     'Name' => $name,
