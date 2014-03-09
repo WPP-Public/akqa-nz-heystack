@@ -10,5 +10,6 @@ return [
     new CompilerPass\DataObjectGenerator(),
     new CompilerPass\Command(),
     new CompilerPass\HasLoggerService(),
+    new CompilerPass\State(),
     new CompilerPass\AutoInject()
 ];
