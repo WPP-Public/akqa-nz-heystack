@@ -34,11 +34,13 @@ Heystack is a SilverStripe module, designed to provide a set of programming tool
 The installation of the following dependencies is handled by `composer`:
 
 ```
-"symfony/event-dispatcher": "~2.3",
-"symfony/dependency-injection": "~2.3",
-"symfony/console": "~2.3",
-"monolog/monolog": "~1.6",
-"camspiers/shared-dependency-injection": "~0.4"
+"php": ">=5.4.0",
+"composer/installers": "~1.0",
+"symfony/event-dispatcher": "~2.4",
+"symfony/dependency-injection": "~2.4",
+"symfony/console": "~2.4",
+"symfony/config": "~2.4",
+"psr/log": "~1.0"
 ```
 
 # Coding standards

@@ -164,53 +164,56 @@ final class AutoInject implements CompilerPassInterface
                 if ($this->hasConfig(self::CONFIG_ARGUMENTS, $attr)) {
                     // arguments injection
                     $arguments = $definition->getArguments();
+                    $constructor = $reflectionClass->getConstructor();
                     
-                    foreach ($reflectionClass->getConstructor()->getParameters() as $index => $reflectionParameter) {
-                        // We already have this argument provided, so skip
-                        if (isset($arguments[$index])) {
-                            continue;
+                    if ($constructor instanceof ReflectionMethod) {
+                        foreach ($reflectionClass->getConstructor()->getParameters() as $index => $reflectionParameter) {
+                            // We already have this argument provided, so skip
+                            if (isset($arguments[$index])) {
+                                continue;
+                            }
+                            
+                            // If the argument is optional, then just default in its default value
+                            if ($reflectionParameter->isOptional()) {
+                                $arguments[$index] = $reflectionParameter->getDefaultValue();
+                                continue;
+                            }
+    
+                            $reflectionParameterClass = $reflectionParameter->getClass();
+    
+                            // If a scalar value isn't provider, and there is no default value
+                            // we need to inform the use that we can't provide scalar value auto-injection
+                            if (!$reflectionParameterClass instanceof ReflectionClass) {
+                                throw new ConfigurationException(
+                                    sprintf(
+                                        "Failed to inject scalar argument '%s' for service '%s'. " .
+                                        "To use scalar parameters with AutoInject, specify the " .
+                                        "arguments 0-based position number explicitly in the configuration",
+                                        $reflectionParameter->getName(),
+                                        $id
+                                    )
+                                );
+                            }
+    
+                            $reflectionParameterClassName = $reflectionParameterClass->getName();
+                            $provider = $this->getProvider($reflectionParameterClassName);
+    
+                            // If we can't find a provided service then tell the user
+                            if (!$provider) {
+                                throw new ConfigurationException(
+                                    sprintf(
+                                        "A service providing for the %s '%s' was not found when " .
+                                        "auto-injecting the service '%s'",
+                                        $reflectionParameterClass->isInterface() ? 'interface' : 'class',
+                                        $reflectionParameterClassName,
+                                        $id
+                                    )
+                                );
+                            }
+    
+                            $arguments[$index] = $provider;
+                            $constructorProvided[] = $provider;
                         }
-                        
-                        // If the argument is optional, then just default in its default value
-                        if ($reflectionParameter->isOptional()) {
-                            $arguments[$index] = $reflectionParameter->getDefaultValue();
-                            continue;
-                        }
-
-                        $reflectionParameterClass = $reflectionParameter->getClass();
-
-                        // If a scalar value isn't provider, and there is no default value
-                        // we need to inform the use that we can't provide scalar value auto-injection
-                        if (!$reflectionParameterClass instanceof ReflectionClass) {
-                            throw new ConfigurationException(
-                                sprintf(
-                                    "Failed to inject scalar argument '%s' for service '%s'. " .
-                                    "To use scalar parameters with AutoInject, specify the " .
-                                    "arguments 0-based position number explicitly in the configuration",
-                                    $reflectionParameter->getName(),
-                                    $id
-                                )
-                            );
-                        }
-
-                        $reflectionParameterClassName = $reflectionParameterClass->getName();
-                        $provider = $this->getProvider($reflectionParameterClassName);
-
-                        // If we can't find a provided service then tell the user
-                        if (!$provider) {
-                            throw new ConfigurationException(
-                                sprintf(
-                                    "A service providing for the %s '%s' was not found when " .
-                                    "auto-injecting the service '%s'",
-                                    $reflectionParameterClass->isInterface() ? 'interface' : 'class',
-                                    $reflectionParameterClassName,
-                                    $id
-                                )
-                            );
-                        }
-
-                        $arguments[$index] = $provider;
-                        $constructorProvided[] = $provider;
                     }
                     
                     // Ensure that the arguments are ordered by their index
