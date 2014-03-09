@@ -2,6 +2,8 @@
 
 define('BASE_PATH', dirname(dirname(__DIR__)));
 
+chdir(dirname(dirname(__FILE__)));
+
 /**
  * Start: Load silverstripe
  */
