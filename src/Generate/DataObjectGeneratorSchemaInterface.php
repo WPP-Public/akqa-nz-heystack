@@ -11,13 +11,13 @@
  */
 namespace Heystack\Core\Generate;
 
-    /**
-     * Defines how a schema should work
-     *
-     * @author  Cam Spiers <cameron@heyday.co.nz>
-     * @author  Stevie Mayhew <stevie@heyday.co.nz>
-     * @package Heystack
-     */
+/**
+ * Defines how a schema should work
+ *
+ * @author  Cam Spiers <cameron@heyday.co.nz>
+ * @author  Stevie Mayhew <stevie@heyday.co.nz>
+ * @package Heystack
+ */
 /**
  * Class DataObjectGeneratorSchemaInterface
  * @package Heystack\Core\Generate
@@ -32,17 +32,7 @@ interface DataObjectGeneratorSchemaInterface
     /**
      * @return mixed
      */
-    public function getDataProviderIdentifier();
-
-    /**
-     * @return mixed
-     */
     public function getFlatStorage();
-
-    /**
-     * @return mixed
-     */
-    public function getRelatedStorage();
 
     /**
      * @return mixed

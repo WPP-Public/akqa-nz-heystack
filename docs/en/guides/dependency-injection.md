@@ -151,5 +151,5 @@ public function getMycommand
 	* Adds the tagged service as a processor on the input processor 
 * `output_processor_handler.processor`
 	* Adds the tagged service as a processor on the output processor
-* `ss_orm_backend.data_provider`
-	* Adds the tagged service as a data provider to the SilverStripe ORM backend
+* `ss_orm_backend.reference_data_provider`
+	* Adds the tagged service as a reference data provider to the SilverStripe ORM backend

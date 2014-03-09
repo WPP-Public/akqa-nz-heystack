@@ -14,37 +14,34 @@ use Heystack\Core\Exception\ConfigurationException;
 use Heystack\Core\Generate\DataObjectGenerator;
 use Heystack\Core\Generate\DataObjectGeneratorSchemaInterface;
 use Heystack\Core\Identifier\Identifier;
+use Heystack\Core\Identifier\IdentifierInterface;
 use Heystack\Core\Storage\BackendInterface;
 use Heystack\Core\Storage\Event;
 use Heystack\Core\Storage\StorableInterface;
+use Heystack\Core\Traits\HasEventServiceTrait;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
- *
- *
- *
- *
+ * Class Backend
+ * @package Heystack\Core\Storage\Backends\SilverStripeOrm
  * @author  Cam Spiers <cameron@heyday.co.nz>
- * @package Heystack
  */
 class Backend implements BackendInterface
 {
+    use HasEventServiceTrait;
+
     /**
      *
      */
     const IDENTIFIER = 'silverstripe_orm';
     /**
-     * @var null|\Symfony\Component\EventDispatcher\EventDispatcher
-     */
-    private $eventService = null;
-    /**
      * @var \Heystack\Core\Generate\DataObjectGenerator|null
      */
-    private $generatorService = null;
+    private $generatorService;
     /**
-     * @var array
+     * @var \Heystack\Core\Storage\StorableInterface[]
      */
-    private $dataProviders = [];
+    private $referenceDataProviders = [];
 
     /**
      * @param EventDispatcher     $eventService
@@ -60,13 +57,31 @@ class Backend implements BackendInterface
     }
 
     /**
-     * @param StorableInterface $dataProvider
+     * @param \Heystack\Core\Storage\StorableInterface $referenceDataProvider
      */
-    public function addDataProvider(StorableInterface $dataProvider)
+    public function addReferenceDataProvider(StorableInterface $referenceDataProvider)
     {
-        $this->dataProviders[$dataProvider->getStorableIdentifier()] = $dataProvider;
+        $this->referenceDataProviders[$referenceDataProvider->getStorableIdentifier()] = $referenceDataProvider;
     }
 
+    /**
+     * @param IdentifierInterface $identifier
+     * @return \Heystack\Core\Storage\StorableInterface
+     */
+    public function getReferenceDataProvider(IdentifierInterface $identifier)
+    {
+        return $this->referenceDataProviders[$identifier->getFull()];
+    }
+
+    /**
+     * @param IdentifierInterface $referenceDataProviderIdentifier
+     * @return bool
+     */
+    public function hasReferenceDataProvider(IdentifierInterface $referenceDataProviderIdentifier)
+    {
+        return isset($this->referenceDataProviders[$referenceDataProviderIdentifier->getFull()]);
+    }
+    
     /**
      * @return string
      */
@@ -82,68 +97,43 @@ class Backend implements BackendInterface
      */
     public function write(StorableInterface $object)
     {
-
-        $dataProviderIdentifier = $object->getStorableIdentifier();
         $schemaIdentifier = strtolower($object->getSchemaName());
 
-        if ($this->hasDataProvider($dataProviderIdentifier)) {
+        $schema = $this->generatorService->getSchema($schemaIdentifier);
 
-            $dataProvider = $this->dataProviders[$dataProviderIdentifier];
-            $schema = $this->generatorService->getSchema($schemaIdentifier);
+        if ($schema instanceof DataObjectGeneratorSchemaInterface) {
 
-            if ($schema instanceof DataObjectGeneratorSchemaInterface) {
+            $storedObject = $this->writeStoredDataObject($schema, $object);
 
-                $storedObject = $this->writeStoredDataObject($schema, $dataProvider, $object);
+            $this->eventService->dispatch(
+                self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
+                new Event($storedObject->ID)
+            );
 
-                $this->eventService->dispatch(
-                    self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
-                    new Event($storedObject->ID)
-                );
-
-                return $storedObject;
-
-            } else {
-
-                throw new ConfigurationException('No schema found for identifier: ' . $schemaIdentifier);
-
-            }
+            return $storedObject;
 
         } else {
 
-            throw new ConfigurationException('Couldn\'t find data provider for identifier: ' . $dataProviderIdentifier);
+            throw new ConfigurationException('No schema found for identifier: ' . $schemaIdentifier);
 
         }
 
     }
 
     /**
-     * @param $dataProviderIdentifier
-     * @return bool
-     */
-    public function hasDataProvider($dataProviderIdentifier)
-    {
-        return isset($this->dataProviders[$dataProviderIdentifier]);
-    }
-
-    /**
      * @param  DataObjectGeneratorSchemaInterface              $schema
-     * @param  StorableInterface                               $dataProvider
      * @param  StorableInterface                               $object
      * @return mixed
      * @throws \Heystack\Core\Exception\ConfigurationException
      */
     protected function writeStoredDataObject(
         DataObjectGeneratorSchemaInterface $schema,
-        StorableInterface $dataProvider,
         StorableInterface $object
     )
     {
-
-        $saveable = 'Stored' . $schema->getIdentifier()->getFull();
-
-        $storedObject = new $saveable();
-
-        $data = $dataProvider->getStorableData();
+        $identifier = $schema->getIdentifier()->getFull();
+        $saveable = sprintf('Stored%s', $identifier);
+        $storedObject = \Injector::inst()->create($saveable);
         $writeableData = $object->getStorableData();
 
         foreach ($schema->getFlatStorage() as $key => $value) {
@@ -153,12 +143,13 @@ class Backend implements BackendInterface
             if ($reference) {
 
                 $referenceSchema = $this->generatorService->getSchema($reference);
+                $referenceSchemaIdentifier = $referenceSchema->getIdentifier();
 
-                if ($this->hasDataProvider($referenceSchema->getDataProviderIdentifier())) {
+                if ($this->hasReferenceDataProvider($referenceSchemaIdentifier)) {
 
                     if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
 
-                        $referenceData = $this->dataProviders[$referenceSchema->getDataProviderIdentifier()]->getStorableData();
+                        $referenceData = $this->getReferenceDataProvider($referenceSchemaIdentifier)->getStorableData();
 
                         foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
 
@@ -182,7 +173,14 @@ class Backend implements BackendInterface
 
                 } else {
 
-                    throw new ConfigurationException('Reference in flat schema didn\'t have an associated data provider');
+                    throw new ConfigurationException(
+                        sprintf(
+                            'Reference in flat schema didn\'t have an associated data provider for identifier `%s`' . 
+                            ' available identifiers are `%s`',
+                            $referenceSchema->getIdentifier()->getFull(),
+                            implode(', ', array_keys($this->referenceDataProviders))
+                        )
+                    );
 
                 }
 
@@ -204,8 +202,7 @@ class Backend implements BackendInterface
 
         }
 
-        // @todo this should be in the config?
-        if (isset($data['parent']) && isset($writeableData['flat']['ParentID'])) {
+        if (isset($writeableData['parent']) && isset($writeableData['flat']['ParentID'])) {
             $storedObject->ParentID = $writeableData['flat']['ParentID'];
         }
 

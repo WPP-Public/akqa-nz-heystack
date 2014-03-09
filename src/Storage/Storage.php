@@ -10,13 +10,13 @@
  */
 namespace Heystack\Core\Storage;
 
-    /**
-     *
-     * Stores objects that implement StorableInterface using backends
-     *
-     * @author  Cam Spiers <cameron@heyday.co.nz>
-     * @package Heystack
-     */
+/**
+ *
+ * Stores objects that implement StorableInterface using backends
+ *
+ * @author  Cam Spiers <cameron@heyday.co.nz>
+ * @package Heystack
+ */
 /**
  * Class Storage
  * @package Heystack\Core\Storage
@@ -25,7 +25,7 @@ class Storage
 {
 
     /**
-     * @var array
+     * @var \\Heystack\Core\Storage\BackendInterface[]
      */
     private $backends = [];
 
@@ -40,7 +40,7 @@ class Storage
     }
 
     /**
-     * @param BackendInterface $backend
+     * @param \Heystack\Core\Storage\BackendInterface $backend
      */
     public function addBackend(BackendInterface $backend)
     {
@@ -48,7 +48,7 @@ class Storage
     }
 
     /**
-     * @param array $backends
+     * @param \Heystack\Core\Storage\BackendInterface[] $backends
      */
     public function setBackends(array $backends)
     {
@@ -58,7 +58,7 @@ class Storage
     }
 
     /**
-     * @return array
+     * @return \Heystack\Core\Storage\BackendInterface[]
      */
     public function getBackends()
     {

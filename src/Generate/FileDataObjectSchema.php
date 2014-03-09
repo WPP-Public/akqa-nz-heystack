@@ -16,6 +16,7 @@ use Heystack\Core\Identifier\Identifier;
 use Heystack\Core\State\State;
 
 use Heystack\Core\State\StateableInterface;
+use Heystack\Core\Traits\HasStateServiceTrait;
 
 /**
  * Uses yaml files to provide a schema for dataobject class creation
@@ -27,15 +28,12 @@ use Heystack\Core\State\StateableInterface;
 abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterface, StateableInterface
 {
 
+    use HasStateServiceTrait;
+
     /**
      * @var array
      */
     private $config;
-
-    /**
-     * @var \Heystack\Core\State\State
-     */
-    private $stateService;
 
     /**
      * @var string
@@ -75,18 +73,10 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
 
             }
 
-            if (!array_key_exists('related', $config)) {
-
-                throw new ConfigurationException('Related config missing');
-
-            }
-
             $this->config = $config;
 
             $this->saveState();
-
         }
-
     }
 
     /**
@@ -120,29 +110,11 @@ abstract class FileDataObjectSchema implements DataObjectGeneratorSchemaInterfac
     }
 
     /**
-     * @return bool
-     */
-    public function getDataProviderIdentifier()
-    {
-        return isset($this->config['data_provider_id']) ? $this->config['data_provider_id'] : false;
-
-    }
-
-    /**
      * @return array
      */
     public function getFlatStorage()
     {
         return isset($this->config['flat']) ? $this->config['flat'] : [];
-
-    }
-
-    /**
-     * @return array
-     */
-    public function getRelatedStorage()
-    {
-        return isset($this->config['related']) ? $this->config['related'] : [];
 
     }
 

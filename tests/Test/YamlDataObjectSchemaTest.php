@@ -55,8 +55,6 @@ class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
             'Test' => 'Text'
         ], $this->schema->getFlatStorage());
 
-        $this->assertEquals([], $this->schema->getRelatedStorage());
-
         $this->assertEquals([], $this->schema->getParentStorage());
 
         $this->assertEquals([

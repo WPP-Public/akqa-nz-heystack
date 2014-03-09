@@ -33,7 +33,6 @@ class SilverStripeOrm implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-
         if (!$container->hasDefinition(Services::SS_ORM_BACKEND)) {
             return;
 
@@ -41,16 +40,13 @@ class SilverStripeOrm implements CompilerPassInterface
 
         $definition = $container->getDefinition(Services::SS_ORM_BACKEND);
 
-        $taggedServices = $container->findTaggedServiceIds(Services::SS_ORM_BACKEND . '.data_provider');
+        $taggedServices = $container->findTaggedServiceIds(Services::SS_ORM_BACKEND . '.reference_data_provider');
 
         foreach ($taggedServices as $id => $attributes) {
-
             $definition->addMethodCall(
-                'addDataProvider',
+                'addReferenceDataProvider',
                 [new Reference($id)]
             );
-
         }
-
     }
 }
