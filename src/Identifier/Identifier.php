@@ -10,7 +10,7 @@ namespace Heystack\Core\Identifier;
 class Identifier implements IdentifierInterface
 {
     /**
-     *
+     * The glue to use for preparing the secondary identifiers
      */
     const GLUE = '.';
     /**
@@ -63,7 +63,6 @@ class Identifier implements IdentifierInterface
                     $this->secondaries
                 )
             );
-
         }
 
         return $this->primary;

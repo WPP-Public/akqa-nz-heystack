@@ -2,10 +2,6 @@
 
 namespace Heystack\Core\Exception;
 
-use Heystack\Core\Services;
-use Heystack\Core\ServiceStore;
-use Monolog\Logger;
-
 /**
  * Class ConfigurationException
  * @package Heystack\Core\Exception

@@ -9,12 +9,12 @@ namespace Heystack\Core\State;
 interface StateableInterface
 {
     /**
-     * @return mixed
+     * @return void
      */
     public function saveState();
 
     /**
-     * @return mixed
+     * @return void
      */
     public function restoreState();
 }

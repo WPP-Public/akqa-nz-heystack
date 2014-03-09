@@ -11,7 +11,7 @@ interface BackendInterface
     /**
      * @param $key
      * @param $var
-     * @return mixed
+     * @return void
      */
     public function setByKey($key, $var);
 
@@ -23,13 +23,13 @@ interface BackendInterface
 
     /**
      * @param $key
-     * @return mixed
+     * @return void
      */
     public function removeByKey($key);
 
     /**
      * @param  array $exclude
-     * @return mixed
+     * @return void
      */
     public function removeAll(array $exclude = []);
 

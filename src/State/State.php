@@ -8,14 +8,13 @@ namespace Heystack\Core\State;
  */
 class State
 {
-
     /**
      * @var BackendInterface|null
      */
     private $backend = null;
 
     /**
-     * @var
+     * @var bool
      */
     private $enabled = true;
 
@@ -91,11 +90,17 @@ class State
         return $this->backend->getKeys();
     }
 
+    /**
+     * @param $enabled
+     */
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
     }
 
+    /**
+     * @return bool
+     */
     public function getEnabled()
     {
         return $this->enabled;

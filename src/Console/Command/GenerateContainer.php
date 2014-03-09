@@ -35,7 +35,7 @@ class GenerateContainer extends Command
     /**
      * @param  Input\InputInterface   $input
      * @param  Output\OutputInterface $output
-     * @return int|null|void
+     * @return void
      * @throws \Exception
      */
     protected function execute(Input\InputInterface $input, Output\OutputInterface $output)

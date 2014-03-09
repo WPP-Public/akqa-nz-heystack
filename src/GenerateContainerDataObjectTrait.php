@@ -34,5 +34,4 @@ trait GenerateContainerDataObjectTrait
     {
         $this->onAfterWrite();
     }
-
 }
