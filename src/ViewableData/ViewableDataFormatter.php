@@ -20,55 +20,12 @@ namespace Heystack\Core\ViewableData;
  * @package Heystack
  *
  */
-class ViewableDataFormatter extends \ViewableData implements \ArrayAccess
+class ViewableDataFormatter extends \ViewableData
 {
     /**
      * @var \Heystack\Core\ViewableData\ViewableDataInterface
      */
     protected $obj;
-
-    /**
-     * Implements ArrayAccess for use in DBFields when casting.
-     * No functionality is required
-     * @param  mixed $offset
-     * @return bool
-     */
-    public function offsetExists($offset)
-    {
-        return false;
-    }
-
-    /**
-     * Implements ArrayAccess for use in DBFields when casting.
-     * No functionality is required
-     * @param  mixed      $offset
-     * @return mixed|null
-     */
-    public function offsetGet($offset)
-    {
-        return null;
-    }
-
-    /**
-     * Implements ArrayAccess for use in DBFields when casting.
-     * No functionality is required
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value)
-    {
-        //Do nothing
-    }
-
-    /**
-     * Implements ArrayAccess for use in DBFields when casting.
-     * No functionality is required
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset)
-    {
-        //Do nothing
-    }
 
     /**
      * @param ViewableDataInterface $obj
@@ -78,7 +35,6 @@ class ViewableDataFormatter extends \ViewableData implements \ArrayAccess
         $this->obj = $obj;
 
         parent::__construct();
-
     }
 
     /**
@@ -103,7 +59,14 @@ class ViewableDataFormatter extends \ViewableData implements \ArrayAccess
     public function __call($method, $arguments)
     {
         if (method_exists($this->obj, 'get' . $method)) {
-            return call_user_func_array([$this->obj, 'get' . $method], $arguments);
+            $value = call_user_func_array([$this->obj, 'get' . $method], $arguments);
+            if (is_object($value) && ($constructor = $this->castingHelper($method))) {
+                $object = \Injector::inst()->create($constructor, $method);
+                $object->setValue($value);
+                return $object;
+            } else {
+                return $value;
+            }
         } elseif (in_array($method, $this->obj->getDynamicMethods())) {
             return $this->obj->$method;
         }
