@@ -12,7 +12,6 @@
 namespace Heystack\Core;
 
 /**
- *
  * @copyright  Heyday
  * @author     Cam Spiers <cameron@heyday.co.nz>
  * @package    Heystack
@@ -30,6 +29,7 @@ final class Services
     const LOGGER = 'logger';
     const MEMCACHE = 'memcache';
     const OUTPUT_PROCESSOR_HANDLER = 'output_processor_handler';
+    const SCHEMA = 'schema';
     const SESSION = 'session';
     const SS_ORM_BACKEND = 'ss_orm_backend';
     const STATE = 'state';

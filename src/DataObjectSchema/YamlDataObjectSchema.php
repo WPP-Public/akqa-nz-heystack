@@ -9,7 +9,7 @@
 /**
  * Generate namespace
  */
-namespace Heystack\Core\Generate;
+namespace Heystack\Core\DataObjectSchema;
 
 use Heystack\Core\Exception\ConfigurationException;
 use Symfony\Component\Yaml\Yaml;
@@ -33,12 +33,14 @@ class YamlDataObjectSchema extends FileDataObjectSchema
         $file = BASE_PATH . '/' . $file;
 
         if (!file_exists($file)) {
-
-            throw new ConfigurationException('File doesn\'t exist ' . $file);
-
+            throw new ConfigurationException(
+                sprintf(
+                    "File '%s' doesn't exist",
+                    $file
+                )
+            );
         }
 
         return Yaml::parse($file);
-
     }
 }

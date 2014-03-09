@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Core\Generate;
+namespace Heystack\Core\DataObjectGenerate;
 
 /**
  * Class DataObjectGeneratorTest
@@ -36,7 +36,7 @@ class DataObjectGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $this->identifier = $this->getMock('Heystack\Core\Identifier\IdentifierInterface');
 
-        $this->schema = $this->getMock('Heystack\Core\Generate\DataObjectGeneratorSchemaInterface');
+        $this->schema = $this->getMock('Heystack\Core\DataObjectGenerate\DataObjectGeneratorSchemaInterface');
 
         $this->schema->expects($this->any())
             ->method('getIdentifier')

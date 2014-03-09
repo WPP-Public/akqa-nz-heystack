@@ -6,100 +6,45 @@
  * @package Heystack
  */
 
-/**
- * Generate namespace
- */
-namespace Heystack\Core\Generate;
+namespace Heystack\Core\DataObjectGenerate;
 
 use Heystack\Core\Exception\ConfigurationException;
+use Heystack\Core\Traits\HasSchemaServiceTrait;
+use Heystack\Core\DataObjectSchema\SchemaService;
 
 /**
- * Generates SilverStripe DataObject classes based of schemas
- *
+ * Class DataObjectGenerator
  * Generates SilverStripe DataObject classes and extensions based on added schemas
  *
  * @author  Cam Spiers <cameron@heyday.co.nz>
  * @author  Stevie Mayhew <stevie@heyday.co.nz>
- * @package Heystack
+ * @package Heystack\Core\Generate
  */
 class DataObjectGenerator
 {
-    /**
-     * @var \Heystack\Core\Generate\DataObjectGeneratorSchemaInterface[]
-     */
-    private $schemas = [];
-    /**
-     * @var \Heystack\Core\Generate\DataObjectGeneratorSchemaInterface[]
-     */
-    private $referenceSchemas = [];
+    use HasSchemaServiceTrait;
+
     /**
      * @var array
      */
     private $processingFlatStorage = [];
+
     /**
      * @var string
      */
     private $storageLocation;
 
     /**
-     * @param string $storageLocation
+     * @param SchemaService $schemaService
+     * @param string|void $storageLocation
      */
-    function __construct($storageLocation = null)
+    public function __construct(SchemaService $schemaService, $storageLocation = null)
     {
+        $this->schemaService = $schemaService;
         if (is_string($storageLocation)) {
             $this->storageLocation = $storageLocation;
         } else {
             $this->storageLocation = BASE_PATH . '/mysite/code/HeystackStorage';
-        }
-    }
-
-
-    /**
-     * @param DataObjectGeneratorSchemaInterface $schema
-     * @param bool $reference
-     * @param bool $force
-     */
-    public function addSchema(
-        DataObjectGeneratorSchemaInterface $schema,
-        $reference = false,
-        $force = false
-    )
-    {
-        $identifier = strtolower($schema->getIdentifier()->getFull());
-
-        if ($reference) {
-            $this->referenceSchemas[$identifier] = $schema;
-        } else {
-            if ($this->hasSchema($identifier) && !$force) {
-                $this->schemas[$identifier]->mergeSchema($schema);
-            } else {
-                $this->schemas[$identifier] = $schema;
-            }
-        }
-    }
-
-    /**
-     * @param $identifier
-     * @return bool
-     */
-    public function hasSchema($identifier)
-    {
-        return isset($this->schemas[$identifier]) || isset($this->referenceSchemas[$identifier]);
-    }
-
-    /**
-     * @param string $identifier
-     * @throws \InvalidArgumentException
-     * @return \Heystack\Core\Generate\DataObjectGeneratorSchemaInterface
-     */
-    public function getSchema($identifier)
-    {
-        if (isset($this->schemas[$identifier])) {
-            return $this->schemas[$identifier];
-        } elseif (isset($this->referenceSchemas[$identifier])) {
-            return $this->referenceSchemas[$identifier];
-        } else {
-            throw new \InvalidArgumentException(sprintf("Schema '%s' not found", $identifier));
         }
     }
 
@@ -108,7 +53,6 @@ class DataObjectGenerator
      */
     public function process($force = false)
     {
-        $this->storageLocation = BASE_PATH . '/mysite/code/HeystackStorage';
         $dirCache = $this->storageLocation . '/cache';
 
         // check if the generated directoru exists, if not create it
@@ -132,11 +76,8 @@ class DataObjectGenerator
 
         $managed_models = [];
 
-        foreach ($this->schemas as $schema) {
-
+        foreach ($this->schemaService->getSchemas() as $schema) {
             $identifier = $schema->getIdentifier()->getFull();
-
-//            $dataProviderID = $schema->getDataProviderIdentifier();
 
             $this->output('Processing schema: ' . $identifier);
 
@@ -177,8 +118,14 @@ class DataObjectGenerator
 
             $managed_models[] = $storedObjectName;
 
+            $filename = sprintf(
+                "%s/%s.php",
+                $this->storageLocation,
+                $storedObjectName
+            );
+
             // create the storage object
-            if ($force || !file_exists($this->storageLocation . DIRECTORY_SEPARATOR . $storedObjectName . '.php')) {
+            if ($force || !file_exists($filename)) {
 
                 $this->writeDataObject(
                     $this->storageLocation,
@@ -219,7 +166,6 @@ class DataObjectGenerator
      */
     protected function writeDataObject($dir, $name, $statics = false, $extends = 'DataObject')
     {
-
         $this->output('Writing DataObject: ' . $name . '...', '');
 
         if ($statics && is_array($statics)) {
@@ -259,7 +205,6 @@ class DataObjectGenerator
         );
 
         $this->output('Done!');
-
     }
 
     /**
@@ -270,7 +215,6 @@ class DataObjectGenerator
      */
     protected function writeModelAdmin($dir, $name, $statics = false, $extends = 'ModelAdmin')
     {
-
         $this->output('Writing ModelAdmin: ' . $name . '...', '');
 
         if ($statics && is_array($statics)) {
@@ -302,7 +246,6 @@ class DataObjectGenerator
         );
 
         $this->output('Done!');
-
     }
 
     /**
@@ -317,7 +260,7 @@ class DataObjectGenerator
         if ($value[0] == '+') {
             $identifier = strtolower(substr($value, 1));
 
-            if ($this->hasSchema($identifier)) {
+            if ($this->schemaService->hasSchema($identifier)) {
                 return $identifier;
             }
 
@@ -352,7 +295,7 @@ class DataObjectGenerator
                     }
 
                     $extraFlatStorage = $this->processFlatStorage(
-                        $this->getSchema($flatIdentifier)->getFlatStorage(),
+                        $this->schemaService->getSchema($flatIdentifier)->getFlatStorage(),
                         $flatIdentifier
                     );
 
@@ -360,7 +303,7 @@ class DataObjectGenerator
 
                         foreach ($extraFlatStorage as $extraName => $extraValue) {
 
-                            $flatStorage[substr($value, 1) . $extraName] = $extraValue; //TODO: Fix me
+                            $flatStorage[substr($value, 1) . $extraName] = $extraValue; //TODO: Fix me. Fix what?
 
                         }
 
@@ -384,7 +327,6 @@ class DataObjectGenerator
      */
     protected function processParentStorage($parentStorage)
     {
-
         if (is_array($parentStorage)) {
 
             foreach ($parentStorage as $name => $value) {
@@ -392,7 +334,7 @@ class DataObjectGenerator
                 if ($parentIdentifier = $this->isReference($value)) {
 
                     unset($parentStorage[$name]);
-                    $parentStorage[$name] = 'Stored' . $this->getSchema($parentIdentifier)->getIdentifier()->getFull();
+                    $parentStorage[$name] = 'Stored' . $this->schemaService->getSchema($parentIdentifier)->getIdentifier()->getFull();
 
                 }
 
@@ -401,7 +343,6 @@ class DataObjectGenerator
         }
 
         return $parentStorage;
-
     }
 
     /**
@@ -410,14 +351,13 @@ class DataObjectGenerator
      */
     protected function processChildStorage($childStorage)
     {
-
         if (is_array($childStorage)) {
 
             foreach ($childStorage as $name => $value) {
 
                 if ($childIdentifier = $this->isReference($value)) {
 
-                    $childStorage[$name] = 'Stored' . $this->getSchema($childIdentifier)->getIdentifier()->getFull();
+                    $childStorage[$name] = 'Stored' . $this->schemaService->getSchema($childIdentifier)->getIdentifier()->getFull();
 
                 }
 
@@ -426,7 +366,6 @@ class DataObjectGenerator
         }
 
         return $childStorage;
-
     }
 
     /**

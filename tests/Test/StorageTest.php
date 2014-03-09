@@ -3,7 +3,6 @@
 namespace Heystack\Core\Test;
 
 use Heystack\Core\Storage\Storage;
-
 use Heystack\Core\Storage\Event;
 
 class StorageTest extends \PHPUnit_Framework_TestCase
@@ -14,12 +13,8 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->storage = new Storage();
-        $this->storage->addBackend(new TestStorageBackend);
-    }
-
-    protected function tearDown()
-    {
-        $this->storage = null;
+        $this->storageMockBackend = $this->getMock('Heystack\Core\Storage\BackendInterface');
+        $this->storage->addBackend($this->storageMockBackend);
     }
 
     public function testStorage()

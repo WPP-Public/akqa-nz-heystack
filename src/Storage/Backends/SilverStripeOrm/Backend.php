@@ -5,21 +5,21 @@
  * @package Heystack
  */
 
-/**
- * Storage namespace
- */
 namespace Heystack\Core\Storage\Backends\SilverStripeOrm;
 
 use Heystack\Core\Exception\ConfigurationException;
-use Heystack\Core\Generate\DataObjectGenerator;
-use Heystack\Core\Generate\DataObjectGeneratorSchemaInterface;
+use Heystack\Core\DataObjectGenerate\DataObjectGenerator;
 use Heystack\Core\Identifier\Identifier;
 use Heystack\Core\Identifier\IdentifierInterface;
 use Heystack\Core\Storage\BackendInterface;
 use Heystack\Core\Storage\Event;
 use Heystack\Core\Storage\StorableInterface;
+use Heystack\Core\DataObjectSchema\SchemaService;
+use Heystack\Core\DataObjectSchema\SchemaInterface;
 use Heystack\Core\Traits\HasEventServiceTrait;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Heystack\Core\Traits\HasSchemaServiceTrait;
+use Heystack\Core\Traits\HasGeneratorServiceTrait;
+use Heystack\Core\EventDispatcher;
 
 /**
  * Class Backend
@@ -29,31 +29,33 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 class Backend implements BackendInterface
 {
     use HasEventServiceTrait;
+    use HasSchemaServiceTrait;
+    use HasGeneratorServiceTrait;
 
     /**
-     *
+     * The identifier for this backend
      */
     const IDENTIFIER = 'silverstripe_orm';
-    /**
-     * @var \Heystack\Core\Generate\DataObjectGenerator|null
-     */
-    private $generatorService;
+
     /**
      * @var \Heystack\Core\Storage\StorableInterface[]
      */
     private $referenceDataProviders = [];
 
     /**
-     * @param EventDispatcher     $eventService
-     * @param DataObjectGenerator $generatorService
+     * @param \Heystack\Core\EventDispatcher $eventService
+     * @param \Heystack\Core\DataObjectGenerate\DataObjectGenerator $generatorService
+     * @param \Heystack\Core\DataObjectSchema\SchemaService $schemaService
      */
     public function __construct(
-        EventDispatcher $eventService,
-        DataObjectGenerator $generatorService
+        DataObjectGenerator $generatorService,
+        SchemaService $schemaService,
+        EventDispatcher $eventService
     )
     {
-        $this->eventService = $eventService;
         $this->generatorService = $generatorService;
+        $this->schemaService = $schemaService;
+        $this->eventService = $eventService;
     }
 
     /**
@@ -99,35 +101,27 @@ class Backend implements BackendInterface
     {
         $schemaIdentifier = strtolower($object->getSchemaName());
 
-        $schema = $this->generatorService->getSchema($schemaIdentifier);
+        $storedObject = $this->writeStoredDataObject(
+            $this->schemaService->getSchema($schemaIdentifier),
+            $object
+        );
 
-        if ($schema instanceof DataObjectGeneratorSchemaInterface) {
+        $this->eventService->dispatch(
+            self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
+            new Event($storedObject->ID)
+        );
 
-            $storedObject = $this->writeStoredDataObject($schema, $object);
-
-            $this->eventService->dispatch(
-                self::IDENTIFIER . '.' . $object->getStorableIdentifier() . '.stored',
-                new Event($storedObject->ID)
-            );
-
-            return $storedObject;
-
-        } else {
-
-            throw new ConfigurationException('No schema found for identifier: ' . $schemaIdentifier);
-
-        }
-
+        return $storedObject;
     }
 
     /**
-     * @param  DataObjectGeneratorSchemaInterface              $schema
-     * @param  StorableInterface                               $object
+     * @param  SchemaInterface $schema
+     * @param  StorableInterface $object
      * @return mixed
      * @throws \Heystack\Core\Exception\ConfigurationException
      */
     protected function writeStoredDataObject(
-        DataObjectGeneratorSchemaInterface $schema,
+        SchemaInterface $schema,
         StorableInterface $object
     )
     {
@@ -142,32 +136,24 @@ class Backend implements BackendInterface
 
             if ($reference) {
 
-                $referenceSchema = $this->generatorService->getSchema($reference);
+                $referenceSchema = $this->schemaService->getSchema($reference);
                 $referenceSchemaIdentifier = $referenceSchema->getIdentifier();
 
                 if ($this->hasReferenceDataProvider($referenceSchemaIdentifier)) {
 
-                    if ($referenceSchema instanceof DataObjectGeneratorSchemaInterface) {
+                    $referenceData = $this->getReferenceDataProvider($referenceSchemaIdentifier)->getStorableData();
 
-                        $referenceData = $this->getReferenceDataProvider($referenceSchemaIdentifier)->getStorableData();
+                    foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
 
-                        foreach (array_keys($referenceSchema->getFlatStorage()) as $referenceKey) {
+                        if (isset($referenceData['flat'][$referenceKey])) {
 
-                            if (isset($referenceData['flat'][$referenceKey])) {
+                            $storedObject->{$key . $referenceKey} = $referenceData['flat'][$referenceKey];
 
-                                $storedObject->{$key . $referenceKey} = $referenceData['flat'][$referenceKey];
+                        } else {
 
-                            } else {
-
-                                throw new ConfigurationException("No data found for key: $key on identifier: $reference");
-
-                            }
+                            throw new ConfigurationException("No data found for key: $key on identifier: $reference");
 
                         }
-
-                    } else {
-
-                        throw new ConfigurationException("No schema found for identifier: $reference");
 
                     }
 
@@ -209,6 +195,5 @@ class Backend implements BackendInterface
         $storedObject->write();
 
         return $storedObject;
-
     }
 }

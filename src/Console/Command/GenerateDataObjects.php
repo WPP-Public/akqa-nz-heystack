@@ -8,7 +8,7 @@
 
 namespace Heystack\Core\Console\Command;
 
-use Heystack\Core\Generate\DataObjectGenerator;
+use Heystack\Core\DataObjectGenerate\DataObjectGenerator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input;
 use Symfony\Component\Console\Output;
@@ -20,12 +20,12 @@ use Symfony\Component\Console\Output;
 class GenerateDataObjects extends Command
 {
     /**
-     * @var \Heystack\Core\Generate\DataObjectGenerator
+     * @var \Heystack\Core\DataObjectGenerate\DataObjectGenerator
      */
     private $generatorService;
 
     /**
-     * @param \Heystack\Core\Generate\DataObjectGenerator $generatorService
+     * @param \Heystack\Core\DataObjectGenerate\DataObjectGenerator $generatorService
      */
     public function __construct(DataObjectGenerator $generatorService)
     {

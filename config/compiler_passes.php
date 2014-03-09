@@ -7,7 +7,7 @@ return [
     new CompilerPass\InputProcessorHandler(),
     new CompilerPass\OutputProcessorHandler(),
     new CompilerPass\SilverStripeOrm(),
-    new CompilerPass\DataObjectGenerator(),
+    new CompilerPass\SchemaService(),
     new CompilerPass\Command(),
     new CompilerPass\HasLoggerService(),
     new CompilerPass\State(),

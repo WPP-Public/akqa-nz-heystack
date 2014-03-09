@@ -10,12 +10,13 @@ parameters:
     console.command.generate_dataobjects.class: Heystack\Core\Console\Command\GenerateDataObjects
     console.command.flush_cache.class: Heystack\Core\Console\Command\FlushCache
 
+    schema.class: Heystack\Core\DataObjectSchema\SchemaService
     session.class: Session
-    dataobject_generator.class: Heystack\Core\Generate\DataObjectGenerator
+    dataobject_generator.class: Heystack\Core\DataObjectGenerate\DataObjectGenerator
 
     storage.class: Heystack\Core\Storage\Storage
     ss_orm_backend.class: Heystack\Core\Storage\Backends\SilverStripeOrm\Backend
-    yaml_data_object_schema.class: Heystack\Core\Generate\YamlDataObjectSchema
+    yaml_data_object_schema.class: Heystack\Core\DataObjectSchema\YamlDataObjectSchema
 
     logger.level.debug: 100
     logger.level.info: 200
@@ -87,8 +88,12 @@ services:
         tags:
           - { name: autoinject, all: true }
           - { name: autoinject.provides, all: true }
+          
+    schema:
+        class: %schema.class%
         tags:
           - { name: autoinject, all: true }
+          - { name: autoinject.provides, classes: true }
 
     event_dispatcher:
         class: %event_dispatcher.class%
@@ -106,9 +111,9 @@ services:
         - { name: autoinject, all: true }
 
     dataobject_generator:
-      arguments: [ @state_global ]
       class: %dataobject_generator.class%
       tags:
+        - { name: autoinject, all: true }
         - { name: autoinject.provides, all: true }
 
     ss_orm_backend:

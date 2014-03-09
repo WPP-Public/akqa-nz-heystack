@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Core\Generate;
+namespace Heystack\Core\DataObjectGenerate;
 
 use Heystack\Core\Exception\ConfigurationException;
 
@@ -66,7 +66,7 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
         try {
 
             $stub = $this->getMockBuilder(
-                'Heystack\Core\Generate\FileDataObjectSchema'
+                'Heystack\Core\DataObjectGenerate\FileDataObjectSchema'
             )->disableOriginalConstructor()->getMockForAbstractClass();
 
             $stub->expects($this->any())

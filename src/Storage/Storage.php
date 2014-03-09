@@ -11,21 +11,15 @@
 namespace Heystack\Core\Storage;
 
 /**
- *
- * Stores objects that implement StorableInterface using backends
- *
- * @author  Cam Spiers <cameron@heyday.co.nz>
- * @package Heystack
- */
-/**
  * Class Storage
+ * Stores objects that implement StorableInterface using backends
+ * @author  Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack\Core\Storage
  */
 class Storage
 {
-
     /**
-     * @var \\Heystack\Core\Storage\BackendInterface[]
+     * @var \Heystack\Core\Storage\BackendInterface[]
      */
     private $backends = [];
 
@@ -34,7 +28,7 @@ class Storage
      */
     public function __construct(array $backends = null)
     {
-        if (!is_null($backends)) {
+        if (is_array($backends)) {
             $this->setBackends($backends);
         }
     }
@@ -66,6 +60,7 @@ class Storage
     }
 
     /**
+     * Runs through each storage backend and processes the Storable object
      * @param  StorableInterface $object
      * @return array
      * @throws \Exception
@@ -73,22 +68,17 @@ class Storage
     public function process(StorableInterface $object)
     {
         if (is_array($this->backends) && count($this->backends) > 0) {
-
             $results = [];
 
             $identifiers = $object->getStorableBackendIdentifiers();
 
-            $backends = count($identifiers) == 0 ? $this->backends : array_intersect_key(
-                $this->backends,
-                array_flip($identifiers)
-            );
-
-            foreach ($backends as $identifier => $backend) {
-                $results[$identifier] = $backend->write($object);
+            foreach ($this->backends as $identifier => $backend) {
+                if (in_array($identifier, $identifiers)) {
+                    $results[$identifier] = $backend->write($object);
+                }
             }
 
             return $results;
-
         } else {
             throw new \Exception('Tried to process an storable object with no backends');
         }

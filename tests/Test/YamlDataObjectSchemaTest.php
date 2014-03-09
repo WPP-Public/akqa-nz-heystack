@@ -2,7 +2,7 @@
 
 namespace Heystack\Core\Test;
 
-use Heystack\Core\Generate\YamlDataObjectSchema;
+use Heystack\Core\DataObjectGenerate\YamlDataObjectSchema;
 
 use Heystack\Core\State\State;
 

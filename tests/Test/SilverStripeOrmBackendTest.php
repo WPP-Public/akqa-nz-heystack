@@ -4,7 +4,7 @@ namespace Heystack\Core\Test;
 
 use Heystack\Core\State\State;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Heystack\Core\Generate\DataObjectGenerator;
+use Heystack\Core\DataObjectGenerate\DataObjectGenerator;
 
 use Heystack\Core\Exception\ConfigurationException;
 
@@ -41,9 +41,9 @@ class SilverStripeOrmBackendTest extends \PHPUnit_Framework_TestCase
     public function testAddHasDataProvider()
     {
 
-        $this->backend->addDataProvider(new TestStorable);
+        $this->backend->addReferenceDataProvider(new TestStorable);
 
-        $this->assertTrue($this->backend->hasDataProvider('test'));
+        $this->assertTrue($this->backend->hasReferenceDataProvider('test'));
 
     }
 
