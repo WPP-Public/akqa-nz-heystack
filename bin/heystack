@@ -1,25 +1,24 @@
 #!/usr/bin/env php
 <?php
 
-/**
- * Use the bootstrap to ensure all environment based configs and autoloader are ready
- */
-require_once __DIR__ . '/bootstrap.php';
+chdir(dirname(__DIR__));
 
-$injector = Injector::inst();
-$injector->get('HeystackBootstrap');
+// Load up silverstripes core. This includes all heystack related modules
+require_once '../framework/core/Constants.php';
+require_once '../framework/core/Core.php';
 
-/**
- * Get the container
- */
+Session::start();
+$containerClassName = 'HeystackServiceContainer' . Director::get_environment_type();
+$bootstrap = new \Heystack\Core\Bootstrap(new $containerClassName);
+$bootstrap->doBootstrap(new Session($_SESSION));
+
+// Get the container
 $application = $injector->get('heystack.console.application');
 
-/**
- * If the container in use doesn't have console.application then there is a big problem
- */
+// If the container in use doesn't have console.application then there is a big problem
 if (!$application) {
-    unlink(HEYSTACK_BASE_PATH . '/cache/HeystackServiceContainer' . Director::get_environment_type() . '.php');
-    echo 'There appears to be a problem with your container. The service \'console.application\' must exist.', PHP_EOL;
+    unlink(HEYSTACK_BASE_PATH . "/cache/$containerClassName.php");
+    echo "There appears to be a problem with your container. The service 'console.application' must exist.", PHP_EOL;
     echo 'The current container has been deleted, please make the required modifications', PHP_EOL;
     exit(1);
 }

@@ -20,11 +20,6 @@ if (empty($databaseConfig['database'])) {
 }
 
 /**
- * Session needs to be started before dispatching the ready event
- */
-Session::start();
-
-/**
  * Load the autoloader if it exists
  */
 if (file_exists(BASE_PATH . '/vendor/autoload.php')) {

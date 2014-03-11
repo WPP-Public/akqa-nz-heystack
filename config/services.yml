@@ -67,15 +67,9 @@ services:
         calls:
             - [ connect, [ %memcache.host%, %memcache.port% ] ]
 
-    session:
-        class: %session.class%
-        arguments: [[]]
-        tags:
-          - { name: autoinject.provides, all: true }
-
     backend_memcache:
         class: %backend_memcache.class%
-        arguments: [@memcache, @session]
+        arguments: [@memcache, true]
 
     backend_session:
         class: %backend_session.class%

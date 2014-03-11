@@ -27,19 +27,9 @@ class Session implements BackendInterface
     /**
      * @param \Session $session
      */
-    public function __construct(\Session $session)
+    public function setSession(\Session $session)
     {
         $this->session = $session;
-
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-
-        if (is_array($_SESSION)) {
-            foreach ($_SESSION as $key => $val) {
-                $this->session->inst_set($key, $val);
-            }
-        }
     }
 
     /**
@@ -57,12 +47,11 @@ class Session implements BackendInterface
     public function setByKey($key, $var)
     {
         $this->session->inst_set($key, $var);
-        $this->save();
     }
 
     /**
      * @param $key
-     * @return array|\Can|null
+     * @return mixed
      */
     public function getByKey($key)
     {
@@ -75,7 +64,6 @@ class Session implements BackendInterface
     public function removeByKey($key)
     {
         $this->session->inst_clear($key);
-        $this->save();
     }
 
     /**
@@ -91,7 +79,7 @@ class Session implements BackendInterface
     }
 
     /**
-     *
+     * Saves the session into the $_SESSION
      */
     protected function save()
     {
