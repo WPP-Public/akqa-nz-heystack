@@ -3,7 +3,18 @@
 namespace Heystack\Core\DataObjectSchema;
 
 /**
- * Class SchemaService
+ * This service has schemas added to it and provides available schemas to other services
+ * 
+ * Schemas can be added to this service as long as the schema implements the SchemaInterface
+ * 
+ * There are available implementations for JSON and for Yaml.
+ * 
+ * Other services like the DataObjectGenerator service and the Storage service use this service 
+ * in order to get the available schemas.
+ * 
+ * There is an idea of a reference schema which are available to other schema to reference (use)
+ * but aren't used in any direct generation
+ * 
  * @package Heystack\Core\DataObjectSchema
  */
 class SchemaService

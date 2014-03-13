@@ -1,20 +1,31 @@
 <?php
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
 
-/**
- * DependencyInjection namespace
- */
 namespace Heystack\Core\DependencyInjection\SilverStripe;
 
 use Symfony\Component\DependencyInjection\Container;
 
 /**
- * Class HeystackSilverStripeContainer
- *
+ * Provides a base class for the generated heystack container, to bridge with SilverStripe Injection
+ * 
+ * This class allows Symfony dependency injection to access services from the SilverStripe
+ * Injection system.
+ * 
+ * Symfony lowercases all service requests, so a parameter "silverstripe_service_mapping"
+ * can be set that will provide a mapping between "heystack requested" => "SilverStripe provided" services
+ * 
+ * For example, if there is a service called "Logger" in the SilverStripe injection system,
+ * and it is requested in the Symfony system like so:
+ * 
+ * services:
+ *   my_service:
+ *     arguments: [ @silverstripe.logger ]
+ * 
+ * Then you can allow the service to be accessed via its upper-case name by setting:
+ * 
+ * parameters:
+ *   silverstripe_service_mapping:
+ *     logger: Logger
+ * 
  * @copyright  Heyday
  * @author Cam Spiers <cameron@heyday.co.nz>
  * @author Glenn Bautista <glenn@heyday.co.nz>
@@ -22,34 +33,7 @@ use Symfony\Component\DependencyInjection\Container;
  */
 class HeystackSilverStripeContainer extends Container
 {
-    /**
-     * @var \Injector
-     */
-    protected $injector;
-
-    /**
-     * Sets the injector instance
-     *
-     * @param \Injector $injector
-     */
-    public function setInjector(\Injector $injector)
-    {
-        $this->injector = $injector;
-    }
-
-    /**
-     * Retrieves the Injector instance
-     *
-     * @return \Injector
-     */
-    protected function getInjector()
-    {
-        if ($this->injector === null) {
-            $this->injector = \Injector::inst();
-        }
-
-        return $this->injector;
-    }
+    use SilverStripeServiceTrait;
 
     /**
      * Use SilverStripe's Dependency Injection system if the service is namespaced silverstripe
@@ -60,14 +44,8 @@ class HeystackSilverStripeContainer extends Container
      */
     public function get($id, $invalidBehavior = self::EXCEPTION_ON_INVALID_REFERENCE)
     {
-        if (substr($id, 0, 13) === 'silverstripe.') {
-            $id = substr($id, 13);
-            if ($mapping = $this->getParameter('silverstripe_service_mapping')) {
-                if (isset($mapping[$id])) {
-                    $id = $mapping[$id];
-                }
-            }
-            return $this->getInjector()->get($id);
+        if ($this->isSilverStripeServiceRequest($id)) {
+            return $this->getSilverStripeService($id);
         } else {
             return parent::get($id, $invalidBehavior);
         }

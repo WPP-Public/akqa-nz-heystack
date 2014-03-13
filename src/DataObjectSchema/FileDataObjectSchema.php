@@ -1,14 +1,5 @@
 <?php
 
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
-
-/**
- * Generate namespace
- */
 namespace Heystack\Core\DataObjectSchema;
 
 use Doctrine\Common\Cache\CacheProvider;
@@ -18,6 +9,15 @@ use Heystack\Core\Traits\HasStateServiceTrait;
 
 /**
  * An abstract class for schema from files
+ * 
+ * This abstract class provides a base implementation for file based schema services,
+ * such as Yaml and JSON.
+ * 
+ * When provided a cache, this class provides caching, which will do automatic invalidation
+ * when the contents of the file changes.
+ * 
+ * To extend this class, the extending class needs to provide a "parse" method
+ * which should return an array
  *
  * @author  Cam Spiers <cameron@heyday.co.nz>
  * @author  Stevie Mayhew <stevie@heyday.co.nz>
@@ -47,7 +47,12 @@ abstract class FileDataObjectSchema implements SchemaInterface
      */
     public function __construct($file, CacheProvider $cache)
     {
-        $key = md5($file);
+        // Use the contents as the key so invalidation happens on change
+        if (is_file($file)){
+            $key = md5(file_get_contents($file));
+        } else {
+            $key = md5($file);
+        }
 
         if (!$config = $cache->fetch($key)) {
             $config = $this->parseFile($file);

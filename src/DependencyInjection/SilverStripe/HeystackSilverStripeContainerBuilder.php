@@ -1,19 +1,14 @@
 <?php
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
 
-/**
- * DependencyInjection namespace
- */
 namespace Heystack\Core\DependencyInjection\SilverStripe;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Class HeystackSilverStripeContainerBuilder
+ * Allows the Symfony container to be built even if accessing SilverStripe services
+ * 
+ * This class is used when building the Symfony container to ensure that
+ * requests for SilverStripe services do not cause errors
  *
  * @copyright  Heyday
  * @author Cam Spiers <cameron@heyday.co.nz>
@@ -22,16 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class HeystackSilverStripeContainerBuilder extends ContainerBuilder
 {
-    /**
-     * @var \Injector
-     */
-    protected $injector;
-
-    public function __construct()
-    {
-        $this->injector = \Injector::inst();
-        parent::__construct();
-    }
+    use SilverStripeServiceTrait;
 
     /**
      * Return true if the service requested is a SilverStripe service and it exists in the SS container
@@ -41,14 +27,8 @@ class HeystackSilverStripeContainerBuilder extends ContainerBuilder
      */
     public function has($id)
     {
-        if (substr($id, 0, 13) === 'silverstripe.') {
-            $id = substr($id, 13);
-            if ($mapping = $this->getParameter('silverstripe_service_mapping')) {
-                if (isset($mapping[$id])) {
-                    $id = $mapping[$id];
-                }
-            }
-            return (bool) $this->injector->get($id);
+        if ($this->isSilverStripeServiceRequest($id)) {
+            return (bool) $this->getSilverStripeService($id);
         } else {
             return parent::has($id);
         }

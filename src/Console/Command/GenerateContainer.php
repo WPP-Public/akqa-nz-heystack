@@ -12,6 +12,16 @@ use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
+/**
+ * Generates the dependency injection container
+ * 
+ * This command generates teh DI container from the provided services files
+ * 
+ * It is also used via the "GenerateContainerDataObjectTrait" to regenerate the container
+ * on certain database writes
+ * 
+ * @package Heystack\Core\Console\Command
+ */
 class GenerateContainer extends Command
 {
     /**

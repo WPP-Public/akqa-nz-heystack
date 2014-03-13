@@ -1,16 +1,13 @@
 <?php
 
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
-
 namespace Heystack\Core\DataObjectSchema;
 
 /**
- * Class SchemaInterface
  * Defines how a schema should work
+ * 
+ * Implementing this interface allows the implementation to be added to the schema service
+ * and as such can be used for DataObject generation and for storage
+ * 
  * @author  Cam Spiers <cameron@heyday.co.nz>
  * @author  Stevie Mayhew <stevie@heyday.co.nz>
  * @package Heystack\Core\DataObjectSchema

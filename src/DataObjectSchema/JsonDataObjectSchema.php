@@ -1,14 +1,5 @@
 <?php
 
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
-
-/**
- * Generate namespace
- */
 namespace Heystack\Core\DataObjectSchema;
 
 use Heystack\Core\Exception\ConfigurationException;

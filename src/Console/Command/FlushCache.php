@@ -7,6 +7,13 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input;
 use Symfony\Component\Console\Output;
 
+/**
+ * Flushes the doctrine cache
+ * 
+ * This command is available via the heystack application for flushing all chache keys
+ * 
+ * @package Heystack\Core\Console\Command
+ */
 class FlushCache extends Command
 {
     use HasCacheServiceTrait;

@@ -1,14 +1,5 @@
 <?php
 
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
-
-/**
- * DependencyInjection namespace
- */
 namespace Heystack\Core\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
@@ -27,7 +18,6 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  * @author Cam Spiers <cameron@heyday.co.nz>
  * @author Glenn Bautista <glenn@heyday.co.nz>
  * @package Heystack
- *
  */
 class ContainerExtension implements ExtensionInterface
 {

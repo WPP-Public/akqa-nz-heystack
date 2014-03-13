@@ -1,11 +1,5 @@
 <?php
 
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
-
 namespace Heystack\Core\DataObjectGenerate;
 
 use Heystack\Core\Exception\ConfigurationException;
@@ -13,8 +7,14 @@ use Heystack\Core\Traits\HasSchemaServiceTrait;
 use Heystack\Core\DataObjectSchema\SchemaService;
 
 /**
- * Class DataObjectGenerator
  * Generates SilverStripe DataObject classes and extensions based on added schemas
+ * 
+ * Schemas are retrieved via the provided schema service. Using this information this service
+ * can generate DataObject classes that are by default saved into "mysite/code/HeystackStorage"
+ * 
+ * The service will generate both Cached* files and Stored* file. The Cached* files are not meant
+ * to be overwritten by developers but the Stored* file are able to be edited, and as long
+ * as the "force" flag isn't used in the process method, the edited Stored classes will not be overwritten
  *
  * @author  Cam Spiers <cameron@heyday.co.nz>
  * @author  Stevie Mayhew <stevie@heyday.co.nz>

@@ -5,7 +5,10 @@ namespace Heystack\Core\Console;
 use Symfony\Component\Console\Application as BaseApplication;
 
 /**
- * Class Application
+ * The command-line application for heystack
+ * 
+ * This application makes commands available to the user through the DI system
+ * 
  * @package Heystack\Core\Console
  */
 class Application extends BaseApplication

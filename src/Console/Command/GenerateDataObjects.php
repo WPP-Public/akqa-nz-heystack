@@ -14,6 +14,13 @@ use Symfony\Component\Console\Input;
 use Symfony\Component\Console\Output;
 
 /**
+ * Generates DataObject class files from provided DataObject schemas
+ * 
+ * When run this command with generate the DataObject class for the "Cached*" DataObjects
+ * and also the "Stored*" DataObjects if they don't exist
+ * 
+ * The generation of "Stored*" DataObject can be forced via the "-f" flag
+ * 
  * @author  Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack
  */

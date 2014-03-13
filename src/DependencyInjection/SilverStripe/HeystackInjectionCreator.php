@@ -1,13 +1,5 @@
 <?php
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
 
-/**
- * DependencyInjection namespace
- */
 namespace Heystack\Core\DependencyInjection\SilverStripe;
 
 use Symfony\Component\DependencyInjection\Container;
@@ -15,12 +7,19 @@ use Symfony\Component\DependencyInjection\Container;
 /**
  * Meant to replace SilverStripe's Injection Creator and allows services in the generated container
  * (Using Symfony's Dependency Injection) to be used in SilverStripe's Dependency Injection
+ * 
+ * This class also allows the usage of parameters from the heystack container in SilverStripe injection
+ * 
+ * When a requested service of parameter does not begin with "heystack." the the implementation
+ * will default to using the standard SilverStripe InjectionCreator
+ * 
+ * But if a service is request with "heystack." as a prefix but the service doesn't exist in the 
+ * heystack container, then the service will throw and exception
  *
  * @copyright  Heyday
  * @author Cam Spiers <cameron@heyday.co.nz>
  * @author Glenn Bautista <glenn@heyday.co.nz>
  * @package Heystack
- *
  */
 class HeystackInjectionCreator extends \InjectionCreator
 {
