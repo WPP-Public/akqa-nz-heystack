@@ -1,17 +1,10 @@
 <?php
 
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
-
-/**
- * Core namespace
- */
 namespace Heystack\Core;
 
 /**
+ * Contains the constants for each service provided by Heystack
+ * 
  * @copyright  Heyday
  * @author     Cam Spiers <cameron@heyday.co.nz>
  * @package    Heystack

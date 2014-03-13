@@ -5,7 +5,7 @@ namespace Heystack\Core\State\Traits;
 use Heystack\Core\State\ExtraDataInterface;
 
 /**
- * Class DataObjectSerializableTrait
+ * Provides a implementation of \Serializable specific to DataObject
  * @package Heystack\Core\State\Traits
  */
 trait DataObjectSerializableTrait

@@ -1,19 +1,11 @@
 <?php
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
 
-/**
- * Storage namespace
- */
 namespace Heystack\Core\Storage;
 
 use Symfony\Component\EventDispatcher\Event as SymfonyEvent;
 
 /**
- *
+ * Allows a parent reference to be set onto an event
  * @author  Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack
  */

@@ -3,7 +3,7 @@
 namespace Heystack\Core\State;
 
 /**
- * Class BackendInterface
+ * The interface that backends added to the state service needs to implement
  * @package Heystack\Core\State
  */
 interface BackendInterface

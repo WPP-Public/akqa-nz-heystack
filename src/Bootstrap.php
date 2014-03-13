@@ -10,7 +10,7 @@ use Heystack\Core\DependencyInjection\SilverStripe\HeystackInjectionCreator;
 use Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainer;
 
 /**
- * Class RequestFilter
+ * Sets up heystack by bootstrap the bridge between heystack and SilverStripe
  * @package Heystack\Core
  */
 class Bootstrap implements \RequestFilter

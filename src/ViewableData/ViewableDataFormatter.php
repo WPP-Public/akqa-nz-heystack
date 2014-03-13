@@ -1,13 +1,5 @@
 <?php
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
 
-/**
- * ViewableData namespace
- */
 namespace Heystack\Core\ViewableData;
 
 /**

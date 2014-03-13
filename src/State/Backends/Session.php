@@ -1,20 +1,12 @@
 <?php
 
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
-
-/**
- * Backends namespace
- */
 namespace Heystack\Core\State\Backends;
 
 use Heystack\Core\State\BackendInterface;
 
 /**
- * Session storage for backend
+ * Session based implementation for the state system
+ * @package Heystack\Core\State\Backends
  */
 class Session implements BackendInterface
 {

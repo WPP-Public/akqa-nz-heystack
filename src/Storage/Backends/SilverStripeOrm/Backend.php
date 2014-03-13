@@ -1,9 +1,4 @@
 <?php
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
 
 namespace Heystack\Core\Storage\Backends\SilverStripeOrm;
 
@@ -22,7 +17,8 @@ use Heystack\Core\Traits\HasGeneratorServiceTrait;
 use Heystack\Core\EventDispatcher;
 
 /**
- * Class Backend
+ * Stores StorableInterfaces intro the SilverStripe database
+ * 
  * @package Heystack\Core\Storage\Backends\SilverStripeOrm
  * @author  Cam Spiers <cameron@heyday.co.nz>
  */

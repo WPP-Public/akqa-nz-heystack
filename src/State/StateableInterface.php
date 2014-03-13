@@ -3,7 +3,7 @@
 namespace Heystack\Core\State;
 
 /**
- * Class StateableInterface
+ * The interface to be implemented for things that save and restore state
  * @package Heystack\Core\State
  */
 interface StateableInterface

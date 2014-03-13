@@ -3,15 +3,18 @@
 namespace Heystack\Core\State;
 
 /**
- * Class State
+ * Provides a state service analogous to session
+ * 
+ * A backend should be provided that implements the backend interface
+ * 
  * @package Heystack\Core\State
  */
 class State
 {
     /**
-     * @var BackendInterface|null
+     * @var BackendInterface
      */
-    private $backend = null;
+    private $backend;
 
     /**
      * @var bool

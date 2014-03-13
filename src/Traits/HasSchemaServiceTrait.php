@@ -5,7 +5,7 @@ namespace Heystack\Core\Traits;
 use Heystack\Core\DataObjectSchema\SchemaService;
 
 /**
- * Class HasSchemaServiceTrait
+ * Allows a using class to set a schema service
  * @package Heystack\Core\Traits
  */
 trait HasSchemaServiceTrait

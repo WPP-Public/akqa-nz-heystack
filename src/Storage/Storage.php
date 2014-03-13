@@ -1,18 +1,15 @@
 <?php
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
 
-/**
- * Storage namespace
- */
 namespace Heystack\Core\Storage;
 
 /**
- * Class Storage
  * Stores objects that implement StorableInterface using backends
+ * 
+ * Mutiple backends can be provider that implement the BackendInterface
+ * These backends are expected to be able to write in some manny to storage
+ * 
+ * This could be a database or an API
+ * 
  * @author  Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack\Core\Storage
  */

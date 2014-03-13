@@ -3,7 +3,8 @@
 namespace Heystack\Core\State\Traits;
 
 /**
- * Class ExtraDataTrait
+ * Works with ExtraDataInterface to provided the setExtraData method
+ * 
  * @package Heystack\Core\State\Traits
  */
 trait ExtraDataTrait

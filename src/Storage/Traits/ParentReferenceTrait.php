@@ -3,7 +3,7 @@
 namespace Heystack\Core\Storage\Traits;
 
 /**
- * Class ParentReferenceTrait
+ * Allows a using class to set a parent reference
  * @package Heystack\Core\Storage\Traits
  */
 trait ParentReferenceTrait

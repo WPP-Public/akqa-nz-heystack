@@ -1,20 +1,13 @@
 <?php
 
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
-
-/**
- * Backends namespace
- */
 namespace Heystack\Core\State\Backends;
 
 use Heystack\Core\State\BackendInterface;
 
 /**
- * Memcache storage for backend
+ * A memcached based implementation for state
+ * 
+ * @package Heystack\Core\State\Backends
  */
 class Memcache implements BackendInterface
 {
@@ -27,14 +20,12 @@ class Memcache implements BackendInterface
      * @var \Memcache
      */
     private $memcache;
+    
     /**
-     * @var bool
+     * @var array|null
      */
-    private $session = false;
-    /**
-     * @var bool
-     */
-    private $keys = false;
+    private $keys;
+
     /**
      * @var string
      */
@@ -42,13 +33,11 @@ class Memcache implements BackendInterface
 
     /**
      * @param \Memcache $memcache
-     * @param bool $session
      * @param null $prefix
      */
-    public function __construct(\Memcache $memcache, $session = false, $prefix = null)
+    public function __construct(\Memcache $memcache, $prefix = null)
     {
         $this->memcache = $memcache;
-        $this->session = $session;
 
         if (!is_null($prefix)) {
             $this->prefix = $prefix;
@@ -63,7 +52,7 @@ class Memcache implements BackendInterface
      */
     public function getKeys()
     {
-        if (!is_array($this->keys)) {
+        if (!$this->keys) {
             $this->keys = $this->getByKey(self::TRACKING_KEY);
 
             if (!is_array($this->keys)) {
@@ -131,13 +120,14 @@ class Memcache implements BackendInterface
      */
     protected function key($key)
     {
-        if ($this->session) {
-            if (!isset($_SESSION)) {
-                \Session::start();
-            }
-            return session_id() . '_' . $key;
-        } else {
-            return $this->prefix . $key;
+        if (!isset($_SESSION)) {
+            \Session::start();
         }
+        return sprintf(
+            "%s_%s%s",
+            session_id(),
+            $this->prefix,
+            $key
+        );
     }
 }

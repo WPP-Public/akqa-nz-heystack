@@ -5,7 +5,7 @@ namespace Heystack\Core\Traits;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Class HasEventService
+ * Allows a using class to set a event service
  * @package Heystack\Core\Traits
  */
 trait HasEventServiceTrait

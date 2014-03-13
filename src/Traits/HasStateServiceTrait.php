@@ -5,7 +5,7 @@ namespace Heystack\Core\Traits;
 use Heystack\Core\State\State;
 
 /**
- * Class HasStateService
+ * Allows a using class to set a state service
  * @package Heystack\Core\Traits
  */
 trait HasStateServiceTrait

@@ -69,7 +69,7 @@ services:
 
     backend_memcache:
         class: %backend_memcache.class%
-        arguments: [@memcache, true]
+        arguments: [ @memcache, %memcache.prefix% ]
 
     backend_session:
         class: %backend_session.class%

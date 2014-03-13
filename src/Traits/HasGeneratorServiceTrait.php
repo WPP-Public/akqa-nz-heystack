@@ -5,7 +5,7 @@ namespace Heystack\Core\Traits;
 use Heystack\Core\DataObjectGenerate\DataObjectGenerator;
 
 /**
- * Class HasGeneratorServiceTrait
+ * Allows a using class to set a generator service
  * @package Heystack\Core\Traits
  */
 trait HasGeneratorServiceTrait

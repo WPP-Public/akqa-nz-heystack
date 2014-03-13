@@ -5,7 +5,7 @@ namespace Heystack\Core\Traits;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class HasLoggerServiceTrait
+ * Allows a using class to set a logger service
  * @package Heystack\Core\Traits
  */
 trait HasLoggerServiceTrait

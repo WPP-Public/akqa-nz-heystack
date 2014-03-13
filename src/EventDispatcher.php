@@ -6,7 +6,7 @@ use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
 /**
- * Class EventDispatcher
+ * A custom event dispatcher that can be disabled
  * @package Heystack\Core
  */
 class EventDispatcher extends SymfonyEventDispatcher

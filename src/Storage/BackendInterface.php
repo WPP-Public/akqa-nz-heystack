@@ -1,18 +1,11 @@
 <?php
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
 
-/**
- * Storage namespace
- */
 namespace Heystack\Core\Storage;
 
 use Heystack\Core\Identifier\IdentifierInterface;
 
 /**
+ * The interface the storage backends need to implement
  * @author  Cam Spiers <cameron@heyday.co.nz>
  * @package Heystack
  */

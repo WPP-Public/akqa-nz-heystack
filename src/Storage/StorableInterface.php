@@ -1,13 +1,5 @@
 <?php
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
 
-/**
- * Storage namespace
- */
 namespace Heystack\Core\Storage;
 
 /**
@@ -19,10 +11,6 @@ namespace Heystack\Core\Storage;
  * @author  Glenn Bautista <glenn@heyday.co.nz>
  * @author  Stevie Mayhew <stevie@heyday.co.nz>
  * @package Heystack
- */
-/**
- * Class StorableInterface
- * @package Heystack\Core\Storage
  */
 interface StorableInterface
 {

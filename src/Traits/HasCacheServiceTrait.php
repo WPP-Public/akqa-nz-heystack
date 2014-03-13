@@ -5,7 +5,7 @@ namespace Heystack\Core\Traits;
 use Doctrine\Common\Cache\CacheProvider;
 
 /**
- * Class HasCacheServiceTrait
+ * Allows a using class to set a cache service
  * @package Heystack\Core\Traits
  */
 trait HasCacheServiceTrait
