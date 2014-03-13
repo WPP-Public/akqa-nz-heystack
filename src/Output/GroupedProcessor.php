@@ -1,14 +1,5 @@
 <?php
 
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
-
-/**
- * Output namespace
- */
 namespace Heystack\Core\Output;
 
 use Heystack\Core\Identifier\Identifier;

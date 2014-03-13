@@ -1,14 +1,5 @@
 <?php
 
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
-
-/**
- * Core namespace
- */
 namespace Heystack\Core\Input;
 
 /**

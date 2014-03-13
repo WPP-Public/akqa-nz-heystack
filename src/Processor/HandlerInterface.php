@@ -2,6 +2,13 @@
 
 namespace Heystack\Core\Processor;
 
+/**
+ * The interface that handlers both Output and Input need to implement
+ * 
+ * Used in combination with HandlerTrait
+ * 
+ * @package Heystack\Core\Processor
+ */
 interface HandlerInterface
 {
     /**
