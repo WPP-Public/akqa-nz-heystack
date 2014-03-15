@@ -22,6 +22,16 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
     }
+
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getRequestMock()
+    {
+        return $this->getMockBuilder('SS_HTTPrequest')
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
     
     /**
      * @covers \Heystack\Core\Bootstrap::__construct
@@ -75,7 +85,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($eventDispatcher));
         
         (new Bootstrap($this->container))->preRequest(
-            $this->getMock('SS_HTTPRequest'),
+            $this->getRequestMock(),
             $session,
             $this->getMock('DataModel')
         );
@@ -123,7 +133,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
         $b = new Bootstrap($this->container);
         $b->doBootstrap($session);
         $b->postRequest(
-            $this->getMock('SS_HTTPRequest'),
+            $this->getRequestMock(),
             $this->getMock('SS_HTTPResponse'),
             $this->getMock('DataModel')
         );
