@@ -54,7 +54,7 @@ abstract class FileDataObjectSchema implements SchemaInterface
             $key = md5($file);
         }
 
-        if (($config = $cache->fetch($key)) === null) {
+        if (($config = $cache->fetch($key)) === false) {
             $config = $this->parseFile($file);
             $cache->save($key, $config);
         }

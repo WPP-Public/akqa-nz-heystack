@@ -24,7 +24,7 @@ class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
         vfsStream::setup('root', null, [
             'schema.json' => <<<JSON
 {
-   "id":"Test",
+   "id": "Test",
    "flat":{
       "Test":"Text"
    },

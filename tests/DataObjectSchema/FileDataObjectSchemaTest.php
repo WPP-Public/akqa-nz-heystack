@@ -35,7 +35,7 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
         $cache = $this->getCacheMock();
         $cache->expects($this->once())
             ->method('fetch')
-            ->will($this->returnValue(false));
+            ->will($this->returnValue(null));
         $mock->__construct('', $cache);
     }
 
@@ -50,9 +50,7 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
         $cache = $this->getCacheMock();
         $cache->expects($this->once())
             ->method('fetch')
-            ->will($this->returnValue([
-                
-            ]));
+            ->will($this->returnValue([]));
         $mock->__construct('', $cache);
     }
 
@@ -104,7 +102,7 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
         $cache->expects($this->once())
             ->method('fetch')
             ->with($md5)
-            ->will($this->returnValue(null));
+            ->will($this->returnValue(false));
 
         $cache->expects($this->once())
             ->method('save')
@@ -144,7 +142,7 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
         $cache->expects($this->once())
             ->method('fetch')
             ->with($md5)
-            ->will($this->returnValue(null));
+            ->will($this->returnValue(false));
 
         $cache->expects($this->once())
             ->method('save')
