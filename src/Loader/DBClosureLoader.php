@@ -7,7 +7,7 @@ use DataList;
 use Symfony\Component\Config\Loader\Loader;
 
 /**
- * Class DBLoader
+ * Used to process datalists via callback
  * @package Heystack\Core\Loader
  */
 class DBClosureLoader extends Loader

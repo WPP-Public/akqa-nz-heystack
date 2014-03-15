@@ -37,7 +37,7 @@ class Bootstrap implements \RequestFilter
      * @param SS_HTTPRequest $request
      * @param Session $session
      * @param DataModel $model
-     * @return bool|void
+     * @return void
      */
     public function preRequest(SS_HTTPRequest $request, Session $session, DataModel $model)
     {
@@ -46,7 +46,10 @@ class Bootstrap implements \RequestFilter
     }
 
     /**
-     * Filter executed AFTER a request
+     * @param SS_HTTPRequest $request
+     * @param SS_HTTPResponse $response
+     * @param DataModel $model
+     * @return void
      */
     public function postRequest(SS_HTTPRequest $request, SS_HTTPResponse $response, DataModel $model)
     {
