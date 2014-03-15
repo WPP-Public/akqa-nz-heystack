@@ -2,6 +2,8 @@
 
 namespace Heystack\Core\Storage;
 
+use Heystack\Core\Storage\Exception\StorageProcessingException;
+
 /**
  * Stores objects that implement StorableInterface using backends
  * 
@@ -21,7 +23,7 @@ class Storage
     private $backends = [];
 
     /**
-     * @param array $backends
+     * @param array|void $backends
      */
     public function __construct(array $backends = null)
     {
@@ -77,7 +79,12 @@ class Storage
 
             return $results;
         } else {
-            throw new \Exception('Tried to process an storable object with no backends');
+            throw new StorageProcessingException(
+                sprintf(
+                    "Tried to process an storable object '%s' with no backends",
+                    $object->getStorableIdentifier()
+                )
+            );
         }
     }
 }

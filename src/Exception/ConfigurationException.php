@@ -6,7 +6,7 @@ namespace Heystack\Core\Exception;
  * Class ConfigurationException
  * @package Heystack\Core\Exception
  */
-class ConfigurationException extends \Exception
+class ConfigurationException extends Exception
 {
     /**
      * @param string $message
