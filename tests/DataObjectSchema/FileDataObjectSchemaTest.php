@@ -2,84 +2,180 @@
 
 namespace Heystack\Core\DataObjectSchema;
 
-use Heystack\Core\Exception\ConfigurationException;
+use org\bovigo\vfs\vfsStream;
 
 class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 {
-    protected $stateStub;
-    protected $schema;
-
-    protected function setUp()
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getAbstractSchemaMock()
     {
-        $this->stateStub = $this->getMockBuilder('Heystack\Core\State\State')
+        return $this->getMockBuilder(__NAMESPACE__ . '\FileDataObjectSchema')
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMockForAbstractClass();
     }
 
-    protected function tearDown()
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getCacheMock()
     {
-        $this->stateStub = null;
+        return $this->getMock('Doctrine\Common\Cache\Cache');
     }
 
-    public function testSchemaExceptions()
+    /**
+     * @covers \Heystack\Core\DataObjectSchema\FileDataObjectSchema::__construct
+     * @expectedException \Heystack\Core\Exception\ConfigurationException
+     * @expectedExceptionMessage Your config is empty for file
+     */
+    public function testExceptionThrownWhenConfigEmpty()
     {
-
-        $this->assertEquals('Configuration Error: Your config is empty', $this->helperTryCatch(false));
-        $this->assertEquals('Configuration Error: Identifier missing', $this->helperTryCatch([]));
-        $this->assertEquals(
-            'Configuration Error: Flat config missing',
-            $this->helperTryCatch(
-                [
-                    'id' => 'test'
-                ]
-            )
-        );
-        $this->assertEquals(
-            'Configuration Error: Related config missing',
-            $this->helperTryCatch(
-                [
-                    'id'   => 'test',
-                    'flat' => [
-                        'Test' => 'Text'
-                    ]
-                ]
-            )
-        );
-        $this->assertNull(
-            $this->helperTryCatch(
-                [
-                    'id'      => 'test',
-                    'flat'    => [
-                        'Test' => 'Text'
-                    ],
-                    'related' => [
-                        'Something'
-                    ]
-                ]
-            )
-        );
-
+        $mock = $this->getAbstractSchemaMock();
+        $cache = $this->getCacheMock();
+        $cache->expects($this->once())
+            ->method('fetch')
+            ->will($this->returnValue(false));
+        $mock->__construct('', $cache);
     }
 
-    public function helperTryCatch($config)
+    /**
+     * @covers \Heystack\Core\DataObjectSchema\FileDataObjectSchema::__construct
+     * @expectedException \Heystack\Core\Exception\ConfigurationException
+     * @expectedExceptionMessage Identifier missing for file
+     */
+    public function testExceptionThrownWhenIdNotPresent()
     {
-        try {
+        $mock = $this->getAbstractSchemaMock();
+        $cache = $this->getCacheMock();
+        $cache->expects($this->once())
+            ->method('fetch')
+            ->will($this->returnValue([
+                
+            ]));
+        $mock->__construct('', $cache);
+    }
 
-            $stub = $this->getMockBuilder(
-                'Heystack\Core\DataObjectGenerate\FileDataObjectSchema'
-            )->disableOriginalConstructor()->getMockForAbstractClass();
+    /**
+     * @covers \Heystack\Core\DataObjectSchema\FileDataObjectSchema::__construct
+     * @expectedException \Heystack\Core\Exception\ConfigurationException
+     * @expectedExceptionMessage Flat config missing for file
+     */
+    public function testExceptionThrownWhenFlatConfigNotPresent()
+    {
+        $mock = $this->getAbstractSchemaMock();
+        $cache = $this->getCacheMock();
+        $cache->expects($this->once())
+            ->method('fetch')
+            ->will($this->returnValue([
+                'id' => 'test'
+            ]));
+        $mock->__construct('', $cache);
+    }
 
-            $stub->expects($this->any())
-                ->method('parseFile')
-                ->will($this->returnValue($config));
+    /**
+     * @covers \Heystack\Core\DataObjectSchema\FileDataObjectSchema::__construct
+     */
+    public function testCanConstructWithParseAndFileRead()
+    {
+        vfsStream::setup();
+        vfsStream::create([
+            'file' => 'content'
+        ]);
+        
+        $fileUrl = vfsStream::url('root/file');
+        $md5 = md5('content');
+        
+        $mock = $this->getAbstractSchemaMock();
+        $mock->expects($this->once())
+            ->method('parseFile')
+            ->with($fileUrl)
+            ->will($this->returnValue($config = [
+                'id' => 'test',
+                'flat' => [
+                    'Test' => 'Text'
+                ],
+                'children' => [
+                    'Tests'  => '+Test'
+                ]
+            ]));
+        
+        $cache = $this->getCacheMock();
+        $cache->expects($this->once())
+            ->method('fetch')
+            ->with($md5)
+            ->will($this->returnValue(null));
 
-            $stub->__construct(serialize($config), $this->stateStub);
+        $cache->expects($this->once())
+            ->method('save')
+            ->with($md5, $config);
+        
+        
+        $mock->__construct(
+            vfsStream::url('root/file'),
+            $cache
+        );
 
-        } catch (ConfigurationException $e) {
-            return $e->getMessage();
+        return $mock;
+    }
 
-        }
+    /**
+     * @covers \Heystack\Core\DataObjectSchema\FileDataObjectSchema::__construct
+     */
+    public function testCanConstructWithParse()
+    {
+        $md5 = md5('content');
 
-        return null;
+        $mock = $this->getAbstractSchemaMock();
+        $mock->expects($this->once())
+            ->method('parseFile')
+            ->with('content')
+            ->will($this->returnValue($config = [
+                'id' => 'test',
+                'flat' => [
+                    'Test2' => 'Text'
+                ],
+                'children' => [
+                    'Tests2'  => '+Test2'
+                ]
+            ]));
+
+        $cache = $this->getCacheMock();
+        $cache->expects($this->once())
+            ->method('fetch')
+            ->with($md5)
+            ->will($this->returnValue(null));
+
+        $cache->expects($this->once())
+            ->method('save')
+            ->with($md5, $config);
+
+
+        $mock->__construct(
+            'content',
+            $cache
+        );
+        
+        return $mock;
+    }
+
+    /**
+     * @depends testCanConstructWithParseAndFileRead
+     * @depends testCanConstructWithParse
+     * @covers \Heystack\Core\DataObjectSchema\FileDataObjectSchema::mergeSchema
+     */
+    public function testMergeSchema(FileDataObjectSchema $a, FileDataObjectSchema $b)
+    {
+        $a->mergeSchema($b);
+
+        $this->assertEquals([
+            'Test'  => 'Text',
+            'Test2' => 'Text'
+        ], $a->getFlatStorage());
+
+        $this->assertEquals([
+            'Tests'  => '+Test',
+            'Tests2' => '+Test2'
+        ], $a->getChildStorage());
     }
 }
