@@ -42,11 +42,7 @@ class DataObjectGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testCanConstruct()
     {
-        $a = new DataObjectGenerator(
-            $this->getMock('Heystack\Core\DataObjectSchema\SchemaService')
-        );
-        
-        $this->assertTrue(is_object($a));
+        $this->assertTrue(is_object($this->generator));
     }
 
     /**

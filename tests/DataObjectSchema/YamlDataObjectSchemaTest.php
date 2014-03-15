@@ -6,10 +6,10 @@ use Doctrine\Common\Cache\ArrayCache;
 use org\bovigo\vfs\vfsStream;
 
 /**
- * Class JsonDataObjectSchemaTest
+ * Class YamlDataObjectSchemaTest
  * @package Heystack\Core\DataObjectSchema
  */
-class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
+class YamlDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var
@@ -20,31 +20,27 @@ class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
      *
      */
     protected function setUp()
-    {
+    {   
         vfsStream::setup('root', null, [
-            'schema.json' => <<<JSON
-{
-   "id":"Test",
-   "flat":{
-      "Test":"Text"
-   },
-   "parent":null,
-   "children":{
-      "Tests":"+Test"
-   }
-}
-JSON
+            'schema.yml' => <<<YAML
+id: Test
+flat:
+  Test: Text
+parent:
+children:
+  Tests: +Test
+YAML
         ]);
 
 
-        $this->schema = new JsonDataObjectSchema(
-            vfsStream::url('root/schema.json'),
+        $this->schema = new YamlDataObjectSchema(
+            vfsStream::url('root/schema.yml'),
             new ArrayCache()
         );
     }
 
     /**
-     * @covers \Heystack\Core\DataObjectSchema\JsonDataObjectSchema::parseFile
+     * @covers \Heystack\Core\DataObjectSchema\YamlDataObjectSchema::parseFile
      */
     public function testSchemaConstruct()
     {
@@ -55,12 +51,12 @@ JSON
 
     /**
      * @expectedException \Heystack\Core\Exception\ConfigurationException
-     * @covers \Heystack\Core\DataObjectSchema\JsonDataObjectSchema::parseFile
+     * @covers \Heystack\Core\DataObjectSchema\YamlDataObjectSchema::parseFile
      */
     public function testNoConstruct()
     {
-        new JsonDataObjectSchema(
-            vfsStream::url('root/fake.json'),
+        new YamlDataObjectSchema(
+            vfsStream::url('root/fake.yml'),
             new ArrayCache()
         );
     }
