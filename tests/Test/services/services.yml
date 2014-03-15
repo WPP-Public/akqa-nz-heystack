@@ -1,5 +1,0 @@
-parameters:
-  test: test
-services:
-  example:
-    class: Test
