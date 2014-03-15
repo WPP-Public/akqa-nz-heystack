@@ -12,6 +12,16 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
             'Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainer'
         );
     }
+
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getSessionMock()
+    {
+        return $this->getMockBuilder('Session')
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
     
     /**
      * @covers \Heystack\Core\Bootstrap::__construct
@@ -32,7 +42,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
      */
     public function testPreRequestDoesBootstrap()
     {
-        $session = $this->getMock('Session');
+        $session = $this->getSessionMock();
         
         $sessionBackend = $this->getMock(
             'Heystack\Core\State\Backends\Session'
@@ -66,7 +76,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
         
         (new Bootstrap($this->container))->preRequest(
             $this->getMock('SS_HTTPRequest'),
-            $this->getMock('Session'),
+            $session,
             $this->getMock('DataModel')
         );
     }
@@ -78,7 +88,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
      */
     public function testPostRequestDoesDispatch()
     {
-        $session = $this->getMock('Session');
+        $session = $this->getSessionMock();
 
         $sessionBackend = $this->getMock(
             'Heystack\Core\State\Backends\Session'
@@ -111,7 +121,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($eventDispatcher));
 
         $b = new Bootstrap($this->container);
-        $b->doBootstrap($this->getMock('Session'));
+        $b->doBootstrap($session);
         $b->postRequest(
             $this->getMock('SS_HTTPRequest'),
             $this->getMock('SS_HTTPResponse'),
