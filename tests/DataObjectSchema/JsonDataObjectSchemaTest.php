@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Core\DataObjectGenerate;
+namespace Heystack\Core\DataObjectSchema;
 
 class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
 {

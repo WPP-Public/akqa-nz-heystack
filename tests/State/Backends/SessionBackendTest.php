@@ -1,12 +1,9 @@
 <?php
 
-namespace Heystack\Core\Test;
-
-use Heystack\Core\State\Backends\Session;
+namespace Heystack\Core\State\Backends;
 
 class SessionBackendTest extends \PHPUnit_Framework_TestCase
 {
-
     protected $session;
 
     protected function setUp()
@@ -14,7 +11,8 @@ class SessionBackendTest extends \PHPUnit_Framework_TestCase
         $_SESSION = [
             'HTTP_USER_AGENT' => ''
         ];
-        $this->session = new Session(new \Session($_SESSION));
+        $this->session = new Session();
+        $this->session->setSession(new \Session($_SESSION));
     }
 
     protected function tearDown()

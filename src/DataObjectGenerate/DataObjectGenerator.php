@@ -55,7 +55,7 @@ class DataObjectGenerator
     {
         $dirCache = $this->storageLocation . '/cache';
 
-        // check if the generated directoru exists, if not create it
+        // check if the generated directory exists, if not create it
         if (!is_dir($this->storageLocation)) {
             $this->output('Creating: ' . $this->storageLocation);
             mkdir($this->storageLocation);
@@ -67,11 +67,14 @@ class DataObjectGenerator
         }
 
         // get all the previously created objects and delete them
-        $cacheFiles = glob($dirCache . '/Cached*', GLOB_NOSORT);
+        $cacheFiles = new \RegexIterator(
+            new \DirectoryIterator($dirCache),
+            '/^Cached[^.]+\.php/'
+        );
 
         foreach ($cacheFiles as $cacheFile) {
             $this->output('Deleting: ' . $cacheFile);
-            unlink($cacheFile);
+            unlink($cacheFile->getPathname());
         }
 
         $managed_models = [];
@@ -171,9 +174,7 @@ class DataObjectGenerator
         if ($statics && is_array($statics)) {
 
             foreach ($statics as $key => $static) {
-
                 $statics[$key] = $this->beautify(var_export($static, true));
-
             }
 
         } else {
@@ -182,24 +183,27 @@ class DataObjectGenerator
 
         }
 
+        $viewer = $this->getDataObjectSSViewer();
+
         file_put_contents(
-            $dir . DIRECTORY_SEPARATOR . $name . '.php',
-            singleton('ViewableData')->renderWith(
-                HEYSTACK_BASE_PATH . '/src/DataObjectGenerate/templates/DataObject_php.ss',
-                array_merge(
-                    [
-                        'PHPTag' => '<?php',
-                        'Name' => $name,
-                        'Extends' => $extends,
-                        'db' => false,
-                        'has_one' => false,
-                        'has_many' => false,
-                        'summary_fields' => false,
-                        'searchable_fields' => false,
-                        'singular_name' => false,
-                        'plural_name' => false
-                    ],
-                    $statics
+            sprintf("%s/%s.php", $dir, $name),
+            $viewer->process(
+                new \ArrayData(
+                    array_merge(
+                        [
+                            'PHPTag' => '<?php',
+                            'Name' => $name,
+                            'Extends' => $extends,
+                            'db' => false,
+                            'has_one' => false,
+                            'has_many' => false,
+                            'summary_fields' => false,
+                            'searchable_fields' => false,
+                            'singular_name' => false,
+                            'plural_name' => false
+                        ],
+                        $statics
+                    )
                 )
             )
         );
@@ -230,18 +234,21 @@ class DataObjectGenerator
             $statics = [];
 
         }
-
+        
+        $viewer = $this->getModelAdminSSViewer();
+        
         file_put_contents(
-            $dir . DIRECTORY_SEPARATOR . $name . '.php',
-            singleton('ViewableData')->renderWith(
-                HEYSTACK_BASE_PATH . '/src/DataObjectGenerate/templates/ModelAdmin_php.ss',
-                [
-                    'PHPTag' => '<?php',
-                    'Name' => $name,
-                    'Extends' => $extends
-                ]
-                +
-                $statics
+            sprintf("%s/%s.php", $dir, $name),
+            $viewer->process(
+                new \ArrayData(
+                    [
+                        'PHPTag' => '<?php',
+                        'Name' => $name,
+                        'Extends' => $extends
+                    ]
+                    +
+                    $statics
+                )
             )
         );
 
@@ -385,5 +392,21 @@ class DataObjectGenerator
     protected function output($message, $break = PHP_EOL)
     {
         echo $message, $break;
+    }
+
+    /**
+     * @return \SSViewer
+     */
+    protected function getDataObjectSSViewer()
+    {
+        return new \SSViewer(HEYSTACK_BASE_PATH . '/src/DataObjectGenerate/templates/DataObject_php.ss');
+    }
+
+    /**
+     * @return \SSViewer
+     */
+    protected function getModelAdminSSViewer()
+    {
+        return new \SSViewer(HEYSTACK_BASE_PATH . '/src/DataObjectGenerate/templates/ModelAdmin_php.ss');
     }
 }

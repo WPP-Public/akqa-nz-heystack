@@ -1,6 +1,6 @@
 <?php
 
-namespace Heystack\Core\DataObjectGenerate;
+namespace Heystack\Core\DataObjectSchema;
 
 use Heystack\Core\Exception\ConfigurationException;
 
