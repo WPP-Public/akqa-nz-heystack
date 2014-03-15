@@ -4,104 +4,92 @@ namespace Heystack\Core\State\Backends;
 
 class SessionBackendTest extends \PHPUnit_Framework_TestCase
 {
-    protected $session;
-
-    protected function setUp()
+    /**
+     * @covers \Heystack\Core\State\Backends\Session::setSession
+     * @covers \Heystack\Core\State\Backends\Session::getSession
+     */
+    public function testSetGetSession()
     {
-        $_SESSION = [
-            'HTTP_USER_AGENT' => ''
-        ];
-        $this->session = new Session();
-        $this->session->setSession(new \Session($_SESSION));
+        $session = new Session();
+        $session->setSession($s = new \Session([]));
+        $this->assertEquals($s, $session->getSession());
     }
 
-    protected function tearDown()
+    /**
+     * @covers \Heystack\Core\State\Backends\Session::setSession
+     * @covers \Heystack\Core\State\Backends\Session::getByKey
+     */
+    public function testGetByKey()
     {
-        $this->session = null;
+        $session = new Session();
+        $session->setSession(new \Session(['test' => 'yay']));
+        $this->assertEquals(
+            'yay',
+            $session->getByKey('test')
+        );
+        return $session;
     }
 
-    public function testSessionNotStarted()
+    /**
+     * @covers \Heystack\Core\State\Backends\Session::setSession
+     * @covers \Heystack\Core\State\Backends\Session::setByKey
+     * @covers \Heystack\Core\State\Backends\Session::getByKey
+     */
+    public function testSetByKey()
     {
-
-        $_SESSION = null;
-
-        $message = null;
-
-        try {
-
-            new Session(new \Session($_SESSION));
-
-        } catch (\Exception $e) {
-
-            $message = $e->getMessage();
-
-        }
-
-        $this->assertNotNull($message);
-
+        $session = new Session();
+        $session->setSession(new \Session([]));
+        $session->setByKey('test', 'hello');
+        $this->assertEquals(
+            'hello',
+            $session->getByKey('test')
+        );
     }
 
-    public function testSessionStarted()
-    {
-
-        $_SESSION = [
-            'test' => 'yay'
-        ];
-
-        $session = new Session(new \Session($_SESSION));
-
-        $this->assertEquals('yay', $session->getByKey('test'));
-
-    }
-
-    public function testSetGetByKey()
-    {
-
-        $this->session->setByKey('test', 'yay');
-
-        $this->assertEquals('yay', $this->session->getByKey('test'));
-
-    }
-
+    /**
+     * @covers \Heystack\Core\State\Backends\Session::setSession
+     * @covers \Heystack\Core\State\Backends\Session::getKeys
+     * @covers \Heystack\Core\State\Backends\Session::setByKey
+     */
     public function testGetKeys()
     {
-
-        $this->session->setByKey('test', 'yay');
-
-        $this->assertEquals(['HTTP_USER_AGENT', 'test'], $this->session->getKeys());
-
+        $session = new Session();
+        $session->setSession(new \Session([]));
+        $session->setByKey('test', 'hello');
+        $this->assertEquals(
+            ['test'],
+            $session->getKeys()
+        );
     }
 
+    /**
+     * @covers \Heystack\Core\State\Backends\Session::setSession
+     * @covers \Heystack\Core\State\Backends\Session::getByKey
+     * @covers \Heystack\Core\State\Backends\Session::removeByKey
+     */
     public function testRemoveByKey()
     {
-
-        $this->session->setByKey('test', 'yay');
-
-        $this->session->removeByKey('test');
-
-        $this->assertEquals(false, $this->session->getByKey('test'));
-
+        $session = new Session();
+        $session->setSession(new \Session(['test' => 'hello']));
+        $session->removeByKey('test', 'hello');
+        $this->assertNull(
+            $session->getByKey('test')
+        );
     }
 
+    /**
+     * @covers \Heystack\Core\State\Backends\Session::setSession
+     * @covers \Heystack\Core\State\Backends\Session::getKeys
+     * @covers \Heystack\Core\State\Backends\Session::removeAll
+     * @covers \Heystack\Core\State\Backends\Session::removeByKey
+     */
     public function testRemoveAll()
     {
-
-        $this->session->setByKey('test', 'yay');
-        $this->session->setByKey('test2', 'yay');
-
-        $this->session->removeAll();
-
-        $this->assertEquals(false, $this->session->getByKey('test'));
-        $this->assertEquals(false, $this->session->getByKey('test2'));
-
-        $this->assertEquals(
-            [
-                'HTTP_USER_AGENT',
-                'test',
-                'test2'
-            ],
-            $this->session->getKeys()
+        $session = new Session();
+        $session->setSession(new \Session(['test' => 'hello']));
+        $session->removeAll();
+        $this->assertNull(
+            $session->getByKey('test')
         );
-
     }
 }

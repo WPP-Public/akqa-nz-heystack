@@ -25,6 +25,14 @@ class Session implements BackendInterface
     }
 
     /**
+     * @return \Session
+     */
+    public function getSession()
+    {
+        return $this->session;
+    }
+
+    /**
      * @return array
      */
     public function getKeys()
@@ -68,13 +76,5 @@ class Session implements BackendInterface
                 $this->removeByKey($key);
             }
         }
-    }
-
-    /**
-     * Saves the session into the $_SESSION
-     */
-    protected function save()
-    {
-        $this->session->inst_save();
     }
 }
