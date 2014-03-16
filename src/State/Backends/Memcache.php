@@ -5,14 +5,14 @@ namespace Heystack\Core\State\Backends;
 use Heystack\Core\State\BackendInterface;
 
 /**
- * A memcached based implementation for state
+ * A Memcache based implementation for state
  * 
  * @package Heystack\Core\State\Backends
  */
 class Memcache implements BackendInterface
 {
     /**
-     *
+     * The key to use for tracking keys added to memcache by this backend
      */
     const TRACKING_KEY = 'memcache.keys';
 
@@ -43,7 +43,7 @@ class Memcache implements BackendInterface
             $this->prefix = $prefix;
         }
 
-        //Sets up keys
+        // Sets up keys
         $this->getKeys();
     }
 
@@ -61,16 +61,6 @@ class Memcache implements BackendInterface
         }
 
         return $this->keys;
-    }
-
-    /**
-     * @param $key
-     */
-    public function addKey($key)
-    {
-        $this->keys[$key] = $key;
-
-        $this->memcache->set($this->key(self::TRACKING_KEY), $this->keys);
     }
 
     /**
@@ -112,6 +102,16 @@ class Memcache implements BackendInterface
                 $this->removeByKey($key);
             }
         }
+    }
+
+    /**
+     * @param $key
+     */
+    protected function addKey($key)
+    {
+        $this->keys[$key] = $key;
+
+        $this->memcache->set($this->key(self::TRACKING_KEY), $this->keys);
     }
 
     /**

@@ -6,6 +6,8 @@ define('BASE_PATH', HEYSTACK_BASE_PATH);
 require_once BASE_PATH . '/framework/core/Constants.php';
 require_once BASE_PATH . '/framework/core/Core.php';
 
+\Session::start();
+
 if (!file_exists(HEYSTACK_BASE_PATH . '/vendor/autoload.php')) {
     echo 'You must first install the vendors using composer.' . PHP_EOL;
     exit(1);

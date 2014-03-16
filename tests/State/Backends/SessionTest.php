@@ -2,7 +2,7 @@
 
 namespace Heystack\Core\State\Backends;
 
-class SessionBackendTest extends \PHPUnit_Framework_TestCase
+class SessionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Heystack\Core\State\Backends\Session::setSession
