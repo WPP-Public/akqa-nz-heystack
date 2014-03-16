@@ -178,6 +178,13 @@ final class AutoInject implements CompilerPassInterface
                             // If a scalar value isn't provider, and there is no default value
                             // we need to inform the use that we can't provide scalar value auto-injection
                             if (!$reflectionParameterClass instanceof ReflectionClass) {
+
+                                // If the argument is optional, then just default in its default value
+                                if ($reflectionParameter->isOptional()) {
+                                    $arguments[$index] = $reflectionParameter->getDefaultValue();
+                                    continue;
+                                }
+                                
                                 throw new ConfigurationException(
                                     sprintf(
                                         "Failed to inject scalar argument '%s' for service '%s'. " .
