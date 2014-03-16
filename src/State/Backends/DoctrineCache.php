@@ -2,25 +2,24 @@
 
 namespace Heystack\Core\State\Backends;
 
+use Doctrine\Common\Cache\CacheProvider;
 use Heystack\Core\State\BackendInterface;
+use Heystack\Core\Traits\HasCacheServiceTrait;
 
 /**
- * A Memcache based implementation for state
- * 
+ * A DoctrineCache based implementation for state
+ *
  * @package Heystack\Core\State\Backends
  */
-class Memcache implements BackendInterface
+class DoctrineCache implements BackendInterface
 {
-    /**
-     * The key to use for tracking keys added to memcache by this backend
-     */
-    const TRACKING_KEY = 'memcache.keys';
+    use HasCacheServiceTrait;
 
     /**
-     * @var \Memcache
+     * The key to use for tracking keys added to DoctrineCache by this backend
      */
-    private $memcache;
-    
+    const TRACKING_KEY = 'doctrinecache.keys';
+
     /**
      * @var array|null
      */
@@ -32,12 +31,12 @@ class Memcache implements BackendInterface
     private $prefix = '';
 
     /**
-     * @param \Memcache $memcache
-     * @param null $prefix
+     * @param CacheProvider $cacheService
+     * @param string|void $prefix
      */
-    public function __construct(\Memcache $memcache, $prefix = null)
+    public function __construct(CacheProvider $cacheService, $prefix = null)
     {
-        $this->memcache = $memcache;
+        $this->cacheService = $cacheService;
 
         if (!is_null($prefix)) {
             $this->prefix = $prefix;
@@ -69,7 +68,7 @@ class Memcache implements BackendInterface
      */
     public function setByKey($key, $var)
     {
-        $this->memcache->set($this->key($key), $var);
+        $this->cacheService->save($this->key($key), $var);
 
         $this->addKey($key);
     }
@@ -80,7 +79,7 @@ class Memcache implements BackendInterface
      */
     public function getByKey($key)
     {
-        return $this->memcache->get($this->key($key));
+        return $this->cacheService->fetch($this->key($key));
     }
 
     /**
@@ -89,7 +88,7 @@ class Memcache implements BackendInterface
      */
     public function removeByKey($key)
     {
-        return $this->memcache->delete($this->key($key));
+        return $this->cacheService->delete($this->key($key));
     }
 
     /**
@@ -111,7 +110,7 @@ class Memcache implements BackendInterface
     {
         $this->keys[$key] = $key;
 
-        $this->memcache->set($this->key(self::TRACKING_KEY), $this->keys);
+        $this->cacheService->save($this->key(self::TRACKING_KEY), $this->keys);
     }
 
     /**
