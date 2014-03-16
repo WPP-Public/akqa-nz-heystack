@@ -16,10 +16,10 @@ trait DataObjectSerializableTrait
     public function serialize()
     {
         if ($this instanceof ExtraDataInterface) {
-            return serialize([$this->record, $this->getExtraData()]);
+            return serialize([$this->toMap(), $this->getExtraData()]);
         }
 
-        return serialize($this->record);
+        return serialize($this->toMap());
     }
 
     /**
@@ -30,17 +30,13 @@ trait DataObjectSerializableTrait
         $this->class = get_class($this);
 
         if ($this instanceof ExtraDataInterface) {
-
             $unserialized = unserialize($data);
             $this->record = $unserialized[0];
             $this->model = \DataModel::inst();
             $this->setExtraData($unserialized[1]);
-
         } else {
-
             $this->record = unserialize($data);
             $this->model = \DataModel::inst();
-
         }
 
         // Ensure that the spec is loaded for the class
@@ -51,4 +47,10 @@ trait DataObjectSerializableTrait
         }
         $injector->inject($this, $this->class);
     }
+
+    /**
+     * An abstract method to ensure that toMap is implemented
+     * @return array
+     */
+    abstract public function toMap();
 }

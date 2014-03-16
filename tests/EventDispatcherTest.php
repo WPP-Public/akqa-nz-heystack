@@ -8,15 +8,23 @@ namespace Heystack\Core;
 class EventDispatcherTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Heystack\Core\EventDispatcher::setEnabled
      * @covers \Heystack\Core\EventDispatcher::getEnabled
      */
-    public function testSetGetEnabled()
+    public function testGetEnabled()
     {
         $e = new EventDispatcher();
         $this->assertTrue($e->getEnabled());
+    }
+    
+    /**
+     * @covers \Heystack\Core\EventDispatcher::setEnabled
+     */
+    public function testSetEnabled()
+    {
+        $e = new EventDispatcher();
+        $this->assertAttributeEquals(true, 'enabled', $e);
         $e->setEnabled(false);
-        $this->assertFalse($e->getEnabled());
+        $this->assertAttributeEquals(false, 'enabled', $e);
     }
 
     /**
