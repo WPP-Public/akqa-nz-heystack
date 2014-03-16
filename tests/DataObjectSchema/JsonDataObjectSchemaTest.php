@@ -34,6 +34,11 @@ class JsonDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
    }
 }
 JSON
+            ,
+            'invalid.json' => <<<JSON
+sss
+JSON
+
         ]);
 
 
@@ -61,6 +66,20 @@ JSON
     {
         new JsonDataObjectSchema(
             vfsStream::url('root/fake.json'),
+            new ArrayCache()
+        );
+    }
+
+    /**
+     * @covers \Heystack\Core\DataObjectSchema\JsonDataObjectSchema::parseFile
+     * @covers \Heystack\Core\DataObjectSchema\JsonDataObjectSchema::getLastJsonError
+     * @expectedException \Heystack\Core\Exception\ConfigurationException
+     * @expectedExceptionMessage Json file 'vfs://root/invalid.json' is invalid: Syntax error, malformed JSON
+     */
+    public function testExceptionThrownOnInvalidJson()
+    {
+        new JsonDataObjectSchema(
+            vfsStream::url('root/invalid.json'),
             new ArrayCache()
         );
     }

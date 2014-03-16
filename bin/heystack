@@ -6,8 +6,12 @@ chdir(dirname(__DIR__));
 // Load up silverstripes core. This includes all heystack related modules
 require_once '../framework/core/Constants.php';
 require_once '../framework/core/Core.php';
+require_once '../framework/model/DB.php';
 
+global $databaseConfig;
+DB::connect($databaseConfig);
 Session::start();
+
 $containerClassName = 'HeystackServiceContainer' . Director::get_environment_type();
 $bootstrap = new \Heystack\Core\Bootstrap(new $containerClassName);
 $bootstrap->doBootstrap(new Session($_SESSION));

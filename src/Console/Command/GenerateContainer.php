@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 /**
  * Generates the dependency injection container
  * 
- * This command generates teh DI container from the provided services files
+ * This command generates the DI container from the provided services files
  * 
  * It is also used via the "GenerateContainerDataObjectTrait" to regenerate the container
  * on certain database writes
@@ -24,6 +24,27 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 class GenerateContainer extends Command
 {
+    /**
+     * @var string
+     */
+    protected $basePath;
+
+    /**
+     * @var string
+     */
+    protected $heystackBasePath;
+
+    /**
+     * @param string|void $basePath
+     * @param string|void $heystackBasePath
+     */
+    public function __construct($basePath = null, $heystackBasePath = null)
+    {
+        $this->basePath = $basePath ?: BASE_PATH;
+        $this->heystackBasePath = $heystackBasePath ?: HEYSTACK_BASE_PATH;
+        parent::__construct();
+    }
+
     /**
      * Configure the commands options
      * @return null
@@ -50,10 +71,6 @@ class GenerateContainer extends Command
      */
     protected function execute(Input\InputInterface $input, Output\OutputInterface $output)
     {
-        // Ensure database connection
-        global $databaseConfig;
-        \DB::connect($databaseConfig);
-
         // Get mode
         if ($input->getOption('mode')) {
             $mode = $input->getOption('mode');
@@ -77,8 +94,8 @@ class GenerateContainer extends Command
     {
         $container = new HeystackSilverStripeContainerBuilder();
 
-        foreach (new \DirectoryIterator(BASE_PATH) as $directory) {
-            $directory = BASE_PATH . '/' . $directory;
+        foreach (new \DirectoryIterator($this->basePath) as $directory) {
+            $directory = $this->basePath . '/' . $directory;
 
             if (!file_exists($directory . '/_heystack_subsystem')) {
                 continue;
@@ -121,7 +138,7 @@ class GenerateContainer extends Command
     {
         (new YamlFileLoader(
             $container,
-            new FileLocator(BASE_PATH . '/mysite/config/')
+            new FileLocator($this->basePath . '/mysite/config/')
         ))->load("services_$mode.yml");
     }
 
@@ -132,10 +149,10 @@ class GenerateContainer extends Command
      */
     protected function dumpContainer(HeystackSilverStripeContainerBuilder $container, $mode)
     {
-        $location = HEYSTACK_BASE_PATH . '/cache/';
+        $location = $this->heystackBasePath . '/cache/';
 
         if (!file_exists($location)) {
-            throw new RuntimeException('Dump location does not exist');
+            mkdir($location, 0777, true);
         }
 
         $class = "HeystackServiceContainer$mode";
@@ -145,11 +162,21 @@ class GenerateContainer extends Command
         $dumper = new PhpDumper($container);
 
         file_put_contents(
-            realpath($location) . "/$class.php",
+            $this->getRealPath($location) . "/$class.php",
             $dumper->dump([
                 'class' => $class,
                 'base_class' => "Heystack\\Core\\DependencyInjection\\SilverStripe\\HeystackSilverStripeContainer"
             ])
         );
+    }
+
+    /**
+     * Allows testing with vfsStream
+     * @param $path
+     * @return string
+     */
+    protected function getRealPath($path)
+    {
+        return realpath($path);
     }
 }
