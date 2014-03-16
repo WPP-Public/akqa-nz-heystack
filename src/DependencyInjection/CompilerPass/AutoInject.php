@@ -172,12 +172,6 @@ final class AutoInject implements CompilerPassInterface
                             if (isset($arguments[$index])) {
                                 continue;
                             }
-                            
-                            // If the argument is optional, then just default in its default value
-                            if ($reflectionParameter->isOptional()) {
-                                $arguments[$index] = $reflectionParameter->getDefaultValue();
-                                continue;
-                            }
     
                             $reflectionParameterClass = $reflectionParameter->getClass();
     
@@ -200,6 +194,13 @@ final class AutoInject implements CompilerPassInterface
     
                             // If we can't find a provided service then tell the user
                             if (!$provider) {
+
+                                // If the argument is optional, then just default in its default value
+                                if ($reflectionParameter->isOptional()) {
+                                    $arguments[$index] = $reflectionParameter->getDefaultValue();
+                                    continue;
+                                }
+                                
                                 throw new ConfigurationException(
                                     sprintf(
                                         "A service providing for the %s '%s' was not found when " .
@@ -223,7 +224,6 @@ final class AutoInject implements CompilerPassInterface
                 
                 if ($this->hasConfig(self::CONFIG_SETTER, $attr)) {
                     $setterMethods = $this->getInjectableMethods($reflectionClass, self::REGEX_SETTER, $attr);
-                    
                     foreach ($setterMethods as $reflectionMethod) {
                         $reflectionMethodName = $reflectionMethod->getName();
                         
