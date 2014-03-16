@@ -1,14 +1,5 @@
 <?php
 
-/**
- * This file is part of the Heystack package
- *
- * @package Heystack
- */
-
-/**
- * CompilerPass namespace
- */
 namespace Heystack\Core\DependencyInjection\CompilerPass;
 
 use Heystack\Core\Services;
@@ -17,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- *
+ * Collects commands that are tagged and adds them to the application
  * @copyright  Heyday
  * @author     Cam Spiers
  * @package    Heystack
@@ -45,6 +36,5 @@ class Command implements CompilerPassInterface
                 );
             }
         }
-
     }
 }
