@@ -25,5 +25,3 @@ if (empty($databaseConfig['database'])) {
 if (file_exists(BASE_PATH . '/vendor/autoload.php')) {
     require_once BASE_PATH . '/vendor/autoload.php';
 }
-
-require_once HEYSTACK_BASE_PATH . '/config/container.php';

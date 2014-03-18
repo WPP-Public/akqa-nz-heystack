@@ -12,8 +12,7 @@ global $databaseConfig;
 DB::connect($databaseConfig);
 Session::start();
 
-$containerClassName = 'HeystackServiceContainer' . Director::get_environment_type();
-$bootstrap = new \Heystack\Core\Bootstrap(new $containerClassName);
+$bootstrap = new \Heystack\Core\Bootstrap();
 $bootstrap->doBootstrap(new Session($_SESSION));
 
 // Get the container
@@ -21,6 +20,7 @@ $application = $injector->get('heystack.console.application');
 
 // If the container in use doesn't have console.application then there is a big problem
 if (!$application) {
+    $containerClassName = 'HeystackServiceContainer' . \Director::get_environment_type();
     unlink(HEYSTACK_BASE_PATH . "/cache/$containerClassName.php");
     echo "There appears to be a problem with your container. The service 'console.application' must exist.", PHP_EOL;
     echo 'The current container has been deleted, please make the required modifications', PHP_EOL;

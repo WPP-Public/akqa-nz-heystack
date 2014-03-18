@@ -28,9 +28,11 @@ class Bootstrap implements \RequestFilter
     /**
      * @param \Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainer $container
      */
-    public function __construct(HeystackSilverStripeContainer $container)
+    public function __construct(HeystackSilverStripeContainer $container = null)
     {
-        $this->container = $container;
+        if (!is_null($container)) {
+            $this->container = $container;
+        }
     }
     
     /**
@@ -61,6 +63,11 @@ class Bootstrap implements \RequestFilter
      */
     public function doBootstrap(Session $session)
     {
+        if ($this->container === null) {
+            require_once HEYSTACK_BASE_PATH . '/config/container.php';
+            $containerClassName = 'HeystackServiceContainer' . \Director::get_environment_type();
+            $this->container = new $containerClassName;
+        }
         \Injector::inst()->setObjectCreator(new HeystackInjectionCreator($this->container));
         $this->container->get(Services::BACKEND_SESSION)->setSession($session);
         $this->eventDispatcher = $this->container->get(Services::EVENT_DISPATCHER);
