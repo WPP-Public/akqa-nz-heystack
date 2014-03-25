@@ -94,7 +94,7 @@ class ViewableDataFormatter extends \ViewableData
      */
     public function hasMethod($method)
     {
-        return method_exists($this->obj, 'get' . $method) || in_array($method, $this->obj->getDynamicMethods());
+        return method_exists($this->obj, 'get' . $method) || $this->hasDynamicMethod($method);
     }
 
     /**
@@ -103,5 +103,15 @@ class ViewableDataFormatter extends \ViewableData
     public function getObj()
     {
         return $this->obj;
+    }
+
+    /**
+     * @param $method
+     * @return bool
+     */
+    protected function hasDynamicMethod($method)
+    {
+        $dynamicMethods = $this->obj->getDynamicMethods();
+        return is_array($dynamicMethods) && in_array($method, $dynamicMethods);
     }
 }
