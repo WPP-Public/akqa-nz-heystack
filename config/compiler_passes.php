@@ -1,5 +1,6 @@
 <?php
 
+use Heyday\AutoInject\AutoInject;
 use Heystack\Core\DependencyInjection\CompilerPass;
 
 return [
@@ -11,5 +12,5 @@ return [
     new CompilerPass\Command(),
     new CompilerPass\HasLoggerService(),
     new CompilerPass\State(),
-    new CompilerPass\AutoInject()
+    new AutoInject()
 ];

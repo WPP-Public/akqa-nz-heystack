@@ -38,7 +38,7 @@ services:
       class: %doctrine_cache.class%
       arguments: [ '../heystack/cache/' ]
       tags:
-          - { name: autoinject.provides, all: true }
+          - { name: autoinject.provides }
 
     console.application:
         class: %console.application.class%
@@ -48,19 +48,19 @@ services:
     console.command.generate_container:
         class: %console.command.generate_container.class%
         tags:
-          - { name: autoinject.provides, all: true }
+          - { name: autoinject.provides }
 
     console.command.generate_dataobjects:
       class: %console.command.generate_dataobjects.class%
       tags:
-        - { name: autoinject, all: true }
-        - { name: autoinject.provides, all: true }
+        - { name: autoinject }
+        - { name: autoinject.provides }
 
     console.command.flush_cache:
       class: %console.command.flush_cache.class%
       tags:
-        - { name: autoinject, all: true }
-        - { name: autoinject.provides, all: true }
+        - { name: autoinject }
+        - { name: autoinject.provides }
 
     memcache:
         class: %memcache.class%
@@ -74,50 +74,50 @@ services:
     backend_session:
         class: %backend_session.class%
         tags:
-          - { name: autoinject, all: true }
+          - { name: autoinject }
           - { name: autoinject.provides, interfaces: true }
 
     state:
         class: %state.class%
         tags:
-          - { name: autoinject, all: true }
-          - { name: autoinject.provides, all: true }
+          - { name: autoinject }
+          - { name: autoinject.provides }
           
     schema:
         class: %schema.class%
         tags:
-          - { name: autoinject, all: true }
+          - { name: autoinject }
           - { name: autoinject.provides, classes: true }
 
     event_dispatcher:
         class: %event_dispatcher.class%
         tags:
-          - { name: autoinject.provides, all: true }
+          - { name: autoinject.provides }
 
     input_processor_handler:
       class: %input_processor_handler.class%
       tags:
-        - { name: autoinject, all: true }
+        - { name: autoinject }
 
     output_processor_handler:
       class: %output_processor_handler.class%
       tags:
-        - { name: autoinject, all: true }
+        - { name: autoinject }
 
     dataobject_generator:
       class: %dataobject_generator.class%
       tags:
-        - { name: autoinject, all: true }
-        - { name: autoinject.provides, all: true }
+        - { name: autoinject }
+        - { name: autoinject.provides }
 
     ss_orm_backend:
       class: %ss_orm_backend.class%
       tags:
-        - { name: autoinject, all: true }
-        - { name: autoinject.provides, all: true }
+        - { name: autoinject }
+        - { name: autoinject.provides }
 
     storage:
       class: %storage.class%
       tags:
         - { name: autoinject, adder: true }
-        - { name: autoinject.provides, all: true }
+        - { name: autoinject.provides }
