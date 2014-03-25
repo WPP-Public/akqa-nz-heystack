@@ -19,9 +19,11 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function getCacheMock()
+    protected function getCacheMock($methods = [])
     {
-        return $this->getMock('Doctrine\Common\Cache\Cache');
+        return $this->getMockBuilder('Doctrine\Common\Cache\CacheProvider')
+            ->setMethods($methods)
+            ->getMockForAbstractClass();
     }
 
     /**
@@ -32,7 +34,7 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
     public function testExceptionThrownWhenConfigEmpty()
     {
         $mock = $this->getAbstractSchemaMock();
-        $cache = $this->getCacheMock();
+        $cache = $this->getCacheMock(['fetch']);
         $cache->expects($this->once())
             ->method('fetch')
             ->will($this->returnValue(null));
@@ -47,7 +49,7 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
     public function testExceptionThrownWhenIdNotPresent()
     {
         $mock = $this->getAbstractSchemaMock();
-        $cache = $this->getCacheMock();
+        $cache = $this->getCacheMock(['fetch']);
         $cache->expects($this->once())
             ->method('fetch')
             ->will($this->returnValue([]));
@@ -62,7 +64,7 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
     public function testExceptionThrownWhenFlatConfigNotPresent()
     {
         $mock = $this->getAbstractSchemaMock();
-        $cache = $this->getCacheMock();
+        $cache = $this->getCacheMock(['fetch']);
         $cache->expects($this->once())
             ->method('fetch')
             ->will($this->returnValue([
@@ -98,7 +100,7 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
                 ]
             ]));
         
-        $cache = $this->getCacheMock();
+        $cache = $this->getCacheMock(['fetch', 'save']);
         $cache->expects($this->once())
             ->method('fetch')
             ->with($md5)
@@ -138,7 +140,7 @@ class FileDataObjectSchemaTest extends \PHPUnit_Framework_TestCase
                 ]
             ]));
 
-        $cache = $this->getCacheMock();
+        $cache = $this->getCacheMock(['fetch', 'save']);
         $cache->expects($this->once())
             ->method('fetch')
             ->with($md5)
