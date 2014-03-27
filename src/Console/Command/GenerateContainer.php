@@ -4,6 +4,8 @@ namespace Heystack\Core\Console\Command;
 
 use Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainerBuilder;
 use RuntimeException;
+use Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator;
+use Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input;
@@ -94,6 +96,10 @@ class GenerateContainer extends Command
     {
         $container = new HeystackSilverStripeContainerBuilder();
 
+        if (class_exists('Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator')) {
+            $container->setProxyInstantiator(new RuntimeInstantiator());
+        }
+
         foreach (new \DirectoryIterator($this->basePath) as $directory) {
             $directory = $this->basePath . '/' . $directory;
 
@@ -160,6 +166,9 @@ class GenerateContainer extends Command
         $container->compile();
 
         $dumper = new PhpDumper($container);
+        if (class_exists('Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper')) {
+            $dumper->setProxyDumper(new ProxyDumper());
+        }
 
         file_put_contents(
             $this->getRealPath($location) . "/$class.php",
