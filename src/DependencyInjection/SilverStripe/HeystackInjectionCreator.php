@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Container;
  * will default to using the standard SilverStripe InjectionCreator
  * 
  * But if a service is request with "heystack." as a prefix but the service doesn't exist in the 
- * heystack container, then the service will throw and exception
+ * heystack container, then the service will throw an exception
  *
  * @copyright  Heyday
  * @author Cam Spiers <cameron@heyday.co.nz>
@@ -44,20 +44,23 @@ class HeystackInjectionCreator extends \InjectionCreator
      */
     public function create($service, array $params = array())
     {
-        if (substr($service, 0, 9) === 'heystack.') {
+        $prefix = substr($service, 0, 9);
+        if ($prefix === 'heystack.' || $prefix === 'heystack?') {
             $service = substr($service, 9);
             if ($this->heystackContainer->has($service)) {
                 return $this->heystackContainer->get($service);
             } elseif ($this->heystackContainer->hasParameter($service)) {
                 return $this->heystackContainer->getParameter($service);
-            } else {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        "Requested Heystack service or parameter '%s' doesn't exist",
-                        $service
-                    )
-                );
+            } elseif ($prefix === 'heystack?') {
+                return null;
             }
+            
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Requested Heystack service or parameter '%s' doesn't exist",
+                    $service
+                )
+            );
         } else {
             return parent::create($service, $params);
         }
