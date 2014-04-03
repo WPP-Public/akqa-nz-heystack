@@ -26,6 +26,11 @@ class Bootstrap implements \RequestFilter
     protected $container;
 
     /**
+     * @var bool
+     */
+    protected $registered = false;
+
+    /**
      * @param \Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainer $container
      */
     public function __construct(HeystackSilverStripeContainer $container = null)
@@ -43,7 +48,10 @@ class Bootstrap implements \RequestFilter
      */
     public function preRequest(SS_HTTPRequest $request, Session $session, DataModel $model)
     {
-        $this->doBootstrap($session);
+        if (!$this->registered) {
+            $this->doBootstrap($session);
+            $this->registered = true;
+        }
         $this->eventDispatcher->dispatch(Events::PRE_REQUEST);
     }
 
