@@ -163,20 +163,20 @@ class GenerateContainer extends Command
      */
     protected function dumpContainer(HeystackSilverStripeContainerBuilder $container, $mode, $debug = false)
     {
-        $location = $this->heystackBasePath . '/cache/';
-
-        if (!file_exists($location)) {
-            mkdir($location, 0777, true);
-        }
-
-        $class = "HeystackServiceContainer$mode";
-
         $container->compile();
         
         if ($debug) {
             $dumper = new YamlDumper($container);
             return $dumper->dump();
         } else {
+            $location = $this->heystackBasePath . '/cache/';
+
+            if (!file_exists($location)) {
+                mkdir($location, 0777, true);
+            }
+
+            $class = "HeystackServiceContainer$mode";
+            
             $dumper = new PhpDumper($container);
             if (class_exists('Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper')) {
                 $dumper->setProxyDumper(new ProxyDumper());
