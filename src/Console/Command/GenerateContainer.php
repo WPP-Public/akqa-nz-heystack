@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input;
 use Symfony\Component\Console\Output;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
+use Symfony\Component\DependencyInjection\Dumper\YamlDumper;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
@@ -62,6 +63,12 @@ class GenerateContainer extends Command
                 Input\InputOption::VALUE_OPTIONAL,
                 'The mode (dev, live, test)',
                 null
+            )
+            ->addOption(
+                'debug',
+                'd',
+                Input\InputOption::VALUE_NONE,
+                'Debug the container output'
             );
     }
 
@@ -83,10 +90,10 @@ class GenerateContainer extends Command
         $container = $this->createContainer();
 
         $this->loadConfig($container, $mode);
-
-        $this->dumpContainer($container, $mode);
-
-        $output->writeln('Container generated');
+        
+        $output->writeln(
+            $this->dumpContainer($container, $mode, $input->getOption('debug'))
+        );
     }
 
     /**
@@ -149,11 +156,12 @@ class GenerateContainer extends Command
     }
 
     /**
-     * @param $container
+     * @param \Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainerBuilder $container
      * @param $mode
-     * @throws \RuntimeException
+     * @param bool $debug
+     * @return string
      */
-    protected function dumpContainer(HeystackSilverStripeContainerBuilder $container, $mode)
+    protected function dumpContainer(HeystackSilverStripeContainerBuilder $container, $mode, $debug = false)
     {
         $location = $this->heystackBasePath . '/cache/';
 
@@ -164,19 +172,26 @@ class GenerateContainer extends Command
         $class = "HeystackServiceContainer$mode";
 
         $container->compile();
+        
+        if ($debug) {
+            $dumper = new YamlDumper($container);
+            return $dumper->dump();
+        } else {
+            $dumper = new PhpDumper($container);
+            if (class_exists('Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper')) {
+                $dumper->setProxyDumper(new ProxyDumper());
+            }
 
-        $dumper = new PhpDumper($container);
-        if (class_exists('Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper')) {
-            $dumper->setProxyDumper(new ProxyDumper());
+            file_put_contents(
+                $this->getRealPath($location) . "/$class.php",
+                $dumper->dump([
+                    'class' => $class,
+                    'base_class' => "Heystack\\Core\\DependencyInjection\\SilverStripe\\HeystackSilverStripeContainer"
+                ])
+            );
+            
+            return 'Container generated';
         }
-
-        file_put_contents(
-            $this->getRealPath($location) . "/$class.php",
-            $dumper->dump([
-                'class' => $class,
-                'base_class' => "Heystack\\Core\\DependencyInjection\\SilverStripe\\HeystackSilverStripeContainer"
-            ])
-        );
     }
 
     /**
