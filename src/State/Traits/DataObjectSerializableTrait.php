@@ -46,6 +46,20 @@ trait DataObjectSerializableTrait
             $injector->load([$this->class => $config]);
         }
         $injector->inject($this, $this->class);
+
+        // Ensure that all the extensions are loaded for the class
+        foreach(\ClassInfo::ancestry($this->class) as $class) {
+            if(in_array($class, ['Object', 'ViewableData', 'RequestHandler'])) continue;
+            
+            $extensions = \Config::inst()->get($class, 'extensions',
+                \Config::UNINHERITED | \Config::EXCLUDE_EXTRA_SOURCES);
+
+            if($extensions) foreach($extensions as $extension) {
+                $instance = \Object::create_from_string($extension);
+                $instance->setOwner(null, $class);
+                $this->extension_instances[$instance->class] = $instance;
+            }
+        }
     }
 
     /**
