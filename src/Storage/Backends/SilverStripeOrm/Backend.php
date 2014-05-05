@@ -169,8 +169,15 @@ class Backend implements BackendInterface
             } else {
 
                 if (array_key_exists($key, $writeableData['flat'])) {
+                    $value = $writeableData['flat'][$key];
 
-                    $storedObject->$key = $writeableData['flat'][$key];
+                    $storedObject->$key = $value;
+
+                    if (!is_null($value) && !is_scalar($value)) {
+                        throw new ConfigurationException(
+                            "Non-scalar value found for key: $key on identifier: " . $object->getStorableIdentifier()
+                        );
+                    }
 
                 } else {
 
