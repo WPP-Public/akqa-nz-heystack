@@ -36,8 +36,8 @@ class DBClosureLoader extends Loader
     {
         $handler = $this->handler;
         if ($resource instanceof DataList) {
-            foreach ($resource as $record) {
-                $handler($record);
+            foreach ($resource as $index => $record) {
+                $handler($record, $index);
             }
         } else {
             throw new \InvalidArgumentException('Resource provided to DBClosureLoader is not a DataList');
