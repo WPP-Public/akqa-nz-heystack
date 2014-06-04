@@ -8,6 +8,7 @@ use SS_HTTPRequest;
 use SS_HTTPResponse;
 use Heystack\Core\DependencyInjection\SilverStripe\HeystackInjectionCreator;
 use Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainer;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * Sets up heystack by bootstrap the bridge between heystack and SilverStripe
@@ -52,7 +53,9 @@ class Bootstrap implements \RequestFilter
             $this->doBootstrap($session);
             $this->registered = true;
         }
-        $this->eventDispatcher->dispatch(Events::PRE_REQUEST);
+        if ($this->eventDispatcher instanceof EventDispatcher) {
+            $this->eventDispatcher->dispatch(Events::PRE_REQUEST);
+        }
     }
 
     /**
@@ -63,7 +66,9 @@ class Bootstrap implements \RequestFilter
      */
     public function postRequest(SS_HTTPRequest $request, SS_HTTPResponse $response, DataModel $model)
     {
-        $this->eventDispatcher->dispatch(Events::POST_REQUEST);
+        if ($this->eventDispatcher instanceof EventDispatcher) {
+            $this->eventDispatcher->dispatch(Events::POST_REQUEST);
+        }
     }
 
     /**

@@ -69,6 +69,12 @@ class GenerateContainer extends Command
                 'd',
                 Input\InputOption::VALUE_NONE,
                 'Debug the container output'
+            )
+            ->addOption(
+                'dev-build',
+                'b',
+                Input\InputOption::VALUE_NONE,
+                'Build the database'
             );
     }
 
@@ -80,6 +86,13 @@ class GenerateContainer extends Command
      */
     protected function execute(Input\InputInterface $input, Output\OutputInterface $output)
     {
+        if ($input->getOption('dev-build')) {
+            $output->writeln('Building database');
+            $databaseAdmin = new \DatabaseAdmin();
+            $databaseAdmin->doBuild(true);
+            $output->writeln('Database built');
+        }
+        
         // Get mode
         if ($input->getOption('mode')) {
             $mode = $input->getOption('mode');
