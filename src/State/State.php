@@ -56,17 +56,47 @@ class State
     public function setByKey($key, $val)
     {
         if ($this->getEnabled()) {
-            $this->backend->setByKey($key, serialize($val));
+            $this->backend->setByKey($key, $this->serialize($val));
         }
     }
-
+    
     /**
      * @param $key
      * @return mixed
      */
     public function getByKey($key)
     {
-        return unserialize($this->backend->getByKey($key));
+        return $this->unserialize($this->backend->getByKey($key));
+    }
+
+    /**
+     * Provide recursive serialization for array to attempt to avoid cases where serialization bugs occur
+     * due to referenced objects
+     * @param mixed $val
+     * @return string
+     */
+    protected function serialize($val)
+    {
+        if (is_array($val)) {
+            $val = array_map([$this, 'serialize'], $val);
+        }
+
+        return serialize($val);
+    }
+
+    /**
+     * @param string $val
+     * @return mixed
+     */
+    protected function unserialize($val)
+    {
+        $val = unserialize($val);
+
+        if (is_array($val)) {
+            $val = array_map([$this, 'unserialize'], $val);
+        }
+
+        return $val;
     }
 
     /**
