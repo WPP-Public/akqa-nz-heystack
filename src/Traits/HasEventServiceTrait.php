@@ -2,7 +2,7 @@
 
 namespace Heystack\Core\Traits;
 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Heystack\Core\EventDispatcher;
 
 /**
  * Allows a using class to set a event service
@@ -11,20 +11,20 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 trait HasEventServiceTrait
 {
     /**
-     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     * @var \Heystack\Core\EventDispatcher
      */
     protected $eventService;
 
     /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventService
+     * @param \Heystack\Core\EventDispatcher $eventService
      */
-    public function setEventService(EventDispatcherInterface $eventService)
+    public function setEventService(EventDispatcher $eventService)
     {
         $this->eventService = $eventService;
     }
 
     /**
-     * @return \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     * @return \Heystack\Core\EventDispatcher
      */
     public function getEventService()
     {
