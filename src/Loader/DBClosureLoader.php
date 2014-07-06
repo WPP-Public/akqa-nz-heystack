@@ -35,12 +35,21 @@ class DBClosureLoader extends Loader
     public function load($resource, $type = null)
     {
         $handler = $this->handler;
-        if ($resource instanceof DataList) {
-            foreach ($resource as $index => $record) {
-                $handler($record, $index);
+        if (is_array($resource)) {
+            $rows = \DB::query(sprintf(
+                "SELECT %s FROM `%s` %s",
+                $resource[0],
+                $resource[1],
+                isset($resource[2]) ? "WHERE {$resource[2]}" : ''
+            ));
+            foreach ($rows as $index => $record) {
+                if (empty($record['ClassName'])) {
+                    throw new \RuntimeException("No classname in db record");
+                }
+                $handler(new $record['ClassName']($record), $index);
             }
         } else {
-            throw new \InvalidArgumentException('Resource provided to DBClosureLoader is not a DataList');
+            throw new \InvalidArgumentException('Resource provided to DBClosureLoader is not an array');
         }
     }
 
