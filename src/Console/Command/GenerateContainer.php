@@ -121,6 +121,10 @@ class GenerateContainer extends Command
         }
 
         foreach (new \DirectoryIterator($this->basePath) as $directory) {
+            if (!$directory->isDir()) {
+                continue;
+            }
+
             $directory = $this->basePath . '/' . $directory;
 
             if (!file_exists($directory . '/_heystack_subsystem')) {
