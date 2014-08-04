@@ -1,0 +1,45 @@
+#!/usr/bin/env php -d augmented_types.compilation_error_level=E_WARNING
+<?php
+
+$rootDir = dirname(dirname(__DIR__));
+
+require $rootDir.'/heystack/config/bootstrap.php';
+
+//// Set the aug types allowed files
+augmented_types_whitelist(
+    array_merge(
+        glob($rootDir.'/ecommerce-*'),
+        glob($rootDir.'/heystack')
+    )
+);
+
+augmented_types_blacklist(
+    array_merge(
+        glob($rootDir.'/heystack/cache/*')
+    )
+);
+
+set_error_handler(function ($_, $error) {
+   echo $error;
+});
+
+$iterator = (new \Symfony\Component\Finder\Finder())
+    ->files()
+    ->name('*.php')
+    ->in(array_merge(
+        glob($rootDir.'/ecommerce-*/src'),
+        glob($rootDir.'/heystack/src')
+    ));
+
+$includedFiles = get_included_files();
+
+/** @var \SplFileInfo $file  */
+foreach ($iterator as $file) {
+    $filename = $file->getPathname();
+    
+    if (!in_array($filename, $includedFiles)) {
+        require_once $filename;
+    }
+}
+
+

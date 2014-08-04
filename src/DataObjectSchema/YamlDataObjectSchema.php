@@ -15,7 +15,7 @@ use Symfony\Component\Yaml\Yaml;
 class YamlDataObjectSchema extends FileDataObjectSchema
 {
     /**
-     * @param $file
+     * @param string $file
      * @return array
      * @throws \Heystack\Core\Exception\ConfigurationException
      */

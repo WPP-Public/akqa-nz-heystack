@@ -108,7 +108,7 @@ abstract class FileDataObjectSchema implements SchemaInterface
      */
     public function getFlatStorage()
     {
-        return isset($this->config['flat']) ? $this->config['flat'] : [];
+        return isset($this->config['flat']) && is_array($this->config['flat']) ? $this->config['flat'] : [];
     }
 
     /**
@@ -116,7 +116,7 @@ abstract class FileDataObjectSchema implements SchemaInterface
      */
     public function getParentStorage()
     {
-        return isset($this->config['parent']) ? $this->config['parent'] : [];
+        return isset($this->config['parent']) && is_array($this->config['parent']) ? $this->config['parent'] : [];
     }
 
     /**
@@ -124,11 +124,12 @@ abstract class FileDataObjectSchema implements SchemaInterface
      */
     public function getChildStorage()
     {
-        return isset($this->config['children']) ? $this->config['children'] : [];
+        return isset($this->config['children']) && is_array($this->config['children']) ? $this->config['children'] : [];
     }
 
     /**
-     * @param boolean $reference
+     * @param bool $reference
+     * @return void
      */
     public function setReference($reference)
     {
@@ -136,7 +137,7 @@ abstract class FileDataObjectSchema implements SchemaInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getReference()
     {
@@ -144,7 +145,8 @@ abstract class FileDataObjectSchema implements SchemaInterface
     }
 
     /**
-     * @param boolean $replace
+     * @param bool $replace
+     * @return void
      */
     public function setReplace($replace)
     {
@@ -152,7 +154,7 @@ abstract class FileDataObjectSchema implements SchemaInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getReplace()
     {
@@ -160,7 +162,7 @@ abstract class FileDataObjectSchema implements SchemaInterface
     }
 
     /**
-     * @param  \Heystack\Core\DataObjectSchema\SchemaInterface $schema
+     * @param \Heystack\Core\DataObjectSchema\SchemaInterface $schema
      * @return void
      */
     public function mergeSchema(SchemaInterface $schema)

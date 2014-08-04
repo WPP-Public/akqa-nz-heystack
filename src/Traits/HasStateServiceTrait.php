@@ -16,7 +16,8 @@ trait HasStateServiceTrait
     protected $stateService;
 
     /**
-     * @param State $stateService
+     * @param \Heystack\Core\State\State $stateService
+     * @return void
      */
     public function setStateService(State $stateService)
     {
@@ -24,7 +25,7 @@ trait HasStateServiceTrait
     }
 
     /**
-     * @return State
+     * @return \Heystack\Core\State\State
      */
     public function getStateService()
     {

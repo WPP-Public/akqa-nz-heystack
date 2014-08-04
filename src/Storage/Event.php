@@ -12,12 +12,12 @@ use Symfony\Component\EventDispatcher\Event as SymfonyEvent;
 class Event extends SymfonyEvent
 {
     /**
-     * @var null
+     * @var mixed
      */
     private $parentReference = null;
 
     /**
-     * @param $parentReference
+     * @param mixed $parentReference
      */
     public function __construct($parentReference)
     {
@@ -25,7 +25,7 @@ class Event extends SymfonyEvent
     }
 
     /**
-     * @return null
+     * @return mixed
      */
     public function getParentReference()
     {

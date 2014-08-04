@@ -17,6 +17,7 @@ trait HasEventServiceTrait
 
     /**
      * @param \Heystack\Core\EventDispatcher $eventService
+     * @return void
      */
     public function setEventService(EventDispatcher $eventService)
     {

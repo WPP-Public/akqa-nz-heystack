@@ -17,6 +17,7 @@ trait HasCacheServiceTrait
 
     /**
      * @param \Doctrine\Common\Cache\CacheProvider $cacheService
+     * @return void
      */
     public function setCacheService(CacheProvider $cacheService)
     {

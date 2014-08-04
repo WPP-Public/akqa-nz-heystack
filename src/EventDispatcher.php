@@ -18,8 +18,8 @@ class EventDispatcher extends SymfonyEventDispatcher
 
     /**
      * @param  string     $eventName
-     * @param  Event      $event
-     * @return bool|Event
+     * @param  \Symfony\Component\EventDispatcher\Event|void $event
+     * @return \Symfony\Component\EventDispatcher\Event
      */
     public function dispatch($eventName, Event $event = null)
     {
@@ -32,6 +32,7 @@ class EventDispatcher extends SymfonyEventDispatcher
 
     /**
      * @param mixed $enabled
+     * @return void
      */
     public function setEnabled($enabled)
     {

@@ -12,7 +12,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 class State implements CompilerPassInterface
 {
     /**
-     * {@inheritDoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @return void
      */
     public function process(ContainerBuilder $container)
     {

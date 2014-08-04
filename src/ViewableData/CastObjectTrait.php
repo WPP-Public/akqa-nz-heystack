@@ -15,12 +15,12 @@ namespace Heystack\Core\ViewableData;
 trait CastObjectTrait
 {
     /**
-     * @param $fieldName
-     * @param null $arguments
-     * @param bool $forceReturnedObject
-     * @param bool $cache
-     * @param null $cacheName
-     * @return mixed
+     * @param string $fieldName
+     * @param array|null|void $arguments
+     * @param bool|void $forceReturnedObject
+     * @param bool|void $cache
+     * @param null|void $cacheName
+     * @return mixed|null
      */
     public function obj($fieldName, $arguments = null, $forceReturnedObject = true, $cache = false, $cacheName = null)
     {

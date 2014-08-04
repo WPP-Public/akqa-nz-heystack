@@ -18,6 +18,7 @@ class Session implements BackendInterface
 
     /**
      * @param \Session $session
+     * @return void
      */
     public function setSession(\Session $session)
     {
@@ -41,8 +42,9 @@ class Session implements BackendInterface
     }
 
     /**
-     * @param $key
-     * @param $var
+     * @param string $key
+     * @param mixed|null $var
+     * @return void
      */
     public function setByKey($key, $var)
     {
@@ -50,8 +52,8 @@ class Session implements BackendInterface
     }
 
     /**
-     * @param $key
-     * @return mixed
+     * @param string $key
+     * @return mixed|null
      */
     public function getByKey($key)
     {
@@ -59,7 +61,8 @@ class Session implements BackendInterface
     }
 
     /**
-     * @param $key
+     * @param string $key
+     * @return void
      */
     public function removeByKey($key)
     {
@@ -68,6 +71,7 @@ class Session implements BackendInterface
 
     /**
      * @param array $exclude
+     * @return void
      */
     public function removeAll(array $exclude = [])
     {

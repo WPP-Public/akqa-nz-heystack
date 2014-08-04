@@ -12,6 +12,7 @@ interface HasLoggerServiceInterface
 {
     /**
      * @param \Psr\Log\LoggerInterface $logger
+     * @return void
      */
     public function setLoggerService(LoggerInterface $logger);
 

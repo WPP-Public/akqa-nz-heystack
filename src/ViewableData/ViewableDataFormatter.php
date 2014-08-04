@@ -31,7 +31,7 @@ class ViewableDataFormatter extends \ViewableData
 
     /**
      * @param  string $field
-     * @return string
+     * @return string|null
      */
     public function castingHelper($field)
     {
@@ -82,6 +82,7 @@ class ViewableDataFormatter extends \ViewableData
     /**
      * @param string $property
      * @param mixed  $value
+     * @return void
      */
     public function __set($property, $value)
     {
@@ -98,7 +99,7 @@ class ViewableDataFormatter extends \ViewableData
     }
 
     /**
-     * @return ViewableDataInterface
+     * @return \Heystack\Core\ViewableDataInterface
      */
     public function getObj()
     {
@@ -106,7 +107,7 @@ class ViewableDataFormatter extends \ViewableData
     }
 
     /**
-     * @param $method
+     * @param string $method
      * @return bool
      */
     protected function hasDynamicMethod($method)

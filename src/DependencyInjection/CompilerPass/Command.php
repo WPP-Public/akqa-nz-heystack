@@ -16,7 +16,8 @@ use Symfony\Component\DependencyInjection\Reference;
 class Command implements CompilerPassInterface
 {
     /**
-     * {@inheritDoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @return void
      */
     public function process(ContainerBuilder $container)
     {

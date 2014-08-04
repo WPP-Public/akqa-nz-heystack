@@ -34,6 +34,7 @@ class Storage
 
     /**
      * @param \Heystack\Core\Storage\BackendInterface $backend
+     * @return void
      */
     public function addBackend(BackendInterface $backend)
     {
@@ -42,6 +43,7 @@ class Storage
 
     /**
      * @param \Heystack\Core\Storage\BackendInterface[] $backends
+     * @return void
      */
     public function setBackends(array $backends)
     {

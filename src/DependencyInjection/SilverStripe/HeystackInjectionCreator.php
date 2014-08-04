@@ -2,8 +2,6 @@
 
 namespace Heystack\Core\DependencyInjection\SilverStripe;
 
-use Symfony\Component\DependencyInjection\Container;
-
 /**
  * Meant to replace SilverStripe's Injection Creator and allows services in the generated container
  * (Using Symfony's Dependency Injection) to be used in SilverStripe's Dependency Injection
@@ -24,14 +22,14 @@ use Symfony\Component\DependencyInjection\Container;
 class HeystackInjectionCreator extends \InjectionCreator
 {
     /**
-     * @var \Symfony\Component\DependencyInjection\Container
+     * @var \Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainer
      */
     protected $heystackContainer;
 
     /**
-     * @param Container $heystackContainer the generated container
+     * @param \Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainer $heystackContainer the generated container
      */
-    public function __construct(Container $heystackContainer)
+    public function __construct(HeystackSilverStripeContainer $heystackContainer)
     {
         $this->heystackContainer = $heystackContainer;
     }

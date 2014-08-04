@@ -53,6 +53,7 @@ trait HandlerTrait
      * should enforce what type of objects can be added to the array
      * @uses self::addProcessor
      * @param array $processors An array of processors
+     * @return void
      */
     public function setProcessors(array $processors)
     {

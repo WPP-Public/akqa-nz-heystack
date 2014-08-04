@@ -28,9 +28,11 @@ class DBClosureLoader extends Loader
     /**
      * Loads a resource.
      *
-     * @param  mixed                     $resource The resource
-     * @param  string                    $type     The resource type
+     * @param  mixed $resource The resource
+     * @param  string $type     The resource type
      * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @return void
      */
     public function load($resource, $type = null)
     {
@@ -59,7 +61,7 @@ class DBClosureLoader extends Loader
      * @param mixed  $resource A resource
      * @param string $type     The resource type
      *
-     * @return Boolean true if this class supports the given resource, false otherwise
+     * @return bool true if this class supports the given resource, false otherwise
      */
     public function supports($resource, $type = null)
     {

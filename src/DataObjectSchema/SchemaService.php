@@ -31,6 +31,7 @@ class SchemaService
 
     /**
      * @param \Heystack\Core\DataObjectSchema\SchemaInterface $schema
+     * @return void
      */
     public function addSchema(SchemaInterface $schema)
     {
@@ -48,7 +49,7 @@ class SchemaService
     }
 
     /**
-     * @param $identifier
+     * @param string $identifier
      * @return bool
      */
     public function hasSchema($identifier)

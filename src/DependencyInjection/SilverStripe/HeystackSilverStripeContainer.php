@@ -39,7 +39,7 @@ class HeystackSilverStripeContainer extends Container
      * Use SilverStripe's Dependency Injection system if the service is namespaced silverstripe
      *
      * @param  string $id
-     * @param  int    $invalidBehavior
+     * @param  int|void $invalidBehavior
      * @return object
      */
     public function get($id, $invalidBehavior = self::EXCEPTION_ON_INVALID_REFERENCE)

@@ -17,6 +17,7 @@ trait HasGeneratorServiceTrait
 
     /**
      * @param \Heystack\Core\DataObjectGenerate\DataObjectGenerator $generatorService
+     * @return void
      */
     public function setGeneratorService(DataObjectGenerator $generatorService)
     {

@@ -22,7 +22,7 @@ class Bootstrap implements \RequestFilter
     protected $eventDispatcher;
 
     /**
-     * @var DependencyInjection\SilverStripe\HeystackSilverStripeContainer
+     * @var \Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainer
      */
     protected $container;
 
@@ -32,7 +32,7 @@ class Bootstrap implements \RequestFilter
     protected $registered = false;
 
     /**
-     * @param \Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainer $container
+     * @param \Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainer|void $container
      */
     public function __construct(HeystackSilverStripeContainer $container = null)
     {
@@ -42,9 +42,9 @@ class Bootstrap implements \RequestFilter
     }
     
     /**
-     * @param SS_HTTPRequest $request
-     * @param Session $session
-     * @param DataModel $model
+     * @param \SS_HTTPRequest $request
+     * @param \Session $session
+     * @param \DataModel $model
      * @return void
      */
     public function preRequest(SS_HTTPRequest $request, Session $session, DataModel $model)
@@ -59,9 +59,9 @@ class Bootstrap implements \RequestFilter
     }
 
     /**
-     * @param SS_HTTPRequest $request
-     * @param SS_HTTPResponse $response
-     * @param DataModel $model
+     * @param \SS_HTTPRequest $request
+     * @param \SS_HTTPResponse $response
+     * @param \DataModel $model
      * @return void
      */
     public function postRequest(SS_HTTPRequest $request, SS_HTTPResponse $response, DataModel $model)
@@ -72,7 +72,8 @@ class Bootstrap implements \RequestFilter
     }
 
     /**
-     * @param Session $session
+     * @param \Session $session
+     * @return void
      */
     public function doBootstrap(Session $session)
     {

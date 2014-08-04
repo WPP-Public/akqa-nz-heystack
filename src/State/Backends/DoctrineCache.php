@@ -63,8 +63,9 @@ class DoctrineCache implements BackendInterface
     }
 
     /**
-     * @param $key
-     * @param $var
+     * @param string $key
+     * @param mixed|null $var
+     * @return void
      */
     public function setByKey($key, $var)
     {
@@ -74,8 +75,8 @@ class DoctrineCache implements BackendInterface
     }
 
     /**
-     * @param $key
-     * @return array|string
+     * @param string $key
+     * @return mixed|null
      */
     public function getByKey($key)
     {
@@ -83,7 +84,7 @@ class DoctrineCache implements BackendInterface
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return bool
      */
     public function removeByKey($key)
@@ -93,6 +94,7 @@ class DoctrineCache implements BackendInterface
 
     /**
      * @param array $exclude
+     * @return void
      */
     public function removeAll(array $exclude = [])
     {
@@ -104,7 +106,8 @@ class DoctrineCache implements BackendInterface
     }
 
     /**
-     * @param $key
+     * @param string $key
+     * @return void
      */
     protected function addKey($key)
     {
@@ -114,7 +117,7 @@ class DoctrineCache implements BackendInterface
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return string
      */
     protected function key($key)

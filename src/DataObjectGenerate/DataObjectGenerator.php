@@ -35,8 +35,8 @@ class DataObjectGenerator
     private $storageLocation;
 
     /**
-     * @param SchemaService $schemaService
-     * @param string|void $storageLocation
+     * @param \Heystack\Core\DataObjectSchema\SchemaService $schemaService
+     * @param string|null $storageLocation
      */
     public function __construct(SchemaService $schemaService, $storageLocation = null)
     {
@@ -50,6 +50,7 @@ class DataObjectGenerator
 
     /**
      * @param bool $force
+     * @return void
      */
     public function process($force = false)
     {
@@ -158,14 +159,14 @@ class DataObjectGenerator
         }
 
         $this->output('Finished!');
-
     }
 
     /**
-     * @param        $dir
-     * @param        $name
-     * @param bool $statics
-     * @param string $extends
+     * @param string $dir
+     * @param string $name
+     * @param bool|void $statics
+     * @param string|void $extends
+     * @return void
      */
     protected function writeDataObject($dir, $name, $statics = false, $extends = 'DataObject')
     {
@@ -212,10 +213,11 @@ class DataObjectGenerator
     }
 
     /**
-     * @param        $dir
-     * @param        $name
-     * @param bool $statics
-     * @param string $extends
+     * @param string $dir
+     * @param string $name
+     * @param bool|void $statics
+     * @param string|void $extends
+     * @return void
      */
     protected function writeModelAdmin($dir, $name, $statics = false, $extends = 'ModelAdmin')
     {
@@ -256,7 +258,7 @@ class DataObjectGenerator
     }
 
     /**
-     * @param $value
+     * @param string $value
      * @return bool|string
      * @throws \Heystack\Core\Exception\ConfigurationException
      */
@@ -278,8 +280,8 @@ class DataObjectGenerator
     }
 
     /**
-     * @param $flatStorage
-     * @param $identifier
+     * @param string $flatStorage
+     * @param string $identifier
      * @return array
      * @throws \Heystack\Core\Exception\ConfigurationException
      */
@@ -329,8 +331,8 @@ class DataObjectGenerator
     }
 
     /**
-     * @param $parentStorage
-     * @return array
+     * @param mixed $parentStorage
+     * @return mixed
      */
     protected function processParentStorage($parentStorage)
     {
@@ -353,8 +355,8 @@ class DataObjectGenerator
     }
 
     /**
-     * @param $childStorage
-     * @return array
+     * @param mixed $childStorage
+     * @return mixed
      */
     protected function processChildStorage($childStorage)
     {
@@ -376,8 +378,8 @@ class DataObjectGenerator
     }
 
     /**
-     * @param         $content
-     * @param  string $tab
+     * @param string $content
+     * @param string $tab
      * @return mixed
      */
     protected function beautify($content, $tab = '    ')
@@ -386,8 +388,9 @@ class DataObjectGenerator
     }
 
     /**
-     * @param        $message
+     * @param string $message
      * @param string $break
+     * @return void
      */
     protected function output($message, $break = PHP_EOL)
     {

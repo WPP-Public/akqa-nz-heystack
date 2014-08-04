@@ -39,9 +39,9 @@ class Backend implements BackendInterface
     private $referenceDataProviders = [];
 
     /**
-     * @param \Heystack\Core\EventDispatcher $eventService
      * @param \Heystack\Core\DataObjectGenerate\DataObjectGenerator $generatorService
      * @param \Heystack\Core\DataObjectSchema\SchemaService $schemaService
+     * @param \Heystack\Core\EventDispatcher $eventService
      */
     public function __construct(
         DataObjectGenerator $generatorService,
@@ -56,6 +56,7 @@ class Backend implements BackendInterface
 
     /**
      * @param \Heystack\Core\Storage\StorableInterface $referenceDataProvider
+     * @return void
      */
     public function addReferenceDataProvider(StorableInterface $referenceDataProvider)
     {
@@ -63,7 +64,7 @@ class Backend implements BackendInterface
     }
 
     /**
-     * @param IdentifierInterface $identifier
+     * @param \Heystack\Core\Identifier\IdentifierInterface $identifier
      * @return \Heystack\Core\Storage\StorableInterface
      */
     public function getReferenceDataProvider(IdentifierInterface $identifier)
@@ -72,7 +73,7 @@ class Backend implements BackendInterface
     }
 
     /**
-     * @param IdentifierInterface $referenceDataProviderIdentifier
+     * @param \Heystack\Core\Identifier\IdentifierInterface $referenceDataProviderIdentifier
      * @return bool
      */
     public function hasReferenceDataProvider(IdentifierInterface $referenceDataProviderIdentifier)
@@ -81,7 +82,7 @@ class Backend implements BackendInterface
     }
     
     /**
-     * @return string
+     * @return \Heystack\Core\Identifier\Identifier
      */
     public function getIdentifier()
     {
@@ -89,7 +90,7 @@ class Backend implements BackendInterface
     }
 
     /**
-     * @param  StorableInterface                               $object
+     * @param  \Heystack\Core\Storage\StorableInterface $object
      * @return mixed
      * @throws \Heystack\Core\Exception\ConfigurationException
      */
@@ -111,8 +112,8 @@ class Backend implements BackendInterface
     }
 
     /**
-     * @param  SchemaInterface $schema
-     * @param  StorableInterface $object
+     * @param \Heystack\Core\DataObjectSchema\SchemaInterface $schema
+     * @param \Heystack\Core\Storage\StorableInterface $object
      * @return mixed
      * @throws \Heystack\Core\Exception\ConfigurationException
      */

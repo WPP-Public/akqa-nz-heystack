@@ -17,7 +17,8 @@ interface ParentReferenceInterface
     public function getParentReference();
 
     /**
-     * @param $reference
+     * @param mixed $reference
+     * @return void
      */
     public function setParentReference($reference);
 } 

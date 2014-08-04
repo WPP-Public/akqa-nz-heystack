@@ -33,7 +33,6 @@ class GroupedProcessor implements ProcessorInterface
      */
     public function __construct($identifier, $processors = null)
     {
-
         $this->identifier = $identifier;
 
         if (is_array($processors)) {
@@ -41,12 +40,12 @@ class GroupedProcessor implements ProcessorInterface
             $this->setProcessors($processors);
 
         }
-
     }
 
     /**
      * Adds an output processor to the array of processors, storing it by its identifier
-     * @param ProcessorInterface $processor The output processor
+     * @param \Heystack\Core\Output\ProcessorInterface $processor The output processor
+     * @return void
      */
     public function addProcessor(ProcessorInterface $processor)
     {

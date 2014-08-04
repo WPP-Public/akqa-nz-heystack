@@ -18,6 +18,7 @@ trait GenerateContainerDataObjectTrait
 {
     /**
      * Regenerate the container
+     * @return void
      */
     public function onAfterWrite()
     {
@@ -29,6 +30,7 @@ trait GenerateContainerDataObjectTrait
 
     /**
      * Regenerate the container
+     * @return void
      */
     public function onAfterDelete()
     {

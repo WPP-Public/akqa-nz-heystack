@@ -24,7 +24,8 @@ class Handler implements HandlerInterface
 
     /**
      * Adds an output processor to the array of processors, storing it by its identifier
-     * @param ProcessorInterface $processor The input processor
+     * @param \Heystack\Core\Output\ProcessorInterface $processor The input processor
+     * @return void
      */
     public function addProcessor(ProcessorInterface $processor)
     {

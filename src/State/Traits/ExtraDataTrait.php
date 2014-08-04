@@ -11,6 +11,7 @@ trait ExtraDataTrait
 {
     /**
      * @param array $data
+     * @return void
      */
     public function setExtraData(array $data)
     {

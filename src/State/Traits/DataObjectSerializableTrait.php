@@ -23,7 +23,8 @@ trait DataObjectSerializableTrait
     }
 
     /**
-     * @param $data
+     * @param string $data
+     * @return void
      */
     public function unserialize($data)
     {

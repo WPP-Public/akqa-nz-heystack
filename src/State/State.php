@@ -22,7 +22,7 @@ class State
     private $enabled = true;
 
     /**
-     * @param BackendInterface $backend
+     * @param \Heystack\Core\State\BackendInterface $backend
      */
     public function __construct(BackendInterface $backend)
     {
@@ -30,8 +30,9 @@ class State
     }
 
     /**
-     * @param               $key
+     * @param string $key
      * @param \Serializable $obj
+     * @return void
      */
     public function setObj($key, \Serializable $obj)
     {
@@ -41,8 +42,8 @@ class State
     }
 
     /**
-     * @param $key
-     * @return mixed
+     * @param string $key
+     * @return mixed|null
      */
     public function getObj($key)
     {
@@ -50,8 +51,9 @@ class State
     }
 
     /**
-     * @param $key
-     * @param $val
+     * @param string $key
+     * @param mixed|null $val
+     * @return void
      */
     public function setByKey($key, $val)
     {
@@ -61,8 +63,8 @@ class State
     }
     
     /**
-     * @param $key
-     * @return mixed
+     * @param string $key
+     * @return mixed|null
      */
     public function getByKey($key)
     {
@@ -72,7 +74,7 @@ class State
     /**
      * Provide recursive serialization for array to attempt to avoid cases where serialization bugs occur
      * due to referenced objects
-     * @param mixed $val
+     * @param mixed|null $val
      * @return string
      */
     protected function serialize($val)
@@ -85,8 +87,8 @@ class State
     }
 
     /**
-     * @param string $val
-     * @return mixed
+     * @param string|null $val
+     * @return mixed|null
      */
     protected function unserialize($val)
     {
@@ -100,7 +102,8 @@ class State
     }
 
     /**
-     * @param $key
+     * @param string $key
+     * @return void
      */
     public function removeByKey($key)
     {
@@ -109,6 +112,7 @@ class State
 
     /**
      * @param array $exclude
+     * @return void
      */
     public function removeAll(array $exclude = [])
     {
@@ -124,7 +128,8 @@ class State
     }
 
     /**
-     * @param $enabled
+     * @param bool $enabled
+     * @return void
      */
     public function setEnabled($enabled)
     {

@@ -17,6 +17,7 @@ trait HasSchemaServiceTrait
 
     /**
      * @param \Heystack\Core\DataObjectSchema\SchemaService $schemaService
+     * @return void
      */
     public function setSchemaService(SchemaService $schemaService)
     {

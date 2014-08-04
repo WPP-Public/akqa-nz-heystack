@@ -23,6 +23,7 @@ trait ParentReferenceTrait
 
     /**
      * @param mixed $reference
+     * @return void
      */
     public function setParentReference($reference)
     {

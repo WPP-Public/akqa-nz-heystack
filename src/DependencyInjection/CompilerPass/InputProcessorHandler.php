@@ -29,7 +29,8 @@ use Symfony\Component\DependencyInjection\Reference;
 class InputProcessorHandler implements CompilerPassInterface
 {
     /**
-     * {@inheritDoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @return void
      */
     public function process(ContainerBuilder $container)
     {

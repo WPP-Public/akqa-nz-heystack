@@ -22,6 +22,7 @@ interface ProcessorInterface
      *
      * @param \Controller $controller The relevant SilverStripe controller
      * @param mixed       $result     The result from the input processor
+     * @return void
      */
     public function process(\Controller $controller, $result = null);
 }

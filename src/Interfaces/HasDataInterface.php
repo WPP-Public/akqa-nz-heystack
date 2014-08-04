@@ -9,8 +9,8 @@ namespace Heystack\Core\Interfaces;
 interface HasDataInterface
 {
     /**
-     * @param $data
-     * @return mixed
+     * @param mixed $data
+     * @return void
      */
     public function setData($data);
 

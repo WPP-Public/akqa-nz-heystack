@@ -50,7 +50,7 @@ class GenerateContainer extends Command
 
     /**
      * Configure the commands options
-     * @return null
+     * @return void
      */
     protected function configure()
     {
@@ -79,8 +79,8 @@ class GenerateContainer extends Command
     }
 
     /**
-     * @param  Input\InputInterface   $input
-     * @param  Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface   $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return void
      * @throws \Exception
      */
@@ -110,7 +110,7 @@ class GenerateContainer extends Command
     }
 
     /**
-     * @return HeystackSilverStripeContainerBuilder
+     * @return \Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainerBuilder
      */
     protected function createContainer()
     {
@@ -161,8 +161,9 @@ class GenerateContainer extends Command
     }
 
     /**
-     * @param $container
-     * @param $mode
+     * @param \Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainerBuilder $container
+     * @param string $mode
+     * @return void
      */
     protected function loadConfig($container, $mode)
     {
@@ -174,8 +175,8 @@ class GenerateContainer extends Command
 
     /**
      * @param \Heystack\Core\DependencyInjection\SilverStripe\HeystackSilverStripeContainerBuilder $container
-     * @param $mode
-     * @param bool $debug
+     * @param stirng $mode
+     * @param bool|void $debug
      * @return string
      */
     protected function dumpContainer(HeystackSilverStripeContainerBuilder $container, $mode, $debug = false)
@@ -213,7 +214,7 @@ class GenerateContainer extends Command
 
     /**
      * Allows testing with vfsStream
-     * @param $path
+     * @param string $path
      * @return string
      */
     protected function getRealPath($path)

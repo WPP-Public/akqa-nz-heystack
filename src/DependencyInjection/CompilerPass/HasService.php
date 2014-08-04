@@ -26,6 +26,7 @@ abstract class HasService implements CompilerPassInterface
 
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @return void
      */
     public function process(ContainerBuilder $container)
     {

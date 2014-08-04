@@ -19,6 +19,7 @@ trait SilverStripeServiceTrait
      * Sets the injector instance
      *
      * @param \Injector $injector
+     * @return void
      */
     public function setInjector(\Injector $injector)
     {
@@ -40,7 +41,7 @@ trait SilverStripeServiceTrait
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return bool
      */
     protected function isSilverStripeServiceRequest($id)
@@ -64,7 +65,7 @@ trait SilverStripeServiceTrait
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return mixed
      */
     abstract public function getParameter($name);

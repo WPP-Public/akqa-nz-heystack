@@ -24,7 +24,7 @@ class Identifier implements IdentifierInterface
 
     /**
      * @param string $primary
-     * @param array $secondaries
+     * @param array|void $secondaries
      */
     public function __construct($primary, array $secondaries = null)
     {
