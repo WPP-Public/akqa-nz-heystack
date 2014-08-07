@@ -58,7 +58,7 @@ class State
     public function setByKey($key, $val)
     {
         if ($this->getEnabled()) {
-            $this->backend->setByKey($key, $this->serialize($val));
+            $this->backend->setByKey($key, \Heystack\Core\serialize($val));
         }
     }
     
@@ -68,37 +68,7 @@ class State
      */
     public function getByKey($key)
     {
-        return $this->unserialize($this->backend->getByKey($key));
-    }
-
-    /**
-     * Provide recursive serialization for array to attempt to avoid cases where serialization bugs occur
-     * due to referenced objects
-     * @param mixed|null $val
-     * @return string
-     */
-    protected function serialize($val)
-    {
-        if (is_array($val)) {
-            $val = array_map([$this, 'serialize'], $val);
-        }
-
-        return serialize($val);
-    }
-
-    /**
-     * @param string|null $val
-     * @return mixed|null
-     */
-    protected function unserialize($val)
-    {
-        $val = unserialize($val);
-
-        if (is_array($val)) {
-            $val = array_map([$this, 'unserialize'], $val);
-        }
-
-        return $val;
+        return \Heystack\Core\unserialize($this->backend->getByKey($key));
     }
 
     /**

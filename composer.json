@@ -22,7 +22,8 @@
     "autoload": {
         "psr-4": {
             "Heystack\\Core\\": "src/"
-        }
+        },
+        "files": ["src/functions.php"]
     },
     "extra": {
         "branch-alias": {
