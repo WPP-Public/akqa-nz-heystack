@@ -11,6 +11,12 @@ use Heystack\Core\State\ExtraDataInterface;
 trait DataObjectSerializableTrait
 {
     /**
+     * Stores the Object constructor
+     * @var \ReflectionMethod
+     */
+    private static $objectConstructorReflectionMethod;
+
+    /**
      * @return string
      */
     public function serialize()
@@ -23,12 +29,18 @@ trait DataObjectSerializableTrait
     }
 
     /**
+     * This routine simulates what would happen when a object is constructed
      * @param string $data
      * @return void
      */
     public function unserialize($data)
     {
-        $this->class = get_class($this);
+        if (!self::$objectConstructorReflectionMethod) {
+            self::$objectConstructorReflectionMethod = new \ReflectionMethod('Object', '__construct');
+        }
+
+        // Call the __construct method
+        self::$objectConstructorReflectionMethod->invoke($this);
 
         if ($this instanceof ExtraDataInterface) {
             $unserialized = \Heystack\Core\unserialize($data);
@@ -47,21 +59,8 @@ trait DataObjectSerializableTrait
         if ($config) {
             $injector->load([$this->class => $config]);
         }
+        
         $injector->inject($this, $this->class);
-
-        // Ensure that all the extensions are loaded for the class
-        foreach(\ClassInfo::ancestry($this->class) as $class) {
-            if(in_array($class, ['Object', 'ViewableData', 'RequestHandler'])) continue;
-            
-            $extensions = \Config::inst()->get($class, 'extensions',
-                \Config::UNINHERITED | \Config::EXCLUDE_EXTRA_SOURCES);
-
-            if($extensions) foreach($extensions as $extension) {
-                $instance = \Object::create_from_string($extension);
-                $instance->setOwner(null, $class);
-                $this->extension_instances[$instance->class] = $instance;
-            }
-        }
     }
 
     /**
