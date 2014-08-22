@@ -12,9 +12,14 @@ trait DataObjectSerializableTrait
 {
     /**
      * Stores the Object constructor
-     * @var \ReflectionMethod
+     * @var \ReflectionMethod[]
      */
-    private static $objectConstructorReflectionMethod;
+    private static $objectConstructorReflectionMethods = [];
+
+    /**
+     * @var array
+     */
+    private static $classConfigs = [];
 
     /**
      * @return string
@@ -35,32 +40,44 @@ trait DataObjectSerializableTrait
      */
     public function unserialize($data)
     {
-        if (!self::$objectConstructorReflectionMethod) {
-            self::$objectConstructorReflectionMethod = new \ReflectionMethod('Object', '__construct');
+        $injector = \Injector::inst();
+
+        $extraData = null;
+
+        if (empty(self::$objectConstructorReflectionMethods[__CLASS__])) {
+            self::$objectConstructorReflectionMethods[__CLASS__] = new \ReflectionMethod(__CLASS__, '__construct');
         }
 
-        // Call the __construct method
-        self::$objectConstructorReflectionMethod->invoke($this);
+        if (empty(self::$classConfigs[__CLASS__])) {
+            self::$classConfigs[__CLASS__] = $injector->getConfigLocator()->locateConfigFor(__CLASS__);
+        }
 
         if ($this instanceof ExtraDataInterface) {
             $unserialized = \Heystack\Core\unserialize($data);
-            $this->record = $unserialized[0];
-            $this->model = \DataModel::inst();
-            $this->setExtraData($unserialized[1]);
+
+            self::$objectConstructorReflectionMethods[__CLASS__]->invoke(
+                $this,
+                $unserialized[0]
+            );
+
+            $extraData = $unserialized[1];
         } else {
-            $this->record = \Heystack\Core\unserialize($data);
-            $this->model = \DataModel::inst();
+            self::$objectConstructorReflectionMethods[__CLASS__]->invoke(
+                $this,
+                \Heystack\Core\unserialize($data)
+            );
         }
 
         // Ensure that the spec is loaded for the class
-        $injector = \Injector::inst();
-        $config = $injector->getConfigLocator()->locateConfigFor($this->class);
-
-        if ($config) {
-            $injector->load([$this->class => $config]);
+        if (self::$classConfigs[__CLASS__]) {
+            $injector->load([__CLASS__ => self::$classConfigs[__CLASS__]]);
         }
         
-        $injector->inject($this, $this->class);
+        $injector->inject($this, __CLASS__);
+        
+        if ($extraData) {
+            $this->setExtraData($extraData);
+        }
     }
 
     /**
