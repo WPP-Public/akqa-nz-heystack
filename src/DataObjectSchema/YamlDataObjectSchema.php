@@ -22,10 +22,6 @@ class YamlDataObjectSchema extends FileDataObjectSchema
     protected function parseFile($file)
     {
         if (!file_exists($file)) {
-            $file = BASE_PATH . '/' . $file;
-        }
-
-        if (!file_exists($file)) {
             throw new ConfigurationException(
                 sprintf(
                     "File '%s' doesn't exist",

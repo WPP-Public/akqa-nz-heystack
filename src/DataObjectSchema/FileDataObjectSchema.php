@@ -47,12 +47,22 @@ abstract class FileDataObjectSchema implements SchemaInterface
      */
     public function __construct($file, CacheProvider $cache)
     {
-        // Use the contents as the key so invalidation happens on change
-        if (is_file($file)){
-            $key = md5(file_get_contents($file));
-        } else {
-            $key = md5($file);
+        // if it isn't an absolute path (detected by the file not existing)
+        if (!file_exists($file)) {
+            $file = BASE_PATH . '/' . $file;
         }
+        
+        if (!file_exists($file)) {
+            throw new ConfigurationException(
+                sprintf(
+                    "Your file '%s' doesn't exist",
+                    $file
+                )
+            );
+        }
+
+        // Use the contents as the key so invalidation happens on change
+        $key = md5(file_get_contents($file));
 
         if (($config = $cache->fetch($key)) === false) {
             $config = $this->parseFile($file);
